@@ -804,6 +804,82 @@ def service_page(city: City, service_key: str, all_cities: list[City]) -> str:
     return layout(title, description, path, body, schema)
 
 
+def city_page(city: City, all_cities: list[City]) -> str:
+    phone_display, phone_href = phone_for(city)
+    path = f"/{city.slug}/"
+    title = f"Intervention à {city.name} | Serrurier, plombier, dégorgement Solybat"
+    description = f"Solybat intervient à {city.name} en serrurerie, plomberie et dégorgement. Choisissez le service adapté : urgence serrure, fuite d'eau ou canalisation bouchée."
+    nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
+    local = local_seo_for(city, nearby)
+    sector_pills = " ".join(f'<span class="pill">{esc(area)}</span>' for area in local["micro_areas"])
+    nearby_links = " ".join(f'<a class="pill" href="/{c.slug}/">{esc(c.name)}</a>' for c in nearby)
+    service_cards = "\n".join(
+        f"""
+        <article class="card">
+          <h2>{esc(service["label"])} à {esc(city.name)}</h2>
+          <p>{esc(service["short"])}</p>
+          <a class="pill priority-2" href="/{service_key}/{city.slug}/">Voir la page {esc(service["label"].lower())}</a>
+        </article>
+        """
+        for service_key, service in SERVICES.items()
+    )
+    body = f"""
+{header(phone_display, phone_href)}
+<main>
+  <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Solybat · {esc(city.zone)}</span>
+        <h1>Intervention à {esc(city.name)}</h1>
+        <p>Serrurerie, plomberie et dégorgement : choisissez le service correspondant à votre urgence pour accéder à la page locale la plus précise.</p>
+        <div class="cta-row">
+          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
+          <a class="ghost-btn" href="#services-ville">Choisir un service</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h2>Services disponibles à {esc(city.name)}</h2>
+        <ul>
+          <li>Ouverture de porte et serrure bloquée</li>
+          <li>Fuite d'eau et dépannage sanitaire</li>
+          <li>Canalisation bouchée et camion pompe</li>
+          <li>Devis confirmé avant intervention</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section id="services-ville" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Quel service cherchez-vous à {esc(city.name)} ?</h2>
+        <p>Chaque métier a sa propre page locale pour répondre plus vite à l'intention de recherche.</p>
+      </div>
+      <div class="grid-3">{service_cards}</div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap grid-2">
+      <div class="card">
+        <h2>Repères locaux</h2>
+        <p>{esc(local["local_note"])}</p>
+        <div class="pill-row">{sector_pills}</div>
+      </div>
+      <div class="card">
+        <h2>Communes proches</h2>
+        <p>Le maillage relie {esc(city.name)} aux villes du même bassin d'intervention.</p>
+        <div class="pill-row">{nearby_links}</div>
+      </div>
+    </div>
+  </section>
+</main>
+{footer(phone_display, phone_href)}
+"""
+    schema = local_business_schema(title, description, path, city, "serrurier")
+    return layout(title, description, path, body, schema)
+
+
 def home_page(cities: list[City]) -> str:
     phone_display = BUSINESS["fr_phone_display"]
     phone_href = BUSINESS["fr_phone_href"]
@@ -886,7 +962,7 @@ def zones_page(cities: list[City]) -> str:
         links = "\n".join(
             f"""
             <div class="card">
-              <h3>{esc(c.name)}</h3>
+              <h3><a href="/{c.slug}/">{esc(c.name)}</a></h3>
               <p>Priorité {c.priority} · {esc(c.country)}</p>
               {service_links_for_city(c)}
             </div>
@@ -936,10 +1012,24 @@ def zones_page(cities: list[City]) -> str:
 def sitemap(cities: list[City]) -> str:
     paths = ["/", "/campagnes-locales/", "/zones/"]
     for city in cities:
+        paths.append(f"/{city.slug}/")
         for service_key in SERVICES:
             paths.append(f"/{service_key}/{city.slug}/")
+
+    city_paths = {f"/{city.slug}/" for city in cities}
+    service_paths = {f"/{service_key}/{city.slug}/" for city in cities for service_key in SERVICES}
+
+    def sitemap_priority(path: str) -> str:
+        if path == "/":
+            return "1.0"
+        if path in service_paths:
+            return "0.8"
+        if path in city_paths:
+            return "0.6"
+        return "0.5"
+
     urls = "\n".join(
-        f"  <url><loc>{esc(page_url(path))}</loc><changefreq>weekly</changefreq><priority>{'1.0' if path == '/' else '0.8'}</priority></url>"
+        f"  <url><loc>{esc(page_url(path))}</loc><changefreq>weekly</changefreq><priority>{sitemap_priority(path)}</priority></url>"
         for path in paths
     )
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n'
@@ -1090,6 +1180,7 @@ Ce dépôt contient un site statique généré pour la stratégie Google Ads et 
 - L'accueil `index.html` existant est conservé.
 - {len(cities)} villes issues du document Word.
 - {len(SERVICES)} métiers : serrurier, plombier, dégorgement.
+- {len(cities)} pages hubs villes (`/lyon/`, `/geneve/`, etc.).
 - {len(cities) * len(SERVICES)} pages locales.
 - Une page d'entrée technique : `campagnes-locales/index.html`.
 - `sitemap.xml` et `robots.txt`.
@@ -1123,6 +1214,7 @@ def main() -> None:
     write(ROOT / "campagnes-locales" / "index.html", home_page(cities))
     write(ROOT / "zones" / "index.html", zones_page(cities))
     for city in cities:
+        write(ROOT / city.slug / "index.html", city_page(city, cities))
         for service_key in SERVICES:
             write(ROOT / service_key / city.slug / "index.html", service_page(city, service_key, cities))
 
@@ -1134,7 +1226,7 @@ def main() -> None:
     write_ads_files(cities)
     write_seo_files(cities)
     write_readme(cities)
-    print(f"Generated {len(cities) * len(SERVICES) + 2} HTML pages for {len(cities)} cities.")
+    print(f"Generated {len(cities) * (len(SERVICES) + 1) + 2} HTML pages for {len(cities)} cities.")
 
 
 if __name__ == "__main__":

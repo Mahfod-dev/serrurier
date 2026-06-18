@@ -5,6 +5,7 @@ Ce dépôt contient un site statique généré pour la stratégie Google Ads et 
 - L'accueil `index.html` existant est conservé.
 - 129 villes issues du document Word.
 - 3 métiers : serrurier, plombier, dégorgement.
+- 129 pages hubs villes (`/lyon/`, `/geneve/`, etc.).
 - 387 pages locales.
 - Une page d'entrée technique : `campagnes-locales/index.html`.
 - `sitemap.xml` et `robots.txt`.
