@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serrurier à Antibes | Solybat urgence 24/7</title>
+  <meta name="description" content="Solybat : Ouverture de porte, serrure bloquée, cylindre à remplacer et sécurisation après effraction. Intervention à Antibes et secteur proche. Appel direct, devis avant intervention.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solybat.fr/serrurier/antibes/">
+  <style>
+:root {
+  --ink: #111827;
+  --muted: #5b6472;
+  --line: #d9dee7;
+  --soft: #f5f7fb;
+  --brand: #0f172a;
+  --blue: #2563eb;
+  --orange: #f97316;
+  --green: #15803d;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.55;
+}
+a { color: inherit; text-decoration: none; }
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--brand);
+  color: var(--white);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.topbar-inner, .nav, .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+.topbar-inner { min-height: 52px; display: flex; gap: 14px; align-items: center; justify-content: space-between; }
+.brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 0; display: flex; gap: 10px; align-items: center; }
+.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--orange); color: var(--white); font-weight: 900; }
+.top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.call-btn, .ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.call-btn { background: var(--orange); color: var(--white); box-shadow: 0 10px 25px rgba(249, 115, 22, .25); }
+.ghost-btn { border: 1px solid rgba(255,255,255,.28); color: var(--white); }
+.nav-shell { background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); position: sticky; top: 52px; z-index: 19; }
+.nav { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.nav-links { display: flex; gap: 18px; color: var(--muted); font-weight: 700; font-size: .95rem; flex-wrap: wrap; }
+.nav-links a:hover { color: var(--orange); }
+.hero {
+  position: relative;
+  color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--brand);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, rgba(15,23,42,.94), rgba(15,23,42,.70), rgba(15,23,42,.42)), var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+.hero-grid {
+  width: min(1160px, calc(100% - 32px));
+  margin: 0 auto;
+  min-height: 590px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+  align-items: center;
+  gap: 40px;
+  padding: 58px 0;
+}
+.eyebrow { display: inline-flex; gap: 8px; align-items: center; color: #fed7aa; font-weight: 900; text-transform: uppercase; font-size: .78rem; }
+h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20px; letter-spacing: 0; }
+.hero p { color: #e5e7eb; font-size: 1.15rem; max-width: 720px; }
+.hero-card {
+  background: rgba(255,255,255,.96);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.25);
+}
+.hero-card h2 { margin: 0 0 14px; font-size: 1.25rem; }
+.hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 10px; }
+.hero-card li, .check-list li { display: flex; gap: 10px; align-items: flex-start; }
+.hero-card li::before, .check-list li::before { content: "✓"; color: var(--green); font-weight: 900; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.section { padding: 72px 0; }
+.section.alt { background: var(--soft); }
+.section-head { max-width: 760px; margin-bottom: 34px; }
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+.section h2 { font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.08; margin: 0 0 12px; }
+.section p { color: var(--muted); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(15,23,42,.06);
+}
+.card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.pill { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 8px 11px; color: var(--muted); background: var(--white); font-weight: 700; font-size: .88rem; }
+.priority-1 { border-color: rgba(249, 115, 22, .4); color: #9a3412; background: #fff7ed; }
+.priority-2 { border-color: rgba(37, 99, 235, .34); color: #1d4ed8; background: #eff6ff; }
+.price-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--white); }
+.price-table th, .price-table td { padding: 16px; border-bottom: 1px solid var(--line); text-align: left; }
+.price-table th { background: var(--brand); color: var(--white); }
+.price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 900; }
+.notice { border-left: 4px solid var(--orange); padding: 16px 18px; background: #fff7ed; border-radius: 8px; color: #7c2d12; }
+.faq details { border: 1px solid var(--line); border-radius: 8px; background: var(--white); padding: 18px 20px; }
+.faq summary { cursor: pointer; font-weight: 900; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.footer { background: var(--brand); color: #cbd5e1; padding: 36px 0; }
+.footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.service-links a { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: var(--white); font-weight: 800; }
+.service-links a:hover { border-color: var(--orange); color: var(--orange); }
+.mobile-call { display: none; }
+@media (max-width: 880px) {
+  .topbar-inner, .nav { width: min(100% - 24px, 1160px); }
+  .topbar-inner { align-items: flex-start; padding: 8px 0; }
+  .brand { font-size: 1rem; }
+  .top-actions { width: 100%; }
+  .top-actions .call-btn { flex: 1; }
+  .nav-shell { top: 60px; }
+  .nav { align-items: flex-start; padding: 10px 0; }
+  .nav-links { gap: 10px; font-size: .86rem; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 36px; }
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .mobile-call {
+    display: flex;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 30;
+    justify-content: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,.28);
+  }
+  .footer { padding-bottom: 86px; }
+}
+</style>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Locksmith",
+      "@id": "https://www.solybat.fr/serrurier/antibes/#business",
+      "name": "Solybat",
+      "url": "https://www.solybat.fr/serrurier/antibes/",
+      "telephone": "04 00 00 00 00",
+      "email": "contact@solybat.fr",
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Adresse Solybat à compléter",
+        "addressCountry": "FR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Antibes"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.solybat.fr/serrurier/antibes/#webpage",
+      "url": "https://www.solybat.fr/serrurier/antibes/",
+      "name": "Serrurier à Antibes | Solybat urgence 24/7",
+      "description": "Solybat : Ouverture de porte, serrure bloquée, cylindre à remplacer et sécurisation après effraction. Intervention à Antibes et secteur proche. Appel direct, devis avant intervention.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Solybat",
+        "url": "https://www.solybat.fr"
+      }
+    }
+  ]
+}</script>
+</head>
+<body>
+
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/"><span class="brand-mark">S</span><span>Solybat</span></a>
+    <div class="top-actions">
+      <a class="ghost-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+    </div>
+  </div>
+</div>
+<div class="nav-shell">
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-links">
+      <a href="/serrurier/lyon/">Serrurerie</a>
+      <a href="/plombier/lyon/">Plomberie</a>
+      <a href="/degorgement/lyon/">Dégorgement</a>
+    </div>
+    <div class="nav-links">
+      <a href="#tarifs">Tarifs</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </nav>
+</div>
+
+<main>
+  <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&amp;w=1800&amp;auto=format&amp;fit=crop')">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Urgence locale 24/7 · Alpes-Maritimes (06) &amp; Vaucluse (84)</span>
+        <h1>Serrurier à Antibes - urgence 24/7</h1>
+        <p>Porte claquée, clé perdue ou serrure forcée : Solybat intervient rapidement à Antibes. Un interlocuteur récupère les informations essentielles et confirme les conditions avant déplacement.</p>
+        <div class="cta-row">
+          <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+          <a class="ghost-btn" href="#tarifs">Voir les tarifs</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Points clés">
+        <h2>Intervention à Antibes</h2>
+        <ul><li>Ouverture fine quand la porte le permet</li>
+<li>Remplacement de cylindre et serrure multipoints</li>
+<li>Mise en sécurité après tentative d&#x27;effraction</li>
+<li>Devis annoncé avant intervention</li></ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid-2">
+      <div>
+        <div class="section-head">
+          <h2>Serrurier local à Antibes</h2>
+          <p>Solybat traite les demandes urgentes et planifiées avec une information claire dès le premier appel : secteur, nature du problème, délai possible et devis avant intervention.</p>
+        </div>
+        <ul class="check-list"><li>Ouverture fine quand la porte le permet</li>
+<li>Remplacement de cylindre et serrure multipoints</li>
+<li>Mise en sécurité après tentative d&#x27;effraction</li>
+<li>Devis annoncé avant intervention</li></ul>
+      </div>
+      <div class="card">
+        <h3>Zones proches couvertes</h3>
+        <p>Selon la disponibilité des équipes, une intervention peut aussi être organisée dans les communes proches du même secteur.</p>
+        <div class="pill-row"><a class="pill" href="/serrurier/nice/">Nice</a> <a class="pill" href="/serrurier/cannes/">Cannes</a> <a class="pill" href="/serrurier/cagnes-sur-mer/">Cagnes-sur-Mer</a> <a class="pill" href="/serrurier/grasse/">Grasse</a> <a class="pill" href="/serrurier/le-cannet/">Le Cannet</a> <a class="pill" href="/serrurier/menton/">Menton</a> <a class="pill" href="/serrurier/saint-laurent-du-var/">Saint-Laurent-du-Var</a> <a class="pill" href="/serrurier/vallauris/">Vallauris</a></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="wrap grid-2">
+      <div class="card">
+        <h2>Repères locaux à Antibes</h2>
+        <p>À Antibes, le contenu doit distinguer centre ancien, littoral, copropriétés et zones résidentielles.</p>
+        <p>Le maillage local relie aussi Antibes aux communes proches comme Nice, Cannes, Cagnes-sur-Mer, Grasse, Le Cannet.</p>
+        <div class="pill-row"><span class="pill">Vieil Antibes</span> <span class="pill">Juan-les-Pins</span> <span class="pill">La Fontonne</span> <span class="pill">Les Bréguières</span> <span class="pill">Les Combes</span> <span class="pill">Cap d&#x27;Antibes</span></div>
+      </div>
+      <div class="card">
+        <h2>Situations de serrurerie à traiter rapidement</h2>
+        <ul class="check-list"><li>porte claquée avec clés laissées à l&#x27;intérieur à Antibes ou dans un secteur proche</li>
+<li>serrure forcée après tentative d&#x27;effraction à Antibes ou dans un secteur proche</li>
+<li>cylindre bloqué ou clé cassée dans la serrure à Antibes ou dans un secteur proche</li>
+<li>mise en sécurité d&#x27;une porte de commerce ou d&#x27;immeuble à Antibes ou dans un secteur proche</li></ul>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="tarifs" class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Tarifs et devis</h2>
+        <p>Les prix dépendent de l'accès, de l'horaire, du matériel et de la complexité. Le devis est annoncé avant intervention.</p>
+      </div>
+      <table class="price-table">
+        <thead><tr><th>Prestation</th><th>Prix indicatif</th></tr></thead>
+        <tbody><tr><td>Déplacement local</td><td>Sur devis</td></tr>
+<tr><td>Ouverture de porte claquée</td><td>à partir de 90 €</td></tr>
+<tr><td>Ouverture de porte verrouillée</td><td>à partir de 130 €</td></tr>
+<tr><td>Remplacement cylindre</td><td>à partir de 89 €</td></tr></tbody>
+      </table>
+      <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid-2">
+      <div class="card">
+        <h2>Autres métiers à Antibes</h2>
+        <p>Chaque métier garde une URL séparée pour éviter les pages trop générales.</p>
+        <div class="service-links"><a href="/serrurier/antibes/">Serrurier à Antibes</a>
+<a href="/plombier/antibes/">Plombier à Antibes</a>
+<a href="/degorgement/antibes/">Dégorgement à Antibes</a></div>
+      </div>
+      <div class="card">
+        <h2>Déroulé d'intervention</h2>
+        <p>Vous appelez, l'urgence est qualifiée, un prix indicatif est annoncé, puis le devis est validé avant le début des travaux.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section alt faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions fréquentes à Antibes</h2>
+      </div>
+      <div class="grid-2">
+        <details open><summary>Intervenez-vous vraiment à Antibes ?</summary><p>Oui, les demandes sur Antibes sont traitées avec une priorité locale et une vérification du secteur avant déplacement.</p></details>
+        <details><summary>Le devis est-il obligatoire ?</summary><p>Oui. En urgence comme sur rendez-vous, le prix doit être annoncé avant l'intervention.</p></details>
+        <details><summary>Que préparer avant l&#x27;arrivée du serrurier ?</summary><p>Préparez une pièce d&#x27;identité, un justificatif d&#x27;occupation si disponible et une photo de la porte ou de la serrure. Cela aide à confirmer le bon matériel avant déplacement.</p></details>
+        <details><summary>Quel numéro utiliser ?</summary><p>Utilisez un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <strong>Solybat</strong><br>
+      Serrurerie, plomberie et dégorgement en urgence.
+      <div style="margin-top:10px"><a href="/zones/">Villes desservies</a></div>
+    </div>
+    <div>
+      <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+    </div>
+  </div>
+</footer>
+<a class="call-btn mobile-call js-call-track" href="tel:+33400000000">Appeler maintenant</a>
+<script>
+document.querySelectorAll('.js-call-track').forEach(function(link) {
+  link.addEventListener('click', function() {
+    if (window.gtag) {
+      window.gtag('event', 'phone_call_click', {
+        event_category: 'lead',
+        event_label: window.location.pathname
+      });
+    }
+  });
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1505 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zones d&#x27;intervention | Solybat</title>
+  <meta name="description" content="Toutes les villes ciblées par Solybat pour les pages serrurerie, plomberie et dégorgement.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solybat.fr/zones/">
+  <style>
+:root {
+  --ink: #111827;
+  --muted: #5b6472;
+  --line: #d9dee7;
+  --soft: #f5f7fb;
+  --brand: #0f172a;
+  --blue: #2563eb;
+  --orange: #f97316;
+  --green: #15803d;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.55;
+}
+a { color: inherit; text-decoration: none; }
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--brand);
+  color: var(--white);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.topbar-inner, .nav, .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+.topbar-inner { min-height: 52px; display: flex; gap: 14px; align-items: center; justify-content: space-between; }
+.brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 0; display: flex; gap: 10px; align-items: center; }
+.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--orange); color: var(--white); font-weight: 900; }
+.top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.call-btn, .ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.call-btn { background: var(--orange); color: var(--white); box-shadow: 0 10px 25px rgba(249, 115, 22, .25); }
+.ghost-btn { border: 1px solid rgba(255,255,255,.28); color: var(--white); }
+.nav-shell { background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); position: sticky; top: 52px; z-index: 19; }
+.nav { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.nav-links { display: flex; gap: 18px; color: var(--muted); font-weight: 700; font-size: .95rem; flex-wrap: wrap; }
+.nav-links a:hover { color: var(--orange); }
+.hero {
+  position: relative;
+  color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--brand);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, rgba(15,23,42,.94), rgba(15,23,42,.70), rgba(15,23,42,.42)), var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+.hero-grid {
+  width: min(1160px, calc(100% - 32px));
+  margin: 0 auto;
+  min-height: 590px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+  align-items: center;
+  gap: 40px;
+  padding: 58px 0;
+}
+.eyebrow { display: inline-flex; gap: 8px; align-items: center; color: #fed7aa; font-weight: 900; text-transform: uppercase; font-size: .78rem; }
+h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20px; letter-spacing: 0; }
+.hero p { color: #e5e7eb; font-size: 1.15rem; max-width: 720px; }
+.hero-card {
+  background: rgba(255,255,255,.96);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.25);
+}
+.hero-card h2 { margin: 0 0 14px; font-size: 1.25rem; }
+.hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 10px; }
+.hero-card li, .check-list li { display: flex; gap: 10px; align-items: flex-start; }
+.hero-card li::before, .check-list li::before { content: "✓"; color: var(--green); font-weight: 900; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.section { padding: 72px 0; }
+.section.alt { background: var(--soft); }
+.section-head { max-width: 760px; margin-bottom: 34px; }
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+.section h2 { font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.08; margin: 0 0 12px; }
+.section p { color: var(--muted); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(15,23,42,.06);
+}
+.card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.pill { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 8px 11px; color: var(--muted); background: var(--white); font-weight: 700; font-size: .88rem; }
+.priority-1 { border-color: rgba(249, 115, 22, .4); color: #9a3412; background: #fff7ed; }
+.priority-2 { border-color: rgba(37, 99, 235, .34); color: #1d4ed8; background: #eff6ff; }
+.price-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--white); }
+.price-table th, .price-table td { padding: 16px; border-bottom: 1px solid var(--line); text-align: left; }
+.price-table th { background: var(--brand); color: var(--white); }
+.price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 900; }
+.notice { border-left: 4px solid var(--orange); padding: 16px 18px; background: #fff7ed; border-radius: 8px; color: #7c2d12; }
+.faq details { border: 1px solid var(--line); border-radius: 8px; background: var(--white); padding: 18px 20px; }
+.faq summary { cursor: pointer; font-weight: 900; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.footer { background: var(--brand); color: #cbd5e1; padding: 36px 0; }
+.footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.service-links a { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: var(--white); font-weight: 800; }
+.service-links a:hover { border-color: var(--orange); color: var(--orange); }
+.mobile-call { display: none; }
+@media (max-width: 880px) {
+  .topbar-inner, .nav { width: min(100% - 24px, 1160px); }
+  .topbar-inner { align-items: flex-start; padding: 8px 0; }
+  .brand { font-size: 1rem; }
+  .top-actions { width: 100%; }
+  .top-actions .call-btn { flex: 1; }
+  .nav-shell { top: 60px; }
+  .nav { align-items: flex-start; padding: 10px 0; }
+  .nav-links { gap: 10px; font-size: .86rem; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 36px; }
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .mobile-call {
+    display: flex;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 30;
+    justify-content: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,.28);
+  }
+  .footer { padding-bottom: 86px; }
+}
+</style>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Locksmith",
+      "@id": "https://www.solybat.fr/zones/#business",
+      "name": "Solybat",
+      "url": "https://www.solybat.fr/zones/",
+      "telephone": "04 00 00 00 00",
+      "email": "contact@solybat.fr",
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Adresse Solybat à compléter",
+        "addressCountry": "FR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.solybat.fr/zones/#webpage",
+      "url": "https://www.solybat.fr/zones/",
+      "name": "Zones d'intervention | Solybat",
+      "description": "Toutes les villes ciblées par Solybat pour les pages serrurerie, plomberie et dégorgement.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Solybat",
+        "url": "https://www.solybat.fr"
+      }
+    }
+  ]
+}</script>
+</head>
+<body>
+
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/"><span class="brand-mark">S</span><span>Solybat</span></a>
+    <div class="top-actions">
+      <a class="ghost-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+    </div>
+  </div>
+</div>
+<div class="nav-shell">
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-links">
+      <a href="/serrurier/lyon/">Serrurerie</a>
+      <a href="/plombier/lyon/">Plomberie</a>
+      <a href="/degorgement/lyon/">Dégorgement</a>
+    </div>
+    <div class="nav-links">
+      <a href="#tarifs">Tarifs</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </nav>
+</div>
+
+<main>
+  <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop')">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Ciblage géographique</span>
+        <h1>Zones d'intervention Solybat</h1>
+        <p>Liste complète des villes couvertes, avec accès direct aux pages serrurier, plombier et dégorgement.</p>
+      </div>
+      <aside class="hero-card">
+        <h2>Règle d'exploitation</h2>
+        <ul>
+          <li>Accès rapide par ville</li>
+          <li>Service séparé selon le besoin</li>
+          <li>France et canton de Genève</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+  
+            <section class="section">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Haute-Savoie (74) &amp; Savoie (73)</h2>
+                  <p>Auvergne-Rhône-Alpes (France) · 24 villes ciblées</p>
+                </div>
+                <div class="grid-3">
+            <div class="card">
+              <h3>Annecy</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/annecy/">Serrurier à Annecy</a>
+<a href="/plombier/annecy/">Plombier à Annecy</a>
+<a href="/degorgement/annecy/">Dégorgement à Annecy</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Thonon-les-Bains</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/thonon-les-bains/">Serrurier à Thonon-les-Bains</a>
+<a href="/plombier/thonon-les-bains/">Plombier à Thonon-les-Bains</a>
+<a href="/degorgement/thonon-les-bains/">Dégorgement à Thonon-les-Bains</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Annemasse</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/annemasse/">Serrurier à Annemasse</a>
+<a href="/plombier/annemasse/">Plombier à Annemasse</a>
+<a href="/degorgement/annemasse/">Dégorgement à Annemasse</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Cluses</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/cluses/">Serrurier à Cluses</a>
+<a href="/plombier/cluses/">Plombier à Cluses</a>
+<a href="/degorgement/cluses/">Dégorgement à Cluses</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Sallanches</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/sallanches/">Serrurier à Sallanches</a>
+<a href="/plombier/sallanches/">Plombier à Sallanches</a>
+<a href="/degorgement/sallanches/">Dégorgement à Sallanches</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Rumilly</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/rumilly/">Serrurier à Rumilly</a>
+<a href="/plombier/rumilly/">Plombier à Rumilly</a>
+<a href="/degorgement/rumilly/">Dégorgement à Rumilly</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Bonneville</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/bonneville/">Serrurier à Bonneville</a>
+<a href="/plombier/bonneville/">Plombier à Bonneville</a>
+<a href="/degorgement/bonneville/">Dégorgement à Bonneville</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Passy</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/passy/">Serrurier à Passy</a>
+<a href="/plombier/passy/">Plombier à Passy</a>
+<a href="/degorgement/passy/">Dégorgement à Passy</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Gaillard</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/gaillard/">Serrurier à Gaillard</a>
+<a href="/plombier/gaillard/">Plombier à Gaillard</a>
+<a href="/degorgement/gaillard/">Dégorgement à Gaillard</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Julien-en-Genevois</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-julien-en-genevois/">Serrurier à Saint-Julien-en-Genevois</a>
+<a href="/plombier/saint-julien-en-genevois/">Plombier à Saint-Julien-en-Genevois</a>
+<a href="/degorgement/saint-julien-en-genevois/">Dégorgement à Saint-Julien-en-Genevois</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>La Roche-sur-Foron</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/la-roche-sur-foron/">Serrurier à La Roche-sur-Foron</a>
+<a href="/plombier/la-roche-sur-foron/">Plombier à La Roche-sur-Foron</a>
+<a href="/degorgement/la-roche-sur-foron/">Dégorgement à La Roche-sur-Foron</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Publier</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/publier/">Serrurier à Publier</a>
+<a href="/plombier/publier/">Plombier à Publier</a>
+<a href="/degorgement/publier/">Dégorgement à Publier</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Évian-les-Bains</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/evian-les-bains/">Serrurier à Évian-les-Bains</a>
+<a href="/plombier/evian-les-bains/">Plombier à Évian-les-Bains</a>
+<a href="/degorgement/evian-les-bains/">Dégorgement à Évian-les-Bains</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Cranves-Sales</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/cranves-sales/">Serrurier à Cranves-Sales</a>
+<a href="/plombier/cranves-sales/">Plombier à Cranves-Sales</a>
+<a href="/degorgement/cranves-sales/">Dégorgement à Cranves-Sales</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Scionzier</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/scionzier/">Serrurier à Scionzier</a>
+<a href="/plombier/scionzier/">Plombier à Scionzier</a>
+<a href="/degorgement/scionzier/">Dégorgement à Scionzier</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Reignier-Ésery</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/reignier-esery/">Serrurier à Reignier-Ésery</a>
+<a href="/plombier/reignier-esery/">Plombier à Reignier-Ésery</a>
+<a href="/degorgement/reignier-esery/">Dégorgement à Reignier-Ésery</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vétraz-Monthoux</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/vetraz-monthoux/">Serrurier à Vétraz-Monthoux</a>
+<a href="/plombier/vetraz-monthoux/">Plombier à Vétraz-Monthoux</a>
+<a href="/degorgement/vetraz-monthoux/">Dégorgement à Vétraz-Monthoux</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Chambéry</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/chambery/">Serrurier à Chambéry</a>
+<a href="/plombier/chambery/">Plombier à Chambéry</a>
+<a href="/degorgement/chambery/">Dégorgement à Chambéry</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Aix-les-Bains</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/aix-les-bains/">Serrurier à Aix-les-Bains</a>
+<a href="/plombier/aix-les-bains/">Plombier à Aix-les-Bains</a>
+<a href="/degorgement/aix-les-bains/">Dégorgement à Aix-les-Bains</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Albertville</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/albertville/">Serrurier à Albertville</a>
+<a href="/plombier/albertville/">Plombier à Albertville</a>
+<a href="/degorgement/albertville/">Dégorgement à Albertville</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>La Motte-Servolex</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/la-motte-servolex/">Serrurier à La Motte-Servolex</a>
+<a href="/plombier/la-motte-servolex/">Plombier à La Motte-Servolex</a>
+<a href="/degorgement/la-motte-servolex/">Dégorgement à La Motte-Servolex</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Bourg-Saint-Maurice</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/bourg-saint-maurice/">Serrurier à Bourg-Saint-Maurice</a>
+<a href="/plombier/bourg-saint-maurice/">Plombier à Bourg-Saint-Maurice</a>
+<a href="/degorgement/bourg-saint-maurice/">Dégorgement à Bourg-Saint-Maurice</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Ugine</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/ugine/">Serrurier à Ugine</a>
+<a href="/plombier/ugine/">Plombier à Ugine</a>
+<a href="/degorgement/ugine/">Dégorgement à Ugine</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Jean-de-Maurienne</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-jean-de-maurienne/">Serrurier à Saint-Jean-de-Maurienne</a>
+<a href="/plombier/saint-jean-de-maurienne/">Plombier à Saint-Jean-de-Maurienne</a>
+<a href="/degorgement/saint-jean-de-maurienne/">Dégorgement à Saint-Jean-de-Maurienne</a></div>
+            </div>
+            </div>
+              </div>
+            </section>
+            
+            <section class="section">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Isère (38) &amp; Ain (01)</h2>
+                  <p>Auvergne-Rhône-Alpes (France) · 18 villes ciblées</p>
+                </div>
+                <div class="grid-3">
+            <div class="card">
+              <h3>Grenoble</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/grenoble/">Serrurier à Grenoble</a>
+<a href="/plombier/grenoble/">Plombier à Grenoble</a>
+<a href="/degorgement/grenoble/">Dégorgement à Grenoble</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Martin-d&#x27;Hères</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-martin-d-heres/">Serrurier à Saint-Martin-d&#x27;Hères</a>
+<a href="/plombier/saint-martin-d-heres/">Plombier à Saint-Martin-d&#x27;Hères</a>
+<a href="/degorgement/saint-martin-d-heres/">Dégorgement à Saint-Martin-d&#x27;Hères</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Échirolles</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/echirolles/">Serrurier à Échirolles</a>
+<a href="/plombier/echirolles/">Plombier à Échirolles</a>
+<a href="/degorgement/echirolles/">Dégorgement à Échirolles</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vienne</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/vienne/">Serrurier à Vienne</a>
+<a href="/plombier/vienne/">Plombier à Vienne</a>
+<a href="/degorgement/vienne/">Dégorgement à Vienne</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Bourgoin-Jallieu</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/bourgoin-jallieu/">Serrurier à Bourgoin-Jallieu</a>
+<a href="/plombier/bourgoin-jallieu/">Plombier à Bourgoin-Jallieu</a>
+<a href="/degorgement/bourgoin-jallieu/">Dégorgement à Bourgoin-Jallieu</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Voiron</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/voiron/">Serrurier à Voiron</a>
+<a href="/plombier/voiron/">Plombier à Voiron</a>
+<a href="/degorgement/voiron/">Dégorgement à Voiron</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Villefontaine</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/villefontaine/">Serrurier à Villefontaine</a>
+<a href="/plombier/villefontaine/">Plombier à Villefontaine</a>
+<a href="/degorgement/villefontaine/">Dégorgement à Villefontaine</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Meylan</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/meylan/">Serrurier à Meylan</a>
+<a href="/plombier/meylan/">Plombier à Meylan</a>
+<a href="/degorgement/meylan/">Dégorgement à Meylan</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>L&#x27;Isle-d&#x27;Abeau</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/l-isle-d-abeau/">Serrurier à L&#x27;Isle-d&#x27;Abeau</a>
+<a href="/plombier/l-isle-d-abeau/">Plombier à L&#x27;Isle-d&#x27;Abeau</a>
+<a href="/degorgement/l-isle-d-abeau/">Dégorgement à L&#x27;Isle-d&#x27;Abeau</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Bourg-en-Bresse</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/bourg-en-bresse/">Serrurier à Bourg-en-Bresse</a>
+<a href="/plombier/bourg-en-bresse/">Plombier à Bourg-en-Bresse</a>
+<a href="/degorgement/bourg-en-bresse/">Dégorgement à Bourg-en-Bresse</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Oyonnax</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/oyonnax/">Serrurier à Oyonnax</a>
+<a href="/plombier/oyonnax/">Plombier à Oyonnax</a>
+<a href="/degorgement/oyonnax/">Dégorgement à Oyonnax</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Valserhône (Bellegarde)</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/valserhone/">Serrurier à Valserhône (Bellegarde)</a>
+<a href="/plombier/valserhone/">Plombier à Valserhône (Bellegarde)</a>
+<a href="/degorgement/valserhone/">Dégorgement à Valserhône (Bellegarde)</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Ambérieu-en-Bugey</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/amberieu-en-bugey/">Serrurier à Ambérieu-en-Bugey</a>
+<a href="/plombier/amberieu-en-bugey/">Plombier à Ambérieu-en-Bugey</a>
+<a href="/degorgement/amberieu-en-bugey/">Dégorgement à Ambérieu-en-Bugey</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Gex</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/gex/">Serrurier à Gex</a>
+<a href="/plombier/gex/">Plombier à Gex</a>
+<a href="/degorgement/gex/">Dégorgement à Gex</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Genis-Pouilly</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-genis-pouilly/">Serrurier à Saint-Genis-Pouilly</a>
+<a href="/plombier/saint-genis-pouilly/">Plombier à Saint-Genis-Pouilly</a>
+<a href="/degorgement/saint-genis-pouilly/">Dégorgement à Saint-Genis-Pouilly</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Ferney-Voltaire</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/ferney-voltaire/">Serrurier à Ferney-Voltaire</a>
+<a href="/plombier/ferney-voltaire/">Plombier à Ferney-Voltaire</a>
+<a href="/degorgement/ferney-voltaire/">Dégorgement à Ferney-Voltaire</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Divonne-les-Bains</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/divonne-les-bains/">Serrurier à Divonne-les-Bains</a>
+<a href="/plombier/divonne-les-bains/">Plombier à Divonne-les-Bains</a>
+<a href="/degorgement/divonne-les-bains/">Dégorgement à Divonne-les-Bains</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Miribel</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/miribel/">Serrurier à Miribel</a>
+<a href="/plombier/miribel/">Plombier à Miribel</a>
+<a href="/degorgement/miribel/">Dégorgement à Miribel</a></div>
+            </div>
+            </div>
+              </div>
+            </section>
+            
+            <section class="section">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Loire (42), Drôme (26) &amp; Ardèche (07)</h2>
+                  <p>Auvergne-Rhône-Alpes (France) · 9 villes ciblées</p>
+                </div>
+                <div class="grid-3">
+            <div class="card">
+              <h3>Saint-Étienne</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-etienne/">Serrurier à Saint-Étienne</a>
+<a href="/plombier/saint-etienne/">Plombier à Saint-Étienne</a>
+<a href="/degorgement/saint-etienne/">Dégorgement à Saint-Étienne</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Chamond</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-chamond/">Serrurier à Saint-Chamond</a>
+<a href="/plombier/saint-chamond/">Plombier à Saint-Chamond</a>
+<a href="/degorgement/saint-chamond/">Dégorgement à Saint-Chamond</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Roanne</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/roanne/">Serrurier à Roanne</a>
+<a href="/plombier/roanne/">Plombier à Roanne</a>
+<a href="/degorgement/roanne/">Dégorgement à Roanne</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Valence</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/valence/">Serrurier à Valence</a>
+<a href="/plombier/valence/">Plombier à Valence</a>
+<a href="/degorgement/valence/">Dégorgement à Valence</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Montélimar</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/montelimar/">Serrurier à Montélimar</a>
+<a href="/plombier/montelimar/">Plombier à Montélimar</a>
+<a href="/degorgement/montelimar/">Dégorgement à Montélimar</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Romans-sur-Isère</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/romans-sur-isere/">Serrurier à Romans-sur-Isère</a>
+<a href="/plombier/romans-sur-isere/">Plombier à Romans-sur-Isère</a>
+<a href="/degorgement/romans-sur-isere/">Dégorgement à Romans-sur-Isère</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Annonay</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/annonay/">Serrurier à Annonay</a>
+<a href="/plombier/annonay/">Plombier à Annonay</a>
+<a href="/degorgement/annonay/">Dégorgement à Annonay</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Guilherand-Granges</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/guilherand-granges/">Serrurier à Guilherand-Granges</a>
+<a href="/plombier/guilherand-granges/">Plombier à Guilherand-Granges</a>
+<a href="/degorgement/guilherand-granges/">Dégorgement à Guilherand-Granges</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Tournon-sur-Rhône</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/tournon-sur-rhone/">Serrurier à Tournon-sur-Rhône</a>
+<a href="/plombier/tournon-sur-rhone/">Plombier à Tournon-sur-Rhône</a>
+<a href="/degorgement/tournon-sur-rhone/">Dégorgement à Tournon-sur-Rhône</a></div>
+            </div>
+            </div>
+              </div>
+            </section>
+            
+            <section class="section">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Rhône (69) &amp; Métropole de Lyon</h2>
+                  <p>Auvergne-Rhône-Alpes (France) · 24 villes ciblées</p>
+                </div>
+                <div class="grid-3">
+            <div class="card">
+              <h3>Lyon</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/lyon/">Serrurier à Lyon</a>
+<a href="/plombier/lyon/">Plombier à Lyon</a>
+<a href="/degorgement/lyon/">Dégorgement à Lyon</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Villeurbanne</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/villeurbanne/">Serrurier à Villeurbanne</a>
+<a href="/plombier/villeurbanne/">Plombier à Villeurbanne</a>
+<a href="/degorgement/villeurbanne/">Dégorgement à Villeurbanne</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vénissieux</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/venissieux/">Serrurier à Vénissieux</a>
+<a href="/plombier/venissieux/">Plombier à Vénissieux</a>
+<a href="/degorgement/venissieux/">Dégorgement à Vénissieux</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vaulx-en-Velin</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/vaulx-en-velin/">Serrurier à Vaulx-en-Velin</a>
+<a href="/plombier/vaulx-en-velin/">Plombier à Vaulx-en-Velin</a>
+<a href="/degorgement/vaulx-en-velin/">Dégorgement à Vaulx-en-Velin</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Priest</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-priest/">Serrurier à Saint-Priest</a>
+<a href="/plombier/saint-priest/">Plombier à Saint-Priest</a>
+<a href="/degorgement/saint-priest/">Dégorgement à Saint-Priest</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Caluire-et-Cuire</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/caluire-et-cuire/">Serrurier à Caluire-et-Cuire</a>
+<a href="/plombier/caluire-et-cuire/">Plombier à Caluire-et-Cuire</a>
+<a href="/degorgement/caluire-et-cuire/">Dégorgement à Caluire-et-Cuire</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Rillieux-la-Pape</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/rillieux-la-pape/">Serrurier à Rillieux-la-Pape</a>
+<a href="/plombier/rillieux-la-pape/">Plombier à Rillieux-la-Pape</a>
+<a href="/degorgement/rillieux-la-pape/">Dégorgement à Rillieux-la-Pape</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Meyzieu</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/meyzieu/">Serrurier à Meyzieu</a>
+<a href="/plombier/meyzieu/">Plombier à Meyzieu</a>
+<a href="/degorgement/meyzieu/">Dégorgement à Meyzieu</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Décines-Charpieu</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/decines-charpieu/">Serrurier à Décines-Charpieu</a>
+<a href="/plombier/decines-charpieu/">Plombier à Décines-Charpieu</a>
+<a href="/degorgement/decines-charpieu/">Dégorgement à Décines-Charpieu</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Oullins-Pierre-Bénite</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/oullins-pierre-benite/">Serrurier à Oullins-Pierre-Bénite</a>
+<a href="/plombier/oullins-pierre-benite/">Plombier à Oullins-Pierre-Bénite</a>
+<a href="/degorgement/oullins-pierre-benite/">Dégorgement à Oullins-Pierre-Bénite</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Sainte-Foy-lès-Lyon</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/sainte-foy-les-lyon/">Serrurier à Sainte-Foy-lès-Lyon</a>
+<a href="/plombier/sainte-foy-les-lyon/">Plombier à Sainte-Foy-lès-Lyon</a>
+<a href="/degorgement/sainte-foy-les-lyon/">Dégorgement à Sainte-Foy-lès-Lyon</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Fons</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-fons/">Serrurier à Saint-Fons</a>
+<a href="/plombier/saint-fons/">Plombier à Saint-Fons</a>
+<a href="/degorgement/saint-fons/">Dégorgement à Saint-Fons</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Givors</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/givors/">Serrurier à Givors</a>
+<a href="/plombier/givors/">Plombier à Givors</a>
+<a href="/degorgement/givors/">Dégorgement à Givors</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Villefranche-sur-Saône</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/villefranche-sur-saone/">Serrurier à Villefranche-sur-Saône</a>
+<a href="/plombier/villefranche-sur-saone/">Plombier à Villefranche-sur-Saône</a>
+<a href="/degorgement/villefranche-sur-saone/">Dégorgement à Villefranche-sur-Saône</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Tassin-la-Demi-Lune</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/tassin-la-demi-lune/">Serrurier à Tassin-la-Demi-Lune</a>
+<a href="/plombier/tassin-la-demi-lune/">Plombier à Tassin-la-Demi-Lune</a>
+<a href="/degorgement/tassin-la-demi-lune/">Dégorgement à Tassin-la-Demi-Lune</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Écully</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/ecully/">Serrurier à Écully</a>
+<a href="/plombier/ecully/">Plombier à Écully</a>
+<a href="/degorgement/ecully/">Dégorgement à Écully</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Genas</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/genas/">Serrurier à Genas</a>
+<a href="/plombier/genas/">Plombier à Genas</a>
+<a href="/degorgement/genas/">Dégorgement à Genas</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Brignais</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/brignais/">Serrurier à Brignais</a>
+<a href="/plombier/brignais/">Plombier à Brignais</a>
+<a href="/degorgement/brignais/">Dégorgement à Brignais</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Chassieu</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/chassieu/">Serrurier à Chassieu</a>
+<a href="/plombier/chassieu/">Plombier à Chassieu</a>
+<a href="/degorgement/chassieu/">Dégorgement à Chassieu</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Corbas</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/corbas/">Serrurier à Corbas</a>
+<a href="/plombier/corbas/">Plombier à Corbas</a>
+<a href="/degorgement/corbas/">Dégorgement à Corbas</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Craponne</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/craponne/">Serrurier à Craponne</a>
+<a href="/plombier/craponne/">Plombier à Craponne</a>
+<a href="/degorgement/craponne/">Dégorgement à Craponne</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Mions</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/mions/">Serrurier à Mions</a>
+<a href="/plombier/mions/">Plombier à Mions</a>
+<a href="/degorgement/mions/">Dégorgement à Mions</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Feyzin</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/feyzin/">Serrurier à Feyzin</a>
+<a href="/plombier/feyzin/">Plombier à Feyzin</a>
+<a href="/degorgement/feyzin/">Dégorgement à Feyzin</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Tarare</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/tarare/">Serrurier à Tarare</a>
+<a href="/plombier/tarare/">Plombier à Tarare</a>
+<a href="/degorgement/tarare/">Dégorgement à Tarare</a></div>
+            </div>
+            </div>
+              </div>
+            </section>
+            
+            <section class="section">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Genève et Couronne</h2>
+                  <p>Canton de Genève (Suisse) · 15 villes ciblées</p>
+                </div>
+                <div class="grid-3">
+            <div class="card">
+              <h3>Genève</h3>
+              <p>Priorité 1 · CH</p>
+              <div class="service-links"><a href="/serrurier/geneve/">Serrurier à Genève</a>
+<a href="/plombier/geneve/">Plombier à Genève</a>
+<a href="/degorgement/geneve/">Dégorgement à Genève</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vernier</h3>
+              <p>Priorité 2 · CH</p>
+              <div class="service-links"><a href="/serrurier/vernier/">Serrurier à Vernier</a>
+<a href="/plombier/vernier/">Plombier à Vernier</a>
+<a href="/degorgement/vernier/">Dégorgement à Vernier</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Lancy</h3>
+              <p>Priorité 2 · CH</p>
+              <div class="service-links"><a href="/serrurier/lancy/">Serrurier à Lancy</a>
+<a href="/plombier/lancy/">Plombier à Lancy</a>
+<a href="/degorgement/lancy/">Dégorgement à Lancy</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Meyrin</h3>
+              <p>Priorité 2 · CH</p>
+              <div class="service-links"><a href="/serrurier/meyrin/">Serrurier à Meyrin</a>
+<a href="/plombier/meyrin/">Plombier à Meyrin</a>
+<a href="/degorgement/meyrin/">Dégorgement à Meyrin</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Carouge</h3>
+              <p>Priorité 2 · CH</p>
+              <div class="service-links"><a href="/serrurier/carouge/">Serrurier à Carouge</a>
+<a href="/plombier/carouge/">Plombier à Carouge</a>
+<a href="/degorgement/carouge/">Dégorgement à Carouge</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Thônex</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/thonex/">Serrurier à Thônex</a>
+<a href="/plombier/thonex/">Plombier à Thônex</a>
+<a href="/degorgement/thonex/">Dégorgement à Thônex</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Versoix</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/versoix/">Serrurier à Versoix</a>
+<a href="/plombier/versoix/">Plombier à Versoix</a>
+<a href="/degorgement/versoix/">Dégorgement à Versoix</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Le Grand-Saconnex</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/le-grand-saconnex/">Serrurier à Le Grand-Saconnex</a>
+<a href="/plombier/le-grand-saconnex/">Plombier à Le Grand-Saconnex</a>
+<a href="/degorgement/le-grand-saconnex/">Dégorgement à Le Grand-Saconnex</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Chêne-Bougeries</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/chene-bougeries/">Serrurier à Chêne-Bougeries</a>
+<a href="/plombier/chene-bougeries/">Plombier à Chêne-Bougeries</a>
+<a href="/degorgement/chene-bougeries/">Dégorgement à Chêne-Bougeries</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Onex</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/onex/">Serrurier à Onex</a>
+<a href="/plombier/onex/">Plombier à Onex</a>
+<a href="/degorgement/onex/">Dégorgement à Onex</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Plan-les-Ouates</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/plan-les-ouates/">Serrurier à Plan-les-Ouates</a>
+<a href="/plombier/plan-les-ouates/">Plombier à Plan-les-Ouates</a>
+<a href="/degorgement/plan-les-ouates/">Dégorgement à Plan-les-Ouates</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Collonge-Bellerive</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/collonge-bellerive/">Serrurier à Collonge-Bellerive</a>
+<a href="/plombier/collonge-bellerive/">Plombier à Collonge-Bellerive</a>
+<a href="/degorgement/collonge-bellerive/">Dégorgement à Collonge-Bellerive</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Pregny-Chambésy</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/pregny-chambesy/">Serrurier à Pregny-Chambésy</a>
+<a href="/plombier/pregny-chambesy/">Plombier à Pregny-Chambésy</a>
+<a href="/degorgement/pregny-chambesy/">Dégorgement à Pregny-Chambésy</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Veyrier</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/veyrier/">Serrurier à Veyrier</a>
+<a href="/plombier/veyrier/">Plombier à Veyrier</a>
+<a href="/degorgement/veyrier/">Dégorgement à Veyrier</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Châtelaine</h3>
+              <p>Priorité 3 · CH</p>
+              <div class="service-links"><a href="/serrurier/chatelaine/">Serrurier à Châtelaine</a>
+<a href="/plombier/chatelaine/">Plombier à Châtelaine</a>
+<a href="/degorgement/chatelaine/">Dégorgement à Châtelaine</a></div>
+            </div>
+            </div>
+              </div>
+            </section>
+            
+            <section class="section">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Alpes-Maritimes (06) &amp; Vaucluse (84)</h2>
+                  <p>Provence-Alpes-Côte d&#x27;Azur (France) · 18 villes ciblées</p>
+                </div>
+                <div class="grid-3">
+            <div class="card">
+              <h3>Nice</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/nice/">Serrurier à Nice</a>
+<a href="/plombier/nice/">Plombier à Nice</a>
+<a href="/degorgement/nice/">Dégorgement à Nice</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Cannes</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/cannes/">Serrurier à Cannes</a>
+<a href="/plombier/cannes/">Plombier à Cannes</a>
+<a href="/degorgement/cannes/">Dégorgement à Cannes</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Antibes</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/antibes/">Serrurier à Antibes</a>
+<a href="/plombier/antibes/">Plombier à Antibes</a>
+<a href="/degorgement/antibes/">Dégorgement à Antibes</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Cagnes-sur-Mer</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/cagnes-sur-mer/">Serrurier à Cagnes-sur-Mer</a>
+<a href="/plombier/cagnes-sur-mer/">Plombier à Cagnes-sur-Mer</a>
+<a href="/degorgement/cagnes-sur-mer/">Dégorgement à Cagnes-sur-Mer</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Grasse</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/grasse/">Serrurier à Grasse</a>
+<a href="/plombier/grasse/">Plombier à Grasse</a>
+<a href="/degorgement/grasse/">Dégorgement à Grasse</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Le Cannet</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/le-cannet/">Serrurier à Le Cannet</a>
+<a href="/plombier/le-cannet/">Plombier à Le Cannet</a>
+<a href="/degorgement/le-cannet/">Dégorgement à Le Cannet</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Menton</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/menton/">Serrurier à Menton</a>
+<a href="/plombier/menton/">Plombier à Menton</a>
+<a href="/degorgement/menton/">Dégorgement à Menton</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Laurent-du-Var</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-laurent-du-var/">Serrurier à Saint-Laurent-du-Var</a>
+<a href="/plombier/saint-laurent-du-var/">Plombier à Saint-Laurent-du-Var</a>
+<a href="/degorgement/saint-laurent-du-var/">Dégorgement à Saint-Laurent-du-Var</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vallauris</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/vallauris/">Serrurier à Vallauris</a>
+<a href="/plombier/vallauris/">Plombier à Vallauris</a>
+<a href="/degorgement/vallauris/">Dégorgement à Vallauris</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Mandelieu-la-Napoule</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/mandelieu-la-napoule/">Serrurier à Mandelieu-la-Napoule</a>
+<a href="/plombier/mandelieu-la-napoule/">Plombier à Mandelieu-la-Napoule</a>
+<a href="/degorgement/mandelieu-la-napoule/">Dégorgement à Mandelieu-la-Napoule</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Mougins</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/mougins/">Serrurier à Mougins</a>
+<a href="/plombier/mougins/">Plombier à Mougins</a>
+<a href="/degorgement/mougins/">Dégorgement à Mougins</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vence</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/vence/">Serrurier à Vence</a>
+<a href="/plombier/vence/">Plombier à Vence</a>
+<a href="/degorgement/vence/">Dégorgement à Vence</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Avignon</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/avignon/">Serrurier à Avignon</a>
+<a href="/plombier/avignon/">Plombier à Avignon</a>
+<a href="/degorgement/avignon/">Dégorgement à Avignon</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Orange</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/orange/">Serrurier à Orange</a>
+<a href="/plombier/orange/">Plombier à Orange</a>
+<a href="/degorgement/orange/">Dégorgement à Orange</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Carpentras</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/carpentras/">Serrurier à Carpentras</a>
+<a href="/plombier/carpentras/">Plombier à Carpentras</a>
+<a href="/degorgement/carpentras/">Dégorgement à Carpentras</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Cavaillon</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/cavaillon/">Serrurier à Cavaillon</a>
+<a href="/plombier/cavaillon/">Plombier à Cavaillon</a>
+<a href="/degorgement/cavaillon/">Dégorgement à Cavaillon</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>L&#x27;Isle-sur-la-Sorgue</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/l-isle-sur-la-sorgue/">Serrurier à L&#x27;Isle-sur-la-Sorgue</a>
+<a href="/plombier/l-isle-sur-la-sorgue/">Plombier à L&#x27;Isle-sur-la-Sorgue</a>
+<a href="/degorgement/l-isle-sur-la-sorgue/">Dégorgement à L&#x27;Isle-sur-la-Sorgue</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Pertuis</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/pertuis/">Serrurier à Pertuis</a>
+<a href="/plombier/pertuis/">Plombier à Pertuis</a>
+<a href="/degorgement/pertuis/">Dégorgement à Pertuis</a></div>
+            </div>
+            </div>
+              </div>
+            </section>
+            
+            <section class="section">
+              <div class="wrap">
+                <div class="section-head">
+                  <h2>Bouches-du-Rhône (13) &amp; Var (83)</h2>
+                  <p>Provence-Alpes-Côte d&#x27;Azur (France) · 21 villes ciblées</p>
+                </div>
+                <div class="grid-3">
+            <div class="card">
+              <h3>Marseille</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/marseille/">Serrurier à Marseille</a>
+<a href="/plombier/marseille/">Plombier à Marseille</a>
+<a href="/degorgement/marseille/">Dégorgement à Marseille</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Aix-en-Provence</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/aix-en-provence/">Serrurier à Aix-en-Provence</a>
+<a href="/plombier/aix-en-provence/">Plombier à Aix-en-Provence</a>
+<a href="/degorgement/aix-en-provence/">Dégorgement à Aix-en-Provence</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Arles</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/arles/">Serrurier à Arles</a>
+<a href="/plombier/arles/">Plombier à Arles</a>
+<a href="/degorgement/arles/">Dégorgement à Arles</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Martigues</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/martigues/">Serrurier à Martigues</a>
+<a href="/plombier/martigues/">Plombier à Martigues</a>
+<a href="/degorgement/martigues/">Dégorgement à Martigues</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Aubagne</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/aubagne/">Serrurier à Aubagne</a>
+<a href="/plombier/aubagne/">Plombier à Aubagne</a>
+<a href="/degorgement/aubagne/">Dégorgement à Aubagne</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Salon-de-Provence</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/salon-de-provence/">Serrurier à Salon-de-Provence</a>
+<a href="/plombier/salon-de-provence/">Plombier à Salon-de-Provence</a>
+<a href="/degorgement/salon-de-provence/">Dégorgement à Salon-de-Provence</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Vitrolles</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/vitrolles/">Serrurier à Vitrolles</a>
+<a href="/plombier/vitrolles/">Plombier à Vitrolles</a>
+<a href="/degorgement/vitrolles/">Dégorgement à Vitrolles</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Marignane</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/marignane/">Serrurier à Marignane</a>
+<a href="/plombier/marignane/">Plombier à Marignane</a>
+<a href="/degorgement/marignane/">Dégorgement à Marignane</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>La Ciotat</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/la-ciotat/">Serrurier à La Ciotat</a>
+<a href="/plombier/la-ciotat/">Plombier à La Ciotat</a>
+<a href="/degorgement/la-ciotat/">Dégorgement à La Ciotat</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Istres</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/istres/">Serrurier à Istres</a>
+<a href="/plombier/istres/">Plombier à Istres</a>
+<a href="/degorgement/istres/">Dégorgement à Istres</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Miramas</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/miramas/">Serrurier à Miramas</a>
+<a href="/plombier/miramas/">Plombier à Miramas</a>
+<a href="/degorgement/miramas/">Dégorgement à Miramas</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Les Pennes-Mirabeau</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/les-pennes-mirabeau/">Serrurier à Les Pennes-Mirabeau</a>
+<a href="/plombier/les-pennes-mirabeau/">Plombier à Les Pennes-Mirabeau</a>
+<a href="/degorgement/les-pennes-mirabeau/">Dégorgement à Les Pennes-Mirabeau</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Toulon</h3>
+              <p>Priorité 1 · FR</p>
+              <div class="service-links"><a href="/serrurier/toulon/">Serrurier à Toulon</a>
+<a href="/plombier/toulon/">Plombier à Toulon</a>
+<a href="/degorgement/toulon/">Dégorgement à Toulon</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>La Seyne-sur-Mer</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/la-seyne-sur-mer/">Serrurier à La Seyne-sur-Mer</a>
+<a href="/plombier/la-seyne-sur-mer/">Plombier à La Seyne-sur-Mer</a>
+<a href="/degorgement/la-seyne-sur-mer/">Dégorgement à La Seyne-sur-Mer</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Hyères</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/hyeres/">Serrurier à Hyères</a>
+<a href="/plombier/hyeres/">Plombier à Hyères</a>
+<a href="/degorgement/hyeres/">Dégorgement à Hyères</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Fréjus</h3>
+              <p>Priorité 2 · FR</p>
+              <div class="service-links"><a href="/serrurier/frejus/">Serrurier à Fréjus</a>
+<a href="/plombier/frejus/">Plombier à Fréjus</a>
+<a href="/degorgement/frejus/">Dégorgement à Fréjus</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Draguignan</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/draguignan/">Serrurier à Draguignan</a>
+<a href="/plombier/draguignan/">Plombier à Draguignan</a>
+<a href="/degorgement/draguignan/">Dégorgement à Draguignan</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Saint-Raphaël</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/saint-raphael/">Serrurier à Saint-Raphaël</a>
+<a href="/plombier/saint-raphael/">Plombier à Saint-Raphaël</a>
+<a href="/degorgement/saint-raphael/">Dégorgement à Saint-Raphaël</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>Six-Fours-les-Plages</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/six-fours-les-plages/">Serrurier à Six-Fours-les-Plages</a>
+<a href="/plombier/six-fours-les-plages/">Plombier à Six-Fours-les-Plages</a>
+<a href="/degorgement/six-fours-les-plages/">Dégorgement à Six-Fours-les-Plages</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>La Garde</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/la-garde/">Serrurier à La Garde</a>
+<a href="/plombier/la-garde/">Plombier à La Garde</a>
+<a href="/degorgement/la-garde/">Dégorgement à La Garde</a></div>
+            </div>
+            
+
+            <div class="card">
+              <h3>La Valette-du-Var</h3>
+              <p>Priorité 3 · FR</p>
+              <div class="service-links"><a href="/serrurier/la-valette-du-var/">Serrurier à La Valette-du-Var</a>
+<a href="/plombier/la-valette-du-var/">Plombier à La Valette-du-Var</a>
+<a href="/degorgement/la-valette-du-var/">Dégorgement à La Valette-du-Var</a></div>
+            </div>
+            </div>
+              </div>
+            </section>
+            
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <strong>Solybat</strong><br>
+      Serrurerie, plomberie et dégorgement en urgence.
+      <div style="margin-top:10px"><a href="/zones/">Villes desservies</a></div>
+    </div>
+    <div>
+      <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+    </div>
+  </div>
+</footer>
+<a class="call-btn mobile-call js-call-track" href="tel:+33400000000">Appeler maintenant</a>
+<script>
+document.querySelectorAll('.js-call-track').forEach(function(link) {
+  link.addEventListener('click', function() {
+    if (window.gtag) {
+      window.gtag('event', 'phone_call_click', {
+        event_category: 'lead',
+        event_label: window.location.pathname
+      });
+    }
+  });
+});
+</script>
+
+
+</body>
+</html>

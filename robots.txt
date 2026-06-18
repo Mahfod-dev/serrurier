@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /google-ads/
+Sitemap: https://www.solybat.fr/sitemap.xml
