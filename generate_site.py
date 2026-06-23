@@ -148,7 +148,9 @@ SERVICES = {
         "benefits": [
             "Ouverture fine quand la porte le permet",
             "Remplacement de cylindre et serrure multipoints",
+            "Blindage de porte et renforcement de sécurité",
             "Mise en sécurité après tentative d'effraction",
+            "Dépannage de rideau métallique de commerce",
             "Devis annoncé avant intervention",
         ],
         "trust_points": [
@@ -167,7 +169,9 @@ SERVICES = {
             ("Déplacement local", "Sur devis"),
             ("Ouverture de porte claquée", "à partir de 90 €"),
             ("Ouverture de porte verrouillée", "à partir de 130 €"),
-            ("Remplacement cylindre", "à partir de 89 €"),
+            ("Remplacement de cylindre", "à partir de 89 €"),
+            ("Pose de serrure multipoints", "à partir de 240 €"),
+            ("Blindage de porte", "sur devis"),
         ],
         "keywords": [
             "serrurier urgence {city}",
@@ -447,10 +451,70 @@ SERVICE_VALUE = {
     ),
 }
 
+SERVICE_INTRO = {
+    "serrurier": "La serrurerie d'urgence couvre bien plus que l'ouverture d'une porte claquée. Entre une clé cassée dans le cylindre, une serrure multipoints grippée, une porte de commerce à sécuriser ou une mise en sécurité après effraction, chaque situation demande le bon geste et le bon matériel. L'objectif reste le même : résoudre le problème avec la méthode la moins coûteuse et la moins destructrice possible, après vous avoir expliqué ce qui est nécessaire.",
+    "plombier": "La plomberie d'urgence ne se limite pas à une fuite visible. Recherche de fuite encastrée, WC ou évacuation bouchés, robinetterie défaillante, chauffe-eau en panne ou dégât des eaux à contenir : chaque cas a sa priorité. La première règle reste de limiter les dégâts, puis de réparer la cause accessible en expliquant chaque pièce nécessaire.",
+    "degorgement": "Un bouchon de canalisation peut aller du simple ralentissement d'évacuation à un réseau complètement saturé avec remontées d'eau. Selon la profondeur, l'accès et la nature du dépôt, la bonne réponse va du débouchage mécanique à l'hydrocurage haute pression ou au camion pompe. Une qualification précise au téléphone évite un déplacement mal préparé.",
+}
+
+# Prestations détaillées affichées en cartes. Contenu volontairement riche pour
+# la profondeur de contenu et le SEO local.
+SERVICE_DETAIL = {
+    "serrurier": [
+        ("Ouverture de porte", "Porte claquée ou verrouillée, clés perdues ou restées à l'intérieur : ouverture fine privilégiée pour préserver la porte et la serrure quand la configuration le permet."),
+        ("Changement de cylindre", "Remplacement de barillet ou de cylindre européen suite à perte de clés, clé cassée, déménagement ou simple usure, avec contrôle du bon fonctionnement."),
+        ("Serrure multipoints", "Dépannage, réglage ou installation de serrures 3, 5 ou 7 points pour renforcer la sécurité d'une porte d'entrée d'appartement ou de maison."),
+        ("Blindage et renfort", "Pose de cornière anti-pince, de protège-cylindre et de pièces de renfort pour augmenter la résistance d'une porte sans toujours tout remplacer."),
+        ("Mise en sécurité après effraction", "Intervention rapide pour refermer et sécuriser une porte forcée, avec conseils sur le remplacement des éléments endommagés et le justificatif pour l'assurance."),
+        ("Rideau métallique de commerce", "Déblocage, remise en service ou sécurisation d'un rideau ou d'une grille de magasin pour limiter l'arrêt d'activité."),
+    ],
+    "plombier": [
+        ("Recherche et arrêt de fuite", "Localisation de la fuite (apparente ou encastrée), coupure et réparation de la cause accessible pour limiter le dégât des eaux."),
+        ("Débouchage sanitaire", "WC, évier, lavabo, douche ou baignoire qui s'évacuent mal : débouchage et vérification de l'écoulement."),
+        ("Robinetterie", "Remplacement ou réparation de robinets, mitigeurs, flexibles et joints qui fuient ou ne ferment plus correctement."),
+        ("Chauffe-eau et ballon", "Dépannage et remplacement de chauffe-eau électrique ou de ballon, avec contrôle des raccords et de l'étanchéité."),
+        ("Remplacement de sanitaires", "Pose ou échange de WC, lavabo, siphon et mécanisme de chasse, avec test final d'étanchéité."),
+        ("Dégât des eaux", "Coupure rapide, limitation des dégâts et compte rendu simple pour l'assurance ou le propriétaire si nécessaire."),
+    ],
+    "degorgement": [
+        ("Débouchage haute pression", "Élimination des bouchons par jet d'eau haute pression adapté au diamètre et au type de canalisation."),
+        ("Hydrocurage", "Nettoyage complet de la canalisation pour retirer graisses, dépôts et racines et rétablir un écoulement durable."),
+        ("Curage de canalisation", "Entretien curatif ou préventif des réseaux d'évacuation des eaux usées et pluviales."),
+        ("Camion pompe", "Pompage et vidange lorsque les eaux remontent, qu'un regard est plein ou que le réseau est saturé, selon l'accès."),
+        ("Inspection caméra", "Repérage du point de blocage et de l'état de la canalisation pour orienter l'intervention sans casse inutile."),
+        ("Bac à graisse et regards", "Vidange et nettoyage de bac à graisse, fosse accessible ou regards pour les locaux et la restauration."),
+    ],
+}
+
+# Conseils / bons réflexes ("que faire si...").
+SERVICE_ADVICE = {
+    "serrurier": [
+        ("Porte claquée : ne forcez pas", "Évitez les cartes, tournevis ou coups d'épaule : vous risquez d'abîmer la serrure ou la porte et de faire grimper la facture. Une ouverture fine par un professionnel est souvent plus rapide et moins coûteuse."),
+        ("Clé cassée dans la serrure", "N'essayez plus de tourner la partie restante : cela enfonce le morceau. Laissez la serrure en l'état et décrivez la situation au téléphone pour préparer le bon outillage."),
+        ("Après une effraction", "Photographiez les dégâts, ne touchez pas plus que nécessaire et faites établir un justificatif. La mise en sécurité immédiate permet de fermer en attendant le remplacement définitif."),
+        ("Bien choisir sa serrure", "Pour une porte d'entrée, une serrure multipoints certifiée (norme A2P) augmente nettement la résistance. Le conseil dépend du type de porte, du quartier et du niveau de risque."),
+    ],
+    "plombier": [
+        ("Fuite d'eau : coupez d'abord", "Fermez l'arrivée d'eau (robinet sous l'évier ou vanne générale) avant tout. Cela limite le dégât en attendant l'intervention."),
+        ("WC bouché", "Évitez de tirer la chasse à répétition : vous risquez le débordement. Décrivez si l'évacuation est totalement bloquée ou seulement lente."),
+        ("Dégât des eaux", "Coupez l'eau et l'électricité de la zone si besoin, épongez et protégez le mobilier, puis photographiez pour votre assurance."),
+        ("Prévenir les fuites", "Surveillez les joints, flexibles et le pied des sanitaires. Un flexible qui suinte ou un joint noirci annoncent souvent une fuite à venir."),
+    ],
+    "degorgement": [
+        ("Évacuation lente", "Agissez avant le bouchon complet : une évacuation qui ralentit signale un dépôt en formation. Un débouchage précoce évite l'urgence."),
+        ("Évitez les produits agressifs", "Les déboucheurs chimiques répétés abîment les canalisations et restent inefficaces sur un vrai bouchon. Mieux vaut un débouchage mécanique."),
+        ("Remontées d'eau", "Si l'eau remonte dans plusieurs points ou dans un regard, coupez l'usage de l'eau et signalez-le : un camion pompe peut être nécessaire."),
+        ("Limiter les récidives", "Ne jetez ni graisses, ni lingettes, ni restes alimentaires dans les évacuations. Un entretien périodique réduit fortement les bouchons."),
+    ],
+}
+
 EXTRA_FAQ = {
     "serrurier": [
         ("Combien de temps pour intervenir ?", "Le délai dépend de la zone et de l'heure. Il est annoncé pendant l'appel après avoir localisé votre secteur ; aucune promesse de délai n'est faite sans vérifier la disponibilité réelle d'une équipe proche."),
         ("Faut-il forcément changer la serrure ?", "Non. Quand la porte le permet, l'ouverture fine est privilégiée pour éviter tout remplacement. Le changement de cylindre ou de serrure n'est proposé qu'en cas de nécessité ou après effraction."),
+        ("Ouvrez-vous tous les types de portes ?", "Portes d'appartement, de maison, blindées, avec serrure multipoints ou de commerce : la méthode est adaptée au type de porte. Certaines portes haute sécurité demandent un outillage spécifique, qualifié au téléphone."),
+        ("Quels justificatifs me seront demandés ?", "Pour une ouverture, une pièce d'identité et, si possible, un justificatif d'occupation (quittance, courrier à l'adresse) peuvent être demandés. C'est une sécurité normale, dans votre intérêt comme dans le nôtre."),
+        ("Proposez-vous une serrure plus sécurisée ?", "Oui. Après une effraction ou pour renforcer une porte, une serrure multipoints certifiée A2P, une cornière anti-pince ou un protège-cylindre peuvent être conseillés selon la porte et le niveau de risque."),
     ],
     "plombier": [
         ("Intervenez-vous le soir et le week-end ?", "Oui, les urgences plomberie sont traitées 24h/24. Les conditions tarifaires de soirée, week-end et jour férié sont annoncées avant le déplacement."),
@@ -924,6 +988,14 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .top-actions .ghost-btn { display: none; }
   .hero-card::before { right: 14px; }
 }
+/* ---------- Detail & advice cards ---------- */
+.detail-card .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 14px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); }
+.detail-card h3 { font-size: 1.18rem; }
+.advice-card { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm); }
+.advice-card h3 { margin: 0 0 8px; font-size: 1.12rem; display: flex; align-items: center; gap: 9px; }
+.advice-card h3::before { content: "!"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, white); color: var(--accent); font-family: var(--font-display); font-weight: 800; font-size: .95rem; }
+.advice-card p { margin: 0; color: var(--ink-soft); }
+
 /* ---------- Urgency bar ---------- */
 .urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
 .urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
@@ -1498,6 +1570,67 @@ def quartiers_section(city: City, service_key: str, nearby: list[City], build: B
 """
 
 
+def detail_section(city: City, service: dict[str, object], service_key: str) -> str:
+    items = SERVICE_DETAIL.get(service_key, [])
+    if not items:
+        return ""
+    label = str(service["label"]).lower()
+    plural = str(service["plural"])
+    intro = SERVICE_INTRO.get(service_key, "")
+    icons = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}
+    svc_icon = icons.get(service_key, "shield")
+    cards = "\n".join(
+        f"""
+        <article class="card detail-card">
+          <div class="ico">{icon(svc_icon)}</div>
+          <h3>{esc(title)}</h3>
+          <p>{esc(text)}</p>
+        </article>
+        """
+        for title, text in items
+    )
+    return f"""
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Prestations à {esc(city.name)}</span>
+        <h2>Nos interventions de {esc(plural)} en détail</h2>
+        <p class="lead">{esc(intro)}</p>
+      </div>
+      <div class="grid-3">{cards}</div>
+    </div>
+  </section>
+"""
+
+
+def advice_section(city: City, service: dict[str, object], service_key: str) -> str:
+    items = SERVICE_ADVICE.get(service_key, [])
+    if not items:
+        return ""
+    label = str(service["label"]).lower()
+    cards = "\n".join(
+        f"""
+        <article class="advice-card">
+          <h3>{esc(title)}</h3>
+          <p>{esc(text)}</p>
+        </article>
+        """
+        for title, text in items
+    )
+    return f"""
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Conseils &amp; bons réflexes</span>
+        <h2>Que faire avant l'arrivée du {esc(label)} à {esc(city.name)} ?</h2>
+        <p>Quelques gestes simples évitent d'aggraver la situation et permettent une intervention plus rapide et moins coûteuse.</p>
+      </div>
+      <div class="grid-2">{cards}</div>
+    </div>
+  </section>
+"""
+
+
 def process_section(service: dict[str, object], city: City) -> str:
     steps = [(str(title), str(text)) for title, text in service["steps"]]
     cards = "\n".join(
@@ -1632,6 +1765,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     reassure = reassurance_strip(phone_display, service_key)
     reviews = reviews_section(city, service, service_key)
     proof = proof_section(city, service, service_key)
+    detail = detail_section(city, service, service_key)
+    advice = advice_section(city, service, service_key)
     quartiers = quartiers_section(city, service_key, nearby, build)
     callback = callback_form(city.name, str(service["label"]), phone_display, phone_href)
     service_icon = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}.get(service_key, "shield")
@@ -1719,6 +1854,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     </div>
   </section>
 
+{detail}
+
 {expertise}
 
 {proof}
@@ -1728,6 +1865,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
 {quartiers}
 
 {process}
+
+{advice}
 
   <section id="tarifs" class="section alt">
     <div class="wrap">

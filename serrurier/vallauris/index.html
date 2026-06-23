@@ -344,6 +344,14 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .top-actions .ghost-btn { display: none; }
   .hero-card::before { right: 14px; }
 }
+/* ---------- Detail & advice cards ---------- */
+.detail-card .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 14px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); }
+.detail-card h3 { font-size: 1.18rem; }
+.advice-card { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm); }
+.advice-card h3 { margin: 0 0 8px; font-size: 1.12rem; display: flex; align-items: center; gap: 9px; }
+.advice-card h3::before { content: "!"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, white); color: var(--accent); font-family: var(--font-display); font-weight: 800; font-size: .95rem; }
+.advice-card p { margin: 0; color: var(--ink-soft); }
+
 /* ---------- Urgency bar ---------- */
 .urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
 .urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
@@ -551,6 +559,30 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
             "@type": "Answer",
             "text": "Non. Quand la porte le permet, l'ouverture fine est privilégiée pour éviter tout remplacement. Le changement de cylindre ou de serrure n'est proposé qu'en cas de nécessité ou après effraction."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Ouvrez-vous tous les types de portes ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Portes d'appartement, de maison, blindées, avec serrure multipoints ou de commerce : la méthode est adaptée au type de porte. Certaines portes haute sécurité demandent un outillage spécifique, qualifié au téléphone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quels justificatifs me seront demandés ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour une ouverture, une pièce d'identité et, si possible, un justificatif d'occupation (quittance, courrier à l'adresse) peuvent être demandés. C'est une sécurité normale, dans votre intérêt comme dans le nôtre."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Proposez-vous une serrure plus sécurisée ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Après une effraction ou pour renforcer une porte, une serrure multipoints certifiée A2P, une cornière anti-pince ou un protège-cylindre peuvent être conseillés selon la porte et le niveau de risque."
+          }
         }
       ]
     }
@@ -617,7 +649,9 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
         <h2>Votre intervention à Vallauris</h2>
         <ul><li>Ouverture fine quand la porte le permet</li>
 <li>Remplacement de cylindre et serrure multipoints</li>
+<li>Blindage de porte et renforcement de sécurité</li>
 <li>Mise en sécurité après tentative d&#x27;effraction</li>
+<li>Dépannage de rideau métallique de commerce</li>
 <li>Devis annoncé avant intervention</li></ul>
         <div class="hero-meta">
           <div><strong>24/7</strong><span>urgence qualifiée</span></div>
@@ -698,7 +732,9 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
         </div>
         <ul class="check-list"><li>Ouverture fine quand la porte le permet</li>
 <li>Remplacement de cylindre et serrure multipoints</li>
+<li>Blindage de porte et renforcement de sécurité</li>
 <li>Mise en sécurité après tentative d&#x27;effraction</li>
+<li>Dépannage de rideau métallique de commerce</li>
 <li>Devis annoncé avant intervention</li></ul>
       </div>
       <div class="card">
@@ -708,6 +744,60 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
       </div>
     </div>
   </section>
+
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Prestations à Vallauris</span>
+        <h2>Nos interventions de serrurerie en détail</h2>
+        <p class="lead">La serrurerie d&#x27;urgence couvre bien plus que l&#x27;ouverture d&#x27;une porte claquée. Entre une clé cassée dans le cylindre, une serrure multipoints grippée, une porte de commerce à sécuriser ou une mise en sécurité après effraction, chaque situation demande le bon geste et le bon matériel. L&#x27;objectif reste le même : résoudre le problème avec la méthode la moins coûteuse et la moins destructrice possible, après vous avoir expliqué ce qui est nécessaire.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+          <h3>Ouverture de porte</h3>
+          <p>Porte claquée ou verrouillée, clés perdues ou restées à l&#x27;intérieur : ouverture fine privilégiée pour préserver la porte et la serrure quand la configuration le permet.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+          <h3>Changement de cylindre</h3>
+          <p>Remplacement de barillet ou de cylindre européen suite à perte de clés, clé cassée, déménagement ou simple usure, avec contrôle du bon fonctionnement.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+          <h3>Serrure multipoints</h3>
+          <p>Dépannage, réglage ou installation de serrures 3, 5 ou 7 points pour renforcer la sécurité d&#x27;une porte d&#x27;entrée d&#x27;appartement ou de maison.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+          <h3>Blindage et renfort</h3>
+          <p>Pose de cornière anti-pince, de protège-cylindre et de pièces de renfort pour augmenter la résistance d&#x27;une porte sans toujours tout remplacer.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+          <h3>Mise en sécurité après effraction</h3>
+          <p>Intervention rapide pour refermer et sécuriser une porte forcée, avec conseils sur le remplacement des éléments endommagés et le justificatif pour l&#x27;assurance.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+          <h3>Rideau métallique de commerce</h3>
+          <p>Déblocage, remise en service ou sécurisation d&#x27;un rideau ou d&#x27;une grille de magasin pour limiter l&#x27;arrêt d&#x27;activité.</p>
+        </article>
+        </div>
+    </div>
+  </section>
+
 
 
   <section class="section">
@@ -838,6 +928,42 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   </section>
 
 
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Conseils &amp; bons réflexes</span>
+        <h2>Que faire avant l'arrivée du serrurier à Vallauris ?</h2>
+        <p>Quelques gestes simples évitent d'aggraver la situation et permettent une intervention plus rapide et moins coûteuse.</p>
+      </div>
+      <div class="grid-2">
+        <article class="advice-card">
+          <h3>Porte claquée : ne forcez pas</h3>
+          <p>Évitez les cartes, tournevis ou coups d&#x27;épaule : vous risquez d&#x27;abîmer la serrure ou la porte et de faire grimper la facture. Une ouverture fine par un professionnel est souvent plus rapide et moins coûteuse.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Clé cassée dans la serrure</h3>
+          <p>N&#x27;essayez plus de tourner la partie restante : cela enfonce le morceau. Laissez la serrure en l&#x27;état et décrivez la situation au téléphone pour préparer le bon outillage.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Après une effraction</h3>
+          <p>Photographiez les dégâts, ne touchez pas plus que nécessaire et faites établir un justificatif. La mise en sécurité immédiate permet de fermer en attendant le remplacement définitif.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Bien choisir sa serrure</h3>
+          <p>Pour une porte d&#x27;entrée, une serrure multipoints certifiée (norme A2P) augmente nettement la résistance. Le conseil dépend du type de porte, du quartier et du niveau de risque.</p>
+        </article>
+        </div>
+    </div>
+  </section>
+
+
   <section id="tarifs" class="section alt">
     <div class="wrap">
       <div class="section-head">
@@ -849,7 +975,9 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
         <tbody><tr><td>Déplacement local</td><td>Sur devis</td></tr>
 <tr><td>Ouverture de porte claquée</td><td>à partir de 90 €</td></tr>
 <tr><td>Ouverture de porte verrouillée</td><td>à partir de 130 €</td></tr>
-<tr><td>Remplacement cylindre</td><td>à partir de 89 €</td></tr></tbody>
+<tr><td>Remplacement de cylindre</td><td>à partir de 89 €</td></tr>
+<tr><td>Pose de serrure multipoints</td><td>à partir de 240 €</td></tr>
+<tr><td>Blindage de porte</td><td>sur devis</td></tr></tbody>
       </table>
       <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
     </div>
@@ -974,6 +1102,9 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
         <details><summary>Que préparer avant l&#x27;arrivée du serrurier ?</summary><p>Préparez une pièce d&#x27;identité, un justificatif d&#x27;occupation si disponible et une photo de la porte ou de la serrure. Cela aide à confirmer le bon matériel avant déplacement.</p></details>
         <details><summary>Combien de temps pour intervenir ?</summary><p>Le délai dépend de la zone et de l&#x27;heure. Il est annoncé pendant l&#x27;appel après avoir localisé votre secteur ; aucune promesse de délai n&#x27;est faite sans vérifier la disponibilité réelle d&#x27;une équipe proche.</p></details>
 <details><summary>Faut-il forcément changer la serrure ?</summary><p>Non. Quand la porte le permet, l&#x27;ouverture fine est privilégiée pour éviter tout remplacement. Le changement de cylindre ou de serrure n&#x27;est proposé qu&#x27;en cas de nécessité ou après effraction.</p></details>
+<details><summary>Ouvrez-vous tous les types de portes ?</summary><p>Portes d&#x27;appartement, de maison, blindées, avec serrure multipoints ou de commerce : la méthode est adaptée au type de porte. Certaines portes haute sécurité demandent un outillage spécifique, qualifié au téléphone.</p></details>
+<details><summary>Quels justificatifs me seront demandés ?</summary><p>Pour une ouverture, une pièce d&#x27;identité et, si possible, un justificatif d&#x27;occupation (quittance, courrier à l&#x27;adresse) peuvent être demandés. C&#x27;est une sécurité normale, dans votre intérêt comme dans le nôtre.</p></details>
+<details><summary>Proposez-vous une serrure plus sécurisée ?</summary><p>Oui. Après une effraction ou pour renforcer une porte, une serrure multipoints certifiée A2P, une cornière anti-pince ou un protège-cylindre peuvent être conseillés selon la porte et le niveau de risque.</p></details>
         <details><summary>Quel numéro utiliser ?</summary><p>Utilisez un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes.</p></details>
       </div>
     </div>

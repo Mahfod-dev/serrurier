@@ -344,6 +344,14 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .top-actions .ghost-btn { display: none; }
   .hero-card::before { right: 14px; }
 }
+/* ---------- Detail & advice cards ---------- */
+.detail-card .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 14px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); }
+.detail-card h3 { font-size: 1.18rem; }
+.advice-card { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm); }
+.advice-card h3 { margin: 0 0 8px; font-size: 1.12rem; display: flex; align-items: center; gap: 9px; }
+.advice-card h3::before { content: "!"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, white); color: var(--accent); font-family: var(--font-display); font-weight: 800; font-size: .95rem; }
+.advice-card p { margin: 0; color: var(--ink-soft); }
+
 /* ---------- Urgency bar ---------- */
 .urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
 .urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
@@ -711,6 +719,60 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
 
 
   <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Prestations à Évian-les-Bains</span>
+        <h2>Nos interventions de dégorgement en détail</h2>
+        <p class="lead">Un bouchon de canalisation peut aller du simple ralentissement d&#x27;évacuation à un réseau complètement saturé avec remontées d&#x27;eau. Selon la profondeur, l&#x27;accès et la nature du dépôt, la bonne réponse va du débouchage mécanique à l&#x27;hydrocurage haute pression ou au camion pompe. Une qualification précise au téléphone évite un déplacement mal préparé.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div>
+          <h3>Débouchage haute pression</h3>
+          <p>Élimination des bouchons par jet d&#x27;eau haute pression adapté au diamètre et au type de canalisation.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div>
+          <h3>Hydrocurage</h3>
+          <p>Nettoyage complet de la canalisation pour retirer graisses, dépôts et racines et rétablir un écoulement durable.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div>
+          <h3>Curage de canalisation</h3>
+          <p>Entretien curatif ou préventif des réseaux d&#x27;évacuation des eaux usées et pluviales.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div>
+          <h3>Camion pompe</h3>
+          <p>Pompage et vidange lorsque les eaux remontent, qu&#x27;un regard est plein ou que le réseau est saturé, selon l&#x27;accès.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div>
+          <h3>Inspection caméra</h3>
+          <p>Repérage du point de blocage et de l&#x27;état de la canalisation pour orienter l&#x27;intervention sans casse inutile.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div>
+          <h3>Bac à graisse et regards</h3>
+          <p>Vidange et nettoyage de bac à graisse, fosse accessible ou regards pour les locaux et la restauration.</p>
+        </article>
+        </div>
+    </div>
+  </section>
+
+
+
+  <section class="section">
     <div class="wrap grid-2">
       <div class="split-panel">
         <h2>Le bon matériel pour votre canalisation, pas plus que nécessaire</h2>
@@ -832,6 +894,42 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
           <span class="card-number">4</span>
           <h3>Prévenir</h3>
           <p>Les causes possibles et les signes de récidive sont expliqués après intervention.</p>
+        </article>
+        </div>
+    </div>
+  </section>
+
+
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Conseils &amp; bons réflexes</span>
+        <h2>Que faire avant l'arrivée du dégorgement à Évian-les-Bains ?</h2>
+        <p>Quelques gestes simples évitent d'aggraver la situation et permettent une intervention plus rapide et moins coûteuse.</p>
+      </div>
+      <div class="grid-2">
+        <article class="advice-card">
+          <h3>Évacuation lente</h3>
+          <p>Agissez avant le bouchon complet : une évacuation qui ralentit signale un dépôt en formation. Un débouchage précoce évite l&#x27;urgence.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Évitez les produits agressifs</h3>
+          <p>Les déboucheurs chimiques répétés abîment les canalisations et restent inefficaces sur un vrai bouchon. Mieux vaut un débouchage mécanique.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Remontées d&#x27;eau</h3>
+          <p>Si l&#x27;eau remonte dans plusieurs points ou dans un regard, coupez l&#x27;usage de l&#x27;eau et signalez-le : un camion pompe peut être nécessaire.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Limiter les récidives</h3>
+          <p>Ne jetez ni graisses, ni lingettes, ni restes alimentaires dans les évacuations. Un entretien périodique réduit fortement les bouchons.</p>
         </article>
         </div>
     </div>

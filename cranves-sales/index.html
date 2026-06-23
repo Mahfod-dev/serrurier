@@ -344,6 +344,14 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .top-actions .ghost-btn { display: none; }
   .hero-card::before { right: 14px; }
 }
+/* ---------- Detail & advice cards ---------- */
+.detail-card .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 14px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); }
+.detail-card h3 { font-size: 1.18rem; }
+.advice-card { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm); }
+.advice-card h3 { margin: 0 0 8px; font-size: 1.12rem; display: flex; align-items: center; gap: 9px; }
+.advice-card h3::before { content: "!"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, white); color: var(--accent); font-family: var(--font-display); font-weight: 800; font-size: .95rem; }
+.advice-card p { margin: 0; color: var(--ink-soft); }
+
 /* ---------- Urgency bar ---------- */
 .urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
 .urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
@@ -550,6 +558,30 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Non. Quand la porte le permet, l'ouverture fine est privilégiée pour éviter tout remplacement. Le changement de cylindre ou de serrure n'est proposé qu'en cas de nécessité ou après effraction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ouvrez-vous tous les types de portes ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Portes d'appartement, de maison, blindées, avec serrure multipoints ou de commerce : la méthode est adaptée au type de porte. Certaines portes haute sécurité demandent un outillage spécifique, qualifié au téléphone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quels justificatifs me seront demandés ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pour une ouverture, une pièce d'identité et, si possible, un justificatif d'occupation (quittance, courrier à l'adresse) peuvent être demandés. C'est une sécurité normale, dans votre intérêt comme dans le nôtre."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Proposez-vous une serrure plus sécurisée ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Après une effraction ou pour renforcer une porte, une serrure multipoints certifiée A2P, une cornière anti-pince ou un protège-cylindre peuvent être conseillés selon la porte et le niveau de risque."
           }
         }
       ]

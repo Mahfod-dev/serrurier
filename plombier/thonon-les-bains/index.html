@@ -344,6 +344,14 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .top-actions .ghost-btn { display: none; }
   .hero-card::before { right: 14px; }
 }
+/* ---------- Detail & advice cards ---------- */
+.detail-card .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 14px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); }
+.detail-card h3 { font-size: 1.18rem; }
+.advice-card { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm); }
+.advice-card h3 { margin: 0 0 8px; font-size: 1.12rem; display: flex; align-items: center; gap: 9px; }
+.advice-card h3::before { content: "!"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, white); color: var(--accent); font-family: var(--font-display); font-weight: 800; font-size: .95rem; }
+.advice-card p { margin: 0; color: var(--ink-soft); }
+
 /* ---------- Urgency bar ---------- */
 .urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
 .urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
@@ -711,6 +719,60 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
 
 
   <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Prestations à Thonon-les-Bains</span>
+        <h2>Nos interventions de plomberie en détail</h2>
+        <p class="lead">La plomberie d&#x27;urgence ne se limite pas à une fuite visible. Recherche de fuite encastrée, WC ou évacuation bouchés, robinetterie défaillante, chauffe-eau en panne ou dégât des eaux à contenir : chaque cas a sa priorité. La première règle reste de limiter les dégâts, puis de réparer la cause accessible en expliquant chaque pièce nécessaire.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Recherche et arrêt de fuite</h3>
+          <p>Localisation de la fuite (apparente ou encastrée), coupure et réparation de la cause accessible pour limiter le dégât des eaux.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Débouchage sanitaire</h3>
+          <p>WC, évier, lavabo, douche ou baignoire qui s&#x27;évacuent mal : débouchage et vérification de l&#x27;écoulement.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Robinetterie</h3>
+          <p>Remplacement ou réparation de robinets, mitigeurs, flexibles et joints qui fuient ou ne ferment plus correctement.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Chauffe-eau et ballon</h3>
+          <p>Dépannage et remplacement de chauffe-eau électrique ou de ballon, avec contrôle des raccords et de l&#x27;étanchéité.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Remplacement de sanitaires</h3>
+          <p>Pose ou échange de WC, lavabo, siphon et mécanisme de chasse, avec test final d&#x27;étanchéité.</p>
+        </article>
+        
+
+        <article class="card detail-card">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Dégât des eaux</h3>
+          <p>Coupure rapide, limitation des dégâts et compte rendu simple pour l&#x27;assurance ou le propriétaire si nécessaire.</p>
+        </article>
+        </div>
+    </div>
+  </section>
+
+
+
+  <section class="section">
     <div class="wrap grid-2">
       <div class="split-panel">
         <h2>Une fuite maîtrisée vite, sans réparation inutile</h2>
@@ -832,6 +894,42 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
           <span class="card-number">4</span>
           <h3>Contrôler</h3>
           <p>L&#x27;étanchéité et l&#x27;écoulement sont vérifiés avant la fin de l&#x27;intervention.</p>
+        </article>
+        </div>
+    </div>
+  </section>
+
+
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Conseils &amp; bons réflexes</span>
+        <h2>Que faire avant l'arrivée du plombier à Thonon-les-Bains ?</h2>
+        <p>Quelques gestes simples évitent d'aggraver la situation et permettent une intervention plus rapide et moins coûteuse.</p>
+      </div>
+      <div class="grid-2">
+        <article class="advice-card">
+          <h3>Fuite d&#x27;eau : coupez d&#x27;abord</h3>
+          <p>Fermez l&#x27;arrivée d&#x27;eau (robinet sous l&#x27;évier ou vanne générale) avant tout. Cela limite le dégât en attendant l&#x27;intervention.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>WC bouché</h3>
+          <p>Évitez de tirer la chasse à répétition : vous risquez le débordement. Décrivez si l&#x27;évacuation est totalement bloquée ou seulement lente.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Dégât des eaux</h3>
+          <p>Coupez l&#x27;eau et l&#x27;électricité de la zone si besoin, épongez et protégez le mobilier, puis photographiez pour votre assurance.</p>
+        </article>
+        
+
+        <article class="advice-card">
+          <h3>Prévenir les fuites</h3>
+          <p>Surveillez les joints, flexibles et le pied des sanitaires. Un flexible qui suinte ou un joint noirci annoncent souvent une fuite à venir.</p>
         </article>
         </div>
     </div>
