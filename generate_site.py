@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import html
 import json
 import os
@@ -363,6 +364,122 @@ LOCAL_SEO = {
         "micro_areas": ["Centre-ville", "Châteaucreux", "Carnot", "Bellevue", "Montreynaud", "Terrenoire"],
         "local_note": "À Saint-Étienne, les demandes urgentes viennent autant de logements collectifs que de commerces et locaux professionnels.",
     },
+    "vernier": {
+        "micro_areas": ["Les Avanchets", "Châtelaine", "Aïre", "Le Lignon", "Vernier-Village", "Cointrin"],
+        "local_note": "À Vernier, les interventions concernent autant les grands ensembles du Lignon et des Avanchets que les villas de Vernier-Village ; la précision du secteur accélère le déplacement.",
+    },
+    "lancy": {
+        "micro_areas": ["Grand-Lancy", "Petit-Lancy", "Pont-Rouge", "Les Palettes", "La Praille"],
+        "local_note": "À Lancy, le contraste entre les immeubles récents de Pont-Rouge et les quartiers résidentiels du Petit-Lancy demande de bien situer l'adresse dès l'appel.",
+    },
+    "meyrin": {
+        "micro_areas": ["Meyrin-Cité", "Meyrin-Village", "Champs-Fréchets", "Cointrin", "ZIMEYSA"],
+        "local_note": "À Meyrin, la proximité de l'aéroport et de la zone industrielle ZIMEYSA implique autant de demandes en logement qu'en local professionnel.",
+    },
+    "carouge": {
+        "micro_areas": ["Vieux-Carouge", "Les Acacias", "La Fontenette", "Val d'Arve", "Tambourine"],
+        "local_note": "À Carouge, les immeubles anciens du Vieux-Carouge et leurs serrures d'origine appellent souvent une intervention soignée pour préserver les portes.",
+    },
+    "venissieux": {
+        "micro_areas": ["Centre", "Les Minguettes", "Parilly", "Moulin-à-Vent", "Vénissy", "Max Barel"],
+        "local_note": "À Vénissieux, entre grands ensembles des Minguettes et zones pavillonnaires, le repérage du secteur et de l'accès est déterminant.",
+    },
+    "vaulx-en-velin": {
+        "micro_areas": ["Le Village", "Le Mas du Taureau", "La Grappinière", "Centre-ville", "La Soie"],
+        "local_note": "À Vaulx-en-Velin, le quartier de la Soie en pleine mutation et le Village ancien génèrent des besoins très différents en serrurerie comme en plomberie.",
+    },
+    "saint-priest": {
+        "micro_areas": ["Centre-ville", "Bel Air", "Manissieux", "Revaison", "La Cordière"],
+        "local_note": "À Saint-Priest, la part importante de logements collectifs et de locaux d'activité rend la qualification téléphonique d'autant plus utile.",
+    },
+    "caluire-et-cuire": {
+        "micro_areas": ["Centre", "Cuire-le-Bas", "Montessuy", "Saint-Clair", "Vassieux", "Bissardon"],
+        "local_note": "À Caluire-et-Cuire, les pentes de Montessuy et les bords de Saône de Saint-Clair impliquent des accès parfois étroits à préciser à l'avance.",
+    },
+    "meyzieu": {
+        "micro_areas": ["Centre", "Le Carreau", "Les Servizières", "Grand Large", "Mathiolan"],
+        "local_note": "À Meyzieu, l'habitat pavillonnaire dominant et la desserte tramway orientent surtout les demandes vers les particuliers.",
+    },
+    "thonon-les-bains": {
+        "micro_areas": ["Centre-ville", "Rives", "Vongy", "Concise", "Les Genevrilles"],
+        "local_note": "À Thonon-les-Bains, le tourisme et les résidences secondaires du bord du Léman rendent les urgences serrure et fuite très sensibles au délai.",
+    },
+    "saint-julien-en-genevois": {
+        "micro_areas": ["Centre", "Cervonnex", "Thairy", "Lathoy"],
+        "local_note": "À Saint-Julien-en-Genevois, la position frontalière impose de bien clarifier le numéro à utiliser et la zone exacte d'intervention.",
+    },
+    "ferney-voltaire": {
+        "micro_areas": ["Centre", "Paimboeuf", "Tougin"],
+        "local_note": "À Ferney-Voltaire, la clientèle internationale proche de Genève attend une information tarifaire claire et un secteur bien identifié.",
+    },
+    "gex": {
+        "micro_areas": ["Centre", "Parozet", "Mourex", "Tougin"],
+        "local_note": "À Gex, l'essor résidentiel au pied du Jura multiplie les demandes en logements récents comme en maisons anciennes.",
+    },
+    "echirolles": {
+        "micro_areas": ["Le Village", "La Villeneuve", "Les Granges", "Surieux", "La Luire"],
+        "local_note": "À Échirolles, la forte densité de logements collectifs autour de la Villeneuve appelle une bonne identification du bâtiment et de l'accès.",
+    },
+    "bourgoin-jallieu": {
+        "micro_areas": ["Centre", "Champaret", "Mozas", "Pré-Bénit", "Champfleuri"],
+        "local_note": "À Bourgoin-Jallieu, le mélange centre commerçant et zones d'activité oriente les demandes vers particuliers et professionnels à parts égales.",
+    },
+    "voiron": {
+        "micro_areas": ["Centre", "Brunetière", "Sermorens", "Criel", "Le Bourg"],
+        "local_note": "À Voiron, le centre ancien et ses immeubles de caractère demandent souvent une ouverture soignée plutôt qu'un remplacement.",
+    },
+    "bourg-en-bresse": {
+        "micro_areas": ["Centre", "Brou", "La Reyssouze", "Croix-Blanche", "Le Peloux", "Vennes"],
+        "local_note": "À Bourg-en-Bresse, le secteur de Brou et le centre concentrent logements et commerces aux besoins variés.",
+    },
+    "montelimar": {
+        "micro_areas": ["Centre", "Nocaze", "Le Pradon", "Pracomtal", "Les Allées"],
+        "local_note": "À Montélimar, le centre historique et les zones pavillonnaires en périphérie appellent des interventions de nature différente.",
+    },
+    "aubagne": {
+        "micro_areas": ["Centre", "Le Charrel", "La Tourtelle", "Les Passons", "Le Pin Vert"],
+        "local_note": "À Aubagne, entre centre ancien et lotissements, la précision de l'adresse et de l'accès facilite une intervention rapide.",
+    },
+    "salon-de-provence": {
+        "micro_areas": ["Centre", "Les Canourgues", "La Monaque", "Bel Air", "Le Bois Roux"],
+        "local_note": "À Salon-de-Provence, le centre intra-muros et ses portes anciennes demandent une approche prudente lors des ouvertures.",
+    },
+    "vitrolles": {
+        "micro_areas": ["Centre", "Les Pins", "La Frescoule", "Le Liourat", "Le Griffon"],
+        "local_note": "À Vitrolles, la proximité des zones d'activité et de l'aéroport génère beaucoup de demandes en locaux professionnels.",
+    },
+    "la-seyne-sur-mer": {
+        "micro_areas": ["Centre", "Berthe", "Les Sablettes", "Tamaris", "Mar Vivo"],
+        "local_note": "À La Seyne-sur-Mer, le bord de mer des Sablettes et les résidences saisonnières rendent les urgences très sensibles au délai.",
+    },
+    "hyeres": {
+        "micro_areas": ["Centre", "La Capte", "Giens", "L'Ayguade", "Le Port", "Costebelle"],
+        "local_note": "À Hyères, la presqu'île de Giens et les locations de vacances impliquent des demandes urgentes serrure et plomberie en haute saison.",
+    },
+    "frejus": {
+        "micro_areas": ["Centre historique", "Fréjus-Plage", "Saint-Aygulf", "Caïs", "La Tour de Mare"],
+        "local_note": "À Fréjus, entre centre historique et secteurs balnéaires, l'accès et le stationnement doivent être précisés dès l'appel.",
+    },
+    "cagnes-sur-mer": {
+        "micro_areas": ["Centre", "Le Cros-de-Cagnes", "Haut-de-Cagnes", "Les Vespins", "Val Fleuri"],
+        "local_note": "À Cagnes-sur-Mer, les ruelles du Haut-de-Cagnes et le front de mer du Cros appellent des interventions adaptées à chaque type d'accès.",
+    },
+    "grasse": {
+        "micro_areas": ["Centre historique", "Saint-Jacques", "Plascassier", "Magagnosc", "Le Plan"],
+        "local_note": "À Grasse, le centre historique perché et ses portes anciennes demandent souvent une ouverture fine et soignée.",
+    },
+    "menton": {
+        "micro_areas": ["Centre", "Garavan", "Borrigo", "Le Carei", "Les Carmes"],
+        "local_note": "À Menton, la proximité frontalière et les résidences secondaires de Garavan rendent la clarté du tarif et du secteur essentielle.",
+    },
+    "orange": {
+        "micro_areas": ["Centre", "L'Aygues", "Le Coudoulet", "Fourchevieilles", "Nogent"],
+        "local_note": "À Orange, le centre patrimonial et les quartiers résidentiels alentour génèrent des besoins variés en serrurerie et plomberie.",
+    },
+    "carpentras": {
+        "micro_areas": ["Centre", "Les Amandiers", "Pous du Plan", "Serres", "Quintine"],
+        "local_note": "À Carpentras, le centre intra-muros et ses immeubles anciens appellent une intervention prudente sur les portes d'origine.",
+    },
 }
 
 SERVICE_LOCAL_CASES = {
@@ -415,16 +532,22 @@ SERVICE_REVIEWS = {
         ("Porte claquée un soir avec les enfants à l'intérieur. Serrurier arrivé rapidement, porte ouverte sans rien abîmer et prix confirmé avant de commencer.", "Famille", "particulier"),
         ("Serrure forcée pendant une absence : mise en sécurité le jour même et explications claires sur le cylindre à remplacer.", "Propriétaire", "appartement"),
         ("Devis annoncé au téléphone respecté à l'euro près. Aucun travail commencé sans mon accord, c'est rassurant.", "Gérant", "commerce"),
+        ("Clé cassée dans la serrure un dimanche. Intervention propre, cylindre changé et conseils utiles pour la sécurité.", "Particulier", "maison"),
+        ("Rideau métallique bloqué juste avant l'ouverture. Remise en service rapide, on a pu accueillir les clients le matin même.", "Commerçant", "boutique"),
     ],
     "plombier": [
         ("Fuite sous l'évier en pleine soirée : eau coupée tout de suite et réparation expliquée étape par étape, sans pièce inutile.", "Locataire", "appartement"),
         ("Chauffe-eau en panne, diagnostic honnête et prix donné avant l'intervention. Rien à redire sur la propreté du chantier.", "Particulier", "maison"),
         ("WC bouchés un dimanche, intervention rapide, sols protégés et conseils pour éviter que ça recommence.", "Syndic", "copropriété"),
+        ("Recherche de fuite encastrée bien menée, sans tout casser. Le plombier a pris le temps d'expliquer la cause.", "Propriétaire", "maison"),
+        ("Mitigeur de cuisine remplacé proprement, tarif clair et conforme à ce qui avait été annoncé au téléphone.", "Particulier", "appartement"),
     ],
     "degorgement": [
         ("Canalisation bouchée avec remontées d'eau : situation qualifiée précisément au téléphone puis hydrocurage efficace le jour même.", "Particulier", "maison"),
         ("Regard plein, camion pompe envoyé après vérification de l'accès. Travail soigné et conseils pour éviter la récidive.", "Gérant", "résidence"),
         ("Débouchage réalisé dans la journée, prix confirmé avant de commencer, aucune mauvaise surprise sur la facture.", "Propriétaire", "immeuble"),
+        ("Évacuation lente depuis des semaines, réglée en une intervention. Explications claires sur l'entretien à prévoir.", "Locataire", "appartement"),
+        ("Inspection caméra avant de décider : on a évité des travaux inutiles, juste un hydrocurage ciblé.", "Syndic", "copropriété"),
     ],
 }
 
@@ -439,22 +562,46 @@ SERVICE_REASSURANCE = {
 SERVICE_VALUE = {
     "serrurier": (
         "Un dépannage de serrurerie clair, du premier appel à la porte ouverte",
-        "Vous expliquez la situation, on vous indique la méthode la moins coûteuse possible (ouverture fine plutôt que remplacement quand la porte le permet) et le prix avant de se déplacer. Pas de pression, pas d'intervention engagée sans votre accord.",
+        [
+            "Vous expliquez la situation, on vous indique la méthode la moins coûteuse possible (ouverture fine plutôt que remplacement quand la porte le permet) et le prix avant de se déplacer. Pas de pression, pas d'intervention engagée sans votre accord.",
+            "Tout commence par une question simple au téléphone : peut-on ouvrir sans casse ? Quand la porte le permet, l'ouverture fine évite tout remplacement. Le prix est annoncé avant le déplacement, et rien n'est engagé sans votre feu vert.",
+            "L'idée est de vous redonner l'accès au plus vite, en privilégiant la solution la moins coûteuse et la moins destructrice. Méthode, matériel et tarif vous sont expliqués avant de commencer, pour décider en connaissance de cause.",
+        ],
     ),
     "plombier": (
         "Une fuite maîtrisée vite, sans réparation inutile",
-        "La priorité est de stopper l'eau et de limiter les dégâts, puis de réparer la cause accessible en vous expliquant chaque pièce nécessaire. Le prix est confirmé avant l'intervention, y compris le soir et le week-end.",
+        [
+            "La priorité est de stopper l'eau et de limiter les dégâts, puis de réparer la cause accessible en vous expliquant chaque pièce nécessaire. Le prix est confirmé avant l'intervention, y compris le soir et le week-end.",
+            "On commence par contenir le problème — couper, protéger — avant de traiter la cause. Chaque pièce remplacée est justifiée, et le devis est annoncé avant de commencer, sans supplément caché de soirée ou de week-end non annoncé.",
+            "Limiter le dégât d'abord, réparer ensuite : c'est l'ordre logique d'une urgence plomberie bien gérée. Vous savez ce qui est fait, pourquoi, et combien, avant le début de l'intervention.",
+        ],
     ),
     "degorgement": (
         "Le bon matériel pour votre canalisation, pas plus que nécessaire",
-        "Selon le type de bouchon et l'accès, on oriente vers un débouchage simple, un hydrocurage ou un camion pompe — et on vous l'explique avant. L'objectif est de rétablir l'écoulement sans engager de travaux lourds inutiles.",
+        [
+            "Selon le type de bouchon et l'accès, on oriente vers un débouchage simple, un hydrocurage ou un camion pompe — et on vous l'explique avant. L'objectif est de rétablir l'écoulement sans engager de travaux lourds inutiles.",
+            "Avant de sortir le gros matériel, on qualifie le bouchon : profondeur, accès, nature du dépôt. Un débouchage mécanique suffit souvent ; l'hydrocurage ou le camion pompe ne sont proposés que lorsqu'ils sont réellement nécessaires.",
+            "Rétablir l'écoulement durablement, sans surdimensionner l'intervention : voilà l'objectif. La solution est choisie selon le diagnostic réel et vous est expliquée avant tout démarrage des travaux.",
+        ],
     ),
 }
 
-SERVICE_INTRO = {
-    "serrurier": "La serrurerie d'urgence couvre bien plus que l'ouverture d'une porte claquée. Entre une clé cassée dans le cylindre, une serrure multipoints grippée, une porte de commerce à sécuriser ou une mise en sécurité après effraction, chaque situation demande le bon geste et le bon matériel. L'objectif reste le même : résoudre le problème avec la méthode la moins coûteuse et la moins destructrice possible, après vous avoir expliqué ce qui est nécessaire.",
-    "plombier": "La plomberie d'urgence ne se limite pas à une fuite visible. Recherche de fuite encastrée, WC ou évacuation bouchés, robinetterie défaillante, chauffe-eau en panne ou dégât des eaux à contenir : chaque cas a sa priorité. La première règle reste de limiter les dégâts, puis de réparer la cause accessible en expliquant chaque pièce nécessaire.",
-    "degorgement": "Un bouchon de canalisation peut aller du simple ralentissement d'évacuation à un réseau complètement saturé avec remontées d'eau. Selon la profondeur, l'accès et la nature du dépôt, la bonne réponse va du débouchage mécanique à l'hydrocurage haute pression ou au camion pompe. Une qualification précise au téléphone évite un déplacement mal préparé.",
+SERVICE_INTRO_VARIANTS = {
+    "serrurier": [
+        "La serrurerie d'urgence couvre bien plus que l'ouverture d'une porte claquée. Entre une clé cassée dans le cylindre, une serrure multipoints grippée, une porte de commerce à sécuriser ou une mise en sécurité après effraction, chaque situation demande le bon geste et le bon matériel. L'objectif reste le même : résoudre le problème avec la méthode la moins coûteuse et la moins destructrice possible, après vous avoir expliqué ce qui est nécessaire.",
+        "Une urgence de serrurerie ne se règle pas à l'aveugle. Selon qu'il s'agit d'une porte simplement claquée, d'une serrure verrouillée de l'intérieur, d'un cylindre forcé ou d'un rideau de commerce bloqué, la technique et l'outillage changent complètement. Le réflexe utile : décrire précisément la porte et la serrure au téléphone pour préparer la bonne intervention et éviter tout dégât inutile.",
+        "De la porte d'entrée d'appartement à la grille de magasin, en passant par les serrures multipoints et les portes blindées, les besoins en serrurerie sont très variés. Une bonne intervention commence toujours par un diagnostic clair : type de porte, état de la serrure, niveau d'urgence et budget annoncé avant de se déplacer, pour que vous gardiez la maîtrise de la décision.",
+    ],
+    "plombier": [
+        "La plomberie d'urgence ne se limite pas à une fuite visible. Recherche de fuite encastrée, WC ou évacuation bouchés, robinetterie défaillante, chauffe-eau en panne ou dégât des eaux à contenir : chaque cas a sa priorité. La première règle reste de limiter les dégâts, puis de réparer la cause accessible en expliquant chaque pièce nécessaire.",
+        "Entre une fuite sous l'évier, un chauffe-eau qui lâche, des WC qui débordent ou un dégât des eaux qui menace le logement du dessous, les urgences de plomberie n'ont pas toutes la même gravité. Le bon réflexe est de couper l'eau et de qualifier le problème au téléphone, pour intervenir vite et juste, sans pièce ni réparation superflue.",
+        "Une intervention de plomberie réussie, c'est d'abord stopper l'eau et limiter les dégâts, puis traiter la cause : joint, flexible, mécanisme, robinetterie ou évacuation. Chaque élément remplacé est expliqué avant, et le prix est confirmé avant de commencer — y compris en soirée, le week-end et les jours fériés.",
+    ],
+    "degorgement": [
+        "Un bouchon de canalisation peut aller du simple ralentissement d'évacuation à un réseau complètement saturé avec remontées d'eau. Selon la profondeur, l'accès et la nature du dépôt, la bonne réponse va du débouchage mécanique à l'hydrocurage haute pression ou au camion pompe. Une qualification précise au téléphone évite un déplacement mal préparé.",
+        "Tous les bouchons ne se traitent pas de la même façon. Un évier qui s'évacue lentement, un WC bloqué, un regard plein ou des remontées dans plusieurs points appellent des solutions différentes : débouchage haute pression, hydrocurage ou camion pompe selon le diamètre, l'accès et l'origine du dépôt.",
+        "Le dégorgement de canalisation demande d'abord de localiser le point de blocage, puis de choisir le matériel adapté plutôt que d'appliquer une solution unique. L'objectif est de rétablir un écoulement durable sans engager de travaux lourds inutiles, et de vous expliquer comment éviter la récidive.",
+    ],
 }
 
 # Prestations détaillées affichées en cartes. Contenu volontairement riche pour
@@ -526,6 +673,23 @@ EXTRA_FAQ = {
     ],
 }
 
+# Paragraphe d'accroche locale, varié par ville. Placeholders : {name} {city}
+# {label} {zone} {region}.
+SERVICE_LOCAL_LEAD = [
+    "{name} traite les demandes de {label} à {city} avec une information claire dès le premier appel : secteur concerné, nature du problème, délai possible et devis annoncé avant intervention.",
+    "À {city} comme dans le reste du bassin {zone}, {name} qualifie chaque demande de {label} au téléphone avant de se déplacer : on confirme le secteur, l'urgence réelle et le prix avant de commencer.",
+    "Que vous soyez en plein {city} ou en périphérie, {name} apporte une réponse locale en {label} : description du besoin, délai annoncé selon la disponibilité d'une équipe proche, et tarif confirmé avant tout déplacement.",
+    "En {region}, {name} couvre {city} et son secteur pour les interventions de {label}. La logique est simple : comprendre le problème, vérifier la zone, annoncer le prix, puis intervenir avec le bon matériel.",
+]
+
+# Phrase de soutien du hero, variée par ville. Placeholder : {city}.
+HERO_SUPPORT = [
+    "Un interlocuteur récupère les informations essentielles et confirme le prix avant déplacement.",
+    "On vous pose les bonnes questions, on annonce le tarif, puis on intervient — sans engagement avant votre accord.",
+    "Décrivez la situation à {city} : on qualifie l'urgence et on confirme les conditions avant de se déplacer.",
+    "Quelques questions suffisent pour cadrer l'intervention et vous donner un prix clair avant tout déplacement.",
+]
+
 
 @dataclass(frozen=True)
 class City:
@@ -570,6 +734,38 @@ def slugify(value: str) -> str:
 
 def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
+
+
+# --- Moteur de variation déterministe -------------------------------------
+# Objectif SEO : faire varier le contenu d'une ville à l'autre de façon stable
+# (jamais aléatoire d'une génération à l'autre) pour réduire fortement la
+# similarité entre pages, sans jamais introduire d'information fausse.
+def _seed(slug: str, salt: str = "") -> int:
+    digest = hashlib.md5(f"{slug}|{salt}".encode("utf-8")).hexdigest()
+    return int(digest[:8], 16)
+
+
+def pick(slug: str, pool: list, salt: str = ""):
+    """Choisit de façon déterministe un élément d'un pool selon la ville."""
+    if not pool:
+        return ""
+    return pool[_seed(slug, salt) % len(pool)]
+
+
+def reorder(slug: str, items: list, salt: str = "") -> list:
+    """Mélange déterministe (Fisher-Yates) propre à la ville."""
+    out = list(items)
+    rnd = _seed(slug, salt) or 1
+    for i in range(len(out) - 1, 0, -1):
+        rnd = (rnd * 1103515245 + 12345) & 0x7FFFFFFF
+        j = rnd % (i + 1)
+        out[i], out[j] = out[j], out[i]
+    return out
+
+
+def take(slug: str, items: list, count: int, salt: str = "") -> list:
+    """Réordonne puis prend les `count` premiers éléments, propre à la ville."""
+    return reorder(slug, items, salt)[:count]
 
 
 def city_priority(name: str) -> int:
@@ -1386,16 +1582,24 @@ def service_links_for_city(city: City, build: BuildConfig, exclude_service_key: 
     return '<div class="service-links">' + "\n".join(links) + "</div>"
 
 
+GENERIC_LOCAL_NOTES = [
+    "À {city}, les interventions couvrent le centre comme les secteurs résidentiels alentour ; préciser le quartier et l'accès au téléphone permet d'arriver plus vite.",
+    "{city} est rattachée au bassin {zone} : selon la disponibilité d'une équipe proche, le délai d'intervention est annoncé dès l'appel.",
+    "À {city}, qu'il s'agisse d'un logement, d'un commerce ou d'un local professionnel, la demande est qualifiée avant déplacement pour confirmer le secteur et les conditions.",
+    "Située en {region}, {city} bénéficie d'une couverture locale avec un numéro adapté et un devis annoncé avant toute intervention.",
+]
+
+
 def local_seo_for(city: City, nearby: list[City]) -> dict[str, object]:
     if city.slug in LOCAL_SEO:
         return LOCAL_SEO[city.slug]
     nearby_names = [item.name for item in nearby[:6]]
     if len(nearby_names) < 3:
         nearby_names = [city.zone, city.region, city.name]
-    return {
-        "micro_areas": nearby_names,
-        "local_note": f"Cette page est rattachée au bassin {city.zone}. Les preuves locales doivent être ajoutées progressivement pour renforcer son indexation.",
-    }
+    note = pick(city.slug, GENERIC_LOCAL_NOTES, "note").format(
+        city=city.name, zone=city.zone, region=city.region
+    )
+    return {"micro_areas": nearby_names, "local_note": note}
 
 
 def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -> str:
@@ -1473,7 +1677,7 @@ def reassurance_strip(phone_display: str, service_key: str | None = None) -> str
 
 def reviews_section(city: City, service: dict[str, object], service_key: str) -> str:
     label = str(service["label"]).lower()
-    reviews = SERVICE_REVIEWS.get(service_key, SERVICE_REVIEWS["serrurier"])
+    reviews = take(city.slug, SERVICE_REVIEWS.get(service_key, SERVICE_REVIEWS["serrurier"]), 3, "reviews")
     cards = "\n".join(
         f"""
         <figure class="review-card">
@@ -1571,12 +1775,12 @@ def quartiers_section(city: City, service_key: str, nearby: list[City], build: B
 
 
 def detail_section(city: City, service: dict[str, object], service_key: str) -> str:
-    items = SERVICE_DETAIL.get(service_key, [])
+    items = reorder(city.slug, SERVICE_DETAIL.get(service_key, []), "detail")
     if not items:
         return ""
     label = str(service["label"]).lower()
     plural = str(service["plural"])
-    intro = SERVICE_INTRO.get(service_key, "")
+    intro = pick(city.slug, SERVICE_INTRO_VARIANTS.get(service_key, [""]), "intro")
     icons = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}
     svc_icon = icons.get(service_key, "shield")
     cards = "\n".join(
@@ -1604,7 +1808,7 @@ def detail_section(city: City, service: dict[str, object], service_key: str) -> 
 
 
 def advice_section(city: City, service: dict[str, object], service_key: str) -> str:
-    items = SERVICE_ADVICE.get(service_key, [])
+    items = reorder(city.slug, SERVICE_ADVICE.get(service_key, []), "advice")
     if not items:
         return ""
     label = str(service["label"]).lower()
@@ -1659,10 +1863,11 @@ def process_section(service: dict[str, object], city: City) -> str:
 def expertise_section(city: City, service_key: str, service: dict[str, object], nearby: list[City]) -> str:
     audience = str(service["audience"])
     promise = str(service["promise"])
-    value_title, value_text = SERVICE_VALUE.get(
+    value_title, value_texts = SERVICE_VALUE.get(
         service_key,
-        ("Une intervention claire, du premier appel à la fin du dépannage", str(service["promise"])),
+        ("Une intervention claire, du premier appel à la fin du dépannage", [str(service["promise"])]),
     )
+    value_text = pick(city.slug, value_texts, "value")
     local = local_seo_for(city, nearby)
     areas = ", ".join(str(item) for item in local["micro_areas"][:4])
     return f"""
@@ -1750,7 +1955,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     description = f"{BUSINESS['name']} : {service['short']} Intervention à {city.name} et secteur proche. Appel direct, devis avant intervention."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     nearby_links = " ".join(f'<a class="pill" href="{service_path(c, service_key, build)}">{esc(c.name)}</a>' for c in nearby)
-    benefits = "\n".join(f"<li>{esc(item)}</li>" for item in service["benefits"])
+    benefits = "\n".join(f"<li>{esc(item)}</li>" for item in reorder(city.slug, service["benefits"], "benefits"))
     pricing_rows = "\n".join(
         f"<tr><td>{esc(label)}</td><td>{esc(price)}</td></tr>" for label, price in service["pricing"]
     )
@@ -1771,8 +1976,13 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     callback = callback_form(city.name, str(service["label"]), phone_display, phone_href)
     service_icon = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}.get(service_key, "shield")
     extra_faq = "\n".join(
-        f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in EXTRA_FAQ.get(service_key, [])
+        f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
+        for q, a in reorder(city.slug, EXTRA_FAQ.get(service_key, []), "faq")
     )
+    local_lead = pick(city.slug, SERVICE_LOCAL_LEAD, "lead").format(
+        name=BUSINESS["name"], city=city.name, label=str(service["label"]).lower(), zone=city.zone, region=city.region
+    )
+    hero_support = pick(city.slug, HERO_SUPPORT, "herosupport").format(city=city.name)
     service_faq_question, service_faq_answer = SERVICE_LOCAL_CASES[service_key]["faq"]
     if other_services:
         related_section = f"""
@@ -1809,7 +2019,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
       <div>
         <span class="live-pill"><span class="live-dot"></span>Équipe disponible maintenant · {esc(city.zone)}</span>
         <h1>{esc(service["label"])} à <em>{esc(city.name)}</em>, intervention en urgence</h1>
-        <p>{esc(hero)} Un interlocuteur récupère les informations essentielles et confirme le prix avant déplacement.</p>
+        <p>{esc(hero)} {esc(hero_support)}</p>
         <div class="hero-badges">
           <span class="hero-badge">{icon("tag")} Devis avant intervention</span>
           <span class="hero-badge">{icon("clock")} 24h/24 · 7j/7</span>
@@ -1842,7 +2052,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
       <div>
         <div class="section-head">
           <h2>{esc(service["label"])} local à {esc(city.name)}</h2>
-          <p>{esc(BUSINESS["name"])} traite les demandes urgentes et planifiées avec une information claire dès le premier appel : secteur, nature du problème, délai possible et devis avant intervention.</p>
+          <p>{esc(local_lead)}</p>
         </div>
         <ul class="check-list">{benefits}</ul>
       </div>
