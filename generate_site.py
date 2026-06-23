@@ -7,23 +7,33 @@ import html
 import json
 import os
 import re
+import shutil
 import unicodedata
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
+GENERATED_DATE = date.today().isoformat()
 
 BUSINESS = {
-    "name": "Solybat",
-    "site_url": "https://www.solybat.fr",
-    "email": "contact@solybat.fr",
-    "address": "Adresse Solybat à compléter",
-    "fr_phone_display": "04 00 00 00 00",
-    "fr_phone_href": "+33400000000",
-    "ch_phone_display": "+41 22 000 00 00",
-    "ch_phone_href": "+41220000000",
-    "whatsapp": "33600000000",
+    "name": os.environ.get("SOLYBAT_NAME", "Solybat"),
+    "site_url": os.environ.get("SOLYBAT_SITE_URL", "https://www.solybat.fr"),
+    "email": os.environ.get("SOLYBAT_EMAIL", "contact@solybat.fr"),
+    "legal_name": os.environ.get("SOLYBAT_LEGAL_NAME", "Solybat"),
+    "legal_form": os.environ.get("SOLYBAT_LEGAL_FORM", "Entreprise à compléter"),
+    "siret": os.environ.get("SOLYBAT_SIRET", "SIRET à compléter"),
+    "vat": os.environ.get("SOLYBAT_VAT", "TVA à compléter si applicable"),
+    "director": os.environ.get("SOLYBAT_DIRECTOR", "Responsable de publication à compléter"),
+    "address": os.environ.get("SOLYBAT_ADDRESS", "Adresse Solybat à compléter"),
+    "fr_phone_display": os.environ.get("SOLYBAT_FR_PHONE_DISPLAY", "04 00 00 00 00"),
+    "fr_phone_href": os.environ.get("SOLYBAT_FR_PHONE_HREF", "+33400000000"),
+    "ch_phone_display": os.environ.get("SOLYBAT_CH_PHONE_DISPLAY", "+41 22 000 00 00"),
+    "ch_phone_href": os.environ.get("SOLYBAT_CH_PHONE_HREF", "+41220000000"),
+    "whatsapp": os.environ.get("SOLYBAT_WHATSAPP", "33600000000"),
+    "host_name": os.environ.get("SOLYBAT_HOST_NAME", "Vercel Inc."),
+    "host_address": os.environ.get("SOLYBAT_HOST_ADDRESS", "440 N Barranca Ave #4133, Covina, CA 91723, United States"),
 }
 
 CITY_GROUPS = """
@@ -96,11 +106,27 @@ SERVICES = {
         "short": "Ouverture de porte, serrure bloquée, cylindre à remplacer et sécurisation après effraction.",
         "hero": "Porte claquée, clé perdue ou serrure forcée : Solybat intervient rapidement à {city}.",
         "image": "https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop",
+        "accent": "#f97316",
+        "secondary": "#2563eb",
+        "audience": "particuliers, commerces, syndics et locaux professionnels",
+        "promise": "Une intervention de serrurerie doit d'abord être expliquée : type de porte, niveau de sécurité, risque d'endommagement et prix avant ouverture.",
         "benefits": [
             "Ouverture fine quand la porte le permet",
             "Remplacement de cylindre et serrure multipoints",
             "Mise en sécurité après tentative d'effraction",
             "Devis annoncé avant intervention",
+        ],
+        "trust_points": [
+            "Diagnostic téléphonique avant déplacement",
+            "Justificatif d'occupation demandé si nécessaire",
+            "Aucune ouverture destructrice sans accord préalable",
+            "Conseil sur la sécurisation après effraction",
+        ],
+        "steps": [
+            ("Qualification", "Vous décrivez la porte, la serrure, l'urgence et l'accès au logement ou au local."),
+            ("Prix annoncé", "Un prix indicatif est donné avant déplacement selon l'horaire et la situation."),
+            ("Intervention", "Le serrurier privilégie l'ouverture fine si la configuration le permet."),
+            ("Sécurisation", "La fermeture est vérifiée, avec remplacement ou mise en sécurité si nécessaire."),
         ],
         "pricing": [
             ("Déplacement local", "Sur devis"),
@@ -124,11 +150,27 @@ SERVICES = {
         "short": "Fuite d'eau, WC bouchés, robinetterie, chauffe-eau et dépannage sanitaire urgent.",
         "hero": "Fuite, dégât des eaux ou panne sanitaire : Solybat envoie un plombier à {city}.",
         "image": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?q=80&w=1800&auto=format&fit=crop",
+        "accent": "#0ea5e9",
+        "secondary": "#f97316",
+        "audience": "logements, copropriétés, commerces et locaux professionnels",
+        "promise": "Une urgence plomberie doit limiter les dégâts rapidement : couper l'eau, identifier l'origine probable et confirmer le prix avant intervention.",
         "benefits": [
             "Recherche et arrêt de fuite",
             "Dépannage WC, évier, lavabo et douche",
             "Remplacement robinetterie et joints",
             "Intervention prioritaire en urgence",
+        ],
+        "trust_points": [
+            "Priorité à la coupure et à la limitation du dégât des eaux",
+            "Explication claire avant remplacement de pièce",
+            "Intervention sur sanitaire, robinetterie et évacuation courante",
+            "Compte rendu simple pour assurance ou propriétaire si besoin",
+        ],
+        "steps": [
+            ("Sécuriser", "Vous indiquez si l'eau peut être coupée et si le dégât est encore actif."),
+            ("Identifier", "La fuite, l'équipement ou l'évacuation concernée est qualifiée avant déplacement."),
+            ("Réparer", "Le plombier intervient sur la cause accessible et explique les pièces nécessaires."),
+            ("Contrôler", "L'étanchéité et l'écoulement sont vérifiés avant la fin de l'intervention."),
         ],
         "pricing": [
             ("Déplacement local", "Sur devis"),
@@ -152,11 +194,27 @@ SERVICES = {
         "short": "Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées.",
         "hero": "Canalisation bouchée, regard plein ou besoin de camion pompe : Solybat intervient à {city}.",
         "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=1800&auto=format&fit=crop",
+        "accent": "#0891b2",
+        "secondary": "#f97316",
+        "audience": "maisons, immeubles, locaux commerciaux et réseaux extérieurs accessibles",
+        "promise": "Un bouchon de canalisation demande une qualification précise : point de blocage, accès, remontées d'eau et besoin éventuel d'hydrocurage.",
         "benefits": [
             "Débouchage canalisation haute pression",
             "Curage préventif ou curatif",
             "Camion pompe selon accessibilité",
             "Diagnostic avant travaux lourds",
+        ],
+        "trust_points": [
+            "Qualification du bouchon avant déplacement",
+            "Vérification de l'accès au regard ou à l'évacuation",
+            "Solution adaptée : débouchage simple, curage ou camion pompe",
+            "Conseils pour éviter une récidive rapide",
+        ],
+        "steps": [
+            ("Localiser", "Vous précisez l'équipement concerné, les remontées et l'accès aux regards."),
+            ("Qualifier", "Le besoin est orienté entre débouchage, hydrocurage ou camion pompe."),
+            ("Déboucher", "L'intervention est menée avec le matériel adapté au type de bouchon."),
+            ("Prévenir", "Les causes possibles et les signes de récidive sont expliqués après intervention."),
         ],
         "pricing": [
             ("Diagnostic canalisation", "Sur devis"),
@@ -399,7 +457,7 @@ def city_hub_path(city: City) -> str:
 
 
 def service_names(build: BuildConfig) -> str:
-    labels = [SERVICES[key]["label"].lower() for key in build.service_keys]
+    labels = [SERVICES[key]["plural"] for key in build.service_keys]
     if len(labels) == 1:
         return labels[0]
     return ", ".join(labels[:-1]) + " et " + labels[-1]
@@ -430,18 +488,39 @@ def display_path(path: Path) -> Path:
         return path
 
 
-def css() -> str:
-    return """
+def operations_root(build: BuildConfig) -> Path:
+    if build.output_root == ROOT:
+        return ROOT
+    return ROOT / "ops" / build.key
+
+
+def prepare_output(build: BuildConfig) -> None:
+    if build.output_root == ROOT:
+        return
+    resolved_output = build.output_root.resolve()
+    resolved_root = ROOT.resolve()
+    if build.output_root.exists() and resolved_root in resolved_output.parents:
+        shutil.rmtree(build.output_root)
+
+
+def css(build: BuildConfig) -> str:
+    theme_key = build.primary_service_key or build.service_keys[0]
+    theme_service = SERVICES[theme_key]
+    accent = str(theme_service.get("accent", "#f97316"))
+    secondary = str(theme_service.get("secondary", "#2563eb"))
+    css_text = """
 :root {
   --ink: #111827;
-  --muted: #5b6472;
-  --line: #d9dee7;
-  --soft: #f5f7fb;
-  --brand: #0f172a;
-  --blue: #2563eb;
-  --orange: #f97316;
-  --green: #15803d;
+  --muted: #526071;
+  --line: #dde3ec;
+  --soft: #f6f8fb;
+  --brand: #101826;
+  --brand-2: #1f2937;
+  --accent: __ACCENT__;
+  --secondary: __SECONDARY__;
+  --green: #147a4f;
   --white: #ffffff;
+  --warning-soft: #fff7ed;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -450,9 +529,11 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--white);
-  line-height: 1.55;
+  line-height: 1.58;
 }
 a { color: inherit; text-decoration: none; }
+.skip-link { position: absolute; left: -999px; top: 10px; z-index: 100; background: var(--white); color: var(--ink); padding: 10px 12px; border-radius: 8px; }
+.skip-link:focus { left: 10px; }
 .topbar {
   position: sticky;
   top: 0;
@@ -464,7 +545,7 @@ a { color: inherit; text-decoration: none; }
 .topbar-inner, .nav, .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
 .topbar-inner { min-height: 52px; display: flex; gap: 14px; align-items: center; justify-content: space-between; }
 .brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 0; display: flex; gap: 10px; align-items: center; }
-.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--orange); color: var(--white); font-weight: 900; }
+.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--accent); color: var(--white); font-weight: 900; }
 .top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
 .call-btn, .ghost-btn {
   display: inline-flex;
@@ -476,12 +557,12 @@ a { color: inherit; text-decoration: none; }
   font-weight: 800;
   white-space: nowrap;
 }
-.call-btn { background: var(--orange); color: var(--white); box-shadow: 0 10px 25px rgba(249, 115, 22, .25); }
+.call-btn { background: var(--accent); color: var(--white); box-shadow: 0 10px 25px rgba(15, 23, 42, .18); }
 .ghost-btn { border: 1px solid rgba(255,255,255,.28); color: var(--white); }
 .nav-shell { background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); position: sticky; top: 52px; z-index: 19; }
 .nav { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .nav-links { display: flex; gap: 18px; color: var(--muted); font-weight: 700; font-size: .95rem; flex-wrap: wrap; }
-.nav-links a:hover { color: var(--orange); }
+.nav-links a:hover { color: var(--accent); }
 .hero {
   position: relative;
   color: var(--white);
@@ -493,7 +574,7 @@ a { color: inherit; text-decoration: none; }
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(90deg, rgba(15,23,42,.94), rgba(15,23,42,.70), rgba(15,23,42,.42)), var(--hero-image);
+  background-image: linear-gradient(90deg, rgba(16,24,38,.96), rgba(16,24,38,.76), rgba(16,24,38,.36)), var(--hero-image);
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -501,36 +582,44 @@ a { color: inherit; text-decoration: none; }
 .hero-grid {
   width: min(1160px, calc(100% - 32px));
   margin: 0 auto;
-  min-height: 590px;
+  min-height: 620px;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
   align-items: center;
   gap: 40px;
-  padding: 58px 0;
+  padding: 64px 0;
 }
 .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: #fed7aa; font-weight: 900; text-transform: uppercase; font-size: .78rem; }
-h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20px; letter-spacing: 0; }
+.section .eyebrow { color: var(--accent); }
+h1 { font-size: 4.55rem; line-height: 1.02; margin: 14px 0 20px; letter-spacing: 0; max-width: 860px; }
 .hero p { color: #e5e7eb; font-size: 1.15rem; max-width: 720px; }
+.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 0; }
+.hero-badge { display: inline-flex; align-items: center; min-height: 34px; padding: 7px 11px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px; color: #f8fafc; background: rgba(255,255,255,.08); font-weight: 800; font-size: .85rem; }
 .hero-card {
   background: rgba(255,255,255,.96);
   color: var(--ink);
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 24px 70px rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.36);
 }
 .hero-card h2 { margin: 0 0 14px; font-size: 1.25rem; }
 .hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 10px; }
 .hero-card li, .check-list li { display: flex; gap: 10px; align-items: flex-start; }
 .hero-card li::before, .check-list li::before { content: "✓"; color: var(--green); font-weight: 900; }
+.hero-meta { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.hero-meta strong { display: block; font-size: 1.4rem; color: var(--brand); }
+.hero-meta span { color: var(--muted); font-weight: 700; font-size: .88rem; }
 .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
-.section { padding: 72px 0; }
+.section { padding: 78px 0; }
 .section.alt { background: var(--soft); }
 .section-head { max-width: 760px; margin-bottom: 34px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-.section h2 { font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.08; margin: 0 0 12px; }
+.section h2 { font-size: 2.55rem; line-height: 1.08; margin: 0 0 12px; letter-spacing: 0; }
 .section p { color: var(--muted); }
 .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .card {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -539,23 +628,36 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
   box-shadow: 0 10px 30px rgba(15,23,42,.06);
 }
 .card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+.card-number { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 8px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--brand); font-weight: 900; margin-bottom: 14px; }
+.trust-band { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; }
+.trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.trust-item { padding: 22px; border-right: 1px solid var(--line); }
+.trust-item:last-child { border-right: 0; }
+.trust-item strong { display: block; margin-bottom: 4px; color: var(--brand); }
+.trust-item span { color: var(--muted); font-size: .93rem; }
+.split-panel { background: linear-gradient(135deg, color-mix(in srgb, var(--secondary) 7%, white), var(--white)); border: 1px solid var(--line); border-radius: 8px; padding: 28px; }
+.cta-panel { background: var(--brand); color: var(--white); border-radius: 8px; padding: 30px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+.cta-panel p { color: #cbd5e1; margin: 6px 0 0; }
 .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
 .pill { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 8px 11px; color: var(--muted); background: var(--white); font-weight: 700; font-size: .88rem; }
-.priority-1 { border-color: rgba(249, 115, 22, .4); color: #9a3412; background: #fff7ed; }
-.priority-2 { border-color: rgba(37, 99, 235, .34); color: #1d4ed8; background: #eff6ff; }
+.priority-1 { border-color: color-mix(in srgb, var(--accent) 45%, white); color: var(--brand); background: color-mix(in srgb, var(--accent) 8%, white); }
+.priority-2 { border-color: color-mix(in srgb, var(--secondary) 35%, white); color: var(--brand); background: color-mix(in srgb, var(--secondary) 8%, white); }
 .price-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--white); }
 .price-table th, .price-table td { padding: 16px; border-bottom: 1px solid var(--line); text-align: left; }
 .price-table th { background: var(--brand); color: var(--white); }
 .price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 900; }
-.notice { border-left: 4px solid var(--orange); padding: 16px 18px; background: #fff7ed; border-radius: 8px; color: #7c2d12; }
+.notice { border-left: 4px solid var(--accent); padding: 16px 18px; background: var(--warning-soft); border-radius: 8px; color: #7c2d12; }
 .faq details { border: 1px solid var(--line); border-radius: 8px; background: var(--white); padding: 18px 20px; }
 .faq summary { cursor: pointer; font-weight: 900; list-style: none; }
 .faq summary::-webkit-details-marker { display: none; }
-.footer { background: var(--brand); color: #cbd5e1; padding: 36px 0; }
-.footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer { background: var(--brand); color: #cbd5e1; padding: 42px 0; }
+.footer .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 26px; }
+.footer strong { color: var(--white); }
+.footer a { color: inherit; }
+.footer-links { display: grid; gap: 7px; }
 .service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
 .service-links a { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: var(--white); font-weight: 800; }
-.service-links a:hover { border-color: var(--orange); color: var(--orange); }
+.service-links a:hover { border-color: var(--accent); color: var(--accent); }
 .mobile-call { display: none; }
 @media (max-width: 880px) {
   .topbar-inner, .nav { width: min(100% - 24px, 1160px); }
@@ -566,8 +668,14 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
   .nav-shell { top: 60px; }
   .nav { align-items: flex-start; padding: 10px 0; }
   .nav-links { gap: 10px; font-size: .86rem; }
-  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 36px; }
-  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  h1 { font-size: 3rem; }
+  .section h2 { font-size: 2rem; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 46px 0 38px; }
+  .grid-4, .grid-3, .grid-2, .trust-grid { grid-template-columns: 1fr; }
+  .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
+  .trust-item:last-child { border-bottom: 0; }
+  .cta-panel { align-items: flex-start; flex-direction: column; }
+  .footer .wrap { grid-template-columns: 1fr; }
   .mobile-call {
     display: flex;
     position: fixed;
@@ -581,11 +689,14 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
   .footer { padding-bottom: 86px; }
 }
 """
+    return css_text.replace("__ACCENT__", accent).replace("__SECONDARY__", secondary)
 
 
 def layout(title: str, description: str, path: str, body: str, schema: dict, build: BuildConfig) -> str:
     canonical = page_url(path, build)
     schema_json = json.dumps(schema, ensure_ascii=False, indent=2)
+    primary_key = build.primary_service_key or build.service_keys[0]
+    image = str(SERVICES[primary_key]["image"])
     return f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -595,10 +706,22 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
   <meta name="description" content="{esc(description)}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{esc(canonical)}">
-  <style>{css()}</style>
+  <meta name="theme-color" content="#101826">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="{esc(BUSINESS["name"])}">
+  <meta property="og:title" content="{esc(title)}">
+  <meta property="og:description" content="{esc(description)}">
+  <meta property="og:url" content="{esc(canonical)}">
+  <meta property="og:image" content="{esc(image)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{esc(title)}">
+  <meta name="twitter:description" content="{esc(description)}">
+  <style>{css(build)}</style>
   <script type="application/ld+json">{schema_json}</script>
 </head>
 <body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 {body}
 </body>
 </html>
@@ -626,8 +749,8 @@ def header(current_phone_display: str, current_phone_href: str, build: BuildConf
       <a href="/zones/">Villes</a>
     </div>
     <div class="nav-links">
-      <a href="#tarifs">Tarifs</a>
-      <a href="#faq">FAQ</a>
+      <a href="/mentions-legales/">Infos légales</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 </div>
@@ -637,15 +760,31 @@ def header(current_phone_display: str, current_phone_href: str, build: BuildConf
 def footer(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
     scope = service_names(build)
     return f"""
-<footer class="footer">
+<footer id="contact" class="footer">
   <div class="wrap">
     <div>
       <strong>{esc(BUSINESS["name"])}</strong><br>
-      {esc(scope.capitalize())} en urgence.
-      <div style="margin-top:10px"><a href="/zones/">Villes desservies</a></div>
+      {esc(scope.capitalize())} en urgence, avec qualification de la demande et devis avant intervention.
+      <div style="margin-top:12px">{esc(BUSINESS["address"])}</div>
     </div>
     <div>
+      <strong>Contact direct</strong>
+      <div class="footer-links" style="margin-top:10px">
+        <a href="tel:{esc(current_phone_href)}">Téléphone : {esc(current_phone_display)}</a>
+        <a href="mailto:{esc(BUSINESS["email"])}">Email : {esc(BUSINESS["email"])}</a>
+        <a href="https://wa.me/{esc(BUSINESS["whatsapp"])}?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div>
+      <strong>Informations</strong>
+      <div class="footer-links" style="margin-top:10px">
+        <a href="/zones/">Villes desservies</a>
+        <a href="/mentions-legales/">Mentions légales</a>
+        <a href="/confidentialite/">Confidentialité</a>
+      </div>
+      <div style="margin-top:14px">
       <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">Appeler {esc(current_phone_display)}</a>
+      </div>
     </div>
   </div>
 </footer>
@@ -687,10 +826,18 @@ def local_business_schema(
                 "@type": service["schema_type"],
                 "@id": f"{page_url(path, build)}#business",
                 "name": BUSINESS["name"],
+                "image": service.get("image"),
                 "url": page_url(path, build),
                 "telephone": phone_display,
                 "email": BUSINESS["email"],
                 "priceRange": "€€",
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": phone_href,
+                    "contactType": "customer service",
+                    "areaServed": "FR, CH",
+                    "availableLanguage": ["fr"],
+                },
                 "address": {
                     "@type": "PostalAddress",
                     "streetAddress": BUSINESS["address"],
@@ -711,10 +858,60 @@ def local_business_schema(
                 "description": description,
                 "isPartOf": {"@type": "WebSite", "name": BUSINESS["name"], "url": build.site_url},
             },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{page_url(path, build)}#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Accueil",
+                        "item": build.site_url.rstrip("/") + "/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": title,
+                        "item": page_url(path, build),
+                    },
+                ],
+            },
         ],
     }
     if city:
         schema["@graph"][0]["areaServed"] = {"@type": "City", "name": city.name}
+    if city and service_key:
+        cases = SERVICE_LOCAL_CASES[service_key]
+        faq_question, faq_answer = cases["faq"]
+        schema["@graph"].append(
+            {
+                "@type": "FAQPage",
+                "@id": f"{page_url(path, build)}#faq",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": f"Intervenez-vous à {city.name} ?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": f"Oui, les demandes sur {city.name} sont qualifiées par téléphone avant déplacement afin de confirmer le secteur, le délai possible et les conditions.",
+                        },
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Le devis est-il annoncé avant intervention ?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Oui. Le prix dépend de l'accès, de l'horaire, du matériel et de la complexité. Il doit être confirmé avant le début des travaux.",
+                        },
+                    },
+                    {
+                        "@type": "Question",
+                        "name": faq_question,
+                        "acceptedAnswer": {"@type": "Answer", "text": faq_answer},
+                    },
+                ],
+            }
+        )
     return schema
 
 
@@ -771,6 +968,87 @@ def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -
 """
 
 
+def trust_band(service: dict[str, object]) -> str:
+    items = [str(item) for item in service["trust_points"]]
+    cards = "\n".join(
+        f"""
+        <div class="trust-item">
+          <strong>{esc(item)}</strong>
+          <span>Point vérifié avant ou pendant l'intervention.</span>
+        </div>
+        """
+        for item in items[:4]
+    )
+    return f"""
+  <section class="trust-band" aria-label="Garanties d'intervention">
+    <div class="wrap trust-grid">{cards}</div>
+  </section>
+"""
+
+
+def process_section(service: dict[str, object], city: City) -> str:
+    steps = [(str(title), str(text)) for title, text in service["steps"]]
+    cards = "\n".join(
+        f"""
+        <article class="card">
+          <span class="card-number">{index}</span>
+          <h3>{esc(title)}</h3>
+          <p>{esc(text)}</p>
+        </article>
+        """
+        for index, (title, text) in enumerate(steps, start=1)
+    )
+    return f"""
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Déroulé d'intervention à {esc(city.name)}</h2>
+        <p>Le but est de qualifier correctement l'urgence, d'éviter les mauvaises surprises et de garder une trace claire de ce qui est prévu.</p>
+      </div>
+      <div class="grid-4">{cards}</div>
+    </div>
+  </section>
+"""
+
+
+def expertise_section(city: City, service_key: str, service: dict[str, object], nearby: list[City]) -> str:
+    audience = str(service["audience"])
+    promise = str(service["promise"])
+    local = local_seo_for(city, nearby)
+    areas = ", ".join(str(item) for item in local["micro_areas"][:4])
+    return f"""
+  <section class="section">
+    <div class="wrap grid-2">
+      <div class="split-panel">
+        <h2>Une page dédiée, pas un service mélangé</h2>
+        <p>{esc(BUSINESS["name"])} présente ici uniquement le besoin {esc(SERVICES[service_key]["plural"])} pour {esc(audience)} à {esc(city.name)}. Cette séparation clarifie le message, les annonces Google Ads et le suivi des appels.</p>
+      </div>
+      <div>
+        <h2>Ce qui est vérifié avant déplacement</h2>
+        <p>{esc(promise)}</p>
+        <p>Les secteurs comme {esc(areas)} sont traités avec la même logique : comprendre l'accès, l'urgence, le matériel possible et les conditions tarifaires avant validation.</p>
+      </div>
+    </div>
+  </section>
+"""
+
+
+def final_cta_section(city: City, service: dict[str, object], phone_display: str, phone_href: str) -> str:
+    return f"""
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-panel">
+        <div>
+          <h2>Besoin d'un avis rapide à {esc(city.name)} ?</h2>
+          <p>Appelez avec l'adresse, une photo si possible et une description courte du problème. Le prix est confirmé avant intervention.</p>
+        </div>
+        <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
+      </div>
+    </div>
+  </section>
+"""
+
+
 def service_page(city: City, service_key: str, all_cities: list[City], build: BuildConfig) -> str:
     service = SERVICES[service_key]
     phone_display, phone_href = phone_for(city)
@@ -787,19 +1065,23 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     hero = service["hero"].format(city=city.name)
     headline = service["headline"].format(city=city.name)
     local_section = local_enrichment_section(city, service_key, nearby)
+    trust_section = trust_band(service)
+    expertise = expertise_section(city, service_key, service, nearby)
+    process = process_section(service, city)
+    final_cta = final_cta_section(city, service, phone_display, phone_href)
     service_faq_question, service_faq_answer = SERVICE_LOCAL_CASES[service_key]["faq"]
     if other_services:
         related_section = f"""
   <section class="section">
     <div class="wrap grid-2">
       <div class="card">
-        <h2>Autres prestations à {esc(city.name)}</h2>
-        <p>Les prestations restent séparées pour éviter les pages trop générales.</p>
+        <h2>Prestations complémentaires à {esc(city.name)}</h2>
+        <p>Les prestations restent séparées pour garder un message clair et des URLs exploitables par métier.</p>
         {other_services}
       </div>
       <div class="card">
-        <h2>Déroulé d'intervention</h2>
-        <p>Vous appelez, l'urgence est qualifiée, un prix indicatif est annoncé, puis le devis est validé avant le début des travaux.</p>
+        <h2>Préparer votre appel</h2>
+        <p>Indiquez la ville, l'accès au logement ou au local, l'urgence exacte, les photos disponibles et l'horaire souhaité. Ces éléments permettent d'éviter un déplacement mal qualifié.</p>
       </div>
     </div>
   </section>
@@ -809,21 +1091,26 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
   <section class="section">
     <div class="wrap">
       <div class="card">
-        <h2>Déroulé d'intervention</h2>
-        <p>Vous appelez, l'urgence est qualifiée, un prix indicatif est annoncé, puis le devis est validé avant le début des travaux.</p>
+        <h2>Préparer votre appel</h2>
+        <p>Indiquez la ville, l'accès au logement ou au local, l'urgence exacte, les photos disponibles et l'horaire souhaité. Ces éléments permettent d'éviter un déplacement mal qualifié.</p>
       </div>
     </div>
   </section>
 """
     body = f"""
 {header(phone_display, phone_href, build)}
-<main>
+<main id="contenu">
   <section class="hero" style="--hero-image: url('{esc(service["image"])}')">
     <div class="hero-grid">
       <div>
         <span class="eyebrow">Urgence locale 24/7 · {esc(city.zone)}</span>
         <h1>{esc(headline)}</h1>
         <p>{esc(hero)} Un interlocuteur récupère les informations essentielles et confirme les conditions avant déplacement.</p>
+        <div class="hero-badges">
+          <span class="hero-badge">Devis avant intervention</span>
+          <span class="hero-badge">Appel direct</span>
+          <span class="hero-badge">France et Genève</span>
+        </div>
         <div class="cta-row">
           <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
           <a class="ghost-btn" href="#tarifs">Voir les tarifs</a>
@@ -832,9 +1119,15 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
       <aside class="hero-card" aria-label="Points clés">
         <h2>Intervention à {esc(city.name)}</h2>
         <ul>{benefits}</ul>
+        <div class="hero-meta">
+          <div><strong>24/7</strong><span>urgence qualifiée</span></div>
+          <div><strong>Devis</strong><span>avant travaux</span></div>
+        </div>
       </aside>
     </div>
   </section>
+
+{trust_section}
 
   <section class="section">
     <div class="wrap grid-2">
@@ -853,7 +1146,11 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     </div>
   </section>
 
+{expertise}
+
 {local_section}
+
+{process}
 
   <section id="tarifs" class="section alt">
     <div class="wrap">
@@ -870,6 +1167,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
   </section>
 
 {related_section}
+
+{final_cta}
 
   <section id="faq" class="section alt faq">
     <div class="wrap">
@@ -913,7 +1212,7 @@ def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
     )
     body = f"""
 {header(phone_display, phone_href, build)}
-<main>
+<main id="contenu">
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
       <div>
@@ -979,7 +1278,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         primary_label = str(primary["label"])
         service_scope = service_names(build)
         title = f"{BUSINESS['name']} | {primary_label} urgence 24/7"
-        description = f"{BUSINESS['name']} intervient en {service_scope} avec des pages locales par ville, sans mélange avec les autres métiers."
+        description = f"{BUSINESS['name']} intervient en {service_scope} avec des pages locales par ville, appel direct et devis avant intervention."
         domain_scope = "la serrurerie" if build.primary_service_key == "serrurier" else "la plomberie"
         priority_links = "\n".join(
             f'<a class="pill priority-1" href="{service_path(c, build.primary_service_key, build)}">{esc(c.name)}</a>' for c in p1
@@ -995,15 +1294,21 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
             for key in build.service_keys
         )
         primary_benefits = "\n".join(f"<li>{esc(item)}</li>" for item in primary["benefits"])
+        home_trust = trust_band(primary)
         body = f"""
 {header(phone_display, phone_href, build)}
-<main>
+<main id="contenu">
   <section class="hero" style="--hero-image: url('{esc(primary["image"])}')">
     <div class="hero-grid">
       <div>
         <span class="eyebrow">{esc(BUSINESS["name"])} · urgence locale</span>
         <h1>{esc(primary_label)} par ville</h1>
-        <p>Un site dédié à {esc(domain_scope)} pour préparer un déploiement propre sur un domaine séparé : pages locales, maillage interne et sitemap rattachés au même univers métier.</p>
+        <p>Un service dédié à {esc(domain_scope)} pour répondre vite aux demandes urgentes, ville par ville, avec une qualification claire avant déplacement.</p>
+        <div class="hero-badges">
+          <span class="hero-badge">Intervention locale</span>
+          <span class="hero-badge">Devis avant travaux</span>
+          <span class="hero-badge">Appel direct</span>
+        </div>
         <div class="cta-row">
           <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
           <a class="ghost-btn" href="/zones/">Voir les villes</a>
@@ -1015,21 +1320,50 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
           {primary_benefits}
           <li>Devis annoncé avant intervention</li>
         </ul>
+        <div class="hero-meta">
+          <div><strong>{len(cities)}</strong><span>villes ciblées</span></div>
+          <div><strong>1</strong><span>domaine métier</span></div>
+        </div>
       </aside>
     </div>
   </section>
+
+{home_trust}
 
   <section class="section">
     <div class="wrap">
       <div class="section-head center">
         <h2>Prestations couvertes</h2>
-        <p>Chaque page reste rattachée au même univers métier pour faciliter le futur déploiement par domaine.</p>
+        <p>Les prestations sont présentées séparément pour aider l'appelant à expliquer rapidement son besoin.</p>
       </div>
       <div class="grid-3">{cards}</div>
     </div>
   </section>
 
   <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Un parcours clair pour votre urgence</h2>
+        <p>L'objectif est simple : comprendre vite le problème, confirmer la zone et annoncer les conditions avant intervention.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Votre ville</h3>
+          <p>Les pages locales permettent de vérifier rapidement la zone concernée et le bon numéro à utiliser.</p>
+        </article>
+        <article class="card">
+          <h3>Votre problème</h3>
+          <p>La demande est qualifiée avant déplacement pour éviter une intervention mal préparée.</p>
+        </article>
+        <article class="card">
+          <h3>Votre accord</h3>
+          <p>Le prix et les conditions doivent être confirmés avant le début de l'intervention.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <div class="section-head">
         <h2>Villes couvertes en priorité</h2>
@@ -1062,7 +1396,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
     )
     body = f"""
 {header(phone_display, phone_href, build)}
-<main>
+<main id="contenu">
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
       <div>
@@ -1147,7 +1481,7 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
         )
     body = f"""
 {header(phone_display, phone_href, build)}
-<main>
+<main id="contenu">
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
       <div>
@@ -1174,10 +1508,123 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
     return layout(title, description, "/zones/", body, schema, build)
 
 
+def legal_page(kind: str, build: BuildConfig) -> str:
+    phone_display = BUSINESS["fr_phone_display"]
+    phone_href = BUSINESS["fr_phone_href"]
+    schema_key = build.primary_service_key or build.service_keys[0]
+    scope = service_names(build)
+    if kind == "mentions":
+        path = "/mentions-legales/"
+        title = f"Mentions légales | {BUSINESS['name']}"
+        description = f"Mentions légales du site {BUSINESS['name']} dédié aux interventions {scope}."
+        content = f"""
+  <section class="section">
+    <div class="wrap grid-2">
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Informations légales</span>
+          <h1>Mentions légales</h1>
+          <p>Cette page regroupe les informations d'édition, de contact et d'hébergement du site.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Éditeur du site</h2>
+        <p><strong>{esc(BUSINESS["legal_name"])}</strong><br>{esc(BUSINESS["legal_form"])}<br>{esc(BUSINESS["address"])}</p>
+        <p>SIRET : {esc(BUSINESS["siret"])}<br>TVA : {esc(BUSINESS["vat"])}</p>
+        <p>Responsable de publication : {esc(BUSINESS["director"])}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap grid-2">
+      <div class="card">
+        <h2>Contact</h2>
+        <p>Téléphone : <a href="tel:{esc(phone_href)}">{esc(phone_display)}</a><br>Email : <a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a></p>
+      </div>
+      <div class="card">
+        <h2>Hébergement</h2>
+        <p>{esc(BUSINESS["host_name"])}<br>{esc(BUSINESS["host_address"])}</p>
+      </div>
+      <div class="card">
+        <h2>Activité</h2>
+        <p>Le site présente des services d'intervention {esc(scope)}. Les tarifs affichés sont indicatifs et peuvent varier selon la zone, l'horaire, l'accès, le matériel et la complexité de l'intervention.</p>
+      </div>
+      <div class="card">
+        <h2>Responsabilité</h2>
+        <p>Les informations publiées sont fournies à titre informatif. Un devis ou prix confirmé doit être communiqué avant toute intervention payante.</p>
+      </div>
+    </div>
+  </section>
+"""
+    elif kind == "privacy":
+        path = "/confidentialite/"
+        title = f"Politique de confidentialité | {BUSINESS['name']}"
+        description = f"Politique de confidentialité du site {BUSINESS['name']} dédié aux interventions {scope}."
+        content = f"""
+  <section class="section">
+    <div class="wrap grid-2">
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Données personnelles</span>
+          <h1>Politique de confidentialité</h1>
+          <p>Cette page explique quelles données peuvent être transmises lors d'une demande d'intervention et comment exercer vos droits.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Responsable du traitement</h2>
+        <p>{esc(BUSINESS["legal_name"])}<br>{esc(BUSINESS["address"])}<br><a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap grid-2">
+      <div class="card">
+        <h2>Données concernées</h2>
+        <p>Lors d'un appel, d'un email ou d'un message WhatsApp, vous pouvez transmettre votre nom, téléphone, adresse d'intervention, photos du problème et informations nécessaires à la qualification de l'urgence.</p>
+      </div>
+      <div class="card">
+        <h2>Finalités</h2>
+        <p>Les données servent à répondre à la demande, qualifier l'intervention, établir un devis, organiser le déplacement et assurer le suivi administratif ou commercial lié à l'intervention.</p>
+      </div>
+      <div class="card">
+        <h2>Durée de conservation</h2>
+        <p>Les données sont conservées pendant la durée nécessaire au traitement de la demande, puis selon les obligations comptables, contractuelles ou légales applicables.</p>
+      </div>
+      <div class="card">
+        <h2>Vos droits</h2>
+        <p>Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à <a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a>.</p>
+      </div>
+      <div class="card">
+        <h2>Mesure d'audience et appels</h2>
+        <p>Le site peut utiliser des outils de mesure d'audience ou de suivi de clics téléphone pour comprendre l'origine des demandes. Les paramètres exacts doivent être vérifiés lors de l'installation des tags publicitaires.</p>
+      </div>
+      <div class="card">
+        <h2>Services tiers</h2>
+        <p>Un clic WhatsApp ouvre le service WhatsApp. Les appels, emails et outils publicitaires peuvent impliquer leurs propres traitements de données.</p>
+      </div>
+    </div>
+  </section>
+"""
+    else:
+        raise ValueError(f"Unknown legal page: {kind}")
+
+    body = f"""
+{header(phone_display, phone_href, build)}
+<main id="contenu">
+{content}
+</main>
+{footer(phone_display, phone_href, build)}
+"""
+    schema = local_business_schema(title, description, path, None, schema_key, build)
+    return layout(title, description, path, body, schema, build)
+
+
 def sitemap(cities: list[City], build: BuildConfig) -> str:
-    paths = ["/zones/"]
+    paths = ["/zones/", "/mentions-legales/", "/confidentialite/"]
     if build.preserve_existing_home:
-        paths = ["/", "/campagnes-locales/", "/zones/"]
+        paths = ["/", "/campagnes-locales/", "/zones/", "/mentions-legales/", "/confidentialite/"]
     else:
         paths.insert(0, "/")
     for city in cities:
@@ -1199,14 +1646,14 @@ def sitemap(cities: list[City], build: BuildConfig) -> str:
         return "0.5"
 
     urls = "\n".join(
-        f"  <url><loc>{esc(page_url(path, build))}</loc><changefreq>weekly</changefreq><priority>{sitemap_priority(path)}</priority></url>"
+        f"  <url><loc>{esc(page_url(path, build))}</loc><lastmod>{GENERATED_DATE}</lastmod><changefreq>weekly</changefreq><priority>{sitemap_priority(path)}</priority></url>"
         for path in paths
     )
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n'
 
 
 def write_ads_files(cities: list[City], build: BuildConfig) -> None:
-    ads_dir = build.output_root / "google-ads"
+    ads_dir = operations_root(build) / "google-ads"
     ads_dir.mkdir(parents=True, exist_ok=True)
 
     with (ads_dir / "negative-keywords.csv").open("w", newline="", encoding="utf-8") as f:
@@ -1285,7 +1732,7 @@ def write_ads_files(cities: list[City], build: BuildConfig) -> None:
 
 
 def write_seo_files(cities: list[City], build: BuildConfig) -> None:
-    seo_dir = build.output_root / "seo"
+    seo_dir = operations_root(build) / "seo"
     seo_dir.mkdir(parents=True, exist_ok=True)
     priority_cities = [city for city in cities if city.priority == 1]
 
@@ -1343,6 +1790,51 @@ Objectif : renforcer progressivement les pages villes sans publier de fausses pr
 """)
 
 
+def production_warnings() -> list[str]:
+    checks = {
+        "SOLYBAT_ADDRESS": BUSINESS["address"],
+        "SOLYBAT_FR_PHONE_DISPLAY": BUSINESS["fr_phone_display"],
+        "SOLYBAT_FR_PHONE_HREF": BUSINESS["fr_phone_href"],
+        "SOLYBAT_CH_PHONE_DISPLAY": BUSINESS["ch_phone_display"],
+        "SOLYBAT_CH_PHONE_HREF": BUSINESS["ch_phone_href"],
+        "SOLYBAT_WHATSAPP": BUSINESS["whatsapp"],
+        "SOLYBAT_LEGAL_FORM": BUSINESS["legal_form"],
+        "SOLYBAT_SIRET": BUSINESS["siret"],
+        "SOLYBAT_DIRECTOR": BUSINESS["director"],
+    }
+    warning_markers = ("à compléter", "00 00", "+33400000000", "+41220000000", "33600000000", "SIRET")
+    warnings: list[str] = []
+    for env_name, value in checks.items():
+        if any(marker in str(value) for marker in warning_markers):
+            warnings.append(env_name)
+    return warnings
+
+
+def write_production_checklist(build: BuildConfig) -> None:
+    warnings = production_warnings()
+    warning_lines = "\n".join(f"- {item}" for item in warnings) if warnings else "- Aucun placeholder détecté dans les champs critiques."
+    write(
+        operations_root(build) / "preproduction-checklist.md",
+        f"""# Checklist préproduction - {build.label}
+
+## Données à confirmer
+
+{warning_lines}
+
+## Vérifications avant mise en ligne
+
+- Domaine final renseigné dans `SERRURIER_SITE_URL` ou `PLOMBIER_SITE_URL`.
+- Numéros d'appel testés depuis mobile.
+- WhatsApp testé avec le numéro final.
+- Mentions légales complétées : forme juridique, SIRET, responsable de publication, adresse.
+- Balises Google Ads / Analytics installées si nécessaires.
+- Conversion de clic téléphone testée avec `.js-call-track`.
+- Pages `/mentions-legales/`, `/confidentialite/`, `/robots.txt` et `/sitemap.xml` accessibles.
+- Aucun fichier `google-ads/`, `seo/`, `ops/` ou `README.md` dans le dossier public `dist`.
+""",
+    )
+
+
 def write_readme(cities: list[City], build: BuildConfig) -> None:
     if build.preserve_existing_home:
         pages_summary = f"""- L'accueil `index.html` existant est conservé.
@@ -1359,17 +1851,19 @@ def write_readme(cities: list[City], build: BuildConfig) -> None:
 - Les pages du service principal sont à la racine (`/lyon/`, `/geneve/`, etc.).
 - {len(cities) * len(build.service_keys)} pages locales."""
         generate_command = f"python3 generate_site.py --target {build.key}"
+    ops_path = display_path(operations_root(build))
 
+    readme_path = build.output_root / "README.md" if build.output_root == ROOT else operations_root(build) / "README.md"
     write(
-        build.output_root / "README.md",
+        readme_path,
         f"""# Site local Solybat - {build.label}
 
 Ce dossier contient un site statique généré pour la stratégie Google Ads et SEO local.
 
 {pages_summary}
 - `sitemap.xml` et `robots.txt`.
-- Fichiers d'exploitation Google Ads dans `google-ads/`.
-- Fichiers de suivi SEO local dans `seo/`.
+- Pages légales : `/mentions-legales/` et `/confidentialite/`.
+- Fichiers d'exploitation Google Ads et SEO local générés dans `{ops_path}`.
 
 ## Générer le site
 
@@ -1438,12 +1932,15 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
 
 
 def render_build(cities: list[City], build: BuildConfig) -> int:
+    prepare_output(build)
     if build.preserve_existing_home:
         write(output_path_for("/campagnes-locales/", build), home_page(cities, build))
     else:
         write(output_path_for("/", build), home_page(cities, build))
 
     write(output_path_for("/zones/", build), zones_page(cities, build))
+    write(output_path_for("/mentions-legales/", build), legal_page("mentions", build))
+    write(output_path_for("/confidentialite/", build), legal_page("privacy", build))
     for city in cities:
         if build.include_city_hubs:
             write(output_path_for(city_hub_path(city), build), city_page(city, cities, build))
@@ -1458,7 +1955,8 @@ def render_build(cities: list[City], build: BuildConfig) -> int:
     write_ads_files(cities, build)
     write_seo_files(cities, build)
     write_readme(cities, build)
-    return 2 + (len(cities) if build.include_city_hubs else 0) + len(cities) * len(build.service_keys)
+    write_production_checklist(build)
+    return 4 + (len(cities) if build.include_city_hubs else 0) + len(cities) * len(build.service_keys)
 
 
 def parse_args() -> argparse.Namespace:

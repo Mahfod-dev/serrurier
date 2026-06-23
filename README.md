@@ -29,7 +29,7 @@ Cette commande crée :
 - `dist/serrurier/` : site serrurier seul, avec les pages ville à la racine (`/lyon/`, `/geneve/`, etc.).
 - `dist/plombier/` : site plombier, avec les pages plomberie à la racine et le dégorgement sous `/degorgement/`.
 
-Chaque dossier contient son propre `index.html`, `sitemap.xml`, `robots.txt`, `google-ads/` et `seo/`. Pour renseigner les futurs domaines avant génération :
+Chaque dossier contient son propre `index.html`, `sitemap.xml`, `robots.txt` et les pages légales. Les fichiers d'exploitation Google Ads/SEO sont générés hors du dossier public dans `ops/`. Pour renseigner les futurs domaines avant génération :
 
 ```bash
 SERRURIER_SITE_URL="https://www.domaine-serrurier.fr" \
