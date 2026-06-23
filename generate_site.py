@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import csv
 import html
 import json
+import os
 import re
 import unicodedata
 from dataclasses import dataclass
@@ -319,6 +321,24 @@ class City:
     priority: int
 
 
+@dataclass(frozen=True)
+class BuildConfig:
+    key: str
+    label: str
+    site_url: str
+    output_root: Path
+    service_keys: tuple[str, ...]
+    primary_service_key: str | None
+    include_city_hubs: bool
+    preserve_existing_home: bool = False
+
+
+SPLIT_DOMAIN_DEFAULTS = {
+    "serrurier": "https://serrurier.solybat.fr",
+    "plombier": "https://plombier.solybat.fr",
+}
+
+
 def strip_accents(value: str) -> str:
     normalized = unicodedata.normalize("NFKD", value)
     return "".join(ch for ch in normalized if not unicodedata.combining(ch))
@@ -364,13 +384,50 @@ def phone_for(city: City) -> tuple[str, str]:
     return BUSINESS["fr_phone_display"], BUSINESS["fr_phone_href"]
 
 
-def page_url(path: str) -> str:
-    return f"{BUSINESS['site_url'].rstrip('/')}{path}"
+def page_url(path: str, build: BuildConfig) -> str:
+    return f"{build.site_url.rstrip('/')}{path}"
+
+
+def service_path(city: City, service_key: str, build: BuildConfig) -> str:
+    if build.primary_service_key == service_key:
+        return f"/{city.slug}/"
+    return f"/{service_key}/{city.slug}/"
+
+
+def city_hub_path(city: City) -> str:
+    return f"/{city.slug}/"
+
+
+def service_names(build: BuildConfig) -> str:
+    labels = [SERVICES[key]["label"].lower() for key in build.service_keys]
+    if len(labels) == 1:
+        return labels[0]
+    return ", ".join(labels[:-1]) + " et " + labels[-1]
+
+
+def example_service_path(service_key: str, build: BuildConfig) -> str:
+    if build.primary_service_key == service_key:
+        return "/lyon/"
+    return f"/{service_key}/lyon/"
 
 
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+
+
+def output_path_for(url_path: str, build: BuildConfig) -> Path:
+    clean_path = url_path.strip("/")
+    if not clean_path:
+        return build.output_root / "index.html"
+    return build.output_root / clean_path / "index.html"
+
+
+def display_path(path: Path) -> Path:
+    try:
+        return path.relative_to(ROOT)
+    except ValueError:
+        return path
 
 
 def css() -> str:
@@ -526,8 +583,8 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
 """
 
 
-def layout(title: str, description: str, path: str, body: str, schema: dict) -> str:
-    canonical = page_url(path)
+def layout(title: str, description: str, path: str, body: str, schema: dict, build: BuildConfig) -> str:
+    canonical = page_url(path, build)
     schema_json = json.dumps(schema, ensure_ascii=False, indent=2)
     return f"""<!doctype html>
 <html lang="fr">
@@ -548,7 +605,10 @@ def layout(title: str, description: str, path: str, body: str, schema: dict) -> 
 """
 
 
-def header(current_phone_display: str, current_phone_href: str) -> str:
+def header(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
+    service_links = "\n      ".join(
+        f'<a href="{example_service_path(key, build)}">{esc(SERVICES[key]["label"])}</a>' for key in build.service_keys
+    )
     return f"""
 <div class="topbar">
   <div class="topbar-inner">
@@ -562,9 +622,8 @@ def header(current_phone_display: str, current_phone_href: str) -> str:
 <div class="nav-shell">
   <nav class="nav" aria-label="Navigation principale">
     <div class="nav-links">
-      <a href="/serrurier/lyon/">Serrurerie</a>
-      <a href="/plombier/lyon/">Plomberie</a>
-      <a href="/degorgement/lyon/">Dégorgement</a>
+      {service_links}
+      <a href="/zones/">Villes</a>
     </div>
     <div class="nav-links">
       <a href="#tarifs">Tarifs</a>
@@ -575,13 +634,14 @@ def header(current_phone_display: str, current_phone_href: str) -> str:
 """
 
 
-def footer(current_phone_display: str, current_phone_href: str) -> str:
+def footer(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
+    scope = service_names(build)
     return f"""
 <footer class="footer">
   <div class="wrap">
     <div>
       <strong>{esc(BUSINESS["name"])}</strong><br>
-      Serrurerie, plomberie et dégorgement en urgence.
+      {esc(scope.capitalize())} en urgence.
       <div style="margin-top:10px"><a href="/zones/">Villes desservies</a></div>
     </div>
     <div>
@@ -605,7 +665,14 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
 """
 
 
-def local_business_schema(title: str, description: str, path: str, city: City | None, service_key: str | None) -> dict:
+def local_business_schema(
+    title: str,
+    description: str,
+    path: str,
+    city: City | None,
+    service_key: str | None,
+    build: BuildConfig,
+) -> dict:
     phone_display = BUSINESS["fr_phone_display"]
     phone_href = BUSINESS["fr_phone_href"]
     country = "FR"
@@ -618,9 +685,9 @@ def local_business_schema(title: str, description: str, path: str, city: City | 
         "@graph": [
             {
                 "@type": service["schema_type"],
-                "@id": f"{page_url(path)}#business",
+                "@id": f"{page_url(path, build)}#business",
                 "name": BUSINESS["name"],
-                "url": page_url(path),
+                "url": page_url(path, build),
                 "telephone": phone_display,
                 "email": BUSINESS["email"],
                 "priceRange": "€€",
@@ -638,11 +705,11 @@ def local_business_schema(title: str, description: str, path: str, city: City | 
             },
             {
                 "@type": "WebPage",
-                "@id": f"{page_url(path)}#webpage",
-                "url": page_url(path),
+                "@id": f"{page_url(path, build)}#webpage",
+                "url": page_url(path, build),
                 "name": title,
                 "description": description,
-                "isPartOf": {"@type": "WebSite", "name": BUSINESS["name"], "url": BUSINESS["site_url"]},
+                "isPartOf": {"@type": "WebSite", "name": BUSINESS["name"], "url": build.site_url},
             },
         ],
     }
@@ -651,10 +718,15 @@ def local_business_schema(title: str, description: str, path: str, city: City | 
     return schema
 
 
-def service_links_for_city(city: City) -> str:
+def service_links_for_city(city: City, build: BuildConfig, exclude_service_key: str | None = None) -> str:
     links = []
-    for key, service in SERVICES.items():
-        links.append(f'<a href="/{key}/{city.slug}/">{esc(service["label"])} à {esc(city.name)}</a>')
+    for key in build.service_keys:
+        if key == exclude_service_key:
+            continue
+        service = SERVICES[key]
+        links.append(f'<a href="{service_path(city, key, build)}">{esc(service["label"])} à {esc(city.name)}</a>')
+    if not links:
+        return ""
     return '<div class="service-links">' + "\n".join(links) + "</div>"
 
 
@@ -699,25 +771,52 @@ def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -
 """
 
 
-def service_page(city: City, service_key: str, all_cities: list[City]) -> str:
+def service_page(city: City, service_key: str, all_cities: list[City], build: BuildConfig) -> str:
     service = SERVICES[service_key]
     phone_display, phone_href = phone_for(city)
-    path = f"/{service_key}/{city.slug}/"
+    path = service_path(city, service_key, build)
     title = f"{service['label']} à {city.name} | {BUSINESS['name']} urgence 24/7"
     description = f"{BUSINESS['name']} : {service['short']} Intervention à {city.name} et secteur proche. Appel direct, devis avant intervention."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
-    nearby_links = " ".join(f'<a class="pill" href="/{service_key}/{c.slug}/">{esc(c.name)}</a>' for c in nearby)
+    nearby_links = " ".join(f'<a class="pill" href="{service_path(c, service_key, build)}">{esc(c.name)}</a>' for c in nearby)
     benefits = "\n".join(f"<li>{esc(item)}</li>" for item in service["benefits"])
     pricing_rows = "\n".join(
         f"<tr><td>{esc(label)}</td><td>{esc(price)}</td></tr>" for label, price in service["pricing"]
     )
-    other_services = service_links_for_city(city)
+    other_services = service_links_for_city(city, build, service_key)
     hero = service["hero"].format(city=city.name)
     headline = service["headline"].format(city=city.name)
     local_section = local_enrichment_section(city, service_key, nearby)
     service_faq_question, service_faq_answer = SERVICE_LOCAL_CASES[service_key]["faq"]
+    if other_services:
+        related_section = f"""
+  <section class="section">
+    <div class="wrap grid-2">
+      <div class="card">
+        <h2>Autres prestations à {esc(city.name)}</h2>
+        <p>Les prestations restent séparées pour éviter les pages trop générales.</p>
+        {other_services}
+      </div>
+      <div class="card">
+        <h2>Déroulé d'intervention</h2>
+        <p>Vous appelez, l'urgence est qualifiée, un prix indicatif est annoncé, puis le devis est validé avant le début des travaux.</p>
+      </div>
+    </div>
+  </section>
+"""
+    else:
+        related_section = f"""
+  <section class="section">
+    <div class="wrap">
+      <div class="card">
+        <h2>Déroulé d'intervention</h2>
+        <p>Vous appelez, l'urgence est qualifiée, un prix indicatif est annoncé, puis le devis est validé avant le début des travaux.</p>
+      </div>
+    </div>
+  </section>
+"""
     body = f"""
-{header(phone_display, phone_href)}
+{header(phone_display, phone_href, build)}
 <main>
   <section class="hero" style="--hero-image: url('{esc(service["image"])}')">
     <div class="hero-grid">
@@ -770,19 +869,7 @@ def service_page(city: City, service_key: str, all_cities: list[City]) -> str:
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap grid-2">
-      <div class="card">
-        <h2>Autres métiers à {esc(city.name)}</h2>
-        <p>Chaque métier garde une URL séparée pour éviter les pages trop générales.</p>
-        {other_services}
-      </div>
-      <div class="card">
-        <h2>Déroulé d'intervention</h2>
-        <p>Vous appelez, l'urgence est qualifiée, un prix indicatif est annoncé, puis le devis est validé avant le début des travaux.</p>
-      </div>
-    </div>
-  </section>
+{related_section}
 
   <section id="faq" class="section alt faq">
     <div class="wrap">
@@ -798,33 +885,34 @@ def service_page(city: City, service_key: str, all_cities: list[City]) -> str:
     </div>
   </section>
 </main>
-{footer(phone_display, phone_href)}
+{footer(phone_display, phone_href, build)}
 """
-    schema = local_business_schema(title, description, path, city, service_key)
-    return layout(title, description, path, body, schema)
+    schema = local_business_schema(title, description, path, city, service_key, build)
+    return layout(title, description, path, body, schema, build)
 
 
-def city_page(city: City, all_cities: list[City]) -> str:
+def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
     phone_display, phone_href = phone_for(city)
-    path = f"/{city.slug}/"
+    path = city_hub_path(city)
     title = f"Intervention à {city.name} | Serrurier, plombier, dégorgement Solybat"
     description = f"Solybat intervient à {city.name} en serrurerie, plomberie et dégorgement. Choisissez le service adapté : urgence serrure, fuite d'eau ou canalisation bouchée."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     local = local_seo_for(city, nearby)
     sector_pills = " ".join(f'<span class="pill">{esc(area)}</span>' for area in local["micro_areas"])
-    nearby_links = " ".join(f'<a class="pill" href="/{c.slug}/">{esc(c.name)}</a>' for c in nearby)
+    nearby_links = " ".join(f'<a class="pill" href="{city_hub_path(c)}">{esc(c.name)}</a>' for c in nearby)
     service_cards = "\n".join(
         f"""
         <article class="card">
           <h2>{esc(service["label"])} à {esc(city.name)}</h2>
           <p>{esc(service["short"])}</p>
-          <a class="pill priority-2" href="/{service_key}/{city.slug}/">Voir la page {esc(service["label"].lower())}</a>
+          <a class="pill priority-2" href="{service_path(city, service_key, build)}">Voir la page {esc(service["label"].lower())}</a>
         </article>
         """
-        for service_key, service in SERVICES.items()
+        for service_key in build.service_keys
+        for service in [SERVICES[service_key]]
     )
     body = f"""
-{header(phone_display, phone_href)}
+{header(phone_display, phone_href, build)}
 <main>
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
@@ -874,33 +962,106 @@ def city_page(city: City, all_cities: list[City]) -> str:
     </div>
   </section>
 </main>
-{footer(phone_display, phone_href)}
+{footer(phone_display, phone_href, build)}
 """
-    schema = local_business_schema(title, description, path, city, "serrurier")
-    return layout(title, description, path, body, schema)
+    schema = local_business_schema(title, description, path, city, "serrurier", build)
+    return layout(title, description, path, body, schema, build)
 
 
-def home_page(cities: list[City]) -> str:
+def home_page(cities: list[City], build: BuildConfig) -> str:
     phone_display = BUSINESS["fr_phone_display"]
     phone_href = BUSINESS["fr_phone_href"]
+    homepage_path = "/campagnes-locales/" if build.preserve_existing_home else "/"
+    p1 = [c for c in cities if c.priority == 1]
+
+    if build.primary_service_key:
+        primary = SERVICES[build.primary_service_key]
+        primary_label = str(primary["label"])
+        service_scope = service_names(build)
+        title = f"{BUSINESS['name']} | {primary_label} urgence 24/7"
+        description = f"{BUSINESS['name']} intervient en {service_scope} avec des pages locales par ville, sans mélange avec les autres métiers."
+        domain_scope = "la serrurerie" if build.primary_service_key == "serrurier" else "la plomberie"
+        priority_links = "\n".join(
+            f'<a class="pill priority-1" href="{service_path(c, build.primary_service_key, build)}">{esc(c.name)}</a>' for c in p1
+        )
+        cards = "\n".join(
+            f"""
+        <article class="card">
+          <h3>{esc(SERVICES[key]["label"])}</h3>
+          <p>{esc(SERVICES[key]["short"])}</p>
+          <a class="pill priority-2" href="{example_service_path(key, build)}">Exemple : {esc(SERVICES[key]["label"])} à Lyon</a>
+        </article>
+        """
+            for key in build.service_keys
+        )
+        primary_benefits = "\n".join(f"<li>{esc(item)}</li>" for item in primary["benefits"])
+        body = f"""
+{header(phone_display, phone_href, build)}
+<main>
+  <section class="hero" style="--hero-image: url('{esc(primary["image"])}')">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">{esc(BUSINESS["name"])} · urgence locale</span>
+        <h1>{esc(primary_label)} par ville</h1>
+        <p>Un site dédié à {esc(domain_scope)} pour préparer un déploiement propre sur un domaine séparé : pages locales, maillage interne et sitemap rattachés au même univers métier.</p>
+        <div class="cta-row">
+          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
+          <a class="ghost-btn" href="/zones/">Voir les villes</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h2>Intervention locale</h2>
+        <ul>
+          {primary_benefits}
+          <li>Devis annoncé avant intervention</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head center">
+        <h2>Prestations couvertes</h2>
+        <p>Chaque page reste rattachée au même univers métier pour faciliter le futur déploiement par domaine.</p>
+      </div>
+      <div class="grid-3">{cards}</div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Villes couvertes en priorité</h2>
+        <p>Les liens ci-dessous pointent directement vers les pages locales du site {esc(primary_label.lower())}.</p>
+      </div>
+      <div class="pill-row">{priority_links}</div>
+    </div>
+  </section>
+</main>
+{footer(phone_display, phone_href, build)}
+"""
+        schema = local_business_schema(title, description, homepage_path, None, build.primary_service_key, build)
+        return layout(title, description, homepage_path, body, schema, build)
+
     title = f"{BUSINESS['name']} | Serrurerie, plomberie et dégorgement"
     description = "Solybat intervient en serrurerie, plomberie et dégorgement camion pompe avec des pages locales par ville et par métier."
-    p1 = [c for c in cities if c.priority == 1]
     priority_links = "\n".join(
-        f'<a class="pill priority-1" href="/serrurier/{c.slug}/">{esc(c.name)}</a>' for c in p1
+        f'<a class="pill priority-1" href="{service_path(c, "serrurier", build)}">{esc(c.name)}</a>' for c in p1
     )
     cards = "\n".join(
         f"""
         <article class="card">
           <h3>{esc(service["label"])}</h3>
           <p>{esc(service["short"])}</p>
-          <a class="pill priority-2" href="/{key}/lyon/">Exemple : {esc(service["label"])} à Lyon</a>
+          <a class="pill priority-2" href="{example_service_path(key, build)}">Exemple : {esc(service["label"])} à Lyon</a>
         </article>
         """
-        for key, service in SERVICES.items()
+        for key in build.service_keys
+        for service in [SERVICES[key]]
     )
     body = f"""
-{header(phone_display, phone_href)}
+{header(phone_display, phone_href, build)}
 <main>
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
@@ -945,16 +1106,18 @@ def home_page(cities: list[City]) -> str:
     </div>
   </section>
 </main>
-{footer(phone_display, phone_href)}
+{footer(phone_display, phone_href, build)}
 """
-    return layout(title, description, "/", body, local_business_schema(title, description, "/", None, "serrurier"))
+    schema = local_business_schema(title, description, homepage_path, None, "serrurier", build)
+    return layout(title, description, homepage_path, body, schema, build)
 
 
-def zones_page(cities: list[City]) -> str:
+def zones_page(cities: list[City], build: BuildConfig) -> str:
     phone_display = BUSINESS["fr_phone_display"]
     phone_href = BUSINESS["fr_phone_href"]
-    title = f"Zones d'intervention | {BUSINESS['name']}"
-    description = "Toutes les villes ciblées par Solybat pour les pages serrurerie, plomberie et dégorgement."
+    scope = service_names(build)
+    title = f"Zones d'intervention {build.label} | {BUSINESS['name']}"
+    description = f"Toutes les villes ciblées par Solybat pour les pages {scope}."
     sections: list[str] = []
     zones = sorted({(c.region, c.zone) for c in cities})
     for region, zone in zones:
@@ -962,9 +1125,9 @@ def zones_page(cities: list[City]) -> str:
         links = "\n".join(
             f"""
             <div class="card">
-              <h3><a href="/{c.slug}/">{esc(c.name)}</a></h3>
+              <h3><a href="{city_hub_path(c) if build.include_city_hubs else service_path(c, build.primary_service_key or build.service_keys[0], build)}">{esc(c.name)}</a></h3>
               <p>Priorité {c.priority} · {esc(c.country)}</p>
-              {service_links_for_city(c)}
+              {service_links_for_city(c, build, build.primary_service_key if not build.include_city_hubs else None)}
             </div>
             """
             for c in zone_cities
@@ -983,20 +1146,20 @@ def zones_page(cities: list[City]) -> str:
             """
         )
     body = f"""
-{header(phone_display, phone_href)}
+{header(phone_display, phone_href, build)}
 <main>
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
       <div>
         <span class="eyebrow">Ciblage géographique</span>
-        <h1>Zones d'intervention Solybat</h1>
-        <p>Liste complète des villes couvertes, avec accès direct aux pages serrurier, plombier et dégorgement.</p>
+        <h1>Zones d'intervention {esc(build.label)}</h1>
+        <p>Liste complète des villes couvertes, avec accès direct aux pages {esc(scope)}.</p>
       </div>
       <aside class="hero-card">
         <h2>Règle d'exploitation</h2>
         <ul>
           <li>Accès rapide par ville</li>
-          <li>Service séparé selon le besoin</li>
+          <li>Services séparés par domaine</li>
           <li>France et canton de Genève</li>
         </ul>
       </aside>
@@ -1004,20 +1167,27 @@ def zones_page(cities: list[City]) -> str:
   </section>
   {''.join(sections)}
 </main>
-{footer(phone_display, phone_href)}
+{footer(phone_display, phone_href, build)}
 """
-    return layout(title, description, "/zones/", body, local_business_schema(title, description, "/zones/", None, "serrurier"))
+    schema_key = build.primary_service_key or build.service_keys[0]
+    schema = local_business_schema(title, description, "/zones/", None, schema_key, build)
+    return layout(title, description, "/zones/", body, schema, build)
 
 
-def sitemap(cities: list[City]) -> str:
-    paths = ["/", "/campagnes-locales/", "/zones/"]
+def sitemap(cities: list[City], build: BuildConfig) -> str:
+    paths = ["/zones/"]
+    if build.preserve_existing_home:
+        paths = ["/", "/campagnes-locales/", "/zones/"]
+    else:
+        paths.insert(0, "/")
     for city in cities:
-        paths.append(f"/{city.slug}/")
-        for service_key in SERVICES:
-            paths.append(f"/{service_key}/{city.slug}/")
+        if build.include_city_hubs:
+            paths.append(city_hub_path(city))
+        for service_key in build.service_keys:
+            paths.append(service_path(city, service_key, build))
 
-    city_paths = {f"/{city.slug}/" for city in cities}
-    service_paths = {f"/{service_key}/{city.slug}/" for city in cities for service_key in SERVICES}
+    city_paths = {city_hub_path(city) for city in cities} if build.include_city_hubs else set()
+    service_paths = {service_path(city, service_key, build) for city in cities for service_key in build.service_keys}
 
     def sitemap_priority(path: str) -> str:
         if path == "/":
@@ -1029,15 +1199,15 @@ def sitemap(cities: list[City]) -> str:
         return "0.5"
 
     urls = "\n".join(
-        f"  <url><loc>{esc(page_url(path))}</loc><changefreq>weekly</changefreq><priority>{sitemap_priority(path)}</priority></url>"
+        f"  <url><loc>{esc(page_url(path, build))}</loc><changefreq>weekly</changefreq><priority>{sitemap_priority(path)}</priority></url>"
         for path in paths
     )
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n'
 
 
-def write_ads_files(cities: list[City]) -> None:
-    ads_dir = ROOT / "google-ads"
-    ads_dir.mkdir(exist_ok=True)
+def write_ads_files(cities: list[City], build: BuildConfig) -> None:
+    ads_dir = build.output_root / "google-ads"
+    ads_dir.mkdir(parents=True, exist_ok=True)
 
     with (ads_dir / "negative-keywords.csv").open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
@@ -1050,7 +1220,8 @@ def write_ads_files(cities: list[City]) -> None:
         writer.writerow(["priority", "country", "region", "zone", "city", "service", "final_url", "recommended_phone"])
         for city in cities:
             phone_display, _ = phone_for(city)
-            for service_key, service in SERVICES.items():
+            for service_key in build.service_keys:
+                service = SERVICES[service_key]
                 writer.writerow([
                     city.priority,
                     city.country,
@@ -1058,7 +1229,7 @@ def write_ads_files(cities: list[City]) -> None:
                     city.zone,
                     city.name,
                     service["label"],
-                    page_url(f"/{service_key}/{city.slug}/"),
+                    page_url(service_path(city, service_key, build), build),
                     phone_display,
                 ])
 
@@ -1066,10 +1237,11 @@ def write_ads_files(cities: list[City]) -> None:
         writer = csv.writer(f)
         writer.writerow(["campaign", "ad_group", "match_type", "keyword", "google_ads_syntax", "final_url"])
         for city in cities:
-            for service_key, service in SERVICES.items():
+            for service_key in build.service_keys:
+                service = SERVICES[service_key]
                 campaign = f"{service['label']} - {'Genève' if city.country == 'CH' else city.region}"
                 ad_group = f"{service['label']} - {city.name}"
-                final_url = page_url(f"/{service_key}/{city.slug}/")
+                final_url = page_url(service_path(city, service_key, build), build)
                 for template in service["keywords"]:
                     keyword = template.format(city=city.name)
                     writer.writerow([campaign, ad_group, "Phrase", keyword, f'"{keyword}"', final_url])
@@ -1106,15 +1278,15 @@ def write_ads_files(cities: list[City]) -> None:
 
 ## A remplacer avant production
 
-- Domaine actuel dans `generate_site.py` : `{BUSINESS["site_url"]}`
+- Domaine actuel dans ce build : `{build.site_url}`
 - Numéro France actuel : `{BUSINESS["fr_phone_display"]}`
 - Numéro Genève actuel : `{BUSINESS["ch_phone_display"]}`
 """)
 
 
-def write_seo_files(cities: list[City]) -> None:
-    seo_dir = ROOT / "seo"
-    seo_dir.mkdir(exist_ok=True)
+def write_seo_files(cities: list[City], build: BuildConfig) -> None:
+    seo_dir = build.output_root / "seo"
+    seo_dir.mkdir(parents=True, exist_ok=True)
     priority_cities = [city for city in cities if city.priority == 1]
 
     with (seo_dir / "local-enrichment-priority.csv").open("w", newline="", encoding="utf-8") as f:
@@ -1133,12 +1305,13 @@ def write_seo_files(cities: list[City]) -> None:
         for city in priority_cities:
             local = local_seo_for(city, [])
             areas = ", ".join(str(item) for item in local["micro_areas"])
-            for service_key, service in SERVICES.items():
+            for service_key in build.service_keys:
+                service = SERVICES[service_key]
                 writer.writerow([
                     city.priority,
                     city.name,
                     service["label"],
-                    page_url(f"/{service_key}/{city.slug}/"),
+                    page_url(service_path(city, service_key, build), build),
                     areas,
                     "adresse/secteur réel d'intervention, problème traité, délai annoncé, solution appliquée",
                     "photo véhicule/outillage, photo avant-après si autorisée, photo non identifiable du chantier",
@@ -1170,19 +1343,30 @@ Objectif : renforcer progressivement les pages villes sans publier de fausses pr
 """)
 
 
-def write_readme(cities: list[City]) -> None:
-    write(
-        ROOT / "README.md",
-        f"""# Site local Solybat
-
-Ce dépôt contient un site statique généré pour la stratégie Google Ads et SEO local :
-
-- L'accueil `index.html` existant est conservé.
+def write_readme(cities: list[City], build: BuildConfig) -> None:
+    if build.preserve_existing_home:
+        pages_summary = f"""- L'accueil `index.html` existant est conservé.
 - {len(cities)} villes issues du document Word.
-- {len(SERVICES)} métiers : serrurier, plombier, dégorgement.
+- {len(build.service_keys)} métiers : {service_names(build)}.
 - {len(cities)} pages hubs villes (`/lyon/`, `/geneve/`, etc.).
-- {len(cities) * len(SERVICES)} pages locales.
-- Une page d'entrée technique : `campagnes-locales/index.html`.
+- {len(cities) * len(build.service_keys)} pages locales.
+- Une page d'entrée technique : `campagnes-locales/index.html`."""
+        generate_command = "python3 generate_site.py"
+    else:
+        pages_summary = f"""- `index.html` est l'accueil du site {build.label}.
+- {len(cities)} villes issues du document Word.
+- Services inclus : {service_names(build)}.
+- Les pages du service principal sont à la racine (`/lyon/`, `/geneve/`, etc.).
+- {len(cities) * len(build.service_keys)} pages locales."""
+        generate_command = f"python3 generate_site.py --target {build.key}"
+
+    write(
+        build.output_root / "README.md",
+        f"""# Site local Solybat - {build.label}
+
+Ce dossier contient un site statique généré pour la stratégie Google Ads et SEO local.
+
+{pages_summary}
 - `sitemap.xml` et `robots.txt`.
 - Fichiers d'exploitation Google Ads dans `google-ads/`.
 - Fichiers de suivi SEO local dans `seo/`.
@@ -1190,14 +1374,21 @@ Ce dépôt contient un site statique généré pour la stratégie Google Ads et 
 ## Générer le site
 
 ```bash
-python3 generate_site.py
+{generate_command}
+```
+
+## Générer les deux domaines séparés
+
+```bash
+python3 generate_site.py --target split
 ```
 
 ## Avant mise en ligne
 
 Remplacer dans `generate_site.py` :
 
-- `site_url`
+- `site_url` ou passer `--site-url` pour un build unique
+- `SERRURIER_SITE_URL` et `PLOMBIER_SITE_URL` pour `--target split`
 - `fr_phone_display` et `fr_phone_href`
 - `ch_phone_display` et `ch_phone_href`
 - `whatsapp`
@@ -1209,24 +1400,105 @@ Les numéros actuels sont des valeurs temporaires. Ne lancez pas Google Ads avan
     )
 
 
-def main() -> None:
-    cities = load_cities()
-    write(ROOT / "campagnes-locales" / "index.html", home_page(cities))
-    write(ROOT / "zones" / "index.html", zones_page(cities))
-    for city in cities:
-        write(ROOT / city.slug / "index.html", city_page(city, cities))
-        for service_key in SERVICES:
-            write(ROOT / service_key / city.slug / "index.html", service_page(city, service_key, cities))
+def build_config(target: str, output_root: Path | None = None, site_url: str | None = None) -> BuildConfig:
+    if target == "full":
+        resolved_output = output_root or ROOT
+        preserve_existing_home = resolved_output == ROOT
+        return BuildConfig(
+            key="full",
+            label="multi-services",
+            site_url=site_url or os.environ.get("SOLYBAT_SITE_URL", BUSINESS["site_url"]),
+            output_root=resolved_output,
+            service_keys=tuple(SERVICES.keys()),
+            primary_service_key=None,
+            include_city_hubs=True,
+            preserve_existing_home=preserve_existing_home,
+        )
+    if target == "serrurier":
+        return BuildConfig(
+            key="serrurier",
+            label="serrurier",
+            site_url=site_url or os.environ.get("SERRURIER_SITE_URL", SPLIT_DOMAIN_DEFAULTS["serrurier"]),
+            output_root=output_root or ROOT / "dist" / "serrurier",
+            service_keys=("serrurier",),
+            primary_service_key="serrurier",
+            include_city_hubs=False,
+        )
+    if target == "plombier":
+        return BuildConfig(
+            key="plombier",
+            label="plombier",
+            site_url=site_url or os.environ.get("PLOMBIER_SITE_URL", SPLIT_DOMAIN_DEFAULTS["plombier"]),
+            output_root=output_root or ROOT / "dist" / "plombier",
+            service_keys=("plombier", "degorgement"),
+            primary_service_key="plombier",
+            include_city_hubs=False,
+        )
+    raise ValueError(f"Unknown target: {target}")
 
-    write(ROOT / "sitemap.xml", sitemap(cities))
+
+def render_build(cities: list[City], build: BuildConfig) -> int:
+    if build.preserve_existing_home:
+        write(output_path_for("/campagnes-locales/", build), home_page(cities, build))
+    else:
+        write(output_path_for("/", build), home_page(cities, build))
+
+    write(output_path_for("/zones/", build), zones_page(cities, build))
+    for city in cities:
+        if build.include_city_hubs:
+            write(output_path_for(city_hub_path(city), build), city_page(city, cities, build))
+        for service_key in build.service_keys:
+            write(output_path_for(service_path(city, service_key, build), build), service_page(city, service_key, cities, build))
+
+    write(build.output_root / "sitemap.xml", sitemap(cities, build))
     write(
-        ROOT / "robots.txt",
-        f"User-agent: *\nDisallow: /google-ads/\nSitemap: {BUSINESS['site_url'].rstrip('/')}/sitemap.xml\n",
+        build.output_root / "robots.txt",
+        f"User-agent: *\nDisallow: /google-ads/\nSitemap: {build.site_url.rstrip('/')}/sitemap.xml\n",
     )
-    write_ads_files(cities)
-    write_seo_files(cities)
-    write_readme(cities)
-    print(f"Generated {len(cities) * (len(SERVICES) + 1) + 2} HTML pages for {len(cities)} cities.")
+    write_ads_files(cities, build)
+    write_seo_files(cities, build)
+    write_readme(cities, build)
+    return 2 + (len(cities) if build.include_city_hubs else 0) + len(cities) * len(build.service_keys)
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate Solybat static pages.")
+    parser.add_argument(
+        "--target",
+        choices=("full", "serrurier", "plombier", "split"),
+        default="full",
+        help="full keeps the historical mixed site; split writes dist/serrurier and dist/plombier.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="Output directory for full/serrurier/plombier. With --target split, this is the parent output directory.",
+    )
+    parser.add_argument(
+        "--site-url",
+        help="Canonical domain for a single target build. For split, use SERRURIER_SITE_URL and PLOMBIER_SITE_URL.",
+    )
+    args = parser.parse_args()
+    if args.target == "split" and args.site_url:
+        parser.error("--site-url cannot be used with --target split; use SERRURIER_SITE_URL and PLOMBIER_SITE_URL.")
+    return args
+
+
+def main() -> None:
+    args = parse_args()
+    cities = load_cities()
+    if args.target == "split":
+        output_parent = args.output or ROOT / "dist"
+        builds = [
+            build_config("serrurier", output_parent / "serrurier"),
+            build_config("plombier", output_parent / "plombier"),
+        ]
+    else:
+        builds = [build_config(args.target, args.output, args.site_url)]
+
+    for build in builds:
+        page_count = render_build(cities, build)
+        print(f"Generated {page_count} HTML pages for {build.label} in {display_path(build.output_root)}.")
 
 
 if __name__ == "__main__":
