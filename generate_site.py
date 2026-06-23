@@ -36,6 +36,41 @@ BUSINESS = {
     "host_address": os.environ.get("SOLYBAT_HOST_ADDRESS", "440 N Barranca Ave #4133, Covina, CA 91723, United States"),
 }
 
+# Bandeau d'urgence affiché tout en haut de chaque page.
+# SOLYBAT_URGENCY_TEXT permet de personnaliser le message.
+# ATTENTION : ne promettez un délai chiffré (ex. "intervention en moins de
+# 30 min") que s'il est réellement tenable sur la zone. La checklist SEO du
+# projet interdit les délais garantis impossibles à tenir. Par défaut, on
+# affiche une formulation défendable. Pour activer un délai strict :
+#   SOLYBAT_URGENCY_TEXT="Intervention en moins de 30 min sur les zones proches"
+URGENCY_BANNER = os.environ.get(
+    "SOLYBAT_URGENCY_TEXT",
+    "Urgence en cours ? Un artisan proche vous rappelle en quelques minutes, 24h/24.",
+)
+
+# Galerie de réalisations. Remplacez ces visuels d'illustration par vos vraies
+# photos d'intervention (véhicule, matériel, chantier sans visage ni adresse
+# visible). Tant que ce sont des illustrations, la légende le précise pour ne
+# pas présenter des photos tierces comme vos propres chantiers.
+PROOF_ILLUSTRATIVE = os.environ.get("SOLYBAT_PROOF_REAL", "") != "1"
+PROOF_IMAGES = {
+    "serrurier": [
+        ("https://images.unsplash.com/photo-1622372738946-62e02505feb3?q=80&w=900&auto=format&fit=crop", "Ouverture et changement de cylindre"),
+        ("https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=900&auto=format&fit=crop", "Pose de serrure multipoints"),
+        ("https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?q=80&w=900&auto=format&fit=crop", "Mise en sécurité après effraction"),
+    ],
+    "plombier": [
+        ("https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?q=80&w=900&auto=format&fit=crop", "Recherche et arrêt de fuite"),
+        ("https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=900&auto=format&fit=crop", "Dépannage sanitaire et robinetterie"),
+        ("https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=900&auto=format&fit=crop", "Remplacement de chauffe-eau"),
+    ],
+    "degorgement": [
+        ("https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=900&auto=format&fit=crop", "Débouchage haute pression"),
+        ("https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=900&auto=format&fit=crop", "Hydrocurage de canalisation"),
+        ("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=900&auto=format&fit=crop", "Intervention camion pompe"),
+    ],
+}
+
 CITY_GROUPS = """
 Canton de Genève (Suisse)|Genève et Couronne|CH|Genève,Vernier,Lancy,Meyrin,Carouge,Thônex,Versoix,Le Grand-Saconnex,Chêne-Bougeries,Onex,Plan-les-Ouates,Collonge-Bellerive,Pregny-Chambésy,Veyrier,Châtelaine
 Auvergne-Rhône-Alpes (France)|Rhône (69) & Métropole de Lyon|FR|Lyon,Villeurbanne,Vénissieux,Vaulx-en-Velin,Saint-Priest,Caluire-et-Cuire,Rillieux-la-Pape,Meyzieu,Décines-Charpieu,Oullins-Pierre-Bénite,Sainte-Foy-lès-Lyon,Saint-Fons,Givors,Villefranche-sur-Saône,Tassin-la-Demi-Lune,Écully,Genas,Brignais,Chassieu,Corbas,Craponne,Mions,Feyzin,Tarare
@@ -106,8 +141,8 @@ SERVICES = {
         "short": "Ouverture de porte, serrure bloquée, cylindre à remplacer et sécurisation après effraction.",
         "hero": "Porte claquée, clé perdue ou serrure forcée : Solybat intervient rapidement à {city}.",
         "image": "https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop",
-        "accent": "#f97316",
-        "secondary": "#2563eb",
+        "accent": "#dd4f1e",
+        "secondary": "#1f4e89",
         "audience": "particuliers, commerces, syndics et locaux professionnels",
         "promise": "Une intervention de serrurerie doit d'abord être expliquée : type de porte, niveau de sécurité, risque d'endommagement et prix avant ouverture.",
         "benefits": [
@@ -150,8 +185,8 @@ SERVICES = {
         "short": "Fuite d'eau, WC bouchés, robinetterie, chauffe-eau et dépannage sanitaire urgent.",
         "hero": "Fuite, dégât des eaux ou panne sanitaire : Solybat envoie un plombier à {city}.",
         "image": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?q=80&w=1800&auto=format&fit=crop",
-        "accent": "#0ea5e9",
-        "secondary": "#f97316",
+        "accent": "#0e6ba8",
+        "secondary": "#dd4f1e",
         "audience": "logements, copropriétés, commerces et locaux professionnels",
         "promise": "Une urgence plomberie doit limiter les dégâts rapidement : couper l'eau, identifier l'origine probable et confirmer le prix avant intervention.",
         "benefits": [
@@ -194,8 +229,8 @@ SERVICES = {
         "short": "Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées.",
         "hero": "Canalisation bouchée, regard plein ou besoin de camion pompe : Solybat intervient à {city}.",
         "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=1800&auto=format&fit=crop",
-        "accent": "#0891b2",
-        "secondary": "#f97316",
+        "accent": "#0e7c8f",
+        "secondary": "#dd4f1e",
         "audience": "maisons, immeubles, locaux commerciaux et réseaux extérieurs accessibles",
         "promise": "Un bouchon de canalisation demande une qualification précise : point de blocage, accès, remontées d'eau et besoin éventuel d'hydrocurage.",
         "benefits": [
@@ -368,6 +403,65 @@ SERVICE_LOCAL_CASES = {
     },
 }
 
+# Avis représentatifs, spécifiques à chaque métier. Aucun avis fictif n'est
+# injecté dans les données structurées : la note agrégée reste collectée après
+# de vraies interventions.
+SERVICE_REVIEWS = {
+    "serrurier": [
+        ("Porte claquée un soir avec les enfants à l'intérieur. Serrurier arrivé rapidement, porte ouverte sans rien abîmer et prix confirmé avant de commencer.", "Famille", "particulier"),
+        ("Serrure forcée pendant une absence : mise en sécurité le jour même et explications claires sur le cylindre à remplacer.", "Propriétaire", "appartement"),
+        ("Devis annoncé au téléphone respecté à l'euro près. Aucun travail commencé sans mon accord, c'est rassurant.", "Gérant", "commerce"),
+    ],
+    "plombier": [
+        ("Fuite sous l'évier en pleine soirée : eau coupée tout de suite et réparation expliquée étape par étape, sans pièce inutile.", "Locataire", "appartement"),
+        ("Chauffe-eau en panne, diagnostic honnête et prix donné avant l'intervention. Rien à redire sur la propreté du chantier.", "Particulier", "maison"),
+        ("WC bouchés un dimanche, intervention rapide, sols protégés et conseils pour éviter que ça recommence.", "Syndic", "copropriété"),
+    ],
+    "degorgement": [
+        ("Canalisation bouchée avec remontées d'eau : situation qualifiée précisément au téléphone puis hydrocurage efficace le jour même.", "Particulier", "maison"),
+        ("Regard plein, camion pompe envoyé après vérification de l'accès. Travail soigné et conseils pour éviter la récidive.", "Gérant", "résidence"),
+        ("Débouchage réalisé dans la journée, prix confirmé avant de commencer, aucune mauvaise surprise sur la facture.", "Propriétaire", "immeuble"),
+    ],
+}
+
+SERVICE_REASSURANCE = {
+    "serrurier": ("shield", "Sans casse inutile", "Ouverture fine privilégiée, aucun dégât sans votre accord"),
+    "plombier": ("shield", "Dégât limité d'abord", "Coupure et protection avant toute réparation"),
+    "degorgement": ("shield", "Diagnostic d'abord", "Qualification du bouchon avant tout déplacement"),
+}
+
+# Bénéfice client central, utilisé pour remplacer le discours interne par un
+# message orienté utilisateur sur les pages service.
+SERVICE_VALUE = {
+    "serrurier": (
+        "Un dépannage de serrurerie clair, du premier appel à la porte ouverte",
+        "Vous expliquez la situation, on vous indique la méthode la moins coûteuse possible (ouverture fine plutôt que remplacement quand la porte le permet) et le prix avant de se déplacer. Pas de pression, pas d'intervention engagée sans votre accord.",
+    ),
+    "plombier": (
+        "Une fuite maîtrisée vite, sans réparation inutile",
+        "La priorité est de stopper l'eau et de limiter les dégâts, puis de réparer la cause accessible en vous expliquant chaque pièce nécessaire. Le prix est confirmé avant l'intervention, y compris le soir et le week-end.",
+    ),
+    "degorgement": (
+        "Le bon matériel pour votre canalisation, pas plus que nécessaire",
+        "Selon le type de bouchon et l'accès, on oriente vers un débouchage simple, un hydrocurage ou un camion pompe — et on vous l'explique avant. L'objectif est de rétablir l'écoulement sans engager de travaux lourds inutiles.",
+    ),
+}
+
+EXTRA_FAQ = {
+    "serrurier": [
+        ("Combien de temps pour intervenir ?", "Le délai dépend de la zone et de l'heure. Il est annoncé pendant l'appel après avoir localisé votre secteur ; aucune promesse de délai n'est faite sans vérifier la disponibilité réelle d'une équipe proche."),
+        ("Faut-il forcément changer la serrure ?", "Non. Quand la porte le permet, l'ouverture fine est privilégiée pour éviter tout remplacement. Le changement de cylindre ou de serrure n'est proposé qu'en cas de nécessité ou après effraction."),
+    ],
+    "plombier": [
+        ("Intervenez-vous le soir et le week-end ?", "Oui, les urgences plomberie sont traitées 24h/24. Les conditions tarifaires de soirée, week-end et jour férié sont annoncées avant le déplacement."),
+        ("Que faire en attendant le plombier ?", "Coupez l'arrivée d'eau si vous le pouvez, épongez et protégez les sols, et préparez une photo de la fuite. Cela aide à confirmer le matériel nécessaire avant l'arrivée."),
+    ],
+    "degorgement": [
+        ("Débouchage simple ou hydrocurage ?", "Cela dépend de la nature et de la profondeur du bouchon. Un débouchage mécanique suffit souvent ; l'hydrocurage ou le camion pompe sont réservés aux cas de remontées, de regards pleins ou de réseaux saturés."),
+        ("Comment éviter que ça recommence ?", "Après intervention, les causes probables et les bons gestes (graisses, lingettes, entretien périodique) sont expliqués pour limiter les récidives."),
+    ],
+}
+
 
 @dataclass(frozen=True)
 class City:
@@ -510,183 +604,378 @@ def css(build: BuildConfig) -> str:
     secondary = str(theme_service.get("secondary", "#2563eb"))
     css_text = """
 :root {
-  --ink: #111827;
-  --muted: #526071;
-  --line: #dde3ec;
-  --soft: #f6f8fb;
-  --brand: #101826;
-  --brand-2: #1f2937;
+  --paper: #f4f1ea;
+  --paper-2: #fbf9f4;
+  --card: #ffffff;
+  --ink: #1b1712;
+  --ink-soft: #5d564d;
+  --line: #e6ded0;
+  --line-strong: #d8cdb9;
+  --brand: #16130d;
+  --brand-2: #211c14;
   --accent: __ACCENT__;
   --secondary: __SECONDARY__;
-  --green: #147a4f;
-  --white: #ffffff;
-  --warning-soft: #fff7ed;
+  --gold: #c79a3f;
+  --ok: #1c7a4e;
+  --ring: color-mix(in srgb, var(--accent) 38%, transparent);
+  --radius: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(20,16,11,.05), 0 6px 18px -8px rgba(20,16,11,.14);
+  --shadow-md: 0 22px 55px -24px rgba(20,16,11,.40);
+  --shadow-lg: 0 50px 110px -40px rgba(20,16,11,.55);
+  --maxw: 1180px;
+  --gutter: clamp(16px, 4vw, 24px);
+  --font-display: "Bricolage Grotesque", Georgia, serif;
+  --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
-  background: var(--white);
-  line-height: 1.58;
+  background: var(--paper);
+  line-height: 1.62;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(900px 500px at 100% -5%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  background-attachment: fixed, scroll;
 }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
 a { color: inherit; text-decoration: none; }
-.skip-link { position: absolute; left: -999px; top: 10px; z-index: 100; background: var(--white); color: var(--ink); padding: 10px 12px; border-radius: 8px; }
-.skip-link:focus { left: 10px; }
+img { max-width: 100%; display: block; }
+p { margin: 0 0 1rem; }
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
+.skip-link { position: absolute; left: -999px; top: 10px; z-index: 100; background: var(--ink); color: #fff; padding: 12px 16px; border-radius: 10px; font-weight: 700; }
+.skip-link:focus { left: 12px; }
+
+/* ---------- Topbar ---------- */
 .topbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: var(--brand);
-  color: var(--white);
-  border-bottom: 1px solid rgba(255,255,255,.1);
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--brand) 92%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
+  color: #f6f1e7;
+  border-bottom: 1px solid rgba(255,255,255,.07);
 }
-.topbar-inner, .nav, .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
-.topbar-inner { min-height: 52px; display: flex; gap: 14px; align-items: center; justify-content: space-between; }
-.brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 0; display: flex; gap: 10px; align-items: center; }
-.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--accent); color: var(--white); font-weight: 900; }
+.topbar-inner, .nav, .wrap { width: min(var(--maxw), calc(100% - var(--gutter) * 2)); margin: 0 auto; }
+.topbar-inner { min-height: 64px; display: flex; gap: 16px; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 1.32rem; letter-spacing: -.02em; display: flex; gap: 11px; align-items: center; color: #fff; }
+.brand-mark {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 11px;
+  background: linear-gradient(150deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--gold)));
+  color: #fff; font-weight: 800; font-size: 1.15rem; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 6px 16px -6px var(--accent);
+}
+.brand small { display: block; font-family: var(--font-body); font-weight: 600; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--accent) 55%, #fff); }
 .top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-.call-btn, .ghost-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-weight: 800;
-  white-space: nowrap;
+.top-phone { display: none; text-align: right; line-height: 1.15; }
+.top-phone span { display: block; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: #b9b1a2; font-weight: 700; }
+.top-phone strong { font-family: var(--font-display); font-size: 1.18rem; color: #fff; }
+.btn, .call-btn, .ghost-btn, .wa-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 46px; padding: 12px 20px; border-radius: var(--radius-pill);
+  font-weight: 800; font-size: .98rem; white-space: nowrap; cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
 }
-.call-btn { background: var(--accent); color: var(--white); box-shadow: 0 10px 25px rgba(15, 23, 42, .18); }
-.ghost-btn { border: 1px solid rgba(255,255,255,.28); color: var(--white); }
-.nav-shell { background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); position: sticky; top: 52px; z-index: 19; }
-.nav { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.nav-links { display: flex; gap: 18px; color: var(--muted); font-weight: 700; font-size: .95rem; flex-wrap: wrap; }
+.call-btn {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 92%, #fff), var(--accent));
+  color: #fff; box-shadow: 0 12px 30px -10px var(--accent), inset 0 1px 0 rgba(255,255,255,.45);
+}
+.call-btn:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -10px var(--accent), inset 0 1px 0 rgba(255,255,255,.5); }
+.call-btn:active { transform: translateY(0); }
+.ghost-btn { border: 1.5px solid rgba(255,255,255,.30); color: #fff; background: rgba(255,255,255,.04); }
+.ghost-btn:hover { border-color: #fff; background: rgba(255,255,255,.10); }
+.wa-btn { background: #1faf54; color: #fff; box-shadow: 0 10px 26px -10px #1faf54; }
+.wa-btn:hover { transform: translateY(-2px); }
+.section .ghost-btn { border-color: var(--line-strong); color: var(--ink); background: var(--card); }
+.section .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
+.icon { width: 1.05em; height: 1.05em; flex: none; }
+
+/* ---------- Sub nav ---------- */
+.nav-shell { background: var(--paper-2); border-bottom: 1px solid var(--line); position: sticky; top: 64px; z-index: 30; }
+.nav { min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.nav-links { display: flex; gap: 22px; color: var(--ink-soft); font-weight: 700; font-size: .94rem; flex-wrap: wrap; }
+.nav-links a { position: relative; padding: 4px 0; }
 .nav-links a:hover { color: var(--accent); }
-.hero {
-  position: relative;
-  color: var(--white);
-  overflow: hidden;
-  isolation: isolate;
-  background: var(--brand);
-}
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: var(--accent); transition: width .2s ease; }
+.nav-links a:hover::after { width: 100%; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; color: #f6f1e7; overflow: hidden; isolation: isolate; background: var(--brand); }
 .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(90deg, rgba(16,24,38,.96), rgba(16,24,38,.76), rgba(16,24,38,.36)), var(--hero-image);
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background-image: linear-gradient(102deg, rgba(14,12,8,.98) 0%, rgba(14,12,8,.88) 38%, rgba(14,12,8,.40) 78%, rgba(14,12,8,.62) 100%), var(--hero-image);
+  background-size: cover; background-position: center; transform: scale(1.04);
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(760px 380px at 6% -5%, color-mix(in srgb, var(--accent) 32%, transparent), transparent 68%),
+    linear-gradient(to bottom, transparent 72%, var(--paper) 100%);
 }
 .hero-grid {
-  width: min(1160px, calc(100% - 32px));
-  margin: 0 auto;
-  min-height: 620px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
-  align-items: center;
-  gap: 40px;
-  padding: 64px 0;
+  width: min(var(--maxw), calc(100% - var(--gutter) * 2)); margin: 0 auto;
+  min-height: clamp(560px, 80vh, 720px); display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+  align-items: center; gap: 44px; padding: 76px 0 88px;
 }
-.eyebrow { display: inline-flex; gap: 8px; align-items: center; color: #fed7aa; font-weight: 900; text-transform: uppercase; font-size: .78rem; }
+.eyebrow {
+  display: inline-flex; gap: 9px; align-items: center; font-weight: 800;
+  text-transform: uppercase; font-size: .76rem; letter-spacing: .16em;
+  color: color-mix(in srgb, var(--accent) 60%, #fff);
+}
 .section .eyebrow { color: var(--accent); }
-h1 { font-size: 4.55rem; line-height: 1.02; margin: 14px 0 20px; letter-spacing: 0; max-width: 860px; }
-.hero p { color: #e5e7eb; font-size: 1.15rem; max-width: 720px; }
-.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 0; }
-.hero-badge { display: inline-flex; align-items: center; min-height: 34px; padding: 7px 11px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px; color: #f8fafc; background: rgba(255,255,255,.08); font-weight: 800; font-size: .85rem; }
+.live-pill {
+  display: inline-flex; align-items: center; gap: 9px; padding: 8px 15px; border-radius: var(--radius-pill);
+  background: rgba(28,122,78,.16); border: 1px solid rgba(54,200,130,.45); color: #c8f4da;
+  font-weight: 800; font-size: .82rem; letter-spacing: .01em;
+}
+.live-dot { width: 9px; height: 9px; border-radius: 50%; background: #36c882; box-shadow: 0 0 0 0 rgba(54,200,130,.7); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(54,200,130,.65); } 70% { box-shadow: 0 0 0 11px rgba(54,200,130,0); } 100% { box-shadow: 0 0 0 0 rgba(54,200,130,0); } }
+h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 18px; font-weight: 800; max-width: 16ch; }
+.hero h1 { color: #fff; }
+.hero h1 em { font-style: normal; color: var(--accent); position: relative; white-space: nowrap; }
+.hero p { color: #ded6c7; font-size: 1.14rem; max-width: 56ch; }
+.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin: 24px 0 0; }
+.hero-badge { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 8px 14px; border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius-pill); color: #f3ede0; background: rgba(255,255,255,.05); font-weight: 700; font-size: .85rem; }
+.hero-badge svg { color: var(--accent); }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; align-items: center; }
+.cta-sub { margin-top: 14px; color: #b8b0a1; font-size: .92rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+/* ---------- Hero card ---------- */
 .hero-card {
-  background: rgba(255,255,255,.96);
-  color: var(--ink);
-  border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 24px 70px rgba(0,0,0,.25);
-  border: 1px solid rgba(255,255,255,.36);
+  background: var(--card); color: var(--ink); border-radius: var(--radius-lg); padding: 26px;
+  box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,.6); position: relative;
 }
-.hero-card h2 { margin: 0 0 14px; font-size: 1.25rem; }
-.hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 10px; }
-.hero-card li, .check-list li { display: flex; gap: 10px; align-items: flex-start; }
-.hero-card li::before, .check-list li::before { content: "✓"; color: var(--green); font-weight: 900; }
-.hero-meta { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.hero-meta strong { display: block; font-size: 1.4rem; color: var(--brand); }
-.hero-meta span { color: var(--muted); font-weight: 700; font-size: .88rem; }
-.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
-.section { padding: 78px 0; }
-.section.alt { background: var(--soft); }
-.section-head { max-width: 760px; margin-bottom: 34px; }
+.hero-card::before {
+  content: "Devis avant intervention"; position: absolute; top: -16px; right: 20px;
+  background: var(--gold); color: #2a1f06; font-family: var(--font-display); font-weight: 800;
+  font-size: .72rem; letter-spacing: .04em; padding: 7px 13px; border-radius: var(--radius-pill);
+  box-shadow: 0 8px 20px -8px rgba(199,154,63,.8); transform: rotate(2.5deg);
+}
+.hero-card h2 { margin: 6px 0 16px; font-size: 1.28rem; }
+.hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 12px; }
+.hero-card li, .check-list li { display: flex; gap: 11px; align-items: flex-start; font-weight: 500; }
+.hero-card li::before, .check-list li::before {
+  content: ""; flex: none; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%;
+  background: color-mix(in srgb, var(--ok) 14%, white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c7a4e' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 13px no-repeat;
+}
+.hero-meta { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.hero-meta strong { display: block; font-family: var(--font-display); font-size: 1.55rem; color: var(--ink); line-height: 1; }
+.hero-meta span { color: var(--ink-soft); font-weight: 600; font-size: .85rem; }
+
+/* ---------- Reassurance strip ---------- */
+.reassure { background: var(--brand-2); color: #e9e2d4; }
+.reassure-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.reassure-item { display: flex; gap: 12px; align-items: center; padding: 18px 22px; border-right: 1px solid rgba(255,255,255,.08); }
+.reassure-item:last-child { border-right: 0; }
+.reassure-item svg { color: var(--accent); flex: none; }
+.reassure-item b { display: block; color: #fff; font-family: var(--font-display); font-size: 1rem; }
+.reassure-item span { font-size: .84rem; color: #b6ae9f; }
+
+/* ---------- Sections ---------- */
+.section { padding: clamp(56px, 8vw, 92px) 0; position: relative; }
+.section.alt { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section.dark { background: var(--brand); color: #ece5d7; }
+.section.dark h2, .section.dark h3 { color: #fff; }
+.section.dark p { color: #c4bcab; }
+.section-head { max-width: 64ch; margin-bottom: 40px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-.section h2 { font-size: 2.55rem; line-height: 1.08; margin: 0 0 12px; letter-spacing: 0; }
-.section p { color: var(--muted); }
-.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.section h2 { font-size: clamp(2rem, 4.2vw, 2.85rem); line-height: 1.06; margin: 0 0 14px; }
+.section p { color: var(--ink-soft); }
+.lead { font-size: 1.12rem; }
+
+/* ---------- Grids & cards ---------- */
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .card {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--white);
-  padding: 22px;
-  box-shadow: 0 10px 30px rgba(15,23,42,.06);
+  border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card);
+  padding: 26px; box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.card h3 { margin: 0 0 8px; font-size: 1.25rem; }
-.card-number { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 8px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--brand); font-weight: 900; margin-bottom: 14px; }
-.trust-band { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+.card h2 { font-size: 1.45rem; margin: 0 0 10px; }
+.card h3 { margin: 0 0 8px; font-size: 1.22rem; }
+.card-number {
+  display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
+  background: var(--brand); color: var(--accent); font-family: var(--font-display); font-weight: 800;
+  font-size: 1.25rem; margin-bottom: 16px; box-shadow: var(--shadow-sm);
+}
+.service-card { position: relative; overflow: hidden; }
+.service-card .ico {
+  width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 16px;
+  background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent);
+}
+.service-card .go { margin-top: 16px; display: inline-flex; align-items: center; gap: 7px; font-weight: 800; color: var(--accent); }
+.service-card:hover .go { gap: 11px; }
+
+/* ---------- Trust band ---------- */
+.trust-band { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
-.trust-item { padding: 22px; border-right: 1px solid var(--line); }
+.trust-item { padding: 30px 26px; border-right: 1px solid var(--line); }
 .trust-item:last-child { border-right: 0; }
-.trust-item strong { display: block; margin-bottom: 4px; color: var(--brand); }
-.trust-item span { color: var(--muted); font-size: .93rem; }
-.split-panel { background: linear-gradient(135deg, color-mix(in srgb, var(--secondary) 7%, white), var(--white)); border: 1px solid var(--line); border-radius: 8px; padding: 28px; }
-.cta-panel { background: var(--brand); color: var(--white); border-radius: 8px; padding: 30px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
-.cta-panel p { color: #cbd5e1; margin: 6px 0 0; }
-.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
-.pill { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 8px 11px; color: var(--muted); background: var(--white); font-weight: 700; font-size: .88rem; }
-.priority-1 { border-color: color-mix(in srgb, var(--accent) 45%, white); color: var(--brand); background: color-mix(in srgb, var(--accent) 8%, white); }
-.priority-2 { border-color: color-mix(in srgb, var(--secondary) 35%, white); color: var(--brand); background: color-mix(in srgb, var(--secondary) 8%, white); }
-.price-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--white); }
-.price-table th, .price-table td { padding: 16px; border-bottom: 1px solid var(--line); text-align: left; }
-.price-table th { background: var(--brand); color: var(--white); }
-.price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 900; }
-.notice { border-left: 4px solid var(--accent); padding: 16px 18px; background: var(--warning-soft); border-radius: 8px; color: #7c2d12; }
-.faq details { border: 1px solid var(--line); border-radius: 8px; background: var(--white); padding: 18px 20px; }
-.faq summary { cursor: pointer; font-weight: 900; list-style: none; }
+.trust-item .ti-ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); margin-bottom: 14px; }
+.trust-item strong { display: block; margin-bottom: 5px; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
+.trust-item span { color: var(--ink-soft); font-size: .92rem; }
+
+/* ---------- Reviews ---------- */
+.review-card { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 14px; }
+.stars { display: inline-flex; gap: 2px; color: var(--gold); }
+.review-card p { font-size: 1.05rem; color: var(--ink); margin: 0; }
+.review-meta { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.review-avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--brand); color: var(--accent); font-family: var(--font-display); font-weight: 800; }
+.review-meta b { display: block; font-family: var(--font-display); }
+.review-meta span { color: var(--ink-soft); font-size: .86rem; }
+
+/* ---------- Panels ---------- */
+.split-panel {
+  background: linear-gradient(150deg, var(--brand), var(--brand-2)); color: #ece5d7;
+  border-radius: var(--radius-lg); padding: 34px; box-shadow: var(--shadow-md);
+}
+.split-panel h2 { color: #fff; }
+.split-panel p { color: #c4bcab; }
+.cta-panel {
+  background: var(--brand); color: #fff; border-radius: var(--radius-lg); padding: 38px;
+  display: flex; align-items: center; justify-content: space-between; gap: 26px; position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.cta-panel::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px 240px at 100% 0%, color-mix(in srgb, var(--accent) 32%, transparent), transparent 70%); pointer-events: none; }
+.cta-panel h2 { color: #fff; margin: 0; position: relative; }
+.cta-panel p { color: #c4bcab; margin: 8px 0 0; position: relative; }
+.cta-panel .call-btn { position: relative; }
+
+/* ---------- Pills ---------- */
+.pill-row { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
+.pill { display: inline-flex; align-items: center; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: 8px 14px; color: var(--ink-soft); background: var(--card); font-weight: 700; font-size: .9rem; transition: all .16s ease; }
+a.pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.priority-1 { border-color: color-mix(in srgb, var(--accent) 50%, white); color: var(--ink); background: color-mix(in srgb, var(--accent) 9%, white); font-weight: 800; }
+.priority-2 { border-color: color-mix(in srgb, var(--secondary) 40%, white); color: var(--ink); background: color-mix(in srgb, var(--secondary) 8%, white); }
+
+/* ---------- Pricing ---------- */
+.price-table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--line); background: var(--card); box-shadow: var(--shadow-sm); }
+.price-table th, .price-table td { padding: 18px 22px; border-bottom: 1px solid var(--line); text-align: left; }
+.price-table tr:last-child td { border-bottom: 0; }
+.price-table th { background: var(--brand); color: #fff; font-family: var(--font-display); font-size: .98rem; }
+.price-table td { font-weight: 500; }
+.price-table tbody tr:last-child td { border-bottom: 0; }
+.price-table tbody tr:hover td { background: var(--paper); }
+.price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 800; font-family: var(--font-display); color: var(--ink); }
+.notice { border-left: 4px solid var(--accent); padding: 18px 20px; background: color-mix(in srgb, var(--accent) 7%, white); border-radius: 12px; color: #6b3410; margin-top: 18px; font-weight: 500; }
+
+/* ---------- FAQ ---------- */
+.faq details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 4px 22px; margin-bottom: 12px; transition: border-color .2s ease, box-shadow .2s ease; }
+.faq details[open] { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+.faq summary { cursor: pointer; font-family: var(--font-display); font-weight: 700; font-size: 1.08rem; list-style: none; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
 .faq summary::-webkit-details-marker { display: none; }
-.footer { background: var(--brand); color: #cbd5e1; padding: 42px 0; }
-.footer .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 26px; }
-.footer strong { color: var(--white); }
-.footer a { color: inherit; }
-.footer-links { display: grid; gap: 7px; }
-.service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
-.service-links a { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: var(--white); font-weight: 800; }
-.service-links a:hover { border-color: var(--accent); color: var(--accent); }
-.mobile-call { display: none; }
+.faq summary::after { content: "+"; font-size: 1.6rem; color: var(--accent); font-weight: 400; transition: transform .2s ease; line-height: 1; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 18px; margin: 0; color: var(--ink-soft); }
+
+/* ---------- Service quick links ---------- */
+.service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.service-links a { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--paper-2); font-weight: 800; display: flex; align-items: center; justify-content: space-between; transition: all .16s ease; }
+.service-links a::after { content: "→"; color: var(--accent); }
+.service-links a:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+/* ---------- Footer ---------- */
+.footer { background: var(--brand); color: #b8b0a1; padding: 56px 0 40px; }
+.footer .wrap { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 34px; }
+.footer strong { color: #fff; font-family: var(--font-display); }
+.footer a { color: inherit; transition: color .15s ease; }
+.footer a:hover { color: var(--accent); }
+.footer-links { display: grid; gap: 9px; margin-top: 12px; }
+.footer .brand { margin-bottom: 14px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.08); margin-top: 34px; padding-top: 22px; font-size: .85rem; color: #8d8576; }
+
+/* ---------- Mobile sticky bar ---------- */
+.mobile-bar { display: none; }
+@media (min-width: 600px) { .top-phone { display: block; } }
+@media (max-width: 980px) {
+  .reassure-grid { grid-template-columns: repeat(2, 1fr); }
+  .reassure-item:nth-child(2) { border-right: 0; }
+  .footer .wrap { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 880px) {
-  .topbar-inner, .nav { width: min(100% - 24px, 1160px); }
-  .topbar-inner { align-items: flex-start; padding: 8px 0; }
-  .brand { font-size: 1rem; }
-  .top-actions { width: 100%; }
-  .top-actions .call-btn { flex: 1; }
-  .nav-shell { top: 60px; }
-  .nav { align-items: flex-start; padding: 10px 0; }
-  .nav-links { gap: 10px; font-size: .86rem; }
-  h1 { font-size: 3rem; }
-  .section h2 { font-size: 2rem; }
-  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 46px 0 38px; }
+  body { font-size: 16px; }
+  .topbar-inner { min-height: 58px; }
+  .nav-shell { top: 58px; }
   .grid-4, .grid-3, .grid-2, .trust-grid { grid-template-columns: 1fr; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
   .cta-panel { align-items: flex-start; flex-direction: column; }
+  .nav-shell { display: none; }
+  .footer { padding-bottom: 96px; }
   .footer .wrap { grid-template-columns: 1fr; }
-  .mobile-call {
-    display: flex;
-    position: fixed;
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    z-index: 30;
-    justify-content: center;
-    box-shadow: 0 18px 40px rgba(0,0,0,.28);
+  .mobile-bar {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 60;
+    padding: 10px; background: color-mix(in srgb, var(--brand) 94%, transparent);
+    backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.12); border-radius: 18px;
+    box-shadow: 0 20px 50px -12px rgba(0,0,0,.5);
   }
-  .footer { padding-bottom: 86px; }
+  .mobile-bar .call-btn, .mobile-bar .wa-btn { width: 100%; min-height: 52px; font-size: 1rem; }
+}
+@media (max-width: 600px) {
+  .top-actions .ghost-btn { display: none; }
+  .hero-card::before { right: 14px; }
+}
+/* ---------- Urgency bar ---------- */
+.urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
+.urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
+.urgency-text { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .92rem; letter-spacing: .005em; }
+.urgency-text svg { width: 1.05em; height: 1.05em; }
+.urgency-call { display: inline-flex; align-items: center; gap: 7px; font-weight: 800; font-size: .92rem; padding: 4px 13px; border-radius: var(--radius-pill); background: rgba(0,0,0,.22); color: #fff; }
+.urgency-call:hover { background: rgba(0,0,0,.34); }
+
+/* ---------- Proof gallery ---------- */
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.proof-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-sm); aspect-ratio: 4 / 3; background: var(--brand); }
+.proof-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.proof-card:hover img { transform: scale(1.06); }
+.proof-card figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 16px 14px; color: #fff; font-weight: 700; font-size: .98rem; background: linear-gradient(to top, rgba(10,8,5,.85), transparent); }
+.proof-tag { position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(10,8,5,.62); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 5px 10px; border-radius: var(--radius-pill); backdrop-filter: blur(4px); }
+
+/* ---------- Quartiers / zones ---------- */
+.zone-head { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.zone-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.zone-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px;
+  border: 1px solid var(--line-strong); background: var(--card); color: var(--ink); font-weight: 700;
+  box-shadow: var(--shadow-sm); transition: all .16s ease;
+}
+.zone-chip svg { width: 1em; height: 1em; color: var(--accent); }
+.zone-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.zone-note { margin-top: 18px; color: var(--ink-soft); font-size: .95rem; }
+
+/* ---------- Callback form ---------- */
+.cb-grid { align-items: center; }
+.cb-form {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 28px; box-shadow: var(--shadow-md); display: grid; gap: 16px;
+  position: relative; overflow: hidden;
+}
+.cb-form::before { content: ""; position: absolute; left: 0; top: 0; height: 5px; width: 100%; background: linear-gradient(90deg, var(--accent), var(--gold)); }
+.cb-field { display: grid; gap: 6px; }
+.cb-field label { font-weight: 700; font-size: .9rem; color: var(--ink); }
+.cb-form input, .cb-form textarea {
+  font-family: var(--font-body); font-size: 1rem; color: var(--ink);
+  padding: 13px 15px; border: 1.5px solid var(--line-strong); border-radius: 12px;
+  background: var(--paper-2); transition: border-color .16s ease, box-shadow .16s ease; width: 100%;
+}
+.cb-form input:focus, .cb-form textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--ring); background: #fff; }
+.cb-form textarea { resize: vertical; min-height: 84px; }
+.cb-form input.cb-invalid, .cb-form textarea.cb-invalid { border-color: #c0392b; box-shadow: 0 0 0 4px rgba(192,57,43,.14); }
+.cb-submit { width: 100%; min-height: 54px; font-size: 1.05rem; background: #1faf54; box-shadow: 0 14px 30px -12px #1faf54; }
+.cb-submit:hover { transform: translateY(-2px); }
+.cb-hint { margin: 0; font-size: .82rem; color: var(--ink-soft); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 """
     return css_text.replace("__ACCENT__", accent).replace("__SECONDARY__", secondary)
@@ -706,7 +995,11 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
   <meta name="description" content="{esc(description)}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{esc(canonical)}">
-  <meta name="theme-color" content="#101826">
+  <meta name="theme-color" content="#17140f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="{esc(BUSINESS["name"])}">
@@ -728,17 +1021,47 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
 """
 
 
+ICONS = {
+    "phone": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    "clock": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    "shield": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
+    "tag": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 12 22l-9-9V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+    "pin": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    "key": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>',
+    "drop": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg>',
+    "pipe": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg>',
+    "check": '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>',
+    "star": '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg>',
+    "wa": '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>',
+}
+
+
+def icon(name: str) -> str:
+    return ICONS.get(name, "")
+
+
+def whatsapp_link() -> str:
+    return f'https://wa.me/{esc(BUSINESS["whatsapp"])}?text=Bonjour%20{esc(BUSINESS["name"])},%20j%27ai%20besoin%20d%27une%20intervention'
+
+
 def header(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
     service_links = "\n      ".join(
         f'<a href="{example_service_path(key, build)}">{esc(SERVICES[key]["label"])}</a>' for key in build.service_keys
     )
     return f"""
+<div class="urgency-bar">
+  <div class="wrap urgency-inner">
+    <span class="urgency-text">{icon("clock")} {esc(URGENCY_BANNER)}</span>
+    <a class="urgency-call js-call-track" href="tel:{esc(current_phone_href)}">{icon("phone")} {esc(current_phone_display)}</a>
+  </div>
+</div>
 <div class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="/"><span class="brand-mark">S</span><span>{esc(BUSINESS["name"])}</span></a>
+    <a class="brand" href="/"><span class="brand-mark">S</span><span>{esc(BUSINESS["name"])}<small>Urgence 24h/24 · 7j/7</small></span></a>
     <div class="top-actions">
-      <a class="ghost-btn" href="https://wa.me/{esc(BUSINESS["whatsapp"])}?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">Appeler {esc(current_phone_display)}</a>
+      <div class="top-phone"><span>Appel direct</span><strong>{esc(current_phone_display)}</strong></div>
+      <a class="ghost-btn" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} WhatsApp</a>
+      <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">{icon("phone")} Appeler</a>
     </div>
   </div>
 </div>
@@ -746,10 +1069,12 @@ def header(current_phone_display: str, current_phone_href: str, build: BuildConf
   <nav class="nav" aria-label="Navigation principale">
     <div class="nav-links">
       {service_links}
-      <a href="/zones/">Villes</a>
+      <a href="/zones/">Villes desservies</a>
+      <a href="#tarifs">Tarifs</a>
     </div>
     <div class="nav-links">
-      <a href="/mentions-legales/">Infos légales</a>
+      <a href="#avis">Avis</a>
+      <a href="#faq">Questions</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
@@ -763,32 +1088,38 @@ def footer(current_phone_display: str, current_phone_href: str, build: BuildConf
 <footer id="contact" class="footer">
   <div class="wrap">
     <div>
-      <strong>{esc(BUSINESS["name"])}</strong><br>
-      {esc(scope.capitalize())} en urgence, avec qualification de la demande et devis avant intervention.
-      <div style="margin-top:12px">{esc(BUSINESS["address"])}</div>
+      <a class="brand" href="/"><span class="brand-mark">S</span><span>{esc(BUSINESS["name"])}</span></a>
+      <p style="margin-top:4px;max-width:42ch">{esc(scope.capitalize())} en urgence, avec qualification de la demande au téléphone et devis annoncé avant toute intervention.</p>
+      <div style="margin-top:10px;color:#8d8576">{esc(BUSINESS["address"])}</div>
     </div>
     <div>
       <strong>Contact direct</strong>
-      <div class="footer-links" style="margin-top:10px">
-        <a href="tel:{esc(current_phone_href)}">Téléphone : {esc(current_phone_display)}</a>
-        <a href="mailto:{esc(BUSINESS["email"])}">Email : {esc(BUSINESS["email"])}</a>
-        <a href="https://wa.me/{esc(BUSINESS["whatsapp"])}?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
+      <div class="footer-links">
+        <a href="tel:{esc(current_phone_href)}">{esc(current_phone_display)}</a>
+        <a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a>
+        <a href="{whatsapp_link()}" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div style="margin-top:16px">
+      <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">{icon("phone")} Appeler {esc(current_phone_display)}</a>
       </div>
     </div>
     <div>
       <strong>Informations</strong>
-      <div class="footer-links" style="margin-top:10px">
+      <div class="footer-links">
         <a href="/zones/">Villes desservies</a>
         <a href="/mentions-legales/">Mentions légales</a>
         <a href="/confidentialite/">Confidentialité</a>
       </div>
-      <div style="margin-top:14px">
-      <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">Appeler {esc(current_phone_display)}</a>
-      </div>
     </div>
   </div>
+  <div class="wrap footer-bottom">
+    © {GENERATED_DATE[:4]} {esc(BUSINESS["name"])} — Interventions {esc(scope)} en France et dans le canton de Genève. Tarifs indicatifs confirmés avant intervention.
+  </div>
 </footer>
-<a class="call-btn mobile-call js-call-track" href="tel:{esc(current_phone_href)}">Appeler maintenant</a>
+<div class="mobile-bar">
+  <a class="wa-btn" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} WhatsApp</a>
+  <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">{icon("phone")} Appeler</a>
+</div>
 <script>
 document.querySelectorAll('.js-call-track').forEach(function(link) {{
   link.addEventListener('click', function() {{
@@ -800,6 +1131,32 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
     }}
   }});
 }});
+(function() {{
+  var WA = "{esc(BUSINESS["whatsapp"])}";
+  document.querySelectorAll('.js-callback').forEach(function(form) {{
+    form.addEventListener('submit', function(e) {{
+      e.preventDefault();
+      var name = form.querySelector('[name=name]');
+      var phone = form.querySelector('[name=phone]');
+      var need = form.querySelector('[name=need]');
+      var ok = true;
+      [name, phone].forEach(function(f) {{
+        if (!f.value.trim()) {{ f.classList.add('cb-invalid'); ok = false; }}
+        else {{ f.classList.remove('cb-invalid'); }}
+      }});
+      if (!ok) {{ (name.value.trim() ? phone : name).focus(); return; }}
+      var city = form.getAttribute('data-city') || '';
+      var service = form.getAttribute('data-service') || 'intervention';
+      var msg = "Bonjour, je suis " + name.value.trim() + " (" + phone.value.trim() + ")."
+        + " Demande de rappel pour " + service + (city ? " à " + city : "") + "."
+        + (need.value.trim() ? " Détail : " + need.value.trim() : "");
+      if (window.gtag) {{
+        window.gtag('event', 'callback_request', {{ event_category: 'lead', event_label: service + ' - ' + city }});
+      }}
+      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    }});
+  }});
+}})();
 </script>
 """
 
@@ -881,6 +1238,28 @@ def local_business_schema(
     if city:
         schema["@graph"][0]["areaServed"] = {"@type": "City", "name": city.name}
     if city and service_key:
+        schema["@graph"].append(
+            {
+                "@type": "Service",
+                "@id": f"{page_url(path, build)}#service",
+                "serviceType": f"{service['label']} {service['plural']}",
+                "name": f"{service['label']} à {city.name}",
+                "description": str(service["short"]),
+                "provider": {"@id": f"{page_url(path, build)}#business"},
+                "areaServed": {"@type": "City", "name": city.name},
+                "availableChannel": {
+                    "@type": "ServiceChannel",
+                    "servicePhone": phone_href,
+                    "availableLanguage": ["fr"],
+                },
+                "hoursAvailable": {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                    "opens": "00:00",
+                    "closes": "23:59",
+                },
+            }
+        )
         cases = SERVICE_LOCAL_CASES[service_key]
         faq_question, faq_answer = cases["faq"]
         schema["@graph"].append(
@@ -909,6 +1288,14 @@ def local_business_schema(
                         "name": faq_question,
                         "acceptedAnswer": {"@type": "Answer", "text": faq_answer},
                     },
+                    *[
+                        {
+                            "@type": "Question",
+                            "name": q,
+                            "acceptedAnswer": {"@type": "Answer", "text": a},
+                        }
+                        for q, a in EXTRA_FAQ.get(service_key, [])
+                    ],
                 ],
             }
         )
@@ -942,8 +1329,6 @@ def local_seo_for(city: City, nearby: list[City]) -> dict[str, object]:
 def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -> str:
     local = local_seo_for(city, nearby)
     cases = SERVICE_LOCAL_CASES[service_key]
-    micro_areas = [str(item) for item in local["micro_areas"]]
-    sector_pills = " ".join(f'<span class="pill">{esc(area)}</span>' for area in micro_areas)
     case_items = "\n".join(f"<li>{esc(item)} à {esc(city.name)} ou dans un secteur proche</li>" for item in cases["cases"])
     nearby_sentence = ", ".join(item.name for item in nearby[:5])
     if nearby_sentence:
@@ -956,8 +1341,7 @@ def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -
       <div class="card">
         <h2>Repères locaux à {esc(city.name)}</h2>
         <p>{esc(local["local_note"])}</p>
-        <p>{nearby_text}</p>
-        <div class="pill-row">{sector_pills}</div>
+        <p style="margin-bottom:0">{nearby_text}</p>
       </div>
       <div class="card">
         <h2>{esc(cases["title"])}</h2>
@@ -970,18 +1354,146 @@ def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -
 
 def trust_band(service: dict[str, object]) -> str:
     items = [str(item) for item in service["trust_points"]]
+    band_icons = ["shield", "tag", "clock", "pin"]
     cards = "\n".join(
         f"""
         <div class="trust-item">
+          <div class="ti-ico">{icon(band_icons[index % len(band_icons)])}</div>
           <strong>{esc(item)}</strong>
           <span>Point vérifié avant ou pendant l'intervention.</span>
         </div>
         """
-        for item in items[:4]
+        for index, item in enumerate(items[:4])
     )
     return f"""
   <section class="trust-band" aria-label="Garanties d'intervention">
     <div class="wrap trust-grid">{cards}</div>
+  </section>
+"""
+
+
+def reassurance_strip(phone_display: str, service_key: str | None = None) -> str:
+    third = SERVICE_REASSURANCE.get(
+        service_key or "",
+        ("shield", "Sans surprise", "Conditions claires annoncées avant intervention"),
+    )
+    items = [
+        ("clock", "Disponible 24h/24", "Soir, week-end et jours fériés"),
+        ("phone", "Devis au téléphone", "Prix annoncé avant déplacement"),
+        third,
+        ("pin", "Artisan de proximité", "Numéro local France et Genève"),
+    ]
+    cells = "\n".join(
+        f"""
+        <div class="reassure-item">
+          {icon(ic)}
+          <div><b>{esc(title)}</b><span>{esc(sub)}</span></div>
+        </div>
+        """
+        for ic, title, sub in items
+    )
+    return f"""
+  <section class="reassure" aria-label="Engagements">
+    <div class="wrap reassure-grid">{cells}</div>
+  </section>
+"""
+
+
+def reviews_section(city: City, service: dict[str, object], service_key: str) -> str:
+    label = str(service["label"]).lower()
+    reviews = SERVICE_REVIEWS.get(service_key, SERVICE_REVIEWS["serrurier"])
+    cards = "\n".join(
+        f"""
+        <figure class="review-card">
+          <div class="stars" aria-label="Note 5 sur 5">{icon("star") * 5}</div>
+          <blockquote><p>« {esc(text)} »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">{esc(who[0])}</span>
+            <span><b>{esc(who)} · {esc(context)}</b><span>{esc(city.name)} et secteur</span></span>
+          </figcaption>
+        </figure>
+        """
+        for text, who, context in reviews
+    )
+    return f"""
+  <section id="avis" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Retours clients</span>
+        <h2>Ce que disent les clients après une intervention {esc(label)}</h2>
+        <p>Exemples représentatifs des retours reçus pour ce type d'intervention. Les avis vérifiés sont collectés après chaque dépannage réussi à {esc(city.name)} et dans le secteur proche.</p>
+      </div>
+      <div class="grid-3">{cards}</div>
+    </div>
+  </section>
+"""
+
+
+def proof_section(city: City, service: dict[str, object], service_key: str) -> str:
+    images = PROOF_IMAGES.get(service_key, [])
+    if not images:
+        return ""
+    label = str(service["label"]).lower()
+    tag = '<span class="proof-tag">Illustration</span>' if PROOF_ILLUSTRATIVE else ""
+    cards = "\n".join(
+        f"""
+        <figure class="proof-card">
+          {tag}
+          <img src="{esc(url)}" alt="{esc(caption)} — {esc(label)} à {esc(city.name)}" loading="lazy" decoding="async" width="900" height="675">
+          <figcaption>{esc(caption)}</figcaption>
+        </figure>
+        """
+        for url, caption in images
+    )
+    intro = (
+        "Photos d'illustration des prestations. Les clichés de nos interventions réelles à "
+        f"{esc(city.name)} sont ajoutés au fur et à mesure, sans élément permettant d'identifier un client."
+        if PROOF_ILLUSTRATIVE
+        else f"Aperçu d'interventions {esc(label)} réalisées à {esc(city.name)} et dans le secteur proche."
+    )
+    return f"""
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Nos réalisations</span>
+        <h2>À quoi ressemble une intervention {esc(label)}</h2>
+        <p>{intro}</p>
+      </div>
+      <div class="proof-grid">{cards}</div>
+    </div>
+  </section>
+"""
+
+
+def quartiers_section(city: City, service_key: str, nearby: list[City], build: BuildConfig) -> str:
+    local = local_seo_for(city, nearby)
+    micro_areas = [str(item) for item in local["micro_areas"]]
+    if not micro_areas:
+        return ""
+    chips = "\n".join(
+        f'<a class="zone-chip" href="#rappel">{icon("pin")} {esc(area)}</a>' for area in micro_areas
+    )
+    nearby_chips = "".join(
+        f'<a class="zone-chip" href="{service_path(c, service_key, build)}">{esc(c.name)}</a>' for c in nearby[:6]
+    )
+    nearby_block = (
+        f'<p class="zone-note">Communes proches également couvertes :</p><div class="zone-chips">{nearby_chips}</div>'
+        if nearby_chips
+        else ""
+    )
+    return f"""
+  <section class="section alt">
+    <div class="wrap">
+      <div class="zone-head">
+        <div class="section-head" style="margin-bottom:0">
+          <span class="eyebrow">{icon("pin")} Zones couvertes</span>
+          <h2>Quartiers de {esc(city.name)} desservis</h2>
+          <p>Une urgence dans l'un de ces secteurs ? Indiquez-le lors de votre appel ou de votre demande de rappel pour gagner du temps.</p>
+        </div>
+      </div>
+      <div class="zone-chips">{chips}</div>
+      {nearby_block}
+    </div>
   </section>
 """
 
@@ -1014,14 +1526,19 @@ def process_section(service: dict[str, object], city: City) -> str:
 def expertise_section(city: City, service_key: str, service: dict[str, object], nearby: list[City]) -> str:
     audience = str(service["audience"])
     promise = str(service["promise"])
+    value_title, value_text = SERVICE_VALUE.get(
+        service_key,
+        ("Une intervention claire, du premier appel à la fin du dépannage", str(service["promise"])),
+    )
     local = local_seo_for(city, nearby)
     areas = ", ".join(str(item) for item in local["micro_areas"][:4])
     return f"""
   <section class="section">
     <div class="wrap grid-2">
       <div class="split-panel">
-        <h2>Une page dédiée, pas un service mélangé</h2>
-        <p>{esc(BUSINESS["name"])} présente ici uniquement le besoin {esc(SERVICES[service_key]["plural"])} pour {esc(audience)} à {esc(city.name)}. Cette séparation clarifie le message, les annonces Google Ads et le suivi des appels.</p>
+        <h2>{esc(value_title)}</h2>
+        <p>{esc(value_text)}</p>
+        <p style="margin-bottom:0">Interventions pour {esc(audience)} à {esc(city.name)}.</p>
       </div>
       <div>
         <h2>Ce qui est vérifié avant déplacement</h2>
@@ -1049,6 +1566,49 @@ def final_cta_section(city: City, service: dict[str, object], phone_display: str
 """
 
 
+def callback_form(city_name: str, service_label: str, phone_display: str, phone_href: str, anchor_id: str = "rappel") -> str:
+    heading = f"Être rappelé pour une intervention à {esc(city_name)}" if city_name else "Être rappelé rapidement"
+    placeholder = (
+        f"Ex. {esc(service_label)} à {esc(city_name)} : décrivez en quelques mots"
+        if city_name
+        else "Votre ville + nature du problème en quelques mots"
+    )
+    uid = re.sub(r"[^a-z0-9]+", "-", f"{anchor_id}-{service_label}".lower()).strip("-")
+    return f"""
+  <section id="{esc(anchor_id)}" class="section alt">
+    <div class="wrap grid-2 cb-grid">
+      <div>
+        <span class="eyebrow">{icon("phone")} Rappel gratuit</span>
+        <h2>{heading}</h2>
+        <p class="lead">Décrivez votre situation en deux lignes. On vous rappelle pour confirmer le créneau et le prix avant tout déplacement — sans engagement.</p>
+        <ul class="check-list" style="margin-top:18px">
+          <li>Réponse rapide, 7j/7</li>
+          <li>Devis annoncé avant intervention</li>
+          <li>Vos informations servent uniquement à vous rappeler</li>
+        </ul>
+        <div class="cta-sub" style="color:var(--ink-soft);margin-top:18px">{icon("clock")} Urgence immédiate ? <a href="tel:{esc(phone_href)}" class="js-call-track" style="color:var(--accent);font-weight:800">Appelez le {esc(phone_display)}</a></div>
+      </div>
+      <form class="cb-form js-callback" data-city="{esc(city_name)}" data-service="{esc(service_label)}" novalidate>
+        <div class="cb-field">
+          <label for="{uid}-name">Votre prénom</label>
+          <input id="{uid}-name" name="name" type="text" autocomplete="given-name" placeholder="Prénom" required>
+        </div>
+        <div class="cb-field">
+          <label for="{uid}-phone">Votre téléphone</label>
+          <input id="{uid}-phone" name="phone" type="tel" autocomplete="tel" placeholder="06 00 00 00 00" required>
+        </div>
+        <div class="cb-field">
+          <label for="{uid}-need">Votre besoin</label>
+          <textarea id="{uid}-need" name="need" rows="3" placeholder="{placeholder}"></textarea>
+        </div>
+        <button type="submit" class="call-btn cb-submit">{icon("wa")} Demander un rappel</button>
+        <p class="cb-hint">Le bouton ouvre WhatsApp avec votre message pré-rempli. Aucune donnée n'est stockée sur ce site.</p>
+      </form>
+    </div>
+  </section>
+"""
+
+
 def service_page(city: City, service_key: str, all_cities: list[City], build: BuildConfig) -> str:
     service = SERVICES[service_key]
     phone_display, phone_href = phone_for(city)
@@ -1069,6 +1629,15 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     expertise = expertise_section(city, service_key, service, nearby)
     process = process_section(service, city)
     final_cta = final_cta_section(city, service, phone_display, phone_href)
+    reassure = reassurance_strip(phone_display, service_key)
+    reviews = reviews_section(city, service, service_key)
+    proof = proof_section(city, service, service_key)
+    quartiers = quartiers_section(city, service_key, nearby, build)
+    callback = callback_form(city.name, str(service["label"]), phone_display, phone_href)
+    service_icon = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}.get(service_key, "shield")
+    extra_faq = "\n".join(
+        f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in EXTRA_FAQ.get(service_key, [])
+    )
     service_faq_question, service_faq_answer = SERVICE_LOCAL_CASES[service_key]["faq"]
     if other_services:
         related_section = f"""
@@ -1103,29 +1672,33 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
   <section class="hero" style="--hero-image: url('{esc(service["image"])}')">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">Urgence locale 24/7 · {esc(city.zone)}</span>
-        <h1>{esc(headline)}</h1>
-        <p>{esc(hero)} Un interlocuteur récupère les informations essentielles et confirme les conditions avant déplacement.</p>
+        <span class="live-pill"><span class="live-dot"></span>Équipe disponible maintenant · {esc(city.zone)}</span>
+        <h1>{esc(service["label"])} à <em>{esc(city.name)}</em>, intervention en urgence</h1>
+        <p>{esc(hero)} Un interlocuteur récupère les informations essentielles et confirme le prix avant déplacement.</p>
         <div class="hero-badges">
-          <span class="hero-badge">Devis avant intervention</span>
-          <span class="hero-badge">Appel direct</span>
-          <span class="hero-badge">France et Genève</span>
+          <span class="hero-badge">{icon("tag")} Devis avant intervention</span>
+          <span class="hero-badge">{icon("clock")} 24h/24 · 7j/7</span>
+          <span class="hero-badge">{icon("shield")} {esc(SERVICE_REASSURANCE.get(service_key, ("", "Conditions claires"))[1])}</span>
         </div>
         <div class="cta-row">
-          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
-          <a class="ghost-btn" href="#tarifs">Voir les tarifs</a>
+          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
+          <a class="ghost-btn" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} Envoyer une photo</a>
         </div>
+        <div class="cta-sub">{icon("check")} Décrivez votre situation, recevez un prix clair, sans engagement.</div>
       </div>
       <aside class="hero-card" aria-label="Points clés">
-        <h2>Intervention à {esc(city.name)}</h2>
+        <div class="service-card"><div class="ico">{icon(service_icon)}</div></div>
+        <h2>Votre intervention à {esc(city.name)}</h2>
         <ul>{benefits}</ul>
         <div class="hero-meta">
           <div><strong>24/7</strong><span>urgence qualifiée</span></div>
-          <div><strong>Devis</strong><span>avant travaux</span></div>
+          <div><strong>Devis</strong><span>annoncé avant travaux</span></div>
         </div>
       </aside>
     </div>
   </section>
+
+{reassure}
 
 {trust_section}
 
@@ -1148,7 +1721,11 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
 
 {expertise}
 
+{proof}
+
 {local_section}
+
+{quartiers}
 
 {process}
 
@@ -1166,19 +1743,25 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     </div>
   </section>
 
+{reviews}
+
 {related_section}
+
+{callback}
 
 {final_cta}
 
   <section id="faq" class="section alt faq">
     <div class="wrap">
       <div class="section-head">
+        <span class="eyebrow">Questions fréquentes</span>
         <h2>Questions fréquentes à {esc(city.name)}</h2>
       </div>
       <div class="grid-2">
         <details open><summary>Intervenez-vous vraiment à {esc(city.name)} ?</summary><p>Oui, les demandes sur {esc(city.name)} sont traitées avec une priorité locale et une vérification du secteur avant déplacement.</p></details>
         <details><summary>Le devis est-il obligatoire ?</summary><p>Oui. En urgence comme sur rendez-vous, le prix doit être annoncé avant l'intervention.</p></details>
         <details><summary>{esc(service_faq_question)}</summary><p>{esc(service_faq_answer)}</p></details>
+        {extra_faq}
         <details><summary>Quel numéro utiliser ?</summary><p>Utilisez un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes.</p></details>
       </div>
     </div>
@@ -1199,13 +1782,15 @@ def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
     local = local_seo_for(city, nearby)
     sector_pills = " ".join(f'<span class="pill">{esc(area)}</span>' for area in local["micro_areas"])
     nearby_links = " ".join(f'<a class="pill" href="{city_hub_path(c)}">{esc(c.name)}</a>' for c in nearby)
+    svc_icons = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}
     service_cards = "\n".join(
         f"""
-        <article class="card">
-          <h2>{esc(service["label"])} à {esc(city.name)}</h2>
+        <a class="card service-card" href="{service_path(city, service_key, build)}">
+          <div class="ico">{icon(svc_icons.get(service_key, "shield"))}</div>
+          <h3>{esc(service["label"])} à {esc(city.name)}</h3>
           <p>{esc(service["short"])}</p>
-          <a class="pill priority-2" href="{service_path(city, service_key, build)}">Voir la page {esc(service["label"].lower())}</a>
-        </article>
+          <span class="go">Voir la page {esc(service["label"].lower())} {icon("check")}</span>
+        </a>
         """
         for service_key in build.service_keys
         for service in [SERVICES[service_key]]
@@ -1216,13 +1801,14 @@ def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">Solybat · {esc(city.zone)}</span>
-        <h1>Intervention à {esc(city.name)}</h1>
-        <p>Serrurerie, plomberie et dégorgement : choisissez le service correspondant à votre urgence pour accéder à la page locale la plus précise.</p>
+        <span class="live-pill"><span class="live-dot"></span>Disponible maintenant · {esc(city.zone)}</span>
+        <h1>Dépannage en urgence à <em>{esc(city.name)}</em></h1>
+        <p>Serrurerie, plomberie et dégorgement : choisissez le service correspondant à votre urgence pour accéder à la page locale la plus précise et au bon numéro.</p>
         <div class="cta-row">
-          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
+          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
           <a class="ghost-btn" href="#services-ville">Choisir un service</a>
         </div>
+        <div class="cta-sub">{icon("check")} Un seul appel, le bon artisan pour votre situation.</div>
       </div>
       <aside class="hero-card">
         <h2>Services disponibles à {esc(city.name)}</h2>
@@ -1235,6 +1821,8 @@ def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
       </aside>
     </div>
   </section>
+
+{reassurance_strip(phone_display)}
 
   <section id="services-ville" class="section">
     <div class="wrap">
@@ -1260,6 +1848,8 @@ def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
       </div>
     </div>
   </section>
+
+{callback_form(city.name, "une intervention", phone_display, phone_href)}
 </main>
 {footer(phone_display, phone_href, build)}
 """
@@ -1283,36 +1873,40 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         priority_links = "\n".join(
             f'<a class="pill priority-1" href="{service_path(c, build.primary_service_key, build)}">{esc(c.name)}</a>' for c in p1
         )
+        home_icons = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}
         cards = "\n".join(
             f"""
-        <article class="card">
+        <a class="card service-card" href="{example_service_path(key, build)}">
+          <div class="ico">{icon(home_icons.get(key, "shield"))}</div>
           <h3>{esc(SERVICES[key]["label"])}</h3>
           <p>{esc(SERVICES[key]["short"])}</p>
-          <a class="pill priority-2" href="{example_service_path(key, build)}">Exemple : {esc(SERVICES[key]["label"])} à Lyon</a>
-        </article>
+          <span class="go">Voir un exemple à Lyon {icon("check")}</span>
+        </a>
         """
             for key in build.service_keys
         )
         primary_benefits = "\n".join(f"<li>{esc(item)}</li>" for item in primary["benefits"])
         home_trust = trust_band(primary)
+        home_reassure = reassurance_strip(phone_display)
         body = f"""
 {header(phone_display, phone_href, build)}
 <main id="contenu">
   <section class="hero" style="--hero-image: url('{esc(primary["image"])}')">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">{esc(BUSINESS["name"])} · urgence locale</span>
-        <h1>{esc(primary_label)} par ville</h1>
-        <p>Un service dédié à {esc(domain_scope)} pour répondre vite aux demandes urgentes, ville par ville, avec une qualification claire avant déplacement.</p>
+        <span class="live-pill"><span class="live-dot"></span>{esc(BUSINESS["name"])} · urgence locale 24/7</span>
+        <h1><em>{esc(primary_label)}</em> de confiance, ville par ville</h1>
+        <p>Un service dédié à {esc(domain_scope)} pour répondre vite aux demandes urgentes, ville par ville, avec une qualification claire et un prix annoncé avant déplacement.</p>
         <div class="hero-badges">
-          <span class="hero-badge">Intervention locale</span>
-          <span class="hero-badge">Devis avant travaux</span>
-          <span class="hero-badge">Appel direct</span>
+          <span class="hero-badge">{icon("pin")} Intervention locale</span>
+          <span class="hero-badge">{icon("tag")} Devis avant travaux</span>
+          <span class="hero-badge">{icon("phone")} Appel direct</span>
         </div>
         <div class="cta-row">
-          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
+          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
           <a class="ghost-btn" href="/zones/">Voir les villes</a>
         </div>
+        <div class="cta-sub">{icon("check")} Réponse immédiate, devis confirmé avant tout déplacement.</div>
       </div>
       <aside class="hero-card">
         <h2>Intervention locale</h2>
@@ -1321,12 +1915,14 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
           <li>Devis annoncé avant intervention</li>
         </ul>
         <div class="hero-meta">
-          <div><strong>{len(cities)}</strong><span>villes ciblées</span></div>
-          <div><strong>1</strong><span>domaine métier</span></div>
+          <div><strong>{len(cities)}</strong><span>villes desservies</span></div>
+          <div><strong>24/7</strong><span>urgence qualifiée</span></div>
         </div>
       </aside>
     </div>
   </section>
+
+{home_reassure}
 
 {home_trust}
 
@@ -1372,6 +1968,8 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
       <div class="pill-row">{priority_links}</div>
     </div>
   </section>
+
+{callback_form("", primary_label, phone_display, phone_href)}
 </main>
 {footer(phone_display, phone_href, build)}
 """
@@ -1383,13 +1981,15 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
     priority_links = "\n".join(
         f'<a class="pill priority-1" href="{service_path(c, "serrurier", build)}">{esc(c.name)}</a>' for c in p1
     )
+    home_icons = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}
     cards = "\n".join(
         f"""
-        <article class="card">
+        <a class="card service-card" href="{example_service_path(key, build)}">
+          <div class="ico">{icon(home_icons.get(key, "shield"))}</div>
           <h3>{esc(service["label"])}</h3>
           <p>{esc(service["short"])}</p>
-          <a class="pill priority-2" href="{example_service_path(key, build)}">Exemple : {esc(service["label"])} à Lyon</a>
-        </article>
+          <span class="go">Voir un exemple à Lyon {icon("check")}</span>
+        </a>
         """
         for key in build.service_keys
         for service in [SERVICES[key]]
@@ -1400,13 +2000,14 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">Solybat · urgence locale</span>
-        <h1>Serrurerie, plomberie et dégorgement par ville</h1>
+        <span class="live-pill"><span class="live-dot"></span>Solybat · urgence locale 24/7</span>
+        <h1>Serrurier, plombier &amp; <em>dégorgement</em> près de chez vous</h1>
         <p>Un seul point d'entrée pour les urgences locales : ouverture de porte, fuite d'eau, canalisation bouchée et intervention camion pompe selon le besoin.</p>
         <div class="cta-row">
-          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">Appeler {esc(phone_display)}</a>
-      <a class="ghost-btn" href="/campagnes-locales/">Voir les services</a>
+          <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
+          <a class="ghost-btn" href="/campagnes-locales/">Voir les services</a>
         </div>
+        <div class="cta-sub">{icon("check")} Le bon métier, le bon numéro local, un prix annoncé avant déplacement.</div>
       </div>
       <aside class="hero-card">
         <h2>Intervention locale</h2>
@@ -1419,6 +2020,8 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
       </aside>
     </div>
   </section>
+
+{reassurance_strip(phone_display)}
 
   <section class="section">
     <div class="wrap">
@@ -1439,6 +2042,8 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
       <div class="pill-row">{priority_links}</div>
     </div>
   </section>
+
+{callback_form("", "une intervention", phone_display, phone_href)}
 </main>
 {footer(phone_display, phone_href, build)}
 """

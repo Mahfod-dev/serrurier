@@ -7,154 +7,395 @@
   <meta name="description" content="Solybat : Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées. Intervention à Istres et secteur proche. Appel direct, devis avant intervention.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.solybat.fr/degorgement/istres/">
+  <meta name="theme-color" content="#17140f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Solybat">
+  <meta property="og:title" content="Dégorgement à Istres | Solybat urgence 24/7">
+  <meta property="og:description" content="Solybat : Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées. Intervention à Istres et secteur proche. Appel direct, devis avant intervention.">
+  <meta property="og:url" content="https://www.solybat.fr/degorgement/istres/">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&amp;w=1800&amp;auto=format&amp;fit=crop">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dégorgement à Istres | Solybat urgence 24/7">
+  <meta name="twitter:description" content="Solybat : Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées. Intervention à Istres et secteur proche. Appel direct, devis avant intervention.">
   <style>
 :root {
-  --ink: #111827;
-  --muted: #5b6472;
-  --line: #d9dee7;
-  --soft: #f5f7fb;
-  --brand: #0f172a;
-  --blue: #2563eb;
-  --orange: #f97316;
-  --green: #15803d;
-  --white: #ffffff;
+  --paper: #f4f1ea;
+  --paper-2: #fbf9f4;
+  --card: #ffffff;
+  --ink: #1b1712;
+  --ink-soft: #5d564d;
+  --line: #e6ded0;
+  --line-strong: #d8cdb9;
+  --brand: #16130d;
+  --brand-2: #211c14;
+  --accent: #dd4f1e;
+  --secondary: #1f4e89;
+  --gold: #c79a3f;
+  --ok: #1c7a4e;
+  --ring: color-mix(in srgb, var(--accent) 38%, transparent);
+  --radius: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(20,16,11,.05), 0 6px 18px -8px rgba(20,16,11,.14);
+  --shadow-md: 0 22px 55px -24px rgba(20,16,11,.40);
+  --shadow-lg: 0 50px 110px -40px rgba(20,16,11,.55);
+  --maxw: 1180px;
+  --gutter: clamp(16px, 4vw, 24px);
+  --font-display: "Bricolage Grotesque", Georgia, serif;
+  --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
-  background: var(--white);
-  line-height: 1.55;
+  background: var(--paper);
+  line-height: 1.62;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(900px 500px at 100% -5%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  background-attachment: fixed, scroll;
 }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
 a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+p { margin: 0 0 1rem; }
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
+.skip-link { position: absolute; left: -999px; top: 10px; z-index: 100; background: var(--ink); color: #fff; padding: 12px 16px; border-radius: 10px; font-weight: 700; }
+.skip-link:focus { left: 12px; }
+
+/* ---------- Topbar ---------- */
 .topbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: var(--brand);
-  color: var(--white);
-  border-bottom: 1px solid rgba(255,255,255,.1);
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--brand) 92%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
+  color: #f6f1e7;
+  border-bottom: 1px solid rgba(255,255,255,.07);
 }
-.topbar-inner, .nav, .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
-.topbar-inner { min-height: 52px; display: flex; gap: 14px; align-items: center; justify-content: space-between; }
-.brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 0; display: flex; gap: 10px; align-items: center; }
-.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--orange); color: var(--white); font-weight: 900; }
+.topbar-inner, .nav, .wrap { width: min(var(--maxw), calc(100% - var(--gutter) * 2)); margin: 0 auto; }
+.topbar-inner { min-height: 64px; display: flex; gap: 16px; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 1.32rem; letter-spacing: -.02em; display: flex; gap: 11px; align-items: center; color: #fff; }
+.brand-mark {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 11px;
+  background: linear-gradient(150deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--gold)));
+  color: #fff; font-weight: 800; font-size: 1.15rem; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 6px 16px -6px var(--accent);
+}
+.brand small { display: block; font-family: var(--font-body); font-weight: 600; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--accent) 55%, #fff); }
 .top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-.call-btn, .ghost-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-weight: 800;
-  white-space: nowrap;
+.top-phone { display: none; text-align: right; line-height: 1.15; }
+.top-phone span { display: block; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: #b9b1a2; font-weight: 700; }
+.top-phone strong { font-family: var(--font-display); font-size: 1.18rem; color: #fff; }
+.btn, .call-btn, .ghost-btn, .wa-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 46px; padding: 12px 20px; border-radius: var(--radius-pill);
+  font-weight: 800; font-size: .98rem; white-space: nowrap; cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
 }
-.call-btn { background: var(--orange); color: var(--white); box-shadow: 0 10px 25px rgba(249, 115, 22, .25); }
-.ghost-btn { border: 1px solid rgba(255,255,255,.28); color: var(--white); }
-.nav-shell { background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); position: sticky; top: 52px; z-index: 19; }
-.nav { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.nav-links { display: flex; gap: 18px; color: var(--muted); font-weight: 700; font-size: .95rem; flex-wrap: wrap; }
-.nav-links a:hover { color: var(--orange); }
-.hero {
-  position: relative;
-  color: var(--white);
-  overflow: hidden;
-  isolation: isolate;
-  background: var(--brand);
+.call-btn {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 92%, #fff), var(--accent));
+  color: #fff; box-shadow: 0 12px 30px -10px var(--accent), inset 0 1px 0 rgba(255,255,255,.45);
 }
+.call-btn:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -10px var(--accent), inset 0 1px 0 rgba(255,255,255,.5); }
+.call-btn:active { transform: translateY(0); }
+.ghost-btn { border: 1.5px solid rgba(255,255,255,.30); color: #fff; background: rgba(255,255,255,.04); }
+.ghost-btn:hover { border-color: #fff; background: rgba(255,255,255,.10); }
+.wa-btn { background: #1faf54; color: #fff; box-shadow: 0 10px 26px -10px #1faf54; }
+.wa-btn:hover { transform: translateY(-2px); }
+.section .ghost-btn { border-color: var(--line-strong); color: var(--ink); background: var(--card); }
+.section .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
+.icon { width: 1.05em; height: 1.05em; flex: none; }
+
+/* ---------- Sub nav ---------- */
+.nav-shell { background: var(--paper-2); border-bottom: 1px solid var(--line); position: sticky; top: 64px; z-index: 30; }
+.nav { min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.nav-links { display: flex; gap: 22px; color: var(--ink-soft); font-weight: 700; font-size: .94rem; flex-wrap: wrap; }
+.nav-links a { position: relative; padding: 4px 0; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: var(--accent); transition: width .2s ease; }
+.nav-links a:hover::after { width: 100%; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; color: #f6f1e7; overflow: hidden; isolation: isolate; background: var(--brand); }
 .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(90deg, rgba(15,23,42,.94), rgba(15,23,42,.70), rgba(15,23,42,.42)), var(--hero-image);
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background-image: linear-gradient(102deg, rgba(14,12,8,.98) 0%, rgba(14,12,8,.88) 38%, rgba(14,12,8,.40) 78%, rgba(14,12,8,.62) 100%), var(--hero-image);
+  background-size: cover; background-position: center; transform: scale(1.04);
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(760px 380px at 6% -5%, color-mix(in srgb, var(--accent) 32%, transparent), transparent 68%),
+    linear-gradient(to bottom, transparent 72%, var(--paper) 100%);
 }
 .hero-grid {
-  width: min(1160px, calc(100% - 32px));
-  margin: 0 auto;
-  min-height: 590px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
-  align-items: center;
-  gap: 40px;
-  padding: 58px 0;
+  width: min(var(--maxw), calc(100% - var(--gutter) * 2)); margin: 0 auto;
+  min-height: clamp(560px, 80vh, 720px); display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+  align-items: center; gap: 44px; padding: 76px 0 88px;
 }
-.eyebrow { display: inline-flex; gap: 8px; align-items: center; color: #fed7aa; font-weight: 900; text-transform: uppercase; font-size: .78rem; }
-h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20px; letter-spacing: 0; }
-.hero p { color: #e5e7eb; font-size: 1.15rem; max-width: 720px; }
+.eyebrow {
+  display: inline-flex; gap: 9px; align-items: center; font-weight: 800;
+  text-transform: uppercase; font-size: .76rem; letter-spacing: .16em;
+  color: color-mix(in srgb, var(--accent) 60%, #fff);
+}
+.section .eyebrow { color: var(--accent); }
+.live-pill {
+  display: inline-flex; align-items: center; gap: 9px; padding: 8px 15px; border-radius: var(--radius-pill);
+  background: rgba(28,122,78,.16); border: 1px solid rgba(54,200,130,.45); color: #c8f4da;
+  font-weight: 800; font-size: .82rem; letter-spacing: .01em;
+}
+.live-dot { width: 9px; height: 9px; border-radius: 50%; background: #36c882; box-shadow: 0 0 0 0 rgba(54,200,130,.7); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(54,200,130,.65); } 70% { box-shadow: 0 0 0 11px rgba(54,200,130,0); } 100% { box-shadow: 0 0 0 0 rgba(54,200,130,0); } }
+h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 18px; font-weight: 800; max-width: 16ch; }
+.hero h1 { color: #fff; }
+.hero h1 em { font-style: normal; color: var(--accent); position: relative; white-space: nowrap; }
+.hero p { color: #ded6c7; font-size: 1.14rem; max-width: 56ch; }
+.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin: 24px 0 0; }
+.hero-badge { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 8px 14px; border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius-pill); color: #f3ede0; background: rgba(255,255,255,.05); font-weight: 700; font-size: .85rem; }
+.hero-badge svg { color: var(--accent); }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; align-items: center; }
+.cta-sub { margin-top: 14px; color: #b8b0a1; font-size: .92rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+/* ---------- Hero card ---------- */
 .hero-card {
-  background: rgba(255,255,255,.96);
-  color: var(--ink);
-  border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 24px 70px rgba(0,0,0,.25);
+  background: var(--card); color: var(--ink); border-radius: var(--radius-lg); padding: 26px;
+  box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,.6); position: relative;
 }
-.hero-card h2 { margin: 0 0 14px; font-size: 1.25rem; }
-.hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 10px; }
-.hero-card li, .check-list li { display: flex; gap: 10px; align-items: flex-start; }
-.hero-card li::before, .check-list li::before { content: "✓"; color: var(--green); font-weight: 900; }
-.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
-.section { padding: 72px 0; }
-.section.alt { background: var(--soft); }
-.section-head { max-width: 760px; margin-bottom: 34px; }
+.hero-card::before {
+  content: "Devis avant intervention"; position: absolute; top: -16px; right: 20px;
+  background: var(--gold); color: #2a1f06; font-family: var(--font-display); font-weight: 800;
+  font-size: .72rem; letter-spacing: .04em; padding: 7px 13px; border-radius: var(--radius-pill);
+  box-shadow: 0 8px 20px -8px rgba(199,154,63,.8); transform: rotate(2.5deg);
+}
+.hero-card h2 { margin: 6px 0 16px; font-size: 1.28rem; }
+.hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 12px; }
+.hero-card li, .check-list li { display: flex; gap: 11px; align-items: flex-start; font-weight: 500; }
+.hero-card li::before, .check-list li::before {
+  content: ""; flex: none; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%;
+  background: color-mix(in srgb, var(--ok) 14%, white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c7a4e' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 13px no-repeat;
+}
+.hero-meta { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.hero-meta strong { display: block; font-family: var(--font-display); font-size: 1.55rem; color: var(--ink); line-height: 1; }
+.hero-meta span { color: var(--ink-soft); font-weight: 600; font-size: .85rem; }
+
+/* ---------- Reassurance strip ---------- */
+.reassure { background: var(--brand-2); color: #e9e2d4; }
+.reassure-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.reassure-item { display: flex; gap: 12px; align-items: center; padding: 18px 22px; border-right: 1px solid rgba(255,255,255,.08); }
+.reassure-item:last-child { border-right: 0; }
+.reassure-item svg { color: var(--accent); flex: none; }
+.reassure-item b { display: block; color: #fff; font-family: var(--font-display); font-size: 1rem; }
+.reassure-item span { font-size: .84rem; color: #b6ae9f; }
+
+/* ---------- Sections ---------- */
+.section { padding: clamp(56px, 8vw, 92px) 0; position: relative; }
+.section.alt { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section.dark { background: var(--brand); color: #ece5d7; }
+.section.dark h2, .section.dark h3 { color: #fff; }
+.section.dark p { color: #c4bcab; }
+.section-head { max-width: 64ch; margin-bottom: 40px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-.section h2 { font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.08; margin: 0 0 12px; }
-.section p { color: var(--muted); }
-.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.section h2 { font-size: clamp(2rem, 4.2vw, 2.85rem); line-height: 1.06; margin: 0 0 14px; }
+.section p { color: var(--ink-soft); }
+.lead { font-size: 1.12rem; }
+
+/* ---------- Grids & cards ---------- */
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .card {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--white);
-  padding: 22px;
-  box-shadow: 0 10px 30px rgba(15,23,42,.06);
+  border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card);
+  padding: 26px; box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.card h3 { margin: 0 0 8px; font-size: 1.25rem; }
-.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
-.pill { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 8px 11px; color: var(--muted); background: var(--white); font-weight: 700; font-size: .88rem; }
-.priority-1 { border-color: rgba(249, 115, 22, .4); color: #9a3412; background: #fff7ed; }
-.priority-2 { border-color: rgba(37, 99, 235, .34); color: #1d4ed8; background: #eff6ff; }
-.price-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: var(--white); }
-.price-table th, .price-table td { padding: 16px; border-bottom: 1px solid var(--line); text-align: left; }
-.price-table th { background: var(--brand); color: var(--white); }
-.price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 900; }
-.notice { border-left: 4px solid var(--orange); padding: 16px 18px; background: #fff7ed; border-radius: 8px; color: #7c2d12; }
-.faq details { border: 1px solid var(--line); border-radius: 8px; background: var(--white); padding: 18px 20px; }
-.faq summary { cursor: pointer; font-weight: 900; list-style: none; }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+.card h2 { font-size: 1.45rem; margin: 0 0 10px; }
+.card h3 { margin: 0 0 8px; font-size: 1.22rem; }
+.card-number {
+  display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
+  background: var(--brand); color: var(--accent); font-family: var(--font-display); font-weight: 800;
+  font-size: 1.25rem; margin-bottom: 16px; box-shadow: var(--shadow-sm);
+}
+.service-card { position: relative; overflow: hidden; }
+.service-card .ico {
+  width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 16px;
+  background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent);
+}
+.service-card .go { margin-top: 16px; display: inline-flex; align-items: center; gap: 7px; font-weight: 800; color: var(--accent); }
+.service-card:hover .go { gap: 11px; }
+
+/* ---------- Trust band ---------- */
+.trust-band { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.trust-item { padding: 30px 26px; border-right: 1px solid var(--line); }
+.trust-item:last-child { border-right: 0; }
+.trust-item .ti-ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); margin-bottom: 14px; }
+.trust-item strong { display: block; margin-bottom: 5px; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
+.trust-item span { color: var(--ink-soft); font-size: .92rem; }
+
+/* ---------- Reviews ---------- */
+.review-card { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 14px; }
+.stars { display: inline-flex; gap: 2px; color: var(--gold); }
+.review-card p { font-size: 1.05rem; color: var(--ink); margin: 0; }
+.review-meta { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.review-avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--brand); color: var(--accent); font-family: var(--font-display); font-weight: 800; }
+.review-meta b { display: block; font-family: var(--font-display); }
+.review-meta span { color: var(--ink-soft); font-size: .86rem; }
+
+/* ---------- Panels ---------- */
+.split-panel {
+  background: linear-gradient(150deg, var(--brand), var(--brand-2)); color: #ece5d7;
+  border-radius: var(--radius-lg); padding: 34px; box-shadow: var(--shadow-md);
+}
+.split-panel h2 { color: #fff; }
+.split-panel p { color: #c4bcab; }
+.cta-panel {
+  background: var(--brand); color: #fff; border-radius: var(--radius-lg); padding: 38px;
+  display: flex; align-items: center; justify-content: space-between; gap: 26px; position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.cta-panel::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px 240px at 100% 0%, color-mix(in srgb, var(--accent) 32%, transparent), transparent 70%); pointer-events: none; }
+.cta-panel h2 { color: #fff; margin: 0; position: relative; }
+.cta-panel p { color: #c4bcab; margin: 8px 0 0; position: relative; }
+.cta-panel .call-btn { position: relative; }
+
+/* ---------- Pills ---------- */
+.pill-row { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
+.pill { display: inline-flex; align-items: center; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: 8px 14px; color: var(--ink-soft); background: var(--card); font-weight: 700; font-size: .9rem; transition: all .16s ease; }
+a.pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.priority-1 { border-color: color-mix(in srgb, var(--accent) 50%, white); color: var(--ink); background: color-mix(in srgb, var(--accent) 9%, white); font-weight: 800; }
+.priority-2 { border-color: color-mix(in srgb, var(--secondary) 40%, white); color: var(--ink); background: color-mix(in srgb, var(--secondary) 8%, white); }
+
+/* ---------- Pricing ---------- */
+.price-table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--line); background: var(--card); box-shadow: var(--shadow-sm); }
+.price-table th, .price-table td { padding: 18px 22px; border-bottom: 1px solid var(--line); text-align: left; }
+.price-table tr:last-child td { border-bottom: 0; }
+.price-table th { background: var(--brand); color: #fff; font-family: var(--font-display); font-size: .98rem; }
+.price-table td { font-weight: 500; }
+.price-table tbody tr:last-child td { border-bottom: 0; }
+.price-table tbody tr:hover td { background: var(--paper); }
+.price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 800; font-family: var(--font-display); color: var(--ink); }
+.notice { border-left: 4px solid var(--accent); padding: 18px 20px; background: color-mix(in srgb, var(--accent) 7%, white); border-radius: 12px; color: #6b3410; margin-top: 18px; font-weight: 500; }
+
+/* ---------- FAQ ---------- */
+.faq details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 4px 22px; margin-bottom: 12px; transition: border-color .2s ease, box-shadow .2s ease; }
+.faq details[open] { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+.faq summary { cursor: pointer; font-family: var(--font-display); font-weight: 700; font-size: 1.08rem; list-style: none; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
 .faq summary::-webkit-details-marker { display: none; }
-.footer { background: var(--brand); color: #cbd5e1; padding: 36px 0; }
-.footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-.service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
-.service-links a { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: var(--white); font-weight: 800; }
-.service-links a:hover { border-color: var(--orange); color: var(--orange); }
-.mobile-call { display: none; }
+.faq summary::after { content: "+"; font-size: 1.6rem; color: var(--accent); font-weight: 400; transition: transform .2s ease; line-height: 1; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 18px; margin: 0; color: var(--ink-soft); }
+
+/* ---------- Service quick links ---------- */
+.service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.service-links a { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--paper-2); font-weight: 800; display: flex; align-items: center; justify-content: space-between; transition: all .16s ease; }
+.service-links a::after { content: "→"; color: var(--accent); }
+.service-links a:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+/* ---------- Footer ---------- */
+.footer { background: var(--brand); color: #b8b0a1; padding: 56px 0 40px; }
+.footer .wrap { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 34px; }
+.footer strong { color: #fff; font-family: var(--font-display); }
+.footer a { color: inherit; transition: color .15s ease; }
+.footer a:hover { color: var(--accent); }
+.footer-links { display: grid; gap: 9px; margin-top: 12px; }
+.footer .brand { margin-bottom: 14px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.08); margin-top: 34px; padding-top: 22px; font-size: .85rem; color: #8d8576; }
+
+/* ---------- Mobile sticky bar ---------- */
+.mobile-bar { display: none; }
+@media (min-width: 600px) { .top-phone { display: block; } }
+@media (max-width: 980px) {
+  .reassure-grid { grid-template-columns: repeat(2, 1fr); }
+  .reassure-item:nth-child(2) { border-right: 0; }
+  .footer .wrap { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 880px) {
-  .topbar-inner, .nav { width: min(100% - 24px, 1160px); }
-  .topbar-inner { align-items: flex-start; padding: 8px 0; }
-  .brand { font-size: 1rem; }
-  .top-actions { width: 100%; }
-  .top-actions .call-btn { flex: 1; }
-  .nav-shell { top: 60px; }
-  .nav { align-items: flex-start; padding: 10px 0; }
-  .nav-links { gap: 10px; font-size: .86rem; }
-  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 36px; }
-  .grid-3, .grid-2 { grid-template-columns: 1fr; }
-  .mobile-call {
-    display: flex;
-    position: fixed;
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    z-index: 30;
-    justify-content: center;
-    box-shadow: 0 18px 40px rgba(0,0,0,.28);
+  body { font-size: 16px; }
+  .topbar-inner { min-height: 58px; }
+  .nav-shell { top: 58px; }
+  .grid-4, .grid-3, .grid-2, .trust-grid { grid-template-columns: 1fr; }
+  .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
+  .trust-item:last-child { border-bottom: 0; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
+  .cta-panel { align-items: flex-start; flex-direction: column; }
+  .nav-shell { display: none; }
+  .footer { padding-bottom: 96px; }
+  .footer .wrap { grid-template-columns: 1fr; }
+  .mobile-bar {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 60;
+    padding: 10px; background: color-mix(in srgb, var(--brand) 94%, transparent);
+    backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.12); border-radius: 18px;
+    box-shadow: 0 20px 50px -12px rgba(0,0,0,.5);
   }
-  .footer { padding-bottom: 86px; }
+  .mobile-bar .call-btn, .mobile-bar .wa-btn { width: 100%; min-height: 52px; font-size: 1rem; }
+}
+@media (max-width: 600px) {
+  .top-actions .ghost-btn { display: none; }
+  .hero-card::before { right: 14px; }
+}
+/* ---------- Urgency bar ---------- */
+.urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
+.urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
+.urgency-text { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .92rem; letter-spacing: .005em; }
+.urgency-text svg { width: 1.05em; height: 1.05em; }
+.urgency-call { display: inline-flex; align-items: center; gap: 7px; font-weight: 800; font-size: .92rem; padding: 4px 13px; border-radius: var(--radius-pill); background: rgba(0,0,0,.22); color: #fff; }
+.urgency-call:hover { background: rgba(0,0,0,.34); }
+
+/* ---------- Proof gallery ---------- */
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.proof-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-sm); aspect-ratio: 4 / 3; background: var(--brand); }
+.proof-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.proof-card:hover img { transform: scale(1.06); }
+.proof-card figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 16px 14px; color: #fff; font-weight: 700; font-size: .98rem; background: linear-gradient(to top, rgba(10,8,5,.85), transparent); }
+.proof-tag { position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(10,8,5,.62); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 5px 10px; border-radius: var(--radius-pill); backdrop-filter: blur(4px); }
+
+/* ---------- Quartiers / zones ---------- */
+.zone-head { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.zone-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.zone-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px;
+  border: 1px solid var(--line-strong); background: var(--card); color: var(--ink); font-weight: 700;
+  box-shadow: var(--shadow-sm); transition: all .16s ease;
+}
+.zone-chip svg { width: 1em; height: 1em; color: var(--accent); }
+.zone-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.zone-note { margin-top: 18px; color: var(--ink-soft); font-size: .95rem; }
+
+/* ---------- Callback form ---------- */
+.cb-grid { align-items: center; }
+.cb-form {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 28px; box-shadow: var(--shadow-md); display: grid; gap: 16px;
+  position: relative; overflow: hidden;
+}
+.cb-form::before { content: ""; position: absolute; left: 0; top: 0; height: 5px; width: 100%; background: linear-gradient(90deg, var(--accent), var(--gold)); }
+.cb-field { display: grid; gap: 6px; }
+.cb-field label { font-weight: 700; font-size: .9rem; color: var(--ink); }
+.cb-form input, .cb-form textarea {
+  font-family: var(--font-body); font-size: 1rem; color: var(--ink);
+  padding: 13px 15px; border: 1.5px solid var(--line-strong); border-radius: 12px;
+  background: var(--paper-2); transition: border-color .16s ease, box-shadow .16s ease; width: 100%;
+}
+.cb-form input:focus, .cb-form textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--ring); background: #fff; }
+.cb-form textarea { resize: vertical; min-height: 84px; }
+.cb-form input.cb-invalid, .cb-form textarea.cb-invalid { border-color: #c0392b; box-shadow: 0 0 0 4px rgba(192,57,43,.14); }
+.cb-submit { width: 100%; min-height: 54px; font-size: 1.05rem; background: #1faf54; box-shadow: 0 14px 30px -12px #1faf54; }
+.cb-submit:hover { transform: translateY(-2px); }
+.cb-hint { margin: 0; font-size: .82rem; color: var(--ink-soft); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 </style>
   <script type="application/ld+json">{
@@ -164,10 +405,20 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
       "@type": "Plumber",
       "@id": "https://www.solybat.fr/degorgement/istres/#business",
       "name": "Solybat",
+      "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=1800&auto=format&fit=crop",
       "url": "https://www.solybat.fr/degorgement/istres/",
       "telephone": "04 00 00 00 00",
       "email": "contact@solybat.fr",
       "priceRange": "€€",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+33400000000",
+        "contactType": "customer service",
+        "areaServed": "FR, CH",
+        "availableLanguage": [
+          "fr"
+        ]
+      },
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Adresse Solybat à compléter",
@@ -203,57 +454,240 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
         "name": "Solybat",
         "url": "https://www.solybat.fr"
       }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.solybat.fr/degorgement/istres/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://www.solybat.fr/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Dégorgement à Istres | Solybat urgence 24/7",
+          "item": "https://www.solybat.fr/degorgement/istres/"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.solybat.fr/degorgement/istres/#service",
+      "serviceType": "Dégorgement dégorgement",
+      "name": "Dégorgement à Istres",
+      "description": "Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées.",
+      "provider": {
+        "@id": "https://www.solybat.fr/degorgement/istres/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Istres"
+      },
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": "+33400000000",
+        "availableLanguage": [
+          "fr"
+        ]
+      },
+      "hoursAvailable": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.solybat.fr/degorgement/istres/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Intervenez-vous à Istres ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, les demandes sur Istres sont qualifiées par téléphone avant déplacement afin de confirmer le secteur, le délai possible et les conditions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Le devis est-il annoncé avant intervention ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Le prix dépend de l'accès, de l'horaire, du matériel et de la complexité. Il doit être confirmé avant le début des travaux."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quand faut-il prévoir un camion pompe ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un camion pompe peut être nécessaire si les eaux remontent, si un regard est plein ou si le bouchon semble profond. L'accès, le stationnement et la distance jusqu'au réseau doivent être précisés au téléphone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Débouchage simple ou hydrocurage ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cela dépend de la nature et de la profondeur du bouchon. Un débouchage mécanique suffit souvent ; l'hydrocurage ou le camion pompe sont réservés aux cas de remontées, de regards pleins ou de réseaux saturés."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment éviter que ça recommence ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Après intervention, les causes probables et les bons gestes (graisses, lingettes, entretien périodique) sont expliqués pour limiter les récidives."
+          }
+        }
+      ]
     }
   ]
 }</script>
 </head>
 <body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
 
+<div class="urgency-bar">
+  <div class="wrap urgency-inner">
+    <span class="urgency-text"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Urgence en cours ? Un artisan proche vous rappelle en quelques minutes, 24h/24.</span>
+    <a class="urgency-call js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 04 00 00 00 00</a>
+  </div>
+</div>
 <div class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="/"><span class="brand-mark">S</span><span>Solybat</span></a>
+    <a class="brand" href="/"><span class="brand-mark">S</span><span>Solybat<small>Urgence 24h/24 · 7j/7</small></span></a>
     <div class="top-actions">
-      <a class="ghost-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+      <div class="top-phone"><span>Appel direct</span><strong>04 00 00 00 00</strong></div>
+      <a class="ghost-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp</a>
+      <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler</a>
     </div>
   </div>
 </div>
 <div class="nav-shell">
   <nav class="nav" aria-label="Navigation principale">
     <div class="nav-links">
-      <a href="/serrurier/lyon/">Serrurerie</a>
-      <a href="/plombier/lyon/">Plomberie</a>
+      <a href="/serrurier/lyon/">Serrurier</a>
+      <a href="/plombier/lyon/">Plombier</a>
       <a href="/degorgement/lyon/">Dégorgement</a>
+      <a href="/zones/">Villes desservies</a>
+      <a href="#tarifs">Tarifs</a>
     </div>
     <div class="nav-links">
-      <a href="#tarifs">Tarifs</a>
-      <a href="#faq">FAQ</a>
+      <a href="#avis">Avis</a>
+      <a href="#faq">Questions</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 </div>
 
-<main>
+<main id="contenu">
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&amp;w=1800&amp;auto=format&amp;fit=crop')">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">Urgence locale 24/7 · Bouches-du-Rhône (13) &amp; Var (83)</span>
-        <h1>Dégorgement canalisation à Istres</h1>
-        <p>Canalisation bouchée, regard plein ou besoin de camion pompe : Solybat intervient à Istres. Un interlocuteur récupère les informations essentielles et confirme les conditions avant déplacement.</p>
-        <div class="cta-row">
-          <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
-          <a class="ghost-btn" href="#tarifs">Voir les tarifs</a>
+        <span class="live-pill"><span class="live-dot"></span>Équipe disponible maintenant · Bouches-du-Rhône (13) &amp; Var (83)</span>
+        <h1>Dégorgement à <em>Istres</em>, intervention en urgence</h1>
+        <p>Canalisation bouchée, regard plein ou besoin de camion pompe : Solybat intervient à Istres. Un interlocuteur récupère les informations essentielles et confirme le prix avant déplacement.</p>
+        <div class="hero-badges">
+          <span class="hero-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 12 22l-9-9V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg> Devis avant intervention</span>
+          <span class="hero-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24h/24 · 7j/7</span>
+          <span class="hero-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Diagnostic d&#x27;abord</span>
         </div>
+        <div class="cta-row">
+          <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler 04 00 00 00 00</a>
+          <a class="ghost-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Envoyer une photo</a>
+        </div>
+        <div class="cta-sub"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Décrivez votre situation, recevez un prix clair, sans engagement.</div>
       </div>
       <aside class="hero-card" aria-label="Points clés">
-        <h2>Intervention à Istres</h2>
+        <div class="service-card"><div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div></div>
+        <h2>Votre intervention à Istres</h2>
         <ul><li>Débouchage canalisation haute pression</li>
 <li>Curage préventif ou curatif</li>
 <li>Camion pompe selon accessibilité</li>
 <li>Diagnostic avant travaux lourds</li></ul>
+        <div class="hero-meta">
+          <div><strong>24/7</strong><span>urgence qualifiée</span></div>
+          <div><strong>Devis</strong><span>annoncé avant travaux</span></div>
+        </div>
       </aside>
     </div>
   </section>
+
+
+  <section class="reassure" aria-label="Engagements">
+    <div class="wrap reassure-grid">
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div><b>Disponible 24h/24</b><span>Soir, week-end et jours fériés</span></div>
+        </div>
+        
+
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div><b>Devis au téléphone</b><span>Prix annoncé avant déplacement</span></div>
+        </div>
+        
+
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <div><b>Diagnostic d&#x27;abord</b><span>Qualification du bouchon avant tout déplacement</span></div>
+        </div>
+        
+
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><b>Artisan de proximité</b><span>Numéro local France et Genève</span></div>
+        </div>
+        </div>
+  </section>
+
+
+
+  <section class="trust-band" aria-label="Garanties d'intervention">
+    <div class="wrap trust-grid">
+        <div class="trust-item">
+          <div class="ti-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+          <strong>Qualification du bouchon avant déplacement</strong>
+          <span>Point vérifié avant ou pendant l'intervention.</span>
+        </div>
+        
+
+        <div class="trust-item">
+          <div class="ti-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 12 22l-9-9V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></div>
+          <strong>Vérification de l&#x27;accès au regard ou à l&#x27;évacuation</strong>
+          <span>Point vérifié avant ou pendant l'intervention.</span>
+        </div>
+        
+
+        <div class="trust-item">
+          <div class="ti-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <strong>Solution adaptée : débouchage simple, curage ou camion pompe</strong>
+          <span>Point vérifié avant ou pendant l'intervention.</span>
+        </div>
+        
+
+        <div class="trust-item">
+          <div class="ti-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <strong>Conseils pour éviter une récidive rapide</strong>
+          <span>Point vérifié avant ou pendant l'intervention.</span>
+        </div>
+        </div>
+  </section>
+
 
   <section class="section">
     <div class="wrap grid-2">
@@ -278,11 +712,60 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
 
   <section class="section">
     <div class="wrap grid-2">
+      <div class="split-panel">
+        <h2>Le bon matériel pour votre canalisation, pas plus que nécessaire</h2>
+        <p>Selon le type de bouchon et l&#x27;accès, on oriente vers un débouchage simple, un hydrocurage ou un camion pompe — et on vous l&#x27;explique avant. L&#x27;objectif est de rétablir l&#x27;écoulement sans engager de travaux lourds inutiles.</p>
+        <p style="margin-bottom:0">Interventions pour maisons, immeubles, locaux commerciaux et réseaux extérieurs accessibles à Istres.</p>
+      </div>
+      <div>
+        <h2>Ce qui est vérifié avant déplacement</h2>
+        <p>Un bouchon de canalisation demande une qualification précise : point de blocage, accès, remontées d&#x27;eau et besoin éventuel d&#x27;hydrocurage.</p>
+        <p>Les secteurs comme Marseille, Aix-en-Provence, Arles, Martigues sont traités avec la même logique : comprendre l'accès, l'urgence, le matériel possible et les conditions tarifaires avant validation.</p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Nos réalisations</span>
+        <h2>À quoi ressemble une intervention dégorgement</h2>
+        <p>Photos d'illustration des prestations. Les clichés de nos interventions réelles à Istres sont ajoutés au fur et à mesure, sans élément permettant d'identifier un client.</p>
+      </div>
+      <div class="proof-grid">
+        <figure class="proof-card">
+          <span class="proof-tag">Illustration</span>
+          <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Débouchage haute pression — dégorgement à Istres" loading="lazy" decoding="async" width="900" height="675">
+          <figcaption>Débouchage haute pression</figcaption>
+        </figure>
+        
+
+        <figure class="proof-card">
+          <span class="proof-tag">Illustration</span>
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Hydrocurage de canalisation — dégorgement à Istres" loading="lazy" decoding="async" width="900" height="675">
+          <figcaption>Hydrocurage de canalisation</figcaption>
+        </figure>
+        
+
+        <figure class="proof-card">
+          <span class="proof-tag">Illustration</span>
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Intervention camion pompe — dégorgement à Istres" loading="lazy" decoding="async" width="900" height="675">
+          <figcaption>Intervention camion pompe</figcaption>
+        </figure>
+        </div>
+    </div>
+  </section>
+
+
+
+  <section class="section">
+    <div class="wrap grid-2">
       <div class="card">
         <h2>Repères locaux à Istres</h2>
         <p>Cette page est rattachée au bassin Bouches-du-Rhône (13) &amp; Var (83). Les preuves locales doivent être ajoutées progressivement pour renforcer son indexation.</p>
-        <p>Le maillage local relie aussi Istres aux communes proches comme Marseille, Aix-en-Provence, Arles, Martigues, Aubagne.</p>
-        <div class="pill-row"><span class="pill">Marseille</span> <span class="pill">Aix-en-Provence</span> <span class="pill">Arles</span> <span class="pill">Martigues</span> <span class="pill">Aubagne</span> <span class="pill">Salon-de-Provence</span></div>
+        <p style="margin-bottom:0">Le maillage local relie aussi Istres aux communes proches comme Marseille, Aix-en-Provence, Arles, Martigues, Aubagne.</p>
       </div>
       <div class="card">
         <h2>Situations de canalisation à qualifier</h2>
@@ -291,6 +774,66 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
 <li>besoin possible d&#x27;hydrocurage ou camion pompe à Istres ou dans un secteur proche</li>
 <li>mauvaises odeurs persistantes après débouchage simple à Istres ou dans un secteur proche</li></ul>
       </div>
+    </div>
+  </section>
+
+
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="zone-head">
+        <div class="section-head" style="margin-bottom:0">
+          <span class="eyebrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Zones couvertes</span>
+          <h2>Quartiers de Istres desservis</h2>
+          <p>Une urgence dans l'un de ces secteurs ? Indiquez-le lors de votre appel ou de votre demande de rappel pour gagner du temps.</p>
+        </div>
+      </div>
+      <div class="zone-chips"><a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Marseille</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Aix-en-Provence</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Arles</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Martigues</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Aubagne</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Salon-de-Provence</a></div>
+      <p class="zone-note">Communes proches également couvertes :</p><div class="zone-chips"><a class="zone-chip" href="/degorgement/marseille/">Marseille</a><a class="zone-chip" href="/degorgement/aix-en-provence/">Aix-en-Provence</a><a class="zone-chip" href="/degorgement/arles/">Arles</a><a class="zone-chip" href="/degorgement/martigues/">Martigues</a><a class="zone-chip" href="/degorgement/aubagne/">Aubagne</a><a class="zone-chip" href="/degorgement/salon-de-provence/">Salon-de-Provence</a></div>
+    </div>
+  </section>
+
+
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Déroulé d'intervention à Istres</h2>
+        <p>Le but est de qualifier correctement l'urgence, d'éviter les mauvaises surprises et de garder une trace claire de ce qui est prévu.</p>
+      </div>
+      <div class="grid-4">
+        <article class="card">
+          <span class="card-number">1</span>
+          <h3>Localiser</h3>
+          <p>Vous précisez l&#x27;équipement concerné, les remontées et l&#x27;accès aux regards.</p>
+        </article>
+        
+
+        <article class="card">
+          <span class="card-number">2</span>
+          <h3>Qualifier</h3>
+          <p>Le besoin est orienté entre débouchage, hydrocurage ou camion pompe.</p>
+        </article>
+        
+
+        <article class="card">
+          <span class="card-number">3</span>
+          <h3>Déboucher</h3>
+          <p>L&#x27;intervention est menée avec le matériel adapté au type de bouchon.</p>
+        </article>
+        
+
+        <article class="card">
+          <span class="card-number">4</span>
+          <h3>Prévenir</h3>
+          <p>Les causes possibles et les signes de récidive sont expliqués après intervention.</p>
+        </article>
+        </div>
     </div>
   </section>
 
@@ -312,50 +855,166 @@ h1 { font-size: clamp(2.4rem, 5vw, 4.9rem); line-height: 1.02; margin: 14px 0 20
     </div>
   </section>
 
+
+  <section id="avis" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Retours clients</span>
+        <h2>Ce que disent les clients après une intervention dégorgement</h2>
+        <p>Exemples représentatifs des retours reçus pour ce type d'intervention. Les avis vérifiés sont collectés après chaque dépannage réussi à Istres et dans le secteur proche.</p>
+      </div>
+      <div class="grid-3">
+        <figure class="review-card">
+          <div class="stars" aria-label="Note 5 sur 5"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg></div>
+          <blockquote><p>« Canalisation bouchée avec remontées d&#x27;eau : situation qualifiée précisément au téléphone puis hydrocurage efficace le jour même. »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">P</span>
+            <span><b>Particulier · maison</b><span>Istres et secteur</span></span>
+          </figcaption>
+        </figure>
+        
+
+        <figure class="review-card">
+          <div class="stars" aria-label="Note 5 sur 5"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg></div>
+          <blockquote><p>« Regard plein, camion pompe envoyé après vérification de l&#x27;accès. Travail soigné et conseils pour éviter la récidive. »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">G</span>
+            <span><b>Gérant · résidence</b><span>Istres et secteur</span></span>
+          </figcaption>
+        </figure>
+        
+
+        <figure class="review-card">
+          <div class="stars" aria-label="Note 5 sur 5"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg></div>
+          <blockquote><p>« Débouchage réalisé dans la journée, prix confirmé avant de commencer, aucune mauvaise surprise sur la facture. »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">P</span>
+            <span><b>Propriétaire · immeuble</b><span>Istres et secteur</span></span>
+          </figcaption>
+        </figure>
+        </div>
+    </div>
+  </section>
+
+
+
   <section class="section">
     <div class="wrap grid-2">
       <div class="card">
-        <h2>Autres métiers à Istres</h2>
-        <p>Chaque métier garde une URL séparée pour éviter les pages trop générales.</p>
+        <h2>Prestations complémentaires à Istres</h2>
+        <p>Les prestations restent séparées pour garder un message clair et des URLs exploitables par métier.</p>
         <div class="service-links"><a href="/serrurier/istres/">Serrurier à Istres</a>
-<a href="/plombier/istres/">Plombier à Istres</a>
-<a href="/degorgement/istres/">Dégorgement à Istres</a></div>
+<a href="/plombier/istres/">Plombier à Istres</a></div>
       </div>
       <div class="card">
-        <h2>Déroulé d'intervention</h2>
-        <p>Vous appelez, l'urgence est qualifiée, un prix indicatif est annoncé, puis le devis est validé avant le début des travaux.</p>
+        <h2>Préparer votre appel</h2>
+        <p>Indiquez la ville, l'accès au logement ou au local, l'urgence exacte, les photos disponibles et l'horaire souhaité. Ces éléments permettent d'éviter un déplacement mal qualifié.</p>
       </div>
     </div>
   </section>
 
+
+
+  <section id="rappel" class="section alt">
+    <div class="wrap grid-2 cb-grid">
+      <div>
+        <span class="eyebrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Rappel gratuit</span>
+        <h2>Être rappelé pour une intervention à Istres</h2>
+        <p class="lead">Décrivez votre situation en deux lignes. On vous rappelle pour confirmer le créneau et le prix avant tout déplacement — sans engagement.</p>
+        <ul class="check-list" style="margin-top:18px">
+          <li>Réponse rapide, 7j/7</li>
+          <li>Devis annoncé avant intervention</li>
+          <li>Vos informations servent uniquement à vous rappeler</li>
+        </ul>
+        <div class="cta-sub" style="color:var(--ink-soft);margin-top:18px"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Urgence immédiate ? <a href="tel:+33400000000" class="js-call-track" style="color:var(--accent);font-weight:800">Appelez le 04 00 00 00 00</a></div>
+      </div>
+      <form class="cb-form js-callback" data-city="Istres" data-service="Dégorgement" novalidate>
+        <div class="cb-field">
+          <label for="rappel-d-gorgement-name">Votre prénom</label>
+          <input id="rappel-d-gorgement-name" name="name" type="text" autocomplete="given-name" placeholder="Prénom" required>
+        </div>
+        <div class="cb-field">
+          <label for="rappel-d-gorgement-phone">Votre téléphone</label>
+          <input id="rappel-d-gorgement-phone" name="phone" type="tel" autocomplete="tel" placeholder="06 00 00 00 00" required>
+        </div>
+        <div class="cb-field">
+          <label for="rappel-d-gorgement-need">Votre besoin</label>
+          <textarea id="rappel-d-gorgement-need" name="need" rows="3" placeholder="Ex. Dégorgement à Istres : décrivez en quelques mots"></textarea>
+        </div>
+        <button type="submit" class="call-btn cb-submit"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Demander un rappel</button>
+        <p class="cb-hint">Le bouton ouvre WhatsApp avec votre message pré-rempli. Aucune donnée n'est stockée sur ce site.</p>
+      </form>
+    </div>
+  </section>
+
+
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-panel">
+        <div>
+          <h2>Besoin d'un avis rapide à Istres ?</h2>
+          <p>Appelez avec l'adresse, une photo si possible et une description courte du problème. Le prix est confirmé avant intervention.</p>
+        </div>
+        <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+      </div>
+    </div>
+  </section>
+
+
   <section id="faq" class="section alt faq">
     <div class="wrap">
       <div class="section-head">
+        <span class="eyebrow">Questions fréquentes</span>
         <h2>Questions fréquentes à Istres</h2>
       </div>
       <div class="grid-2">
         <details open><summary>Intervenez-vous vraiment à Istres ?</summary><p>Oui, les demandes sur Istres sont traitées avec une priorité locale et une vérification du secteur avant déplacement.</p></details>
         <details><summary>Le devis est-il obligatoire ?</summary><p>Oui. En urgence comme sur rendez-vous, le prix doit être annoncé avant l'intervention.</p></details>
         <details><summary>Quand faut-il prévoir un camion pompe ?</summary><p>Un camion pompe peut être nécessaire si les eaux remontent, si un regard est plein ou si le bouchon semble profond. L&#x27;accès, le stationnement et la distance jusqu&#x27;au réseau doivent être précisés au téléphone.</p></details>
+        <details><summary>Débouchage simple ou hydrocurage ?</summary><p>Cela dépend de la nature et de la profondeur du bouchon. Un débouchage mécanique suffit souvent ; l&#x27;hydrocurage ou le camion pompe sont réservés aux cas de remontées, de regards pleins ou de réseaux saturés.</p></details>
+<details><summary>Comment éviter que ça recommence ?</summary><p>Après intervention, les causes probables et les bons gestes (graisses, lingettes, entretien périodique) sont expliqués pour limiter les récidives.</p></details>
         <details><summary>Quel numéro utiliser ?</summary><p>Utilisez un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes.</p></details>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="footer">
+<footer id="contact" class="footer">
   <div class="wrap">
     <div>
-      <strong>Solybat</strong><br>
-      Serrurerie, plomberie et dégorgement en urgence.
-      <div style="margin-top:10px"><a href="/zones/">Villes desservies</a></div>
+      <a class="brand" href="/"><span class="brand-mark">S</span><span>Solybat</span></a>
+      <p style="margin-top:4px;max-width:42ch">Serrurerie, plomberie et dégorgement en urgence, avec qualification de la demande au téléphone et devis annoncé avant toute intervention.</p>
+      <div style="margin-top:10px;color:#8d8576">Adresse Solybat à compléter</div>
     </div>
     <div>
-      <a class="call-btn js-call-track" href="tel:+33400000000">Appeler 04 00 00 00 00</a>
+      <strong>Contact direct</strong>
+      <div class="footer-links">
+        <a href="tel:+33400000000">04 00 00 00 00</a>
+        <a href="mailto:contact@solybat.fr">contact@solybat.fr</a>
+        <a href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div style="margin-top:16px">
+      <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler 04 00 00 00 00</a>
+      </div>
+    </div>
+    <div>
+      <strong>Informations</strong>
+      <div class="footer-links">
+        <a href="/zones/">Villes desservies</a>
+        <a href="/mentions-legales/">Mentions légales</a>
+        <a href="/confidentialite/">Confidentialité</a>
+      </div>
     </div>
   </div>
+  <div class="wrap footer-bottom">
+    © 2026 Solybat — Interventions serrurerie, plomberie et dégorgement en France et dans le canton de Genève. Tarifs indicatifs confirmés avant intervention.
+  </div>
 </footer>
-<a class="call-btn mobile-call js-call-track" href="tel:+33400000000">Appeler maintenant</a>
+<div class="mobile-bar">
+  <a class="wa-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp</a>
+  <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler</a>
+</div>
 <script>
 document.querySelectorAll('.js-call-track').forEach(function(link) {
   link.addEventListener('click', function() {
@@ -367,6 +1026,32 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {
     }
   });
 });
+(function() {
+  var WA = "33600000000";
+  document.querySelectorAll('.js-callback').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = form.querySelector('[name=name]');
+      var phone = form.querySelector('[name=phone]');
+      var need = form.querySelector('[name=need]');
+      var ok = true;
+      [name, phone].forEach(function(f) {
+        if (!f.value.trim()) { f.classList.add('cb-invalid'); ok = false; }
+        else { f.classList.remove('cb-invalid'); }
+      });
+      if (!ok) { (name.value.trim() ? phone : name).focus(); return; }
+      var city = form.getAttribute('data-city') || '';
+      var service = form.getAttribute('data-service') || 'intervention';
+      var msg = "Bonjour, je suis " + name.value.trim() + " (" + phone.value.trim() + ")."
+        + " Demande de rappel pour " + service + (city ? " à " + city : "") + "."
+        + (need.value.trim() ? " Détail : " + need.value.trim() : "");
+      if (window.gtag) {
+        window.gtag('event', 'callback_request', { event_category: 'lead', event_label: service + ' - ' + city });
+      }
+      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    });
+  });
+})();
 </script>
 
 

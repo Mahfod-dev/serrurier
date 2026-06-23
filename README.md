@@ -1,16 +1,16 @@
-# Site local Solybat
+# Site local Solybat - multi-services
 
-Ce dépôt contient un site statique généré pour la stratégie Google Ads et SEO local :
+Ce dossier contient un site statique généré pour la stratégie Google Ads et SEO local.
 
 - L'accueil `index.html` existant est conservé.
 - 129 villes issues du document Word.
-- 3 métiers : serrurier, plombier, dégorgement.
+- 3 métiers : serrurerie, plomberie et dégorgement.
 - 129 pages hubs villes (`/lyon/`, `/geneve/`, etc.).
 - 387 pages locales.
 - Une page d'entrée technique : `campagnes-locales/index.html`.
 - `sitemap.xml` et `robots.txt`.
-- Fichiers d'exploitation Google Ads dans `google-ads/`.
-- Fichiers de suivi SEO local dans `seo/`.
+- Pages légales : `/mentions-legales/` et `/confidentialite/`.
+- Fichiers d'exploitation Google Ads et SEO local générés dans `.`.
 
 ## Générer le site
 
@@ -18,22 +18,9 @@ Ce dépôt contient un site statique généré pour la stratégie Google Ads et 
 python3 generate_site.py
 ```
 
-## Générer deux sites séparés
+## Générer les deux domaines séparés
 
 ```bash
-python3 generate_site.py --target split
-```
-
-Cette commande crée :
-
-- `dist/serrurier/` : site serrurier seul, avec les pages ville à la racine (`/lyon/`, `/geneve/`, etc.).
-- `dist/plombier/` : site plombier, avec les pages plomberie à la racine et le dégorgement sous `/degorgement/`.
-
-Chaque dossier contient son propre `index.html`, `sitemap.xml`, `robots.txt` et les pages légales. Les fichiers d'exploitation Google Ads/SEO sont générés hors du dossier public dans `ops/`. Pour renseigner les futurs domaines avant génération :
-
-```bash
-SERRURIER_SITE_URL="https://www.domaine-serrurier.fr" \
-PLOMBIER_SITE_URL="https://www.domaine-plombier.fr" \
 python3 generate_site.py --target split
 ```
 
@@ -41,8 +28,8 @@ python3 generate_site.py --target split
 
 Remplacer dans `generate_site.py` :
 
-- `site_url`
-- `SERRURIER_SITE_URL` et `PLOMBIER_SITE_URL` si les deux domaines sont générés ensemble
+- `site_url` ou passer `--site-url` pour un build unique
+- `SERRURIER_SITE_URL` et `PLOMBIER_SITE_URL` pour `--target split`
 - `fr_phone_display` et `fr_phone_href`
 - `ch_phone_display` et `ch_phone_href`
 - `whatsapp`
