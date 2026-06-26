@@ -219,6 +219,23 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
+
+/* ---------- Cas d'interventions réels ---------- */
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.case-card {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-lg);
+  background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm);
+  display: grid; gap: 10px; align-content: start;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.case-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.case-meta { display: flex; align-items: center; gap: 7px; margin: 0; font-weight: 700; color: var(--ink); font-size: .9rem; }
+.case-meta svg { color: var(--accent); flex: none; width: 17px; height: 17px; }
+.case-line { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+.case-line strong {
+  display: block; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--accent); font-weight: 800; margin-bottom: 2px;
+}
 .card h3 { margin: 0 0 8px; font-size: 1.22rem; }
 .card-number {
   display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
@@ -323,7 +340,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid { grid-template-columns: 1fr; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -782,7 +799,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
       <div>
         <h2>Ce qui est vérifié avant déplacement</h2>
         <p>Un bouchon de canalisation demande une qualification précise : point de blocage, accès, remontées d&#x27;eau et besoin éventuel d&#x27;hydrocurage.</p>
-        <p>Les secteurs comme Lyon, Villeurbanne, Vénissieux, Vaulx-en-Velin sont traités avec la même logique : comprendre l'accès, l'urgence, le matériel possible et les conditions tarifaires avant validation.</p>
+        <p>Les secteurs comme La Saulaie, Le Bourg d&#x27;Oullins, Le Merlo, La Glunière sont traités avec la même logique : comprendre l'accès, l'urgence, le matériel possible et les conditions tarifaires avant validation.</p>
       </div>
     </div>
   </section>
@@ -826,7 +843,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
     <div class="wrap grid-2">
       <div class="card">
         <h2>Repères locaux à Oullins-Pierre-Bénite</h2>
-        <p>À Oullins-Pierre-Bénite, qu&#x27;il s&#x27;agisse d&#x27;un logement, d&#x27;un commerce ou d&#x27;un local professionnel, la demande est qualifiée avant déplacement pour confirmer le secteur et les conditions.</p>
+        <p>À Oullins-Pierre-Bénite, entre le centre ancien d&#x27;Oullins, les bords de l&#x27;Yzeron à La Saulaie et les hauteurs vers Le Merlo, l&#x27;accès varie fortement d&#x27;un secteur à l&#x27;autre.</p>
         <p style="margin-bottom:0">Le maillage local relie aussi Oullins-Pierre-Bénite aux communes proches comme Lyon, Villeurbanne, Vénissieux, Vaulx-en-Velin, Saint-Priest.</p>
       </div>
       <div class="card">
@@ -841,6 +858,8 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
 
 
 
+
+
   <section class="section alt">
     <div class="wrap">
       <div class="zone-head">
@@ -850,12 +869,12 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
           <p>Une urgence dans l'un de ces secteurs ? Indiquez-le lors de votre appel ou de votre demande de rappel pour gagner du temps.</p>
         </div>
       </div>
-      <div class="zone-chips"><a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lyon</a>
-<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Villeurbanne</a>
-<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Vénissieux</a>
-<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Vaulx-en-Velin</a>
-<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Saint-Priest</a>
-<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Caluire-et-Cuire</a></div>
+      <div class="zone-chips"><a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> La Saulaie</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Le Bourg d&#x27;Oullins</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Le Merlo</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> La Glunière</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Le Golf</a>
+<a class="zone-chip" href="#rappel"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Les Hautes-Roches (Pierre-Bénite)</a></div>
       <p class="zone-note">Communes proches également couvertes :</p><div class="zone-chips"><a class="zone-chip" href="/degorgement/lyon/">Lyon</a><a class="zone-chip" href="/degorgement/villeurbanne/">Villeurbanne</a><a class="zone-chip" href="/degorgement/venissieux/">Vénissieux</a><a class="zone-chip" href="/degorgement/vaulx-en-velin/">Vaulx-en-Velin</a><a class="zone-chip" href="/degorgement/saint-priest/">Saint-Priest</a><a class="zone-chip" href="/degorgement/caluire-et-cuire/">Caluire-et-Cuire</a></div>
     </div>
   </section>

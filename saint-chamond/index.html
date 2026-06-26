@@ -219,6 +219,23 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
+
+/* ---------- Cas d'interventions réels ---------- */
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.case-card {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-lg);
+  background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm);
+  display: grid; gap: 10px; align-content: start;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.case-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.case-meta { display: flex; align-items: center; gap: 7px; margin: 0; font-weight: 700; color: var(--ink); font-size: .9rem; }
+.case-meta svg { color: var(--accent); flex: none; width: 17px; height: 17px; }
+.case-line { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+.case-line strong {
+  display: block; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--accent); font-weight: 800; margin-bottom: 2px;
+}
 .card h3 { margin: 0 0 8px; font-size: 1.22rem; }
 .card-number {
   display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
@@ -323,7 +340,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid { grid-template-columns: 1fr; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -717,8 +734,8 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
     <div class="wrap grid-2">
       <div class="card">
         <h2>Repères locaux</h2>
-        <p>À Saint-Chamond, les interventions couvrent le centre comme les secteurs résidentiels alentour ; préciser le quartier et l&#x27;accès au téléphone permet d&#x27;arriver plus vite.</p>
-        <div class="pill-row"><span class="pill">Saint-Étienne</span> <span class="pill">Roanne</span> <span class="pill">Valence</span> <span class="pill">Montélimar</span> <span class="pill">Romans-sur-Isère</span> <span class="pill">Annonay</span></div>
+        <p>À Saint-Chamond, les anciens bourgs d&#x27;Izieux, de Saint-Julien-en-Jarez et de Saint-Martin-en-Coailleux, étirés dans la vallée du Gier, mêlent maisons anciennes et immeubles, autant de configurations à dépanner en urgence.</p>
+        <div class="pill-row"><span class="pill">Centre-ville</span> <span class="pill">Izieux</span> <span class="pill">Saint-Julien-en-Jarez</span> <span class="pill">Saint-Martin-en-Coailleux</span> <span class="pill">Fonsala</span></div>
       </div>
       <div class="card">
         <h2>Communes proches</h2>

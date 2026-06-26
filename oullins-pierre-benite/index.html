@@ -219,6 +219,23 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
+
+/* ---------- Cas d'interventions réels ---------- */
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.case-card {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-lg);
+  background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm);
+  display: grid; gap: 10px; align-content: start;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.case-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.case-meta { display: flex; align-items: center; gap: 7px; margin: 0; font-weight: 700; color: var(--ink); font-size: .9rem; }
+.case-meta svg { color: var(--accent); flex: none; width: 17px; height: 17px; }
+.case-line { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+.case-line strong {
+  display: block; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--accent); font-weight: 800; margin-bottom: 2px;
+}
 .card h3 { margin: 0 0 8px; font-size: 1.22rem; }
 .card-number {
   display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
@@ -323,7 +340,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid { grid-template-columns: 1fr; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -717,8 +734,8 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
     <div class="wrap grid-2">
       <div class="card">
         <h2>Repères locaux</h2>
-        <p>À Oullins-Pierre-Bénite, qu&#x27;il s&#x27;agisse d&#x27;un logement, d&#x27;un commerce ou d&#x27;un local professionnel, la demande est qualifiée avant déplacement pour confirmer le secteur et les conditions.</p>
-        <div class="pill-row"><span class="pill">Lyon</span> <span class="pill">Villeurbanne</span> <span class="pill">Vénissieux</span> <span class="pill">Vaulx-en-Velin</span> <span class="pill">Saint-Priest</span> <span class="pill">Caluire-et-Cuire</span></div>
+        <p>À Oullins-Pierre-Bénite, entre le centre ancien d&#x27;Oullins, les bords de l&#x27;Yzeron à La Saulaie et les hauteurs vers Le Merlo, l&#x27;accès varie fortement d&#x27;un secteur à l&#x27;autre.</p>
+        <div class="pill-row"><span class="pill">La Saulaie</span> <span class="pill">Le Bourg d&#x27;Oullins</span> <span class="pill">Le Merlo</span> <span class="pill">La Glunière</span> <span class="pill">Le Golf</span> <span class="pill">Les Hautes-Roches (Pierre-Bénite)</span></div>
       </div>
       <div class="card">
         <h2>Communes proches</h2>
