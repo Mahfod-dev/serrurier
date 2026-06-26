@@ -14,17 +14,23 @@ comment l'intégrer.
 
 ## 1. Par où commencer : la priorité
 
-N'essayez pas d'enrichir les 129 villes. Concentrez l'effort sur :
+**Les 129 villes sont désormais dotées de quartiers réels et d'une note locale
+propre** dans le dictionnaire `LOCAL_SEO`. Ces quartiers ont été identifiés à
+partir de sources publiques : ils sont plausibles et géographiquement réels,
+mais **doivent être validés par vous** (vous seul connaissez vos zones
+d'intervention exactes). Corrigez/retirez ceux où vous n'intervenez pas.
+
+Pour le reste de la collecte (photos, avis, exemples d'interventions),
+concentrez l'effort dans cet ordre :
 
 1. **Villes P1 (16)** : Genève, Lyon, Villeurbanne, Grenoble, Annecy, Annemasse,
    Marseille, Aix-en-Provence, Toulon, Nice, Cannes, Antibes, Avignon, Valence,
    Chambéry, Saint-Étienne.
-2. **Villes P2 (29)** : déjà dotées de vrais quartiers, à enrichir ensuite.
-3. **Le reste (P3)** : laissez-les vivre en Google Ads, enrichissez seulement
-   celles qui génèrent réellement des appels.
+2. **Villes P2 (29)**, puis le reste (P3), en priorisant celles qui génèrent
+   réellement des appels via Google Ads.
 
 Le fichier `ops/serrurier/seo/local-enrichment-priority.csv` (généré
-automatiquement) liste déjà ces villes avec les colonnes à remplir.
+automatiquement) liste ces villes avec les colonnes à remplir.
 
 ---
 

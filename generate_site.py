@@ -480,6 +480,342 @@ LOCAL_SEO = {
         "micro_areas": ["Centre", "Les Amandiers", "Pous du Plan", "Serres", "Quintine"],
         "local_note": "À Carpentras, le centre intra-muros et ses immeubles anciens appellent une intervention prudente sur les portes d'origine.",
     },
+    "thonex": {
+        "micro_areas": ["Villette", "Fossard", "Moillesulaz", "Belle-Idée", "Marcelly", "Mon-Idée"],
+        "local_note": "À Thônex, le poste-frontière de Moillesulaz et les anciens hameaux de Villette et Fossard mêlent passages très fréquentés et maisons de caractère où une serrure bloquée ne pardonne pas.",
+    },
+    "versoix": {
+        "micro_areas": ["Versoix-Bourg", "Montfleury", "Pont-Céard", "Ecogia", "Richelien", "Port-Choiseul"],
+        "local_note": "À Versoix, entre le port de Port-Choiseul au bord du lac et les quartiers résidentiels de Montfleury et Pont-Céard, les demandes vont de la villa au petit immeuble.",
+    },
+    "le-grand-saconnex": {
+        "micro_areas": ["Le Pommier", "Jardin des Nations", "Blandonnet", "Les Morillons", "Susette", "Place de Carantec"],
+        "local_note": "Au Grand-Saconnex, la proximité de l'aéroport et des organisations internationales du Jardin des Nations génère autant d'interventions en logement qu'en bureau.",
+    },
+    "chene-bougeries": {
+        "micro_areas": ["Conches", "Grange-Canal", "La Gradelle", "Chevillarde", "Malagnou", "La Montagne"],
+        "local_note": "À Chêne-Bougeries, les villas anciennes de Conches et les grands immeubles de La Gradelle exigent des dépannages aussi variés que ses quartiers.",
+    },
+    "onex": {
+        "micro_areas": ["Onex-Village", "Cité-Nouvelle", "Cressy", "Belle-Cour", "Les Évaux", "Gros-Chêne"],
+        "local_note": "À Onex, le contraste entre le Vieil-Onex perché et les grandes barres de la Cité-Nouvelle se traduit par des serrures de toutes générations à dépanner.",
+    },
+    "plan-les-ouates": {
+        "micro_areas": ["Plan-les-Ouates village", "Saconnex-d'Arve", "Arare", "Les Cherpines", "ZIPLO", "Les Voirets"],
+        "local_note": "À Plan-les-Ouates, la zone industrielle ZIPLO et ses manufactures horlogères côtoient les villages d'Arare et de Saconnex-d'Arve, entre sécurité des locaux et dépannage des habitations.",
+    },
+    "collonge-bellerive": {
+        "micro_areas": ["Vésenaz", "Collonge", "Bellerive", "Saint-Maurice", "La Capite", "La Pallanterie"],
+        "local_note": "À Collonge-Bellerive, les rives du lac à Vésenaz et la zone artisanale de La Pallanterie appellent autant d'interventions résidentielles que professionnelles.",
+    },
+    "pregny-chambesy": {
+        "micro_areas": ["Pregny-village", "Chambésy-village", "Le Vengeron", "Penthes", "Le Reposoir", "Tonkin"],
+        "local_note": "À Pregny-Chambésy, les grands domaines comme le Château de Penthes et les villas de Chambésy en surplomb du lac demandent des interventions soignées et discrètes.",
+    },
+    "veyrier": {
+        "micro_areas": ["Veyrier-village", "Vessy", "Pinchat", "Sierne", "Grand-Donzel", "Bois-de-Veyrier"],
+        "local_note": "À Veyrier, au pied du Salève, le vieux village et les hameaux de Vessy, Pinchat et Sierne alternent fermes anciennes et villas où chaque serrure a son histoire.",
+    },
+    "chatelaine": {
+        "micro_areas": ["Balexert", "Les Avanchets", "Concorde", "Les Libellules", "Avenue de Châtelaine"],
+        "local_note": "À Châtelaine, le grand centre commercial de Balexert et les immeubles des Avanchets concentrent autant d'appartements que de commerces à dépanner en urgence.",
+    },
+    "rillieux-la-pape": {
+        "micro_areas": ["La Ville Nouvelle", "Crépieux-la-Pape", "Vancia", "Le Loup-Pendu", "Les Alagniers", "Rillieux-Village"],
+        "local_note": "À Rillieux-la-Pape, entre le plateau de la Ville Nouvelle et les bords du canal de Miribel à Crépieux, le repérage du secteur et de l'accès est déterminant.",
+    },
+    "decines-charpieu": {
+        "micro_areas": ["Le Centre", "Charpieu", "Le Prainet", "Le Grand Large", "Les Marais"],
+        "local_note": "À Décines-Charpieu, du centre au plan d'eau du Grand Large et au quartier du Prainet, préciser l'accès et la rive concernée fait gagner un temps précieux.",
+    },
+    "oullins-pierre-benite": {
+        "micro_areas": ["La Saulaie", "Le Bourg d'Oullins", "Le Merlo", "La Glunière", "Le Golf", "Les Hautes-Roches (Pierre-Bénite)"],
+        "local_note": "À Oullins-Pierre-Bénite, entre le centre ancien d'Oullins, les bords de l'Yzeron à La Saulaie et les hauteurs vers Le Merlo, l'accès varie fortement d'un secteur à l'autre.",
+    },
+    "sainte-foy-les-lyon": {
+        "micro_areas": ["Le Bourg (Centre)", "Le Plan du Loup", "Beaunant", "Le Châtelain", "La Gravière"],
+        "local_note": "À Sainte-Foy-lès-Lyon, des pentes du Bourg aux bords de l'Yzeron à Beaunant, les dénivelés et les voies étroites imposent de bien situer l'adresse à l'avance.",
+    },
+    "saint-fons": {
+        "micro_areas": ["Le Centre-ville", "Carnot-Parmentier", "L'Arsenal", "Les Clochettes"],
+        "local_note": "À Saint-Fons, entre le centre, le secteur Carnot-Parmentier et les Clochettes en limite des Minguettes, repérer le bon ensemble et son accès est déterminant.",
+    },
+    "givors": {
+        "micro_areas": ["Le Centre-ville", "Les Vernes", "Le Canal", "Freydière-Bans", "Les Plaines", "Les Coteaux"],
+        "local_note": "À Givors, entre le centre au bord du Gier, les hauteurs des Vernes et le secteur du Canal le long de la Saône, l'accès et la côte sont à préciser avant l'intervention.",
+    },
+    "villefranche-sur-saone": {
+        "micro_areas": ["Le Centre-ville", "Belleroche", "Béligny", "Le Garet", "Troussier"],
+        "local_note": "À Villefranche-sur-Saône, de la rue Nationale au centre aux grands ensembles de Belleroche le long de la Saône, situer précisément le quartier accélère l'intervention.",
+    },
+    "tassin-la-demi-lune": {
+        "micro_areas": ["La Demi-Lune", "Le Bourg", "Alaï", "Méginand", "Le Tronchon", "La Raude"],
+        "local_note": "À Tassin-la-Demi-Lune, entre le carrefour de la Demi-Lune, les hauteurs d'Alaï et le vieux Bourg, les voies en pente et les accès résidentiels gagnent à être précisés.",
+    },
+    "ecully": {
+        "micro_areas": ["Le Centre (Bourg)", "Les Sources", "Le Pérollier", "Charrière Blanche", "La Cerisaie"],
+        "local_note": "À Écully, du vieux Bourg aux résidences des Sources et du Pérollier, les propriétés en retrait et les accès privés demandent à être indiqués à l'avance.",
+    },
+    "genas": {
+        "micro_areas": ["Le Bourg (Centre)", "Azieu", "Vurey", "Les Grandes Terres", "Mi-Plaine"],
+        "local_note": "À Genas, entre le centre-bourg, le village d'Azieu et la vaste zone industrielle de Mi-Plaine, distinguer secteur pavillonnaire et zone d'activité oriente l'intervention.",
+    },
+    "brignais": {
+        "micro_areas": ["Le Centre", "Les Pérouses", "Le Briganet", "La Giraudière", "La Zone d'Activités"],
+        "local_note": "À Brignais, du centre traversé par le Garon au quartier des Pérouses en rénovation, préciser l'allée et l'accès évite les détours inutiles.",
+    },
+    "chassieu": {
+        "micro_areas": ["Chassieu-le-Bas", "Chassieu-le-Haut", "Le Village", "Les Tarentelles", "Eurexpo Mi-Plaine", "Les Coteaux"],
+        "local_note": "À Chassieu, entre le village résidentiel et la zone d'Eurexpo–Mi-Plaine, bien distinguer secteur d'habitation et zone d'activité oriente directement l'intervention.",
+    },
+    "corbas": {
+        "micro_areas": ["Le Village (Chambarras)", "Les Balmes", "Bourlione", "Les Taillis-Romanette", "La Zone d'Activités"],
+        "local_note": "À Corbas, entre le vieux village de Chambarras, le secteur des Balmes et les vastes zones d'activités du sud, identifier le secteur évite de confondre habitat et entrepôts.",
+    },
+    "craponne": {
+        "micro_areas": ["Le Centre-Bourg", "Craponne-Est", "Craponne-Ouest", "Le secteur de l'Yzeron", "Les abords du Ratier"],
+        "local_note": "À Craponne, ville étirée sur son plateau entre la vallée de l'Yzeron et le ruisseau du Ratier, situer le bon secteur autour de l'avenue Édouard Millaud facilite l'arrivée.",
+    },
+    "mions": {
+        "micro_areas": ["Le Centre (Village)", "Les Brosses", "Le secteur Joliot-Curie", "Le Château", "La Plaine (Nord)"],
+        "local_note": "À Mions, entre le centre-village, la cité des Brosses et les lotissements dispersés vers la plaine, préciser le quartier et la rue facilite l'accès.",
+    },
+    "feyzin": {
+        "micro_areas": ["Le Plateau", "Le Village", "Les Razes", "La Bégude", "L'Échat", "Les Géraniums"],
+        "local_note": "À Feyzin, le dénivelé sépare le plateau et le village des Razes au bord du Rhône, près de la raffinerie : préciser le secteur et l'accès est essentiel.",
+    },
+    "tarare": {
+        "micro_areas": ["Le Centre", "Les Hauts de Tarare", "Le Danguin", "La Plata", "Le Serroux"],
+        "local_note": "À Tarare, ville encaissée dans la vallée de la Turdine, entre le centre et les hauteurs comme Les Hauts de Tarare ou Thivel, les rues en pente imposent de bien situer l'adresse.",
+    },
+    "cluses": {
+        "micro_areas": ["Centre-ville", "Les Ewües", "La Sardagne", "Messy", "Les Villages"],
+        "local_note": "À Cluses, la vallée de l'Arve et son tissu d'ateliers de décolletage concentrent logements ouvriers et commerces où une serrure bloquée ou une fuite ne peut pas attendre.",
+    },
+    "sallanches": {
+        "micro_areas": ["Centre", "Saint-Roch", "Vouilloux", "Saint-Martin-sur-Arve", "Blancheville"],
+        "local_note": "À Sallanches, la proximité du Mont-Blanc et l'habitat de montagne répartissent les demandes entre résidences permanentes et locations saisonnières très sensibles au délai.",
+    },
+    "rumilly": {
+        "micro_areas": ["Centre-ville", "Les rives du Chéran", "La zone de Madrid", "Rumilly Nord-Ouest"],
+        "local_note": "À Rumilly, la plaine de l'Albanais et les rives du Chéran mêlent centre ancien et zones d'activité industrielle, rendant les interventions serrure et plomberie attendues rapidement.",
+    },
+    "bonneville": {
+        "micro_areas": ["Centre", "Pontchy", "Thuet", "La Côte-d'Hyot", "Les Îles", "Bois-Jolivet"],
+        "local_note": "À Bonneville, chef-lieu du Faucigny au bord de l'Arve, l'habitat de vallée et les hameaux des coteaux exposent vite les urgences de serrure et de fuite.",
+    },
+    "passy": {
+        "micro_areas": ["Chedde", "Le Plateau d'Assy", "Marlioz", "Bay", "Joux", "Plaine-Passy"],
+        "local_note": "À Passy, entre le plateau d'Assy et la plaine de l'Arve face au Mont-Blanc, l'habitat dispersé en hameaux d'altitude rend chaque dépannage sensible au délai.",
+    },
+    "gaillard": {
+        "micro_areas": ["Centre", "Le Châtelet", "Les Hutins", "Moëllesulaz", "Les Terreaux-Vernaz"],
+        "local_note": "À Gaillard, ville frontalière collée à Genève et à l'agglomération d'Annemasse, le flux quotidien de frontaliers rend les urgences serrure et plomberie particulièrement pressées.",
+    },
+    "la-roche-sur-foron": {
+        "micro_areas": ["La vieille ville", "Le faubourg Saint-Bernard", "Les Afforêts", "La Bénite-Fontaine"],
+        "local_note": "À La Roche-sur-Foron, la cité médiévale, première ville d'Europe électrifiée, mêle vieux bâti et quartiers récents où fuites et serrures demandent une intervention rapide.",
+    },
+    "publier": {
+        "micro_areas": ["Amphion-les-Bains", "Le chef-lieu (Publier)", "Bissinges", "Morand", "Les Genevrilles"],
+        "local_note": "À Publier, entre le plateau du chef-lieu et la plaine d'Amphion-les-Bains au bord du Léman, résidences permanentes et villégiatures rendent les dépannages très sensibles au délai.",
+    },
+    "evian-les-bains": {
+        "micro_areas": ["Le centre thermal", "Les Mateirons", "La Grande Rive", "Les Hauts d'Évian", "Le secteur du Golf"],
+        "local_note": "À Évian-les-Bains, ville thermale du bord du Léman, l'afflux de curistes et de résidences secondaires impose des dépannages serrure et plomberie sans attente.",
+    },
+    "cranves-sales": {
+        "micro_areas": ["Le chef-lieu", "Loëx", "Lossy", "Montagny", "Boringes", "La Bergue"],
+        "local_note": "À Cranves-Sales, les coteaux étagés entre l'agglomération d'Annemasse et le pied du Salève mêlent hameaux résidentiels et habitat frontalier où une fuite ou une serrure bloquée presse.",
+    },
+    "scionzier": {
+        "micro_areas": ["Le Crozet", "Pressy", "Les Esserts", "Chamberon", "Rovagny", "Le centre"],
+        "local_note": "À Scionzier, capitale mondiale du décolletage le long du Foron et de la vallée de l'Arve, ateliers et logements ouvriers rendent les urgences serrure et plomberie peu compatibles avec l'attente.",
+    },
+    "reignier-esery": {
+        "micro_areas": ["Le chef-lieu (Reignier)", "Ésery", "La Verne", "Polinge", "L'Éculaz", "La Crêtaz"],
+        "local_note": "À Reignier-Ésery, dans la plaine agricole entre Genève et le Faucigny, l'habitat dispersé en hameaux et le secteur du golf d'Ésery rendent les dépannages sensibles au délai.",
+    },
+    "vetraz-monthoux": {
+        "micro_areas": ["Le centre (Vétraz)", "Haut-Monthoux", "Bas-Monthoux", "Livron", "Bois-Enverse"],
+        "local_note": "À Vétraz-Monthoux, commune résidentielle de l'agglomération annemassienne au pied du Salève, la population frontalière attend des interventions serrure et plomberie très rapides.",
+    },
+    "aix-les-bains": {
+        "micro_areas": ["Le centre thermal", "Le Grand Port", "Marlioz", "Le Sierroz", "Choudy", "Franklin-Roosevelt"],
+        "local_note": "À Aix-les-Bains, le thermalisme et le tourisme du lac du Bourget rendent les urgences serrure et fuite très sensibles au délai, entre curistes et résidences du bord du lac.",
+    },
+    "albertville": {
+        "micro_areas": ["Conflans", "Le Champ de Mars", "Val des Roses", "La Contamine", "Le centre-ville", "Pont-Albertin"],
+        "local_note": "À Albertville, ville olympique à la confluence de l'Arly et de l'Isère et porte de la Tarentaise, le flux saisonnier vers les stations rend chaque dépannage sensible au délai.",
+    },
+    "la-motte-servolex": {
+        "micro_areas": ["Le centre (chef-lieu)", "Les Hameaux", "Le Tremblay", "Villard-Péron", "Le Noiray", "Les Granges"],
+        "local_note": "À La Motte-Servolex, porte ouest de l'agglomération chambérienne entre plaine agricole et lac du Bourget, le mélange de hameaux et de zones d'activité presse les interventions serrure et plomberie.",
+    },
+    "bourg-saint-maurice": {
+        "micro_areas": ["Le centre (chef-lieu)", "Hauteville-Gondon", "Vulmix", "Montrigon", "Les Échines", "La Rosière"],
+        "local_note": "À Bourg-Saint-Maurice, porte des Arcs en Haute Tarentaise, l'alternance entre logements permanents de vallée et locations saisonnières d'altitude rend les urgences très sensibles au délai.",
+    },
+    "ugine": {
+        "micro_areas": ["Le Vieux-Ugine", "Le secteur de l'usine", "Héry-sur-Ugine", "Les Hameaux", "Outrechaise"],
+        "local_note": "À Ugine, ville d'aciéries à l'entrée du Val d'Arly, l'habitat ouvrier et les hameaux des coteaux exposent vite les urgences de serrure et de fuite.",
+    },
+    "saint-jean-de-maurienne": {
+        "micro_areas": ["Le centre-ville", "Bastille-l'Épine", "Les Chaudannes", "Les Clapeys", "La périphérie"],
+        "local_note": "À Saint-Jean-de-Maurienne, capitale de la Maurienne marquée par l'aluminium et le chantier du Lyon-Turin, le bâti ancien du centre et les quartiers de vallée rendent les dépannages serrure et plomberie pressés.",
+    },
+    "saint-martin-d-heres": {
+        "micro_areas": ["Le Village", "Renaudie", "Champberton", "Croix-Rouge", "Le Domaine universitaire", "Champ-Roman"],
+        "local_note": "À Saint-Martin-d'Hères, la présence du domaine universitaire et des grands ensembles de Renaudie-Champberton multiplie les logements étudiants et collectifs où l'identification précise du bâtiment conditionne la rapidité d'une intervention.",
+    },
+    "vienne": {
+        "micro_areas": ["Estressin", "Malissol", "L'Isle", "Vallée de Gère", "Charlemagne", "Centre historique"],
+        "local_note": "À Vienne, le centre historique ancien étiré le long du Rhône, aux serrures souvent vétustes, côtoie les quartiers d'Estressin et de Malissol perchés au-dessus de la Gère.",
+    },
+    "villefontaine": {
+        "micro_areas": ["Les Roches", "Les Fougères", "Saint-Bonnet", "Servenoble", "Le Village", "Le Vellein"],
+        "local_note": "À Villefontaine, l'urbanisme de ville nouvelle organisé en quartiers comme Saint-Bonnet et Les Roches, riche en logements collectifs, oblige à bien repérer l'entrée et le numéro de bâtiment.",
+    },
+    "meylan": {
+        "micro_areas": ["Les Béalières", "Maupertuis", "Le Haut-Meylan", "Inovallée", "Les Buclos", "La Carronnerie"],
+        "local_note": "À Meylan, l'alternance entre les villas du Haut-Meylan adossées au Saint-Eynard et les entreprises du parc Inovallée partage les demandes entre particuliers et professionnels.",
+    },
+    "l-isle-d-abeau": {
+        "micro_areas": ["Saint-Hubert", "Le Triforium", "Champoulant", "Pierre-Louve", "Le Bourg", "La Réserve 2000"],
+        "local_note": "À L'Isle-d'Abeau, le quartier rénové de Saint-Hubert et l'habitat en îlots du Triforium concentrent un parc collectif dense aux accès parfois difficiles à localiser.",
+    },
+    "oyonnax": {
+        "micro_areas": ["La Plaine", "La Forge", "Veyziat", "Nierme", "Geilles", "Centre-ville"],
+        "local_note": "À Oyonnax, le tissu industriel de la plasturgie et les grands quartiers comme La Plaine-La Forge orientent les demandes vers les particuliers et les ateliers à parts égales.",
+    },
+    "valserhone": {
+        "micro_areas": ["Bellegarde centre", "Arlod", "Coupy", "Plateau de Musinens", "Vouvray", "Châtillon-en-Michaille"],
+        "local_note": "À Valserhône, commune née de la fusion de Bellegarde, Châtillon et Lancrans et étirée entre Rhône et Valserine, mieux vaut préciser le hameau ou le quartier pour gagner du temps en urgence.",
+    },
+    "amberieu-en-bugey": {
+        "micro_areas": ["Le Tiret", "Les Allymes", "Vareilles", "Saint-Germain", "Longeray-Gare", "Les Pérouses"],
+        "local_note": "À Ambérieu-en-Bugey, l'importance du nœud ferroviaire autour du secteur Longeray-Gare draine une population mobile et de nombreux logements à desservir rapidement.",
+    },
+    "saint-genis-pouilly": {
+        "micro_areas": ["Saint-Genis centre", "Pouilly", "Pregnin", "Flies", "Le Technoparc", "Porte de France"],
+        "local_note": "À Saint-Genis-Pouilly, la proximité immédiate du CERN et de la frontière suisse alimente une forte demande frontalière, entre le village historique de Pouilly et les hameaux de Pregnin et Flies.",
+    },
+    "divonne-les-bains": {
+        "micro_areas": ["Divonne Centre", "Villard", "Vésenex", "Arbère", "Saint-Gix", "Le Plan"],
+        "local_note": "À Divonne-les-Bains, l'activité thermale et le casino ainsi que les hameaux résidentiels de Villard et Vésenex mêlent résidences haut de gamme et clientèle frontalière exigeante sur les délais.",
+    },
+    "miribel": {
+        "micro_areas": ["Miribel Centre", "Le Mas Rillier", "Les Échets", "Saint-Martin"],
+        "local_note": "À Miribel, l'étalement entre le centre adossé à la Côtière, le plateau du Mas Rillier coiffé de sa Madone et le hameau des Échets en bord de Dombes impose de bien situer le secteur d'intervention.",
+    },
+    "saint-chamond": {
+        "micro_areas": ["Centre-ville", "Izieux", "Saint-Julien-en-Jarez", "Saint-Martin-en-Coailleux", "Fonsala"],
+        "local_note": "À Saint-Chamond, les anciens bourgs d'Izieux, de Saint-Julien-en-Jarez et de Saint-Martin-en-Coailleux, étirés dans la vallée du Gier, mêlent maisons anciennes et immeubles, autant de configurations à dépanner en urgence.",
+    },
+    "roanne": {
+        "micro_areas": ["Centre-ville", "Le Parc", "Mâtel", "Mulsant", "Arsenal", "Clermont"],
+        "local_note": "À Roanne, du centre commerçant aux bords de Loire et aux quartiers comme Le Parc, Mâtel ou Mulsant, les interventions concernent aussi bien l'habitat collectif que les commerces.",
+    },
+    "romans-sur-isere": {
+        "micro_areas": ["Centre historique", "La Monnaie", "Saint-Nicolas", "Les Ors", "Les Balmes"],
+        "local_note": "À Romans-sur-Isère, le centre historique aux immeubles anciens côtoie les quartiers de la rive de l'Isère comme La Monnaie ou Les Ors, chaque type de bâti appelant une intervention adaptée.",
+    },
+    "annonay": {
+        "micro_areas": ["Centre-ville", "Cance", "Faya", "Le Zodiaque", "Vissenty"],
+        "local_note": "À Annonay, la ville bâtie sur les collines au confluent de la Cance et de la Deûme alterne ruelles du centre ancien et quartiers récents comme Faya ou Le Zodiaque, qui appellent des serrures et des accès très variés.",
+    },
+    "guilherand-granges": {
+        "micro_areas": ["Centre-ville", "Bord-du-Rhône", "Savine", "Dunant-Mialan", "Beauregard"],
+        "local_note": "À Guilherand-Granges, ville résidentielle étirée le long du Rhône face à Valence, les demandes urgentes touchent surtout les pavillons et les résidences des quartiers comme Savine ou Beauregard.",
+    },
+    "tournon-sur-rhone": {
+        "micro_areas": ["Centre historique", "Les Quais", "Doux-Plateau", "Saint-Vincent", "Secteur de la Gare"],
+        "local_note": "À Tournon-sur-Rhône, le centre historique au pied du château et les quais du Rhône face à Tain-l'Hermitage concentrent commerces et logements anciens à dépanner.",
+    },
+    "arles": {
+        "micro_areas": ["Trinquetaille", "La Roquette", "Griffeuille", "Barriol", "Le Trébon", "Pont-de-Crau"],
+        "local_note": "À Arles, entre le centre ancien classé autour des arènes et les mas isolés de la Camargue, l'adresse et l'accès doivent être précisés dès l'appel pour intervenir vite.",
+    },
+    "martigues": {
+        "micro_areas": ["Ferrières", "L'Île", "Jonquières", "Croix-Sainte", "Lavéra", "La Couronne"],
+        "local_note": "À Martigues, entre les canaux de la Venise provençale et les zones industrielles de l'étang de Berre, l'accès et le secteur doivent être précisés dès l'appel.",
+    },
+    "marignane": {
+        "micro_areas": ["Le Centre", "Les Florides", "Notre-Dame", "La Palun", "Saint-Pierre", "Raison"],
+        "local_note": "À Marignane, entre les abords de l'aéroport Marseille-Provence et les rives de l'étang de Berre, les déplacements professionnels rendent les urgences de serrurerie particulièrement sensibles au délai.",
+    },
+    "la-ciotat": {
+        "micro_areas": ["Le Centre-ville", "Le Vieux-Port", "Saint-Jean", "Le Liouquet", "Fardeloup", "La Garde"],
+        "local_note": "À La Ciotat, entre le Vieux-Port, les anciens chantiers navals et les calanques du Mugel, les résidences saisonnières du bord de mer rendent les urgences très sensibles au délai.",
+    },
+    "istres": {
+        "micro_areas": ["Le Centre ancien", "Le Prépaou", "Rassuen", "Trigance", "Entressen", "Les Heures Claires"],
+        "local_note": "À Istres, entre les rives de l'étang de l'Olivier et le hameau excentré d'Entressen, le secteur doit être précisé dès l'appel pour intervenir rapidement.",
+    },
+    "miramas": {
+        "micro_areas": ["Le Centre-ville", "La Maille", "La Carraire", "Le Mas-Neuf", "Miramas-le-Vieux", "La Péronne"],
+        "local_note": "À Miramas, entre le village perché de Miramas-le-Vieux dominant l'étang de Berre et les quartiers proches de la grande gare de triage, l'adresse exacte doit être donnée dès l'appel.",
+    },
+    "les-pennes-mirabeau": {
+        "micro_areas": ["Le Vieux Village", "La Gavotte", "Les Cadeneaux", "Plan de Campagne", "Le Plan des Pennes", "Les Pallières"],
+        "local_note": "Aux Pennes-Mirabeau, entre le vieux village perché, la zone commerciale de Plan de Campagne et les axes vers Marseille, le secteur doit être précisé dès l'appel pour une intervention rapide.",
+    },
+    "draguignan": {
+        "micro_areas": ["Le Centre ancien", "Les Collettes", "Le Plan", "Saint-Léger", "La Foux", "Le Malmont"],
+        "local_note": "À Draguignan, entre le centre ancien provençal et les quartiers proches du grand camp militaire de l'artillerie, l'accès et l'adresse doivent être précisés dès l'appel.",
+    },
+    "saint-raphael": {
+        "micro_areas": ["Le Centre-ville", "Valescure", "Boulouris", "Le Dramont", "Agay", "Anthéor"],
+        "local_note": "À Saint-Raphaël, entre le port de Santa Lucia et les criques de l'Estérel jusqu'à Agay, les résidences saisonnières du bord de mer rendent les urgences très sensibles au délai.",
+    },
+    "six-fours-les-plages": {
+        "micro_areas": ["Reynier", "Le Brusc", "Les Lônes", "La Coudoulière", "Les Playes", "Le Cap Nègre"],
+        "local_note": "À Six-Fours-les-Plages, entre le village de pêcheurs du Brusc, la presqu'île du Gaou et les plages de Bonnegrâce, les résidences saisonnières rendent les urgences très sensibles au délai.",
+    },
+    "la-garde": {
+        "micro_areas": ["Le Vieux Rocher", "La Planquette", "Sainte-Marguerite", "Romain Rolland", "Le Plan", "La Bayorre"],
+        "local_note": "À La Garde, entre le vieux village perché sur son Rocher et les quartiers résidentiels de la plaine vers Toulon, le secteur doit être précisé dès l'appel pour intervenir vite.",
+    },
+    "la-valette-du-var": {
+        "micro_areas": ["Le Centre-ville", "Les Espaluns", "Sainte-Anne", "La Coupiane", "Tourris", "Le Coudon"],
+        "local_note": "À La Valette-du-Var, entre le vieux centre adossé au massif du Coudon et la grande zone commerciale de l'Avenue 83, l'adresse et l'accès doivent être précisés dès l'appel.",
+    },
+    "le-cannet": {
+        "micro_areas": ["Le Vieux Cannet", "Rocheville", "Le Haut-Cannet", "Les Mimosas", "L'Aubarède", "Garibondy"],
+        "local_note": "Au Cannet, le vieux village perché et ses ruelles aux maisons anciennes imposent souvent des ouvertures fines, tandis que les villas du Haut-Cannet équipent des serrures haut de gamme.",
+    },
+    "saint-laurent-du-var": {
+        "micro_areas": ["Centre-ville / Vieux Village", "Tzanck", "Les Pugets", "Les Vespins", "Cap 3000", "Plaine du Var"],
+        "local_note": "À Saint-Laurent-du-Var, l'embouchure du Var, le bord de mer autour de Cap 3000 et les résidences des Pugets génèrent des demandes mêlant copropriétés récentes et maisons à sécuriser.",
+    },
+    "vallauris": {
+        "micro_areas": ["Vallauris Village", "Golfe-Juan", "Les Paluds-Lauvert", "Gabelle-Courcettes", "Hauts de Vallauris"],
+        "local_note": "À Vallauris, le village des céramistes et ses ateliers anciens d'un côté, la station balnéaire de Golfe-Juan et son port de l'autre, créent des besoins très variés en serrurerie et plomberie.",
+    },
+    "mandelieu-la-napoule": {
+        "micro_areas": ["La Napoule", "Capitou", "Colline de Capitou", "Cannes-Marina", "Les Termes", "Minelle"],
+        "local_note": "À Mandelieu-la-Napoule, le port de La Napoule, les résidences de bord de mer et les villas perchées sur la colline de Capitou génèrent des demandes très saisonnières.",
+    },
+    "mougins": {
+        "micro_areas": ["Mougins-Village", "Tournamy", "Font de l'Orme", "Val de Mougins", "Mougins-le-Haut", "Notre-Dame-de-Vie"],
+        "local_note": "À Mougins, le vieux village perché en colimaçon et les villas dispersées dans les collines boisées demandent souvent des interventions soignées et des déplacements précis.",
+    },
+    "vence": {
+        "micro_areas": ["Centre historique", "Sainte-Colombe", "Sainte-Élisabeth", "Saint-Martin", "Plan de Noves", "Notre-Dame"],
+        "local_note": "À Vence, la cité médiévale ceinte de remparts et ses portes anciennes encore debout appellent une ouverture fine et respectueuse du patrimoine.",
+    },
+    "cavaillon": {
+        "micro_areas": ["Centre-ville", "Colline Saint-Jacques", "Docteur Ayme", "Les Condamines", "Basse Féraille", "Route de Gordes"],
+        "local_note": "À Cavaillon, le centre ancien dominé par la colline Saint-Jacques et les quartiers résidentiels en lisière de campagne provençale mêlent vieilles portes et pavillons à dépanner.",
+    },
+    "l-isle-sur-la-sorgue": {
+        "micro_areas": ["Centre ancien", "Quartier des antiquaires", "Partage des Eaux", "Quai de la Gare", "Villevieille", "Villeneuve"],
+        "local_note": "À L'Isle-sur-la-Sorgue, surnommée la Venise comtadine, les bras de la Sorgue, les roues à aube et les maisons anciennes des antiquaires demandent des interventions soignées en milieu humide.",
+    },
+    "pertuis": {
+        "micro_areas": ["Centre-ville", "Saint-Martin", "Le Farigoulier", "Les Aires", "La Blaque", "Fours à Chaux"],
+        "local_note": "À Pertuis, la vieille ville aux ruelles provençales et ses portes anciennes côtoient les lotissements récents de La Blaque, ce qui varie les besoins en serrurerie et plomberie.",
+    },
 }
 
 SERVICE_LOCAL_CASES = {
