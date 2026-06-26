@@ -2780,6 +2780,89 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         primary_benefits = "\n".join(f"<li>{esc(item)}</li>" for item in primary["benefits"])
         home_trust = trust_band(primary)
         home_reassure = reassurance_strip(phone_display)
+        # Prestations : sur un site mono-métier, on montre les prestations
+        # détaillées plutôt qu'une unique carte de service (sinon section thin).
+        if len(build.service_keys) == 1:
+            svc_icon = home_icons.get(build.primary_service_key, "shield")
+            plural = str(primary["plural"])
+            detail_cards = "\n".join(
+                f"""
+        <article class="card detail-card">
+          <div class="ico">{icon(svc_icon)}</div>
+          <h3>{esc(t)}</h3>
+          <p>{esc(d)}</p>
+        </article>"""
+                for t, d in SERVICE_DETAIL.get(build.primary_service_key, [])[:6]
+            )
+            prestations_block = f"""
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head center">
+        <h2>Nos prestations de {esc(plural)}</h2>
+        <p>Chaque intervention est qualifiée par téléphone, avec un prix annoncé avant déplacement.</p>
+      </div>
+      <div class="grid-3">{detail_cards}</div>
+    </div>
+  </section>
+"""
+        else:
+            prestations_block = f"""
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head center">
+        <h2>Prestations couvertes</h2>
+        <p>Les prestations sont présentées séparément pour aider l'appelant à expliquer rapidement son besoin.</p>
+      </div>
+      <div class="grid-3">{cards}</div>
+    </div>
+  </section>
+"""
+        # Avis : exemples représentatifs, aucune note agrégée injectée (honnêteté).
+        review_cards = "\n".join(
+            f"""
+        <figure class="review-card">
+          <div class="stars" aria-label="Avis client">{icon("star") * 5}</div>
+          <blockquote><p>« {esc(text)} »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">{esc(who[0])}</span>
+            <span><b>{esc(who)} · {esc(context)}</b><span>Intervention {esc(primary_label.lower())}</span></span>
+          </figcaption>
+        </figure>"""
+            for text, who, context in SERVICE_REVIEWS.get(build.primary_service_key, SERVICE_REVIEWS["serrurier"])[:3]
+        )
+        home_reviews = f"""
+  <section id="avis" class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Retours clients</span>
+        <h2>Ce que disent les clients</h2>
+        <p>Exemples représentatifs des retours reçus après une intervention. Les avis vérifiés sont collectés après chaque dépannage réussi.</p>
+      </div>
+      <div class="grid-3">{review_cards}</div>
+    </div>
+  </section>
+"""
+        # FAQ générale + données structurées FAQPage.
+        home_faq_items = [
+            ("Intervenez-vous 24h/24 et 7j/7 ?", "Oui, les demandes urgentes sont prises en compte de jour comme de nuit. Selon la disponibilité d'une équipe proche, un délai d'intervention vous est annoncé dès l'appel."),
+            ("Le prix est-il annoncé avant l'intervention ?", "Oui. Le tarif dépend de l'accès, de l'horaire, du matériel et de la complexité ; il est confirmé avant le début des travaux."),
+            ("Quelles villes couvrez-vous ?", f"{len(cities)} villes en France et dans le canton de Genève. Chaque ville dispose d'une page locale avec le bon numéro à utiliser."),
+            ("Quel numéro dois-je utiliser ?", "Un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes."),
+        ]
+        home_faq_html = "\n".join(
+            f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in home_faq_items
+        )
+        home_faq = f"""
+  <section id="faq" class="section faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Questions fréquentes</span>
+        <h2>Questions fréquentes</h2>
+      </div>
+      <div class="grid-2">{home_faq_html}</div>
+    </div>
+  </section>
+"""
         body = f"""
 {header(phone_display, phone_href, build)}
 <main id="contenu">
@@ -2818,15 +2901,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
 
 {home_trust}
 
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head center">
-        <h2>Prestations couvertes</h2>
-        <p>Les prestations sont présentées séparément pour aider l'appelant à expliquer rapidement son besoin.</p>
-      </div>
-      <div class="grid-3">{cards}</div>
-    </div>
-  </section>
+{prestations_block}
 
   <section class="section alt">
     <div class="wrap">
@@ -2861,11 +2936,23 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
     </div>
   </section>
 
+{home_reviews}
+
+{home_faq}
+
 {callback_form("", primary_label, phone_display, phone_href)}
 </main>
 {footer(phone_display, phone_href, build)}
 """
         schema = local_business_schema(title, description, homepage_path, None, build.primary_service_key, build)
+        schema["@graph"].append({
+            "@type": "FAQPage",
+            "@id": f"{page_url(homepage_path, build)}#faq",
+            "mainEntity": [
+                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+                for q, a in home_faq_items
+            ],
+        })
         return layout(title, description, homepage_path, body, schema, build)
 
     title = f"{BUSINESS['name']} | Serrurerie, plomberie et dégorgement"
@@ -2948,7 +3035,7 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
     phone_href = BUSINESS["fr_phone_href"]
     scope = service_names(build)
     title = f"Zones d'intervention {build.label} | {BUSINESS['name']}"
-    description = f"Toutes les villes ciblées par Solybat pour les pages {scope}."
+    description = f"Toutes les villes couvertes par Solybat en {scope}, avec accès direct à chaque page locale."
     sections: list[str] = []
     zones = sorted({(c.region, c.zone) for c in cities})
     for region, zone in zones:
@@ -2957,7 +3044,7 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
             f"""
             <div class="card">
               <h3><a href="{city_hub_path(c) if build.include_city_hubs else service_path(c, build.primary_service_key or build.service_keys[0], build)}">{esc(c.name)}</a></h3>
-              <p>Priorité {c.priority} · {esc(c.country)}</p>
+              <p>{esc("Canton de Genève (Suisse)" if c.country == "CH" else "France")}</p>
               {service_links_for_city(c, build, build.primary_service_key if not build.include_city_hubs else None)}
             </div>
             """
@@ -2987,10 +3074,10 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
         <p>Liste complète des villes couvertes, avec accès direct aux pages {esc(scope)}.</p>
       </div>
       <aside class="hero-card">
-        <h2>Règle d'exploitation</h2>
+        <h2>Trouver votre ville</h2>
         <ul>
-          <li>Accès rapide par ville</li>
-          <li>Services séparés par domaine</li>
+          <li>Accès direct à votre page locale</li>
+          <li>Le bon numéro selon votre zone</li>
           <li>France et canton de Genève</li>
         </ul>
       </aside>
