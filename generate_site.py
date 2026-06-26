@@ -1453,6 +1453,14 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
 
+/* ---------- En-tête prestations (intro + contexte local) ---------- */
+.detail-head { display: grid; grid-template-columns: 1.5fr 1fr; gap: 34px; align-items: start; margin-bottom: 40px; }
+.detail-context { align-self: start; }
+.detail-context h3 { margin: 0 0 10px; font-size: 1.18rem; }
+.detail-context p { color: var(--ink-soft); margin: 0 0 10px; }
+.detail-context-area { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; color: var(--ink); margin-bottom: 0 !important; }
+.detail-context-area svg { color: var(--accent); flex: none; width: 18px; height: 18px; margin-top: 2px; }
+
 /* ---------- Repères locaux (bloc éditorial + faits) ---------- */
 .local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
 .local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
@@ -1598,7 +1606,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere, .detail-head { grid-template-columns: 1fr; }
   .local-facts { position: static; top: auto; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
@@ -2305,6 +2313,10 @@ def detail_section(city: City, service: dict[str, object], service_key: str) -> 
     label = str(service["label"]).lower()
     plural = str(service["plural"])
     intro = pick(city.slug, SERVICE_INTRO_VARIANTS.get(service_key, [""]), "intro")
+    local_lead = pick(city.slug, SERVICE_LOCAL_LEAD, "lead").format(
+        name=BUSINESS["name"], city=city.name, label=label, zone=city.zone, region=city.region
+    )
+    region_display = re.sub(r"\s*\([^)]*\)\s*$", "", city.region)
     icons = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}
     svc_icon = icons.get(service_key, "shield")
     cards = "\n".join(
@@ -2320,10 +2332,17 @@ def detail_section(city: City, service: dict[str, object], service_key: str) -> 
     return f"""
   <section class="section">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Prestations à {esc(city.name)}</span>
-        <h2>Nos interventions de {esc(plural)} en détail</h2>
-        <p class="lead">{esc(intro)}</p>
+      <div class="detail-head">
+        <div class="section-head" style="margin-bottom:0">
+          <span class="eyebrow">Prestations à {esc(city.name)}</span>
+          <h2>Nos interventions de {esc(plural)} en détail</h2>
+          <p class="lead">{esc(intro)}</p>
+        </div>
+        <aside class="detail-context card">
+          <h3>{esc(str(service["label"]))} à {esc(city.name)}, en bref</h3>
+          <p>{esc(local_lead)}</p>
+          <p class="detail-context-area">{icon("pin")} Au-delà de {esc(city.name)}, secteur {esc(city.zone)}, en {esc(region_display)}.</p>
+        </aside>
       </div>
       <div class="grid-3">{cards}</div>
     </div>
@@ -2478,7 +2497,6 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     title = service_title(str(service["label"]), city.name, BUSINESS["name"])
     description = f"{service['label']} à {city.name} en urgence 24h/24 : {BUSINESS['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
-    region_display = re.sub(r"\s*\([^)]*\)\s*$", "", city.region)
     benefits = "\n".join(f"<li>{esc(item)}</li>" for item in reorder(city.slug, service["benefits"], "benefits"))
     pricing_rows = "\n".join(
         f"<tr><td>{esc(label)}</td><td>{esc(price)}</td></tr>" for label, price in service["pricing"]
@@ -2503,9 +2521,6 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     extra_faq = "\n".join(
         f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
         for q, a in reorder(city.slug, EXTRA_FAQ.get(service_key, []), "faq")
-    )
-    local_lead = pick(city.slug, SERVICE_LOCAL_LEAD, "lead").format(
-        name=BUSINESS["name"], city=city.name, label=str(service["label"]).lower(), zone=city.zone, region=city.region
     )
     hero_support = pick(city.slug, HERO_SUPPORT, "herosupport").format(city=city.name)
     service_faq_question, service_faq_answer = SERVICE_LOCAL_CASES[service_key]["faq"]
@@ -2561,8 +2576,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
         <h2>Votre intervention à {esc(city.name)}</h2>
         <ul>{benefits}</ul>
         <div class="hero-meta">
-          <div><strong>24/7</strong><span>urgence qualifiée</span></div>
-          <div><strong>Devis</strong><span>annoncé avant travaux</span></div>
+          <div><strong>Local</strong><span>artisan au plus proche de {esc(city.name)}</span></div>
+          <div><strong>Rappel</strong><span>on vous recontacte rapidement</span></div>
         </div>
       </aside>
     </div>
@@ -2571,22 +2586,6 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
 {reassure}
 
 {trust_section}
-
-  <section class="section">
-    <div class="wrap grid-2">
-      <div>
-        <div class="section-head" style="margin-bottom:0">
-          <span class="eyebrow">{esc(service["label"])} à {esc(city.name)}</span>
-          <h2>Une intervention locale, claire du premier appel</h2>
-          <p>{esc(local_lead)}</p>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Secteur d'intervention</h3>
-        <p style="margin-bottom:0">Au-delà de {esc(city.name)}, selon la disponibilité des équipes, une intervention peut aussi être organisée dans les communes proches du secteur {esc(city.zone)}, en {esc(region_display)}.</p>
-      </div>
-    </div>
-  </section>
 
 {detail}
 

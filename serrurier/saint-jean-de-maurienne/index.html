@@ -220,6 +220,14 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
 
+/* ---------- En-tête prestations (intro + contexte local) ---------- */
+.detail-head { display: grid; grid-template-columns: 1.5fr 1fr; gap: 34px; align-items: start; margin-bottom: 40px; }
+.detail-context { align-self: start; }
+.detail-context h3 { margin: 0 0 10px; font-size: 1.18rem; }
+.detail-context p { color: var(--ink-soft); margin: 0 0 10px; }
+.detail-context-area { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; color: var(--ink); margin-bottom: 0 !important; }
+.detail-context-area svg { color: var(--accent); flex: none; width: 18px; height: 18px; margin-top: 2px; }
+
 /* ---------- Repères locaux (bloc éditorial + faits) ---------- */
 .local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
 .local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
@@ -365,7 +373,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere, .detail-head { grid-template-columns: 1fr; }
   .local-facts { position: static; top: auto; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
@@ -697,8 +705,8 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
 <li>Remplacement de cylindre et serrure multipoints</li>
 <li>Blindage de porte et renforcement de sécurité</li></ul>
         <div class="hero-meta">
-          <div><strong>24/7</strong><span>urgence qualifiée</span></div>
-          <div><strong>Devis</strong><span>annoncé avant travaux</span></div>
+          <div><strong>Local</strong><span>artisan au plus proche de Saint-Jean-de-Maurienne</span></div>
+          <div><strong>Rappel</strong><span>on vous recontacte rapidement</span></div>
         </div>
       </aside>
     </div>
@@ -766,29 +774,20 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   </section>
 
 
-  <section class="section">
-    <div class="wrap grid-2">
-      <div>
-        <div class="section-head" style="margin-bottom:0">
-          <span class="eyebrow">Serrurier à Saint-Jean-de-Maurienne</span>
-          <h2>Une intervention locale, claire du premier appel</h2>
-          <p>À Saint-Jean-de-Maurienne comme dans le reste du bassin Haute-Savoie (74) &amp; Savoie (73), Solybat qualifie chaque demande de serrurier au téléphone avant de se déplacer : on confirme le secteur, l&#x27;urgence réelle et le prix avant de commencer.</p>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Secteur d'intervention</h3>
-        <p style="margin-bottom:0">Au-delà de Saint-Jean-de-Maurienne, selon la disponibilité des équipes, une intervention peut aussi être organisée dans les communes proches du secteur Haute-Savoie (74) &amp; Savoie (73), en Auvergne-Rhône-Alpes.</p>
-      </div>
-    </div>
-  </section>
-
 
   <section class="section">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Prestations à Saint-Jean-de-Maurienne</span>
-        <h2>Nos interventions de serrurerie en détail</h2>
-        <p class="lead">De la porte d&#x27;entrée d&#x27;appartement à la grille de magasin, en passant par les serrures multipoints et les portes blindées, les besoins en serrurerie sont très variés. Une bonne intervention commence toujours par un diagnostic clair : type de porte, état de la serrure, niveau d&#x27;urgence et budget annoncé avant de se déplacer, pour que vous gardiez la maîtrise de la décision.</p>
+      <div class="detail-head">
+        <div class="section-head" style="margin-bottom:0">
+          <span class="eyebrow">Prestations à Saint-Jean-de-Maurienne</span>
+          <h2>Nos interventions de serrurerie en détail</h2>
+          <p class="lead">De la porte d&#x27;entrée d&#x27;appartement à la grille de magasin, en passant par les serrures multipoints et les portes blindées, les besoins en serrurerie sont très variés. Une bonne intervention commence toujours par un diagnostic clair : type de porte, état de la serrure, niveau d&#x27;urgence et budget annoncé avant de se déplacer, pour que vous gardiez la maîtrise de la décision.</p>
+        </div>
+        <aside class="detail-context card">
+          <h3>Serrurier à Saint-Jean-de-Maurienne, en bref</h3>
+          <p>À Saint-Jean-de-Maurienne comme dans le reste du bassin Haute-Savoie (74) &amp; Savoie (73), Solybat qualifie chaque demande de serrurier au téléphone avant de se déplacer : on confirme le secteur, l&#x27;urgence réelle et le prix avant de commencer.</p>
+          <p class="detail-context-area"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Au-delà de Saint-Jean-de-Maurienne, secteur Haute-Savoie (74) &amp; Savoie (73), en Auvergne-Rhône-Alpes.</p>
+        </aside>
       </div>
       <div class="grid-3">
         <article class="card detail-card">

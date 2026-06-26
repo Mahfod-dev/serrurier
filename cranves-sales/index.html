@@ -220,6 +220,14 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
 
+/* ---------- En-tête prestations (intro + contexte local) ---------- */
+.detail-head { display: grid; grid-template-columns: 1.5fr 1fr; gap: 34px; align-items: start; margin-bottom: 40px; }
+.detail-context { align-self: start; }
+.detail-context h3 { margin: 0 0 10px; font-size: 1.18rem; }
+.detail-context p { color: var(--ink-soft); margin: 0 0 10px; }
+.detail-context-area { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; color: var(--ink); margin-bottom: 0 !important; }
+.detail-context-area svg { color: var(--accent); flex: none; width: 18px; height: 18px; margin-top: 2px; }
+
 /* ---------- Repères locaux (bloc éditorial + faits) ---------- */
 .local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
 .local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
@@ -365,7 +373,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere, .detail-head { grid-template-columns: 1fr; }
   .local-facts { position: static; top: auto; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
