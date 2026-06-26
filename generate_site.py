@@ -2668,7 +2668,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
 def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
     phone_display, phone_href = phone_for(city)
     path = city_hub_path(city)
-    title = f"Intervention à {city.name} | Serrurier, plombier, dégorgement Solybat"
+    title = f"Serrurier & plombier à {city.name} | {BUSINESS['name']}"
     description = f"Solybat intervient à {city.name} en serrurerie, plomberie et dégorgement. Choisissez le service adapté : urgence serrure, fuite d'eau ou canalisation bouchée."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     local = local_seo_for(city, nearby)
@@ -2973,6 +2973,50 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         for key in build.service_keys
         for service in [SERVICES[key]]
     )
+    full_review_cards = "\n".join(
+        f"""
+        <figure class="review-card">
+          <div class="stars" aria-label="Avis client">{icon("star") * 5}</div>
+          <blockquote><p>« {esc(text)} »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">{esc(who[0])}</span>
+            <span><b>{esc(who)} · {esc(context)}</b><span>Intervention Solybat</span></span>
+          </figcaption>
+        </figure>"""
+        for text, who, context in SERVICE_REVIEWS["serrurier"][:3]
+    )
+    full_reviews = f"""
+  <section id="avis" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Retours clients</span>
+        <h2>Ce que disent les clients</h2>
+        <p>Exemples représentatifs des retours reçus après une intervention. Les avis vérifiés sont collectés après chaque dépannage réussi.</p>
+      </div>
+      <div class="grid-3">{full_review_cards}</div>
+    </div>
+  </section>
+"""
+    full_faq_items = [
+        ("Quels services proposez-vous ?", "Serrurerie (ouverture de porte, serrure, cylindre), plomberie (fuite, sanitaire, chauffe-eau) et dégorgement de canalisation, y compris camion pompe selon le besoin."),
+        ("Intervenez-vous 24h/24 et 7j/7 ?", "Oui, les demandes urgentes sont prises en compte de jour comme de nuit. Selon la disponibilité d'une équipe proche, un délai vous est annoncé dès l'appel."),
+        ("Le prix est-il annoncé avant l'intervention ?", "Oui. Le tarif dépend de l'accès, de l'horaire, du matériel et de la complexité ; il est confirmé avant le début des travaux."),
+        ("Quel numéro dois-je utiliser ?", "Un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes."),
+    ]
+    full_faq_html = "\n".join(
+        f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in full_faq_items
+    )
+    full_faq = f"""
+  <section id="faq" class="section alt faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Questions fréquentes</span>
+        <h2>Questions fréquentes</h2>
+      </div>
+      <div class="grid-2">{full_faq_html}</div>
+    </div>
+  </section>
+"""
     body = f"""
 {header(phone_display, phone_href, build)}
 <main id="contenu">
@@ -3022,11 +3066,23 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
     </div>
   </section>
 
+{full_reviews}
+
+{full_faq}
+
 {callback_form("", "une intervention", phone_display, phone_href)}
 </main>
 {footer(phone_display, phone_href, build)}
 """
     schema = local_business_schema(title, description, homepage_path, None, "serrurier", build)
+    schema["@graph"].append({
+        "@type": "FAQPage",
+        "@id": f"{page_url(homepage_path, build)}#faq",
+        "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in full_faq_items
+        ],
+    })
     return layout(title, description, homepage_path, body, schema, build)
 
 
