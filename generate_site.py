@@ -1453,6 +1453,24 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
 
+/* ---------- Repères locaux (bloc éditorial + faits) ---------- */
+.local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
+.local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
+.local-repere-main .lead { font-size: 1.13rem; color: var(--ink); }
+.local-repere-main p { color: var(--ink-soft); }
+.local-facts {
+  display: grid; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: var(--card); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.local-facts div { padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.local-facts div:last-child { border-bottom: 0; }
+.local-facts strong {
+  display: block; font-family: var(--font-display); font-size: 1.5rem;
+  color: var(--ink); line-height: 1.05; margin-bottom: 3px;
+}
+.local-facts div:first-child strong { color: var(--accent); }
+.local-facts span { color: var(--ink-soft); font-weight: 600; font-size: .88rem; }
+
 /* ---------- Cas d'interventions réels ---------- */
 .case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .case-card {
@@ -1573,7 +1591,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere { grid-template-columns: 1fr; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -2047,25 +2065,33 @@ def local_seo_for(city: City, nearby: list[City]) -> dict[str, object]:
 
 def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -> str:
     local = local_seo_for(city, nearby)
-    cases = SERVICE_LOCAL_CASES[service_key]
-    case_items = "\n".join(f"<li>{esc(item)} à {esc(city.name)} ou dans un secteur proche</li>" for item in cases["cases"])
-    nearby_sentence = ", ".join(item.name for item in nearby[:5])
-    if nearby_sentence:
-        nearby_text = f"Le maillage local relie aussi {esc(city.name)} aux communes proches comme {esc(nearby_sentence)}."
+    micro = [str(a) for a in local["micro_areas"]]
+    label = str(SERVICES[service_key]["label"]).lower()
+    # Cite quelques quartiers réels en prose (sélection déterministe par ville).
+    cited = take(city.slug, micro, min(4, len(micro)), "repere") if micro else []
+    if len(cited) >= 2:
+        liste = ", ".join(esc(q) for q in cited[:-1]) + f" et {esc(cited[-1])}"
+        quartiers_phrase = f"Nos interventions de {esc(label)} couvrent notamment {liste}, ainsi que les secteurs voisins de {esc(city.name)}."
+    elif cited:
+        quartiers_phrase = f"Nos interventions de {esc(label)} couvrent notamment {esc(cited[0])} et les secteurs voisins de {esc(city.name)}."
     else:
-        nearby_text = f"Le maillage local relie cette page au bassin {esc(city.zone)}."
+        quartiers_phrase = ""
+    facts = []
+    if micro:
+        facts.append(f'<div><strong>{len(micro)}</strong><span>secteurs identifiés à {esc(city.name)}</span></div>')
+    facts.append('<div><strong>24h/24 · 7j/7</strong><span>urgence qualifiée par téléphone</span></div>')
+    facts.append('<div><strong>Devis</strong><span>annoncé avant toute intervention</span></div>')
+    quartiers_html = f"<p>{quartiers_phrase}</p>" if quartiers_phrase else ""
     return f"""
   <section class="section">
-    <div class="wrap grid-2">
-      <div class="card">
-        <h2>Repères locaux à {esc(city.name)}</h2>
-        <p>{esc(local["local_note"])}</p>
-        <p style="margin-bottom:0">{nearby_text}</p>
+    <div class="wrap local-repere">
+      <div class="local-repere-main">
+        <span class="eyebrow">Repères locaux</span>
+        <h2>Bien intervenir à {esc(city.name)}</h2>
+        <p class="lead">{esc(local["local_note"])}</p>
+        {quartiers_html}
       </div>
-      <div class="card">
-        <h2>{esc(cases["title"])}</h2>
-        <ul class="check-list">{case_items}</ul>
-      </div>
+      <aside class="local-facts">{"".join(facts)}</aside>
     </div>
   </section>
 """

@@ -220,6 +220,24 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
 
+/* ---------- Repères locaux (bloc éditorial + faits) ---------- */
+.local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
+.local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
+.local-repere-main .lead { font-size: 1.13rem; color: var(--ink); }
+.local-repere-main p { color: var(--ink-soft); }
+.local-facts {
+  display: grid; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: var(--card); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.local-facts div { padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.local-facts div:last-child { border-bottom: 0; }
+.local-facts strong {
+  display: block; font-family: var(--font-display); font-size: 1.5rem;
+  color: var(--ink); line-height: 1.05; margin-bottom: 3px;
+}
+.local-facts div:first-child strong { color: var(--accent); }
+.local-facts span { color: var(--ink-soft); font-weight: 600; font-size: .88rem; }
+
 /* ---------- Cas d'interventions réels ---------- */
 .case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .case-card {
@@ -340,7 +358,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere { grid-template-columns: 1fr; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -840,19 +858,14 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
 
 
   <section class="section">
-    <div class="wrap grid-2">
-      <div class="card">
-        <h2>Repères locaux à Meyrin</h2>
-        <p>À Meyrin, la proximité de l&#x27;aéroport et de la zone industrielle ZIMEYSA implique autant de demandes en logement qu&#x27;en local professionnel.</p>
-        <p style="margin-bottom:0">Le maillage local relie aussi Meyrin aux communes proches comme Genève, Vernier, Lancy, Carouge, Thônex.</p>
+    <div class="wrap local-repere">
+      <div class="local-repere-main">
+        <span class="eyebrow">Repères locaux</span>
+        <h2>Bien intervenir à Meyrin</h2>
+        <p class="lead">À Meyrin, la proximité de l&#x27;aéroport et de la zone industrielle ZIMEYSA implique autant de demandes en logement qu&#x27;en local professionnel.</p>
+        <p>Nos interventions de dégorgement couvrent notamment Meyrin-Village, Cointrin, Champs-Fréchets et ZIMEYSA, ainsi que les secteurs voisins de Meyrin.</p>
       </div>
-      <div class="card">
-        <h2>Situations de canalisation à qualifier</h2>
-        <ul class="check-list"><li>canalisation bouchée avec remontées d&#x27;eau à Meyrin ou dans un secteur proche</li>
-<li>regard ou évacuation extérieure saturée à Meyrin ou dans un secteur proche</li>
-<li>besoin possible d&#x27;hydrocurage ou camion pompe à Meyrin ou dans un secteur proche</li>
-<li>mauvaises odeurs persistantes après débouchage simple à Meyrin ou dans un secteur proche</li></ul>
-      </div>
+      <aside class="local-facts"><div><strong>5</strong><span>secteurs identifiés à Meyrin</span></div><div><strong>24h/24 · 7j/7</strong><span>urgence qualifiée par téléphone</span></div><div><strong>Devis</strong><span>annoncé avant toute intervention</span></div></aside>
     </div>
   </section>
 
