@@ -1659,6 +1659,18 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
     return css_text.replace("__ACCENT__", accent).replace("__SECONDARY__", secondary)
 
 
+def service_title(label: str, city_name: str, business: str, limit: int = 60) -> str:
+    """Titre de page service avec suffixe adaptatif pour rester ≤ limit.
+
+    On garde le mot-clé « urgence 24/7 » quand la place le permet, puis on le
+    raccourcit progressivement pour les noms de ville les plus longs."""
+    for suffix in (f" | {business} urgence 24/7", f" | {business} 24/7", f" | {business}"):
+        candidate = f"{label} à {city_name}{suffix}"
+        if len(candidate) <= limit:
+            return candidate
+    return f"{label} à {city_name}"
+
+
 def clamp_meta(text: str, limit: int = 158) -> str:
     """Plafonne une meta description pour éviter la troncature en SERP.
 
@@ -2424,7 +2436,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     service = SERVICES[service_key]
     phone_display, phone_href = phone_for(city)
     path = service_path(city, service_key, build)
-    title = f"{service['label']} à {city.name} | {BUSINESS['name']} urgence 24/7"
+    title = service_title(str(service["label"]), city.name, BUSINESS["name"])
     description = f"{service['label']} à {city.name} en urgence 24h/24 : {BUSINESS['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     nearby_links = " ".join(f'<a class="pill" href="{service_path(c, service_key, build)}">{esc(c.name)}</a>' for c in nearby)
