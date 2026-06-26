@@ -1659,13 +1659,34 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
     return css_text.replace("__ACCENT__", accent).replace("__SECONDARY__", secondary)
 
 
+def clamp_meta(text: str, limit: int = 158) -> str:
+    """Plafonne une meta description pour éviter la troncature en SERP.
+
+    Coupe sur une frontière de mot et ajoute une ellipse si nécessaire."""
+    text = " ".join(str(text).split())
+    if len(text) <= limit:
+        return text
+    cut = text[: limit - 1].rsplit(" ", 1)[0].rstrip(" ,;:.–-")
+    return cut + "…"
+
+
 def layout(title: str, description: str, path: str, body: str, schema: dict, build: BuildConfig) -> str:
     canonical = page_url(path, build)
+    description = clamp_meta(description)
     schema_json = json.dumps(schema, ensure_ascii=False, indent=2)
     primary_key = build.primary_service_key or build.service_keys[0]
     image = str(SERVICES[primary_key]["image"])
+    # Langue/locale dérivées du pays présent dans le schema (FR par défaut,
+    # fr-CH pour les pages des communes du canton de Genève).
+    country = "FR"
+    try:
+        country = schema["@graph"][0]["address"]["addressCountry"]
+    except (KeyError, IndexError, TypeError):
+        pass
+    lang = "fr-CH" if country == "CH" else "fr"
+    locale = "fr_CH" if country == "CH" else "fr_FR"
     return f"""<!doctype html>
-<html lang="fr">
+<html lang="{lang}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1679,7 +1700,7 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
   <link rel="preconnect" href="https://images.unsplash.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale" content="{locale}">
   <meta property="og:site_name" content="{esc(BUSINESS["name"])}">
   <meta property="og:title" content="{esc(title)}">
   <meta property="og:description" content="{esc(description)}">
@@ -2404,7 +2425,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     phone_display, phone_href = phone_for(city)
     path = service_path(city, service_key, build)
     title = f"{service['label']} à {city.name} | {BUSINESS['name']} urgence 24/7"
-    description = f"{BUSINESS['name']} : {service['short']} Intervention à {city.name} et secteur proche. Appel direct, devis avant intervention."
+    description = f"{service['label']} à {city.name} en urgence 24h/24 : {BUSINESS['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     nearby_links = " ".join(f'<a class="pill" href="{service_path(c, service_key, build)}">{esc(c.name)}</a>' for c in nearby)
     benefits = "\n".join(f"<li>{esc(item)}</li>" for item in reorder(city.slug, service["benefits"], "benefits"))
