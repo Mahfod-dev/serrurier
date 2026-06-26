@@ -2428,6 +2428,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     description = f"{service['label']} à {city.name} en urgence 24h/24 : {BUSINESS['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     nearby_links = " ".join(f'<a class="pill" href="{service_path(c, service_key, build)}">{esc(c.name)}</a>' for c in nearby)
+    region_display = re.sub(r"\s*\([^)]*\)\s*$", "", city.region)
     benefits = "\n".join(f"<li>{esc(item)}</li>" for item in reorder(city.slug, service["benefits"], "benefits"))
     pricing_rows = "\n".join(
         f"<tr><td>{esc(label)}</td><td>{esc(price)}</td></tr>" for label, price in service["pricing"]
@@ -2531,8 +2532,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
         <ul class="check-list">{benefits}</ul>
       </div>
       <div class="card">
-        <h3>Zones proches couvertes</h3>
-        <p>Selon la disponibilité des équipes, une intervention peut aussi être organisée dans les communes proches du même secteur.</p>
+        <h3>Zones proches couvertes ({esc(city.zone)})</h3>
+        <p>Au-delà de {esc(city.name)}, selon la disponibilité des équipes, une intervention peut aussi être organisée dans les communes proches du secteur {esc(city.zone)}, en {esc(region_display)}.</p>
         <div class="pill-row">{nearby_links}</div>
       </div>
     </div>
@@ -3064,13 +3065,20 @@ def sitemap(cities: list[City], build: BuildConfig) -> str:
             paths.append(service_path(city, service_key, build))
 
     city_paths = {city_hub_path(city) for city in cities} if build.include_city_hubs else set()
-    service_paths = {service_path(city, service_key, build) for city in cities for service_key in build.service_keys}
+    # Priorité de crawl différenciée par importance commerciale de la ville
+    # (P1 > P2 > P3), pour guider l'exploration vers les pages stratégiques.
+    service_priority = {
+        service_path(city, service_key, build): city.priority
+        for city in cities
+        for service_key in build.service_keys
+    }
+    priority_value = {1: "0.9", 2: "0.8"}
 
     def sitemap_priority(path: str) -> str:
         if path == "/":
             return "1.0"
-        if path in service_paths:
-            return "0.8"
+        if path in service_priority:
+            return priority_value.get(service_priority[path], "0.7")
         if path in city_paths:
             return "0.6"
         return "0.5"
