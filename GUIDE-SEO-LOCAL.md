@@ -41,7 +41,19 @@ Format court, sans donnée personnelle :
 - **Solution** : « ouverture fine sans dégât, en X minutes »
 - **Délai constaté** : « intervention le soir même »
 
-→ À transformer en petits paragraphes ou en cartes « cas traités » par ville.
+→ Ces exemples s'affichent automatiquement en cartes « Exemples d'interventions »
+sur la page de la ville concernée. **Comment faire :** ouvrez le fichier
+`ops/<site>/seo/real-cases-template.csv` (généré à chaque build), remplissez une
+ligne par cas réel (colonnes `situation`, `secteur`, `solution`, `delai`), puis
+régénérez :
+
+```bash
+SOLYBAT_CASES_FILE=ops/serrurier/seo/real-cases-template.csv \
+  python3 generate_site.py --target split
+```
+
+Tant qu'une ville n'a aucun cas rempli, la section ne s'affiche pas (aucun
+chantier inventé). Une fois remplie, elle apparaît automatiquement.
 
 ### c) Photos réelles (le plus fort signal de confiance)
 Autorisées :
@@ -78,7 +90,7 @@ Tout passe par `generate_site.py` puis une régénération.
 | Vrais quartiers | `LOCAL_SEO["slug-ville"]["micro_areas"]` | Quartiers cliquables + texte unique |
 | Note locale propre à la ville | `LOCAL_SEO["slug-ville"]["local_note"]` | Paragraphe unique |
 | Vraies photos | `PROOF_IMAGES["serrurier"]` + `SOLYBAT_PROOF_REAL=1` | Galerie réelle |
-| Exemples d'intervention | à ajouter en section « cas traités » (me demander) | Contenu unique fort |
+| Exemples d'intervention | `real-cases-template.csv` + `SOLYBAT_CASES_FILE=...` | Section « Exemples d'interventions » par ville |
 
 Régénération :
 ```bash

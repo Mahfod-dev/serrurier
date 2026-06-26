@@ -524,6 +524,63 @@ SERVICE_LOCAL_CASES = {
     },
 }
 
+# Cas d'interventions RÉELS par ville et par métier.
+# Vide par défaut : aucun exemple n'est inventé (règle d'honnêteté du projet).
+# Le client remplit le modèle `ops/<site>/seo/real-cases-template.csv` généré à
+# chaque build, puis on régénère en pointant le fichier rempli :
+#   SOLYBAT_CASES_FILE=/chemin/real-cases.csv python3 generate_site.py --target split
+# Colonnes attendues : city_slug, service, situation, secteur, solution, delai
+# Structure résultante : { city_slug: { service_key: [ {situation, secteur, solution, delai}, ... ] } }
+# La section « Exemples d'interventions » ne s'affiche que pour les villes/métiers
+# réellement renseignés ; ailleurs, rien n'est rendu.
+CITY_CASES: dict[str, dict[str, list[dict[str, str]]]] = {}
+
+
+def _register_case(slug: str, service_key: str, case: dict[str, str]) -> None:
+    if not case.get("situation"):
+        return
+    CITY_CASES.setdefault(slug, {}).setdefault(service_key, []).append(case)
+
+
+def load_real_cases() -> None:
+    """Charge les cas réels depuis le CSV désigné par SOLYBAT_CASES_FILE.
+
+    Sans variable d'environnement ou sans fichier, on ne fait rien : la section
+    reste simplement masquée. On tolère la clé métier (`serrurier`) comme le
+    libellé (`Serrurier`) dans la colonne `service`."""
+    path_value = os.environ.get("SOLYBAT_CASES_FILE", "").strip()
+    if not path_value:
+        return
+    path = Path(path_value)
+    if not path.is_absolute():
+        path = ROOT / path
+    if not path.exists():
+        print(f"[cas réels] Fichier introuvable, ignoré : {path}")
+        return
+    label_to_key = {str(SERVICES[k]["label"]): k for k in SERVICES}
+    loaded = 0
+    with path.open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            slug = (row.get("city_slug") or "").strip()
+            service_key = (row.get("service") or "").strip()
+            service_key = label_to_key.get(service_key, service_key)
+            if not slug or service_key not in SERVICES:
+                continue
+            case = {
+                "situation": (row.get("situation") or "").strip(),
+                "secteur": (row.get("secteur") or "").strip(),
+                "solution": (row.get("solution") or "").strip(),
+                "delai": (row.get("delai") or "").strip(),
+            }
+            if case["situation"]:
+                _register_case(slug, service_key, case)
+                loaded += 1
+    if loaded:
+        print(f"[cas réels] {loaded} exemple(s) d'intervention chargé(s) depuis {display_path(path)}")
+    else:
+        print(f"[cas réels] Aucun exemple exploitable dans {display_path(path)} (colonne 'situation' vide ?)")
+
+
 # Avis représentatifs, spécifiques à chaque métier. Aucun avis fictif n'est
 # injecté dans les données structurées : la note agrégée reste collectée après
 # de vraies interventions.
@@ -1059,6 +1116,23 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
 .card h2 { font-size: 1.45rem; margin: 0 0 10px; }
+
+/* ---------- Cas d'interventions réels ---------- */
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.case-card {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-lg);
+  background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm);
+  display: grid; gap: 10px; align-content: start;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.case-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.case-meta { display: flex; align-items: center; gap: 7px; margin: 0; font-weight: 700; color: var(--ink); font-size: .9rem; }
+.case-meta svg { color: var(--accent); flex: none; width: 17px; height: 17px; }
+.case-line { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+.case-line strong {
+  display: block; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--accent); font-weight: 800; margin-bottom: 2px;
+}
 .card h3 { margin: 0 0 8px; font-size: 1.22rem; }
 .card-number {
   display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
@@ -1163,7 +1237,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   body { font-size: 16px; }
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
-  .grid-4, .grid-3, .grid-2, .trust-grid { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid { grid-template-columns: 1fr; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -1628,6 +1702,48 @@ def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -
 """
 
 
+def local_cases_section(city: City, service_key: str) -> str:
+    """Section « Exemples d'interventions » à partir de cas RÉELS collectés.
+
+    Renvoie une chaîne vide tant qu'aucun cas réel n'est renseigné pour la ville
+    et le métier : on ne fabrique jamais de faux chantier."""
+    cases = CITY_CASES.get(city.slug, {}).get(service_key, [])
+    if not cases:
+        return ""
+    ordered = take(city.slug, list(cases), len(cases), "cases")
+    cards = []
+    for case in ordered:
+        rows = []
+        if case.get("secteur"):
+            rows.append(
+                f'<p class="case-meta">{icon("pin")}<span>{esc(case["secteur"])}</span></p>'
+            )
+        rows.append(
+            f'<p class="case-line"><strong>Situation</strong>{esc(case["situation"])}</p>'
+        )
+        if case.get("solution"):
+            rows.append(
+                f'<p class="case-line"><strong>Intervention</strong>{esc(case["solution"])}</p>'
+            )
+        if case.get("delai"):
+            rows.append(
+                f'<p class="case-line"><strong>Délai constaté</strong>{esc(case["delai"])}</p>'
+            )
+        cards.append(f'<article class="case-card">{"".join(rows)}</article>')
+    return f"""
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Interventions à {esc(city.name)}</span>
+        <h2>Exemples d'interventions récentes à {esc(city.name)}</h2>
+        <p>Des situations réellement traitées dans le secteur, présentées sans donnée personnelle, adresse précise ni élément identifiant.</p>
+      </div>
+      <div class="case-grid">{"".join(cards)}</div>
+    </div>
+  </section>
+"""
+
+
 def trust_band(service: dict[str, object]) -> str:
     items = [str(item) for item in service["trust_points"]]
     band_icons = ["shield", "tag", "clock", "pin"]
@@ -1963,6 +2079,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     hero = service["hero"].format(city=city.name)
     headline = service["headline"].format(city=city.name)
     local_section = local_enrichment_section(city, service_key, nearby)
+    cases_section = local_cases_section(city, service_key)
     trust_section = trust_band(service)
     expertise = expertise_section(city, service_key, service, nearby)
     process = process_section(service, city)
@@ -2071,6 +2188,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
 {proof}
 
 {local_section}
+
+{cases_section}
 
 {quartiers}
 
@@ -2720,6 +2839,16 @@ def write_seo_files(cities: list[City], build: BuildConfig) -> None:
                     "base enrichie générée, preuves réelles à ajouter",
                 ])
 
+    # Modèle de collecte des cas d'interventions réels. Le client remplit les
+    # colonnes situation / secteur / solution / delai, puis on régénère avec
+    #   SOLYBAT_CASES_FILE=<ce fichier rempli> python3 generate_site.py ...
+    with (seo_dir / "real-cases-template.csv").open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["city_slug", "service", "situation", "secteur", "solution", "delai"])
+        for city in priority_cities:
+            for service_key in build.service_keys:
+                writer.writerow([city.slug, service_key, "", "", "", ""])
+
     with (seo_dir / "content-collection-checklist.md").open("w", encoding="utf-8") as f:
         f.write("""# Checklist SEO local Solybat
 
@@ -2728,7 +2857,9 @@ Objectif : renforcer progressivement les pages villes sans publier de fausses pr
 ## Pour chaque ville prioritaire
 
 - Ajouter 3 à 6 secteurs réels couverts.
-- Ajouter au moins 1 exemple d'intervention réel par métier.
+- Ajouter au moins 1 exemple d'intervention réel par métier en remplissant
+  `real-cases-template.csv` (colonnes situation / secteur / solution / delai),
+  puis régénérer avec `SOLYBAT_CASES_FILE=<fichier rempli>`.
 - Ajouter une photo non sensible : véhicule, matériel, chantier sans visage ni adresse visible.
 - Ajouter 1 avis client réel si le client l'a publié ou autorisé.
 - Ajouter un délai moyen réaliste par zone si la donnée est suivie.
@@ -2939,6 +3070,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     cities = load_cities()
+    load_real_cases()
     if args.target == "split":
         output_parent = args.output or ROOT / "dist"
         builds = [
