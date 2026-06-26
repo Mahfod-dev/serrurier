@@ -2478,7 +2478,6 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     title = service_title(str(service["label"]), city.name, BUSINESS["name"])
     description = f"{service['label']} à {city.name} en urgence 24h/24 : {BUSINESS['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
-    nearby_links = " ".join(f'<a class="pill" href="{service_path(c, service_key, build)}">{esc(c.name)}</a>' for c in nearby)
     region_display = re.sub(r"\s*\([^)]*\)\s*$", "", city.region)
     benefits = "\n".join(f"<li>{esc(item)}</li>" for item in reorder(city.slug, service["benefits"], "benefits"))
     pricing_rows = "\n".join(
@@ -2576,16 +2575,15 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
   <section class="section">
     <div class="wrap grid-2">
       <div>
-        <div class="section-head">
-          <h2>{esc(service["label"])} local à {esc(city.name)}</h2>
+        <div class="section-head" style="margin-bottom:0">
+          <span class="eyebrow">{esc(service["label"])} à {esc(city.name)}</span>
+          <h2>Une intervention locale, claire du premier appel</h2>
           <p>{esc(local_lead)}</p>
         </div>
-        <ul class="check-list">{benefits}</ul>
       </div>
       <div class="card">
-        <h3>Zones proches couvertes ({esc(city.zone)})</h3>
-        <p>Au-delà de {esc(city.name)}, selon la disponibilité des équipes, une intervention peut aussi être organisée dans les communes proches du secteur {esc(city.zone)}, en {esc(region_display)}.</p>
-        <div class="pill-row">{nearby_links}</div>
+        <h3>Secteur d'intervention</h3>
+        <p style="margin-bottom:0">Au-delà de {esc(city.name)}, selon la disponibilité des équipes, une intervention peut aussi être organisée dans les communes proches du secteur {esc(city.zone)}, en {esc(region_display)}.</p>
       </div>
     </div>
   </section>
