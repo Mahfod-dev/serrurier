@@ -228,6 +228,18 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .detail-context-area { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; color: var(--ink); margin-bottom: 0 !important; }
 .detail-context-area svg { color: var(--accent); flex: none; width: 18px; height: 18px; margin-top: 2px; }
 
+/* ---------- Carte "Préparer votre appel" ---------- */
+.prep-intro { color: var(--ink-soft); margin: 0 0 16px; }
+.prep-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.prep-list li { display: flex; gap: 13px; align-items: flex-start; }
+.prep-list .prep-ico {
+  flex: none; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--accent) 11%, white); color: var(--accent);
+}
+.prep-list .prep-ico svg { width: 18px; height: 18px; }
+.prep-list div { color: var(--ink-soft); line-height: 1.45; padding-top: 2px; }
+.prep-list strong { color: var(--ink); font-weight: 700; }
+
 /* ---------- Repères locaux (bloc éditorial + faits) ---------- */
 .local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
 .local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
@@ -971,23 +983,6 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   </section>
 
 
-  <section id="tarifs" class="section alt">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Tarifs et devis</h2>
-        <p>Les prix dépendent de l'accès, de l'horaire, du matériel et de la complexité. Le devis est annoncé avant intervention.</p>
-      </div>
-      <table class="price-table">
-        <thead><tr><th>Prestation</th><th>Prix indicatif</th></tr></thead>
-        <tbody><tr><td>Déplacement local</td><td>Sur devis</td></tr>
-<tr><td>Recherche de fuite simple</td><td>à partir de 90 €</td></tr>
-<tr><td>Dépannage sanitaire</td><td>à partir de 110 €</td></tr>
-<tr><td>Main d&#x27;oeuvre horaire</td><td>à partir de 70 €</td></tr></tbody>
-      </table>
-      <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
-    </div>
-  </section>
-
 
   <section id="avis" class="section">
     <div class="wrap">
@@ -1030,6 +1025,23 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   </section>
 
 
+  <section id="tarifs" class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Tarifs et devis</h2>
+        <p>Les prix dépendent de l'accès, de l'horaire, du matériel et de la complexité. Le devis est annoncé avant intervention.</p>
+      </div>
+      <table class="price-table">
+        <thead><tr><th>Prestation</th><th>Prix indicatif</th></tr></thead>
+        <tbody><tr><td>Déplacement local</td><td>Sur devis</td></tr>
+<tr><td>Recherche de fuite simple</td><td>à partir de 90 €</td></tr>
+<tr><td>Dépannage sanitaire</td><td>à partir de 110 €</td></tr>
+<tr><td>Main d&#x27;oeuvre horaire</td><td>à partir de 70 €</td></tr></tbody>
+      </table>
+      <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
+    </div>
+  </section>
+
 
   <section class="section">
     <div class="wrap grid-2">
@@ -1039,10 +1051,18 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
         <div class="service-links"><a href="/serrurier/reignier-esery/">Serrurier à Reignier-Ésery</a>
 <a href="/degorgement/reignier-esery/">Dégorgement à Reignier-Ésery</a></div>
       </div>
+      
       <div class="card">
-        <h2>Préparer votre appel</h2>
-        <p>Indiquez la ville, l'accès au logement ou au local, l'urgence exacte, les photos disponibles et l'horaire souhaité. Ces éléments permettent d'éviter un déplacement mal qualifié.</p>
+        <h3>Préparer votre appel</h3>
+        <p class="prep-intro">Quelques infos qui évitent un déplacement mal qualifié et accélèrent l'intervention :</p>
+        <ul class="prep-list">
+          <li><span class="prep-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>La ville et le quartier</strong> concernés à Reignier-Ésery</div></li>
+          <li><span class="prep-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></span><div><strong>L'accès</strong> : appartement, maison ou local, étage, interphone</div></li>
+          <li><span class="prep-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><strong>L'urgence et l'horaire</strong> souhaités</div></li>
+          <li><span class="prep-ico"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></span><div><strong>Une photo</strong> de la serrure, de la porte ou de la fuite si possible</div></li>
+        </ul>
       </div>
+
     </div>
   </section>
 

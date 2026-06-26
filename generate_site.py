@@ -1461,6 +1461,18 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .detail-context-area { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; color: var(--ink); margin-bottom: 0 !important; }
 .detail-context-area svg { color: var(--accent); flex: none; width: 18px; height: 18px; margin-top: 2px; }
 
+/* ---------- Carte "Préparer votre appel" ---------- */
+.prep-intro { color: var(--ink-soft); margin: 0 0 16px; }
+.prep-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.prep-list li { display: flex; gap: 13px; align-items: flex-start; }
+.prep-list .prep-ico {
+  flex: none; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--accent) 11%, white); color: var(--accent);
+}
+.prep-list .prep-ico svg { width: 18px; height: 18px; }
+.prep-list div { color: var(--ink-soft); line-height: 1.45; padding-top: 2px; }
+.prep-list strong { color: var(--ink); font-weight: 700; }
+
 /* ---------- Repères locaux (bloc éditorial + faits) ---------- */
 .local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
 .local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
@@ -2524,6 +2536,18 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     )
     hero_support = pick(city.slug, HERO_SUPPORT, "herosupport").format(city=city.name)
     service_faq_question, service_faq_answer = SERVICE_LOCAL_CASES[service_key]["faq"]
+    prep_card = f"""
+      <div class="card">
+        <h3>Préparer votre appel</h3>
+        <p class="prep-intro">Quelques infos qui évitent un déplacement mal qualifié et accélèrent l'intervention :</p>
+        <ul class="prep-list">
+          <li><span class="prep-ico">{icon("pin")}</span><div><strong>La ville et le quartier</strong> concernés à {esc(city.name)}</div></li>
+          <li><span class="prep-ico">{icon("key")}</span><div><strong>L'accès</strong> : appartement, maison ou local, étage, interphone</div></li>
+          <li><span class="prep-ico">{icon("clock")}</span><div><strong>L'urgence et l'horaire</strong> souhaités</div></li>
+          <li><span class="prep-ico">{icon("wa")}</span><div><strong>Une photo</strong> de la serrure, de la porte ou de la fuite si possible</div></li>
+        </ul>
+      </div>
+"""
     if other_services:
         related_section = f"""
   <section class="section">
@@ -2533,10 +2557,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
         <p>Les prestations restent séparées pour garder un message clair et des URLs exploitables par métier.</p>
         {other_services}
       </div>
-      <div class="card">
-        <h2>Préparer votre appel</h2>
-        <p>Indiquez la ville, l'accès au logement ou au local, l'urgence exacte, les photos disponibles et l'horaire souhaité. Ces éléments permettent d'éviter un déplacement mal qualifié.</p>
-      </div>
+      {prep_card}
     </div>
   </section>
 """
@@ -2544,10 +2565,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
         related_section = f"""
   <section class="section">
     <div class="wrap">
-      <div class="card">
-        <h2>Préparer votre appel</h2>
-        <p>Indiquez la ville, l'accès au logement ou au local, l'urgence exacte, les photos disponibles et l'horaire souhaité. Ces éléments permettent d'éviter un déplacement mal qualifié.</p>
-      </div>
+      {prep_card}
     </div>
   </section>
 """
@@ -2603,6 +2621,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
 
 {advice}
 
+{reviews}
+
   <section id="tarifs" class="section alt">
     <div class="wrap">
       <div class="section-head">
@@ -2616,8 +2636,6 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
       <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
     </div>
   </section>
-
-{reviews}
 
 {related_section}
 
