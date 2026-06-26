@@ -1461,15 +1461,22 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .local-facts {
   display: grid; border: 1px solid var(--line); border-radius: var(--radius-lg);
   background: var(--card); overflow: hidden; box-shadow: var(--shadow-sm);
+  position: sticky; top: 96px;
 }
-.local-facts div { padding: 18px 22px; border-bottom: 1px solid var(--line); }
-.local-facts div:last-child { border-bottom: 0; }
-.local-facts strong {
-  display: block; font-family: var(--font-display); font-size: 1.5rem;
-  color: var(--ink); line-height: 1.05; margin-bottom: 3px;
+.local-facts .fact { display: flex; gap: 14px; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.local-facts .fact:last-child { border-bottom: 0; }
+.local-facts .fact:first-child { background: color-mix(in srgb, var(--accent) 6%, var(--card)); }
+.local-facts .fact-ico {
+  flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent);
 }
-.local-facts div:first-child strong { color: var(--accent); }
-.local-facts span { color: var(--ink-soft); font-weight: 600; font-size: .88rem; }
+.local-facts .fact-ico svg { width: 20px; height: 20px; }
+.local-facts .fact-body strong {
+  display: block; font-family: var(--font-display); font-size: 1.4rem;
+  color: var(--ink); line-height: 1.05; margin-bottom: 2px;
+}
+.local-facts .fact:first-child .fact-body strong { color: var(--accent); }
+.local-facts .fact-body span { color: var(--ink-soft); font-weight: 600; font-size: .86rem; }
 
 /* ---------- Cas d'interventions réels ---------- */
 .case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
@@ -1592,6 +1599,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
   .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere { grid-template-columns: 1fr; }
+  .local-facts { position: static; top: auto; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -2076,11 +2084,16 @@ def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -
         quartiers_phrase = f"Nos interventions de {esc(label)} couvrent notamment {esc(cited[0])} et les secteurs voisins de {esc(city.name)}."
     else:
         quartiers_phrase = ""
+    def fact(ico: str, value: str, lab: str) -> str:
+        return (
+            f'<div class="fact"><div class="fact-ico">{icon(ico)}</div>'
+            f'<div class="fact-body"><strong>{value}</strong><span>{lab}</span></div></div>'
+        )
     facts = []
     if micro:
-        facts.append(f'<div><strong>{len(micro)}</strong><span>secteurs identifiés à {esc(city.name)}</span></div>')
-    facts.append('<div><strong>24h/24 · 7j/7</strong><span>urgence qualifiée par téléphone</span></div>')
-    facts.append('<div><strong>Devis</strong><span>annoncé avant toute intervention</span></div>')
+        facts.append(fact("pin", str(len(micro)), f"secteurs identifiés à {esc(city.name)}"))
+    facts.append(fact("clock", "24h/24 · 7j/7", "urgence qualifiée par téléphone"))
+    facts.append(fact("tag", "Devis", "annoncé avant toute intervention"))
     quartiers_html = f"<p>{quartiers_phrase}</p>" if quartiers_phrase else ""
     return f"""
   <section class="section">
@@ -2091,7 +2104,7 @@ def local_enrichment_section(city: City, service_key: str, nearby: list[City]) -
         <p class="lead">{esc(local["local_note"])}</p>
         {quartiers_html}
       </div>
-      <aside class="local-facts">{"".join(facts)}</aside>
+      <aside class="local-facts" aria-label="Repères d'intervention à {esc(city.name)}">{"".join(facts)}</aside>
     </div>
   </section>
 """

@@ -228,15 +228,22 @@ h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 1
 .local-facts {
   display: grid; border: 1px solid var(--line); border-radius: var(--radius-lg);
   background: var(--card); overflow: hidden; box-shadow: var(--shadow-sm);
+  position: sticky; top: 96px;
 }
-.local-facts div { padding: 18px 22px; border-bottom: 1px solid var(--line); }
-.local-facts div:last-child { border-bottom: 0; }
-.local-facts strong {
-  display: block; font-family: var(--font-display); font-size: 1.5rem;
-  color: var(--ink); line-height: 1.05; margin-bottom: 3px;
+.local-facts .fact { display: flex; gap: 14px; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.local-facts .fact:last-child { border-bottom: 0; }
+.local-facts .fact:first-child { background: color-mix(in srgb, var(--accent) 6%, var(--card)); }
+.local-facts .fact-ico {
+  flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent);
 }
-.local-facts div:first-child strong { color: var(--accent); }
-.local-facts span { color: var(--ink-soft); font-weight: 600; font-size: .88rem; }
+.local-facts .fact-ico svg { width: 20px; height: 20px; }
+.local-facts .fact-body strong {
+  display: block; font-family: var(--font-display); font-size: 1.4rem;
+  color: var(--ink); line-height: 1.05; margin-bottom: 2px;
+}
+.local-facts .fact:first-child .fact-body strong { color: var(--accent); }
+.local-facts .fact-body span { color: var(--ink-soft); font-weight: 600; font-size: .86rem; }
 
 /* ---------- Cas d'interventions réels ---------- */
 .case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
@@ -359,6 +366,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .topbar-inner { min-height: 58px; }
   .nav-shell { top: 58px; }
   .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere { grid-template-columns: 1fr; }
+  .local-facts { position: static; top: auto; }
   .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
@@ -865,7 +873,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
         <p class="lead">À Mandelieu-la-Napoule, le port de La Napoule, les résidences de bord de mer et les villas perchées sur la colline de Capitou génèrent des demandes très saisonnières.</p>
         <p>Nos interventions de dégorgement couvrent notamment La Napoule, Cannes-Marina, Colline de Capitou et Les Termes, ainsi que les secteurs voisins de Mandelieu-la-Napoule.</p>
       </div>
-      <aside class="local-facts"><div><strong>6</strong><span>secteurs identifiés à Mandelieu-la-Napoule</span></div><div><strong>24h/24 · 7j/7</strong><span>urgence qualifiée par téléphone</span></div><div><strong>Devis</strong><span>annoncé avant toute intervention</span></div></aside>
+      <aside class="local-facts" aria-label="Repères d'intervention à Mandelieu-la-Napoule"><div class="fact"><div class="fact-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="fact-body"><strong>6</strong><span>secteurs identifiés à Mandelieu-la-Napoule</span></div></div><div class="fact"><div class="fact-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="fact-body"><strong>24h/24 · 7j/7</strong><span>urgence qualifiée par téléphone</span></div></div><div class="fact"><div class="fact-ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 12 22l-9-9V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></div><div class="fact-body"><strong>Devis</strong><span>annoncé avant toute intervention</span></div></div></aside>
     </div>
   </section>
 
