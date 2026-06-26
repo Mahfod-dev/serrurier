@@ -1103,7 +1103,6 @@ class BuildConfig:
     service_keys: tuple[str, ...]
     primary_service_key: str | None
     include_city_hubs: bool
-    preserve_existing_home: bool = False
 
 
 SPLIT_DOMAIN_DEFAULTS = {
@@ -2752,7 +2751,7 @@ def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
 def home_page(cities: list[City], build: BuildConfig) -> str:
     phone_display = BUSINESS["fr_phone_display"]
     phone_href = BUSINESS["fr_phone_href"]
-    homepage_path = "/campagnes-locales/" if build.preserve_existing_home else "/"
+    homepage_path = "/"
     p1 = [c for c in cities if c.priority == 1]
 
     if build.primary_service_key:
@@ -3028,7 +3027,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         <p>Un seul point d'entrée pour les urgences locales : ouverture de porte, fuite d'eau, canalisation bouchée et intervention camion pompe selon le besoin.</p>
         <div class="cta-row">
           <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
-          <a class="ghost-btn" href="/campagnes-locales/">Voir les services</a>
+          <a class="ghost-btn" href="#services">Voir les services</a>
         </div>
         <div class="cta-sub">{icon("check")} Le bon métier, le bon numéro local, un prix annoncé avant déplacement.</div>
       </div>
@@ -3046,7 +3045,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
 
 {reassurance_strip(phone_display)}
 
-  <section class="section">
+  <section id="services" class="section">
     <div class="wrap">
       <div class="section-head center">
         <h2>Services Solybat</h2>
@@ -3262,11 +3261,7 @@ def legal_page(kind: str, build: BuildConfig) -> str:
 
 
 def sitemap(cities: list[City], build: BuildConfig) -> str:
-    paths = ["/zones/", "/mentions-legales/", "/confidentialite/"]
-    if build.preserve_existing_home:
-        paths = ["/", "/campagnes-locales/", "/zones/", "/mentions-legales/", "/confidentialite/"]
-    else:
-        paths.insert(0, "/")
+    paths = ["/", "/zones/", "/mentions-legales/", "/confidentialite/"]
     for city in cities:
         if build.include_city_hubs:
             paths.append(city_hub_path(city))
@@ -3495,21 +3490,12 @@ def write_production_checklist(build: BuildConfig) -> None:
 
 
 def write_readme(cities: list[City], build: BuildConfig) -> None:
-    if build.preserve_existing_home:
-        pages_summary = f"""- L'accueil `index.html` existant est conservé.
-- {len(cities)} villes issues du document Word.
-- {len(build.service_keys)} métiers : {service_names(build)}.
-- {len(cities)} pages hubs villes (`/lyon/`, `/geneve/`, etc.).
-- {len(cities) * len(build.service_keys)} pages locales.
-- Une page d'entrée technique : `campagnes-locales/index.html`."""
-        generate_command = "python3 generate_site.py"
-    else:
-        pages_summary = f"""- `index.html` est l'accueil du site {build.label}.
+    hub_line = f"- {len(cities)} pages hubs villes (`/lyon/`, `/geneve/`, etc.).\n" if build.include_city_hubs else "- Les pages du service principal sont à la racine (`/lyon/`, `/geneve/`, etc.).\n"
+    pages_summary = f"""- `index.html` est l'accueil du site {build.label}.
 - {len(cities)} villes issues du document Word.
 - Services inclus : {service_names(build)}.
-- Les pages du service principal sont à la racine (`/lyon/`, `/geneve/`, etc.).
-- {len(cities) * len(build.service_keys)} pages locales."""
-        generate_command = f"python3 generate_site.py --target {build.key}"
+{hub_line}- {len(cities) * len(build.service_keys)} pages locales."""
+    generate_command = "python3 generate_site.py" if build.key == "full" else f"python3 generate_site.py --target {build.key}"
     ops_path = display_path(operations_root(build))
 
     readme_path = build.output_root / "README.md" if build.output_root == ROOT else operations_root(build) / "README.md"
@@ -3556,7 +3542,6 @@ Les numéros actuels sont des valeurs temporaires. Ne lancez pas Google Ads avan
 def build_config(target: str, output_root: Path | None = None, site_url: str | None = None) -> BuildConfig:
     if target == "full":
         resolved_output = output_root or ROOT
-        preserve_existing_home = resolved_output == ROOT
         return BuildConfig(
             key="full",
             label="multi-services",
@@ -3565,7 +3550,6 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
             service_keys=tuple(SERVICES.keys()),
             primary_service_key=None,
             include_city_hubs=True,
-            preserve_existing_home=preserve_existing_home,
         )
     if target == "serrurier":
         return BuildConfig(
@@ -3592,11 +3576,7 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
 
 def render_build(cities: list[City], build: BuildConfig) -> int:
     prepare_output(build)
-    if build.preserve_existing_home:
-        write(output_path_for("/campagnes-locales/", build), home_page(cities, build))
-    else:
-        write(output_path_for("/", build), home_page(cities, build))
-
+    write(output_path_for("/", build), home_page(cities, build))
     write(output_path_for("/zones/", build), zones_page(cities, build))
     write(output_path_for("/mentions-legales/", build), legal_page("mentions", build))
     write(output_path_for("/confidentialite/", build), legal_page("privacy", build))

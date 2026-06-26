@@ -1,1126 +1,898 @@
 <!doctype html>
-<html
-	lang="fr"
-	class="scroll-smooth"
-	style="scroll-padding-top: 80px">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0" />
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solybat | Serrurerie, plomberie et dégorgement</title>
+  <meta name="description" content="Solybat intervient en serrurerie, plomberie et dégorgement camion pompe avec des pages locales par ville et par métier.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.solybat.fr/">
+  <meta name="theme-color" content="#17140f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Solybat">
+  <meta property="og:title" content="Solybat | Serrurerie, plomberie et dégorgement">
+  <meta property="og:description" content="Solybat intervient en serrurerie, plomberie et dégorgement camion pompe avec des pages locales par ville et par métier.">
+  <meta property="og:url" content="https://www.solybat.fr/">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&amp;w=1800&amp;auto=format&amp;fit=crop">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Solybat | Serrurerie, plomberie et dégorgement">
+  <meta name="twitter:description" content="Solybat intervient en serrurerie, plomberie et dégorgement camion pompe avec des pages locales par ville et par métier.">
+  <style>
+:root {
+  --paper: #f4f1ea;
+  --paper-2: #fbf9f4;
+  --card: #ffffff;
+  --ink: #1b1712;
+  --ink-soft: #5d564d;
+  --line: #e6ded0;
+  --line-strong: #d8cdb9;
+  --brand: #16130d;
+  --brand-2: #211c14;
+  --accent: #dd4f1e;
+  --secondary: #1f4e89;
+  --gold: #c79a3f;
+  --ok: #1c7a4e;
+  --ring: color-mix(in srgb, var(--accent) 38%, transparent);
+  --radius: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(20,16,11,.05), 0 6px 18px -8px rgba(20,16,11,.14);
+  --shadow-md: 0 22px 55px -24px rgba(20,16,11,.40);
+  --shadow-lg: 0 50px 110px -40px rgba(20,16,11,.55);
+  --maxw: 1180px;
+  --gutter: clamp(16px, 4vw, 24px);
+  --font-display: "Bricolage Grotesque", Georgia, serif;
+  --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.62;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(900px 500px at 100% -5%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  background-attachment: fixed, scroll;
+}
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+p { margin: 0 0 1rem; }
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
+.skip-link { position: absolute; left: -999px; top: 10px; z-index: 100; background: var(--ink); color: #fff; padding: 12px 16px; border-radius: 10px; font-weight: 700; }
+.skip-link:focus { left: 12px; }
 
-		<title>
-			Solybat - Serrurerie, Plomberie et Dégorgement 24/7
-		</title>
-		<meta
-			name="description"
-			content="Solybat intervient en serrurerie, plomberie et dégorgement. Urgence 24/7, devis avant intervention et pages locales par ville." />
-		<meta
-			name="robots"
-			content="index, follow" />
+/* ---------- Topbar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--brand) 92%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
+  color: #f6f1e7;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.topbar-inner, .nav, .wrap { width: min(var(--maxw), calc(100% - var(--gutter) * 2)); margin: 0 auto; }
+.topbar-inner { min-height: 64px; display: flex; gap: 16px; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 1.32rem; letter-spacing: -.02em; display: flex; gap: 11px; align-items: center; color: #fff; }
+.brand-mark {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 11px;
+  background: linear-gradient(150deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--gold)));
+  color: #fff; font-weight: 800; font-size: 1.15rem; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 6px 16px -6px var(--accent);
+}
+.brand small { display: block; font-family: var(--font-body); font-weight: 600; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--accent) 55%, #fff); }
+.top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.top-phone { display: none; text-align: right; line-height: 1.15; }
+.top-phone span { display: block; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: #b9b1a2; font-weight: 700; }
+.top-phone strong { font-family: var(--font-display); font-size: 1.18rem; color: #fff; }
+.btn, .call-btn, .ghost-btn, .wa-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 46px; padding: 12px 20px; border-radius: var(--radius-pill);
+  font-weight: 800; font-size: .98rem; white-space: nowrap; cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+}
+.call-btn {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 92%, #fff), var(--accent));
+  color: #fff; box-shadow: 0 12px 30px -10px var(--accent), inset 0 1px 0 rgba(255,255,255,.45);
+}
+.call-btn:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -10px var(--accent), inset 0 1px 0 rgba(255,255,255,.5); }
+.call-btn:active { transform: translateY(0); }
+.ghost-btn { border: 1.5px solid rgba(255,255,255,.30); color: #fff; background: rgba(255,255,255,.04); }
+.ghost-btn:hover { border-color: #fff; background: rgba(255,255,255,.10); }
+.wa-btn { background: #1faf54; color: #fff; box-shadow: 0 10px 26px -10px #1faf54; }
+.wa-btn:hover { transform: translateY(-2px); }
+.section .ghost-btn { border-color: var(--line-strong); color: var(--ink); background: var(--card); }
+.section .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
+.icon { width: 1.05em; height: 1.05em; flex: none; }
 
-		<!-- Tailwind CSS (via CDN pour développement, à compiler pour prod) -->
-		<script src="https://cdn.tailwindcss.com"></script>
+/* ---------- Sub nav ---------- */
+.nav-shell { background: var(--paper-2); border-bottom: 1px solid var(--line); position: sticky; top: 64px; z-index: 30; }
+.nav { min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.nav-links { display: flex; gap: 22px; color: var(--ink-soft); font-weight: 700; font-size: .94rem; flex-wrap: wrap; }
+.nav-links a { position: relative; padding: 4px 0; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: var(--accent); transition: width .2s ease; }
+.nav-links a:hover::after { width: 100%; }
 
-		<script>
-			tailwind.config = {
-				theme: {
-					extend: {
-						colors: {
-							brand: {
-								blue: '#0f172a' /* Plus sombre, plus pro */,
-								primary: '#2563eb' /* Bleu de confiance */,
-								orange: '#f97316' /* Action / Urgence */,
-								light: '#f3f4f6',
-								whatsapp: '#25D366',
-							},
-						},
-						boxShadow: {
-							card: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-						},
-						animation: {
-							'bounce-slow': 'bounce 3s infinite',
-						},
-					},
-				},
-			};
-		</script>
+/* ---------- Hero ---------- */
+.hero { position: relative; color: #f6f1e7; overflow: hidden; isolation: isolate; background: var(--brand); }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background-image: linear-gradient(102deg, rgba(14,12,8,.98) 0%, rgba(14,12,8,.88) 38%, rgba(14,12,8,.40) 78%, rgba(14,12,8,.62) 100%), var(--hero-image);
+  background-size: cover; background-position: center; transform: scale(1.04);
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(760px 380px at 6% -5%, color-mix(in srgb, var(--accent) 32%, transparent), transparent 68%),
+    linear-gradient(to bottom, transparent 72%, var(--paper) 100%);
+}
+.hero-grid {
+  width: min(var(--maxw), calc(100% - var(--gutter) * 2)); margin: 0 auto;
+  min-height: clamp(560px, 80vh, 720px); display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+  align-items: center; gap: 44px; padding: 76px 0 88px;
+}
+.eyebrow {
+  display: inline-flex; gap: 9px; align-items: center; font-weight: 800;
+  text-transform: uppercase; font-size: .76rem; letter-spacing: .16em;
+  color: color-mix(in srgb, var(--accent) 60%, #fff);
+}
+.section .eyebrow { color: var(--accent); }
+.live-pill {
+  display: inline-flex; align-items: center; gap: 9px; padding: 8px 15px; border-radius: var(--radius-pill);
+  background: rgba(28,122,78,.16); border: 1px solid rgba(54,200,130,.45); color: #c8f4da;
+  font-weight: 800; font-size: .82rem; letter-spacing: .01em;
+}
+.live-dot { width: 9px; height: 9px; border-radius: 50%; background: #36c882; box-shadow: 0 0 0 0 rgba(54,200,130,.7); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(54,200,130,.65); } 70% { box-shadow: 0 0 0 11px rgba(54,200,130,0); } 100% { box-shadow: 0 0 0 0 rgba(54,200,130,0); } }
+h1 { font-size: clamp(2.6rem, 6.2vw, 4.5rem); line-height: 1.0; margin: 18px 0 18px; font-weight: 800; max-width: 16ch; }
+.hero h1 { color: #fff; }
+.hero h1 em { font-style: normal; color: var(--accent); position: relative; white-space: nowrap; }
+.hero p { color: #ded6c7; font-size: 1.14rem; max-width: 56ch; }
+.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin: 24px 0 0; }
+.hero-badge { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 8px 14px; border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius-pill); color: #f3ede0; background: rgba(255,255,255,.05); font-weight: 700; font-size: .85rem; }
+.hero-badge svg { color: var(--accent); }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; align-items: center; }
+.cta-sub { margin-top: 14px; color: #b8b0a1; font-size: .92rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
 
-		<!-- Schema.org JSON-LD -->
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@graph": [
-					{
-						"@type": "Locksmith",
-						"name": "Solybat",
-						"image": "https://www.votre-site.com/logo.png",
-						"telephone": "04 00 00 00 00",
-						"url": "https://www.votre-site.com/",
-						"address": {
-							"@type": "PostalAddress",
-							"streetAddress": "Adresse Solybat à compléter",
-							"addressLocality": "France et Suisse romande",
-							"postalCode": "",
-							"addressCountry": "FR"
-						},
-						"priceRange": "€€",
-						"openingHoursSpecification": {
-							"@type": "OpeningHoursSpecification",
-							"dayOfWeek": [
-								"Monday",
-								"Tuesday",
-								"Wednesday",
-								"Thursday",
-								"Friday",
-								"Saturday",
-								"Sunday"
-							],
-							"opens": "00:00",
-							"closes": "23:59"
-						}
-					},
-					{
-						"@type": "FAQPage",
-						"mainEntity": [
-							{
-								"@type": "Question",
-								"name": "Quel est le prix d'une ouverture de porte ?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Nos tarifs d'ouverture de porte simple commencent à partir de 90€ TTC (hors majoration nuit/weekend). Un devis précis et gratuit est établi avant toute intervention."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "Combien de temps faut-il pour intervenir ?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Nous qualifions chaque demande par téléphone afin de confirmer le secteur, l'urgence, le délai possible et les conditions avant déplacement."
-								}
-							}
-						]
-					}
-				]
-			}
-		</script>
+/* ---------- Hero card ---------- */
+.hero-card {
+  background: var(--card); color: var(--ink); border-radius: var(--radius-lg); padding: 26px;
+  box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,.6); position: relative;
+}
+.hero-card::before {
+  content: "Devis avant intervention"; position: absolute; top: -16px; right: 20px;
+  background: var(--gold); color: #2a1f06; font-family: var(--font-display); font-weight: 800;
+  font-size: .72rem; letter-spacing: .04em; padding: 7px 13px; border-radius: var(--radius-pill);
+  box-shadow: 0 8px 20px -8px rgba(199,154,63,.8); transform: rotate(2.5deg);
+}
+.hero-card h2 { margin: 6px 0 16px; font-size: 1.28rem; }
+.hero-card ul, .check-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 12px; }
+.hero-card li, .check-list li { display: flex; gap: 11px; align-items: flex-start; font-weight: 500; }
+.hero-card li::before, .check-list li::before {
+  content: ""; flex: none; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%;
+  background: color-mix(in srgb, var(--ok) 14%, white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c7a4e' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 13px no-repeat;
+}
+.hero-meta { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.hero-meta strong { display: block; font-family: var(--font-display); font-size: 1.55rem; color: var(--ink); line-height: 1; }
+.hero-meta span { color: var(--ink-soft); font-weight: 600; font-size: .85rem; }
 
-		<style>
-			details > summary {
-				list-style: none;
-			}
-			details > summary::-webkit-details-marker {
-				display: none;
-			}
-			.modal {
-				transition: opacity 0.25s ease;
-			}
-			body.modal-active {
-				overflow: hidden;
-			}
+/* ---------- Reassurance strip ---------- */
+.reassure { background: var(--brand-2); color: #e9e2d4; }
+.reassure-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.reassure-item { display: flex; gap: 12px; align-items: center; padding: 18px 22px; border-right: 1px solid rgba(255,255,255,.08); }
+.reassure-item:last-child { border-right: 0; }
+.reassure-item svg { color: var(--accent); flex: none; }
+.reassure-item b { display: block; color: #fff; font-family: var(--font-display); font-size: 1rem; }
+.reassure-item span { font-size: .84rem; color: #b6ae9f; }
 
-			/* Effet de verre pour le header */
-			.glass-nav {
-				background: rgba(255, 255, 255, 0.95);
-				backdrop-filter: blur(5px);
-			}
+/* ---------- Sections ---------- */
+.section { padding: clamp(56px, 8vw, 92px) 0; position: relative; }
+.section.alt { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section.dark { background: var(--brand); color: #ece5d7; }
+.section.dark h2, .section.dark h3 { color: #fff; }
+.section.dark p { color: #c4bcab; }
+.section-head { max-width: 64ch; margin-bottom: 40px; }
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+.section h2 { font-size: clamp(2rem, 4.2vw, 2.85rem); line-height: 1.06; margin: 0 0 14px; }
+.section p { color: var(--ink-soft); }
+.lead { font-size: 1.12rem; }
 
-			/* Animation cookie banner */
-			#cookie-banner {
-				transform: translateY(100%);
-				transition: transform 0.5s ease-in-out;
-			}
-			#cookie-banner.show {
-				transform: translateY(0);
-			}
+/* ---------- Grids & cards ---------- */
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.card {
+  border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card);
+  padding: 26px; box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+.card h2 { font-size: 1.45rem; margin: 0 0 10px; }
 
-			/* Animation pulsation pour le bouton WhatsApp */
-			.whatsapp-pulse {
-				box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-				animation: whatsapp-pulse-anim 2s infinite;
-			}
+/* ---------- En-tête prestations (intro + contexte local) ---------- */
+.detail-head { display: grid; grid-template-columns: 1.5fr 1fr; gap: 34px; align-items: start; margin-bottom: 40px; }
+.detail-context { align-self: start; }
+.detail-context h3 { margin: 0 0 10px; font-size: 1.18rem; }
+.detail-context p { color: var(--ink-soft); margin: 0 0 10px; }
+.detail-context-area { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; color: var(--ink); margin-bottom: 0 !important; }
+.detail-context-area svg { color: var(--accent); flex: none; width: 18px; height: 18px; margin-top: 2px; }
 
-			@keyframes whatsapp-pulse-anim {
-				0% {
-					transform: scale(0.95);
-					box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-				}
-				70% {
-					transform: scale(1);
-					box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
-				}
-				100% {
-					transform: scale(0.95);
-					box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-				}
-			}
-		</style>
-	</head>
-	<body
-		class="font-sans text-gray-800 bg-gray-50 antialiased flex flex-col min-h-screen">
-		<!-- Header / Navigation -->
-		<header
-			class="glass-nav shadow-md fixed w-full z-50 border-b border-gray-100">
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div class="flex justify-between items-center h-20">
-					<!-- Logo -->
-					<div class="flex-shrink-0 flex items-center">
-						<a
-							href="#"
-							class="text-2xl font-bold text-brand-blue flex items-center gap-2">
-							<!-- Icone Clé SVG -->
-							<svg
-								class="w-8 h-8 text-brand-orange"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11.536 11l-1.414 1.414a2 2 0 01-2.828 0l-.83-.83a2 2 0 010-2.828l.83-.83a2 2 0 012.828 0l1.414 1.414 3.257-3.257A6 6 0 0115 7z"></path>
-							</svg>
-							<span>Soly<span class="text-brand-orange">bat</span></span>
-						</a>
-					</div>
+/* ---------- Carte "Préparer votre appel" ---------- */
+.prep-intro { color: var(--ink-soft); margin: 0 0 16px; }
+.prep-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.prep-list li { display: flex; gap: 13px; align-items: flex-start; }
+.prep-list .prep-ico {
+  flex: none; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--accent) 11%, white); color: var(--accent);
+}
+.prep-list .prep-ico svg { width: 18px; height: 18px; }
+.prep-list div { color: var(--ink-soft); line-height: 1.45; padding-top: 2px; }
+.prep-list strong { color: var(--ink); font-weight: 700; }
 
-					<!-- Desktop Menu -->
-					<nav class="hidden md:flex space-x-8">
-						<a
-							href="#urgence"
-							class="text-gray-700 hover:text-brand-orange font-medium transition"
-							>Accueil</a
-						>
-						<a
-							href="#services"
-							class="text-gray-700 hover:text-brand-orange font-medium transition"
-							>Services</a
-						>
-						<a
-							href="#tarifs"
-							class="text-gray-700 hover:text-brand-orange font-medium transition"
-							>Tarifs</a
-						>
-						<a
-							href="#faq"
-							class="text-gray-700 hover:text-brand-orange font-medium transition"
-							>FAQ</a
-						>
-					</nav>
+/* ---------- Repères locaux (bloc éditorial + faits) ---------- */
+.local-repere { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; align-items: start; }
+.local-repere-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 6px 0 14px; }
+.local-repere-main .lead { font-size: 1.13rem; color: var(--ink); }
+.local-repere-main p { color: var(--ink-soft); }
+.local-facts {
+  display: grid; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: var(--card); overflow: hidden; box-shadow: var(--shadow-sm);
+  position: sticky; top: 96px;
+}
+.local-facts .fact { display: flex; gap: 14px; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.local-facts .fact:last-child { border-bottom: 0; }
+.local-facts .fact:first-child { background: color-mix(in srgb, var(--accent) 6%, var(--card)); }
+.local-facts .fact-ico {
+  flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent);
+}
+.local-facts .fact-ico svg { width: 20px; height: 20px; }
+.local-facts .fact-body strong {
+  display: block; font-family: var(--font-display); font-size: 1.4rem;
+  color: var(--ink); line-height: 1.05; margin-bottom: 2px;
+}
+.local-facts .fact:first-child .fact-body strong { color: var(--accent); }
+.local-facts .fact-body span { color: var(--ink-soft); font-weight: 600; font-size: .86rem; }
 
-					<!-- CTA & Mobile Button -->
-					<div class="flex items-center gap-4">
-						<a
-							href="tel:+33400000000"
-							class="bg-brand-orange hover:bg-orange-700 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-md font-bold transition duration-300 shadow-lg flex items-center gap-2 animate-pulse md:animate-none">
-							<svg
-								class="w-5 h-5"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-							</svg>
-							<span class="hidden sm:inline">04 00 00 00 00</span>
-							<span class="sm:hidden">Appeler</span>
-						</a>
+/* ---------- Cas d'interventions réels ---------- */
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.case-card {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-lg);
+  background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm);
+  display: grid; gap: 10px; align-content: start;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.case-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.case-meta { display: flex; align-items: center; gap: 7px; margin: 0; font-weight: 700; color: var(--ink); font-size: .9rem; }
+.case-meta svg { color: var(--accent); flex: none; width: 17px; height: 17px; }
+.case-line { margin: 0; color: var(--ink-soft); line-height: 1.5; }
+.case-line strong {
+  display: block; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--accent); font-weight: 800; margin-bottom: 2px;
+}
+.card h3 { margin: 0 0 8px; font-size: 1.22rem; }
+.card-number {
+  display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
+  background: var(--brand); color: var(--accent); font-family: var(--font-display); font-weight: 800;
+  font-size: 1.25rem; margin-bottom: 16px; box-shadow: var(--shadow-sm);
+}
+.service-card { position: relative; overflow: hidden; }
+.service-card .ico {
+  width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 16px;
+  background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent);
+}
+.service-card .go { margin-top: 16px; display: inline-flex; align-items: center; gap: 7px; font-weight: 800; color: var(--accent); }
+.service-card:hover .go { gap: 11px; }
 
-						<!-- Mobile Menu Button -->
-						<button
-							id="mobile-menu-btn"
-							class="md:hidden text-gray-700 hover:text-brand-orange focus:outline-none p-2">
-							<svg
-								class="w-8 h-8"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M4 6h16M4 12h16M4 18h16"></path>
-							</svg>
-						</button>
-					</div>
-				</div>
-			</div>
+/* ---------- Trust band ---------- */
+.trust-band { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.trust-item { padding: 30px 26px; border-right: 1px solid var(--line); }
+.trust-item:last-child { border-right: 0; }
+.trust-item .ti-ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); margin-bottom: 14px; }
+.trust-item strong { display: block; margin-bottom: 5px; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
+.trust-item span { color: var(--ink-soft); font-size: .92rem; }
 
-			<!-- Mobile Menu (Hidden by default) -->
-			<div
-				id="mobile-menu"
-				class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
-				<div class="px-4 pt-2 pb-4 space-y-1">
-					<a
-						href="#urgence"
-						class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-orange hover:bg-gray-50 rounded-md"
-						>Accueil</a
-					>
-					<a
-						href="#services"
-						class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-orange hover:bg-gray-50 rounded-md"
-						>Services</a
-					>
-					<a
-						href="#tarifs"
-						class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-orange hover:bg-gray-50 rounded-md"
-						>Tarifs</a
-					>
-					<a
-						href="#faq"
-						class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-orange hover:bg-gray-50 rounded-md"
-						>FAQ</a
-					>
-				</div>
-			</div>
-		</header>
+/* ---------- Reviews ---------- */
+.review-card { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 14px; }
+.stars { display: inline-flex; gap: 2px; color: var(--gold); }
+.review-card p { font-size: 1.05rem; color: var(--ink); margin: 0; }
+.review-meta { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.review-avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--brand); color: var(--accent); font-family: var(--font-display); font-weight: 800; }
+.review-meta b { display: block; font-family: var(--font-display); }
+.review-meta span { color: var(--ink-soft); font-size: .86rem; }
 
-		<!-- Hero Section -->
-		<section
-			id="urgence"
-			class="relative pt-32 pb-24 bg-brand-blue text-white overflow-hidden min-h-[600px] flex items-center">
-			<!-- Overlay Sombre pour lisibilité -->
-			<div class="absolute inset-0 z-0 bg-brand-blue/90"></div>
-			<!-- Image de fond -->
-			<div
-				class="absolute inset-0 z-[-1] bg-[url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1920')] bg-cover bg-center opacity-40"></div>
+/* ---------- Panels ---------- */
+.split-panel {
+  background: linear-gradient(150deg, var(--brand), var(--brand-2)); color: #ece5d7;
+  border-radius: var(--radius-lg); padding: 34px; box-shadow: var(--shadow-md);
+}
+.split-panel h2 { color: #fff; }
+.split-panel p { color: #c4bcab; }
+.cta-panel {
+  background: var(--brand); color: #fff; border-radius: var(--radius-lg); padding: 38px;
+  display: flex; align-items: center; justify-content: space-between; gap: 26px; position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.cta-panel::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px 240px at 100% 0%, color-mix(in srgb, var(--accent) 32%, transparent), transparent 70%); pointer-events: none; }
+.cta-panel h2 { color: #fff; margin: 0; position: relative; }
+.cta-panel p { color: #c4bcab; margin: 8px 0 0; position: relative; }
+.cta-panel .call-btn { position: relative; }
 
-			<div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
-				<div
-					class="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wider text-brand-orange uppercase bg-orange-900/30 rounded-full border border-brand-orange/30">
-					Intervention en 30 minutes
-				</div>
-				<h1
-					class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-					Solybat
-					<span class="text-brand-orange">Urgence</span> <br />
-					Serrurerie, Plomberie, Dégorgement
-				</h1>
-				<p
-					class="text-lg md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto font-light">
-					Porte claquée ? Clé perdue ? Cambriolage ?<br />
-					Notre équipe certifiée intervient immédiatement.
-					<strong class="text-white"
-						>Devis gratuit et agréé assurances.</strong
-					>
-				</p>
-				<div class="flex flex-col sm:flex-row justify-center gap-4">
-					<a
-						href="tel:+33400000000"
-						class="px-8 py-4 bg-brand-orange text-white text-lg font-bold rounded-lg shadow-xl hover:bg-orange-600 transition transform hover:scale-105 flex justify-center items-center gap-2">
-						<svg
-							class="w-6 h-6"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-						</svg>
-						APPELER MAINTENANT
-					</a>
-					<a
-						href="#tarifs"
-						class="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white text-lg font-bold rounded-lg hover:bg-white hover:text-brand-blue transition">
-						Consulter les tarifs
-					</a>
-				</div>
-				<p class="mt-6 text-sm text-gray-400">
-					⭐ 4.9/5 basé sur +500 interventions
-				</p>
-			</div>
-		</section>
+/* ---------- Pills ---------- */
+.pill-row { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
+.pill { display: inline-flex; align-items: center; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); padding: 8px 14px; color: var(--ink-soft); background: var(--card); font-weight: 700; font-size: .9rem; transition: all .16s ease; }
+a.pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.priority-1 { border-color: color-mix(in srgb, var(--accent) 50%, white); color: var(--ink); background: color-mix(in srgb, var(--accent) 9%, white); font-weight: 800; }
+.priority-2 { border-color: color-mix(in srgb, var(--secondary) 40%, white); color: var(--ink); background: color-mix(in srgb, var(--secondary) 8%, white); }
 
-		<!-- Services Section -->
-		<section
-			id="services"
-			class="py-20 bg-white">
-			<div class="max-w-7xl mx-auto px-4">
-				<div class="text-center mb-16">
-					<h2
-						class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Nos Domaines d'Intervention
-					</h2>
-					<div class="w-20 h-1 bg-brand-orange mx-auto"></div>
-				</div>
+/* ---------- Pricing ---------- */
+.price-table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--line); background: var(--card); box-shadow: var(--shadow-sm); }
+.price-table th, .price-table td { padding: 18px 22px; border-bottom: 1px solid var(--line); text-align: left; }
+.price-table tr:last-child td { border-bottom: 0; }
+.price-table th { background: var(--brand); color: #fff; font-family: var(--font-display); font-size: .98rem; }
+.price-table td { font-weight: 500; }
+.price-table tbody tr:last-child td { border-bottom: 0; }
+.price-table tbody tr:hover td { background: var(--paper); }
+.price-table td:last-child, .price-table th:last-child { text-align: right; font-weight: 800; font-family: var(--font-display); color: var(--ink); }
+.notice { border-left: 4px solid var(--accent); padding: 18px 20px; background: color-mix(in srgb, var(--accent) 7%, white); border-radius: 12px; color: #6b3410; margin-top: 18px; font-weight: 500; }
 
-				<div class="grid md:grid-cols-3 gap-8">
-					<!-- Service 1 -->
-					<div
-						class="group p-8 border border-gray-100 rounded-2xl shadow-card hover:shadow-xl transition duration-300 bg-white hover:-translate-y-1">
-						<div
-							class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:text-white transition-colors text-brand-primary">
-							<svg
-								class="w-8 h-8"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
-							</svg>
-						</div>
-						<h3 class="text-xl font-bold mb-3 text-gray-900">
-							Ouverture de porte
-						</h3>
-						<p class="text-gray-600 leading-relaxed">
-							Porte claquée ou verrouillée. Nous utilisons des
-							techniques d'ouverture fine (radio, crochetage) pour
-							préserver votre serrure.
-						</p>
-					</div>
+/* ---------- FAQ ---------- */
+.faq details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 4px 22px; margin-bottom: 12px; transition: border-color .2s ease, box-shadow .2s ease; }
+.faq details[open] { border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+.faq summary { cursor: pointer; font-family: var(--font-display); font-weight: 700; font-size: 1.08rem; list-style: none; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 1.6rem; color: var(--accent); font-weight: 400; transition: transform .2s ease; line-height: 1; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 18px; margin: 0; color: var(--ink-soft); }
 
-					<!-- Service 2 -->
-					<div
-						class="group p-8 border border-gray-100 rounded-2xl shadow-card hover:shadow-xl transition duration-300 bg-white hover:-translate-y-1">
-						<div
-							class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:text-white transition-colors text-brand-primary">
-							<svg
-								class="w-8 h-8"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-							</svg>
-						</div>
-						<h3 class="text-xl font-bold mb-3 text-gray-900">
-							Remplacement Serrure
-						</h3>
-						<p class="text-gray-600 leading-relaxed">
-							Installation de cylindres haute sécurité A2P.
-							Compatible toutes marques : Fichet, Picard, Bricard,
-							Vachette.
-						</p>
-					</div>
+/* ---------- Service quick links ---------- */
+.service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.service-links a { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--paper-2); font-weight: 800; display: flex; align-items: center; justify-content: space-between; transition: all .16s ease; }
+.service-links a::after { content: "→"; color: var(--accent); }
+.service-links a:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-					<!-- Service 3 -->
-					<div
-						class="group p-8 border border-gray-100 rounded-2xl shadow-card hover:shadow-xl transition duration-300 bg-white hover:-translate-y-1">
-						<div
-							class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:text-white transition-colors text-brand-primary">
-							<svg
-								class="w-8 h-8"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-							</svg>
-						</div>
-						<h3 class="text-xl font-bold mb-3 text-gray-900">
-							Blindage & Sécurité
-						</h3>
-						<p class="text-gray-600 leading-relaxed">
-							Renforcement de porte existante, pose de bloc-porte
-							blindé, installation de verrous et cornières
-							anti-pinces.
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
+/* ---------- Footer ---------- */
+.footer { background: var(--brand); color: #b8b0a1; padding: 56px 0 40px; }
+.footer .wrap { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 34px; }
+.footer strong { color: #fff; font-family: var(--font-display); }
+.footer a { color: inherit; transition: color .15s ease; }
+.footer a:hover { color: var(--accent); }
+.footer-links { display: grid; gap: 9px; margin-top: 12px; }
+.footer .brand { margin-bottom: 14px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.08); margin-top: 34px; padding-top: 22px; font-size: .85rem; color: #8d8576; }
 
-		<!-- Pricing Section -->
-		<section
-			id="tarifs"
-			class="py-20 bg-gray-50">
-			<div class="max-w-4xl mx-auto px-4">
-				<div class="text-center mb-12">
-					<h2 class="text-3xl font-bold text-gray-900">
-						Tarifs Transparents & Agréés
-					</h2>
-					<p class="mt-4 text-gray-600">
-						Pas de surprise : devis gratuit et signé avant toute
-						intervention.
-					</p>
-				</div>
+/* ---------- Mobile sticky bar ---------- */
+.mobile-bar { display: none; }
+@media (min-width: 600px) { .top-phone { display: block; } }
+@media (max-width: 980px) {
+  .reassure-grid { grid-template-columns: repeat(2, 1fr); }
+  .reassure-item:nth-child(2) { border-right: 0; }
+  .footer .wrap { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 880px) {
+  body { font-size: 16px; }
+  .topbar-inner { min-height: 58px; }
+  .nav-shell { top: 58px; }
+  .grid-4, .grid-3, .grid-2, .trust-grid, .case-grid, .local-repere, .detail-head { grid-template-columns: 1fr; }
+  .local-facts { position: static; top: auto; }
+  .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
+  .trust-item:last-child { border-bottom: 0; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
+  .cta-panel { align-items: flex-start; flex-direction: column; }
+  .nav-shell { display: none; }
+  .footer { padding-bottom: 96px; }
+  .footer .wrap { grid-template-columns: 1fr; }
+  .mobile-bar {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 60;
+    padding: 10px; background: color-mix(in srgb, var(--brand) 94%, transparent);
+    backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.12); border-radius: 18px;
+    box-shadow: 0 20px 50px -12px rgba(0,0,0,.5);
+  }
+  .mobile-bar .call-btn, .mobile-bar .wa-btn { width: 100%; min-height: 52px; font-size: 1rem; }
+}
+@media (max-width: 600px) {
+  .top-actions .ghost-btn { display: none; }
+  .hero-card::before { right: 14px; }
+}
+/* ---------- Detail & advice cards ---------- */
+.detail-card .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 14px; background: color-mix(in srgb, var(--accent) 12%, white); color: var(--accent); }
+.detail-card h3 { font-size: 1.18rem; }
+.advice-card { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--card); padding: 22px 24px; box-shadow: var(--shadow-sm); }
+.advice-card h3 { margin: 0 0 8px; font-size: 1.12rem; display: flex; align-items: center; gap: 9px; }
+.advice-card h3::before { content: "!"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, white); color: var(--accent); font-family: var(--font-display); font-weight: 800; font-size: .95rem; }
+.advice-card p { margin: 0; color: var(--ink-soft); }
 
-				<div
-					class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-					<table class="w-full text-left border-collapse">
-						<thead>
-							<tr class="bg-brand-blue text-white">
-								<th class="p-5 font-semibold text-lg">
-									Prestation
-								</th>
-								<th
-									class="p-5 font-semibold text-lg text-right">
-									Prix TTC (à partir de)
-								</th>
-							</tr>
-						</thead>
-						<tbody class="divide-y divide-gray-200">
-							<tr class="hover:bg-gray-50 transition">
-								<td class="p-5">Déplacement</td>
-								<td
-									class="p-5 text-right font-bold text-gray-800">
-									50 €
-								</td>
-							</tr>
-							<tr class="hover:bg-gray-50 transition">
-								<td class="p-5">Main d'œuvre (heure)</td>
-								<td
-									class="p-5 text-right font-bold text-gray-800">
-									60 €
-								</td>
-							</tr>
-							<tr
-								class="bg-blue-50/50 hover:bg-blue-50 transition border-l-4 border-l-brand-orange">
-								<td class="p-5 font-medium text-brand-primary">
-									Ouverture de porte claquée (Radio)
-								</td>
-								<td
-									class="p-5 text-right font-bold text-brand-orange text-xl">
-									90 €
-								</td>
-							</tr>
-							<tr class="hover:bg-gray-50 transition">
-								<td class="p-5">
-									Ouverture de porte verrouillée
-								</td>
-								<td
-									class="p-5 text-right font-bold text-gray-800">
-									130 €
-								</td>
-							</tr>
-							<tr class="hover:bg-gray-50 transition">
-								<td class="p-5">
-									Remplacement cylindre standard (3 clés)
-								</td>
-								<td
-									class="p-5 text-right font-bold text-gray-800">
-									89 €
-								</td>
-							</tr>
-							<tr
-								class="bg-orange-50 border-t-2 border-orange-100">
-								<td
-									class="p-5 text-sm text-gray-700 flex items-start gap-2"
-									colspan="2">
-									<svg
-										class="w-5 h-5 text-brand-orange flex-shrink-0"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24">
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg>
-									<span>
-										<strong>Conditions :</strong> Majoration
-										de 50% soirs (après 19h), week-ends et
-										jours fériés. Les prix peuvent varier
-										selon le modèle de serrure et la
-										complexité. Devis obligatoire avant
-										travaux.
-									</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+/* ---------- Urgency bar ---------- */
+.urgency-bar { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 62%, var(--gold))); color: #fff; }
+.urgency-inner { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 40px; padding: 7px 0; flex-wrap: wrap; }
+.urgency-text { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .92rem; letter-spacing: .005em; }
+.urgency-text svg { width: 1.05em; height: 1.05em; }
+.urgency-call { display: inline-flex; align-items: center; gap: 7px; font-weight: 800; font-size: .92rem; padding: 4px 13px; border-radius: var(--radius-pill); background: rgba(0,0,0,.22); color: #fff; }
+.urgency-call:hover { background: rgba(0,0,0,.34); }
 
-				<div
-					class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 opacity-70 grayscale hover:grayscale-0 transition duration-500">
-					<!-- Logos assurances factices pour l'exemple -->
-					<div
-						class="h-12 flex items-center justify-center bg-gray-200 rounded text-gray-500 font-bold text-sm">
-						AXA
-					</div>
-					<div
-						class="h-12 flex items-center justify-center bg-gray-200 rounded text-gray-500 font-bold text-sm">
-						ALLIANZ
-					</div>
-					<div
-						class="h-12 flex items-center justify-center bg-gray-200 rounded text-gray-500 font-bold text-sm">
-						MACIF
-					</div>
-					<div
-						class="h-12 flex items-center justify-center bg-gray-200 rounded text-gray-500 font-bold text-sm">
-						MAIF
-					</div>
-				</div>
-			</div>
-		</section>
+/* ---------- Proof gallery ---------- */
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.proof-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-sm); aspect-ratio: 4 / 3; background: var(--brand); }
+.proof-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.proof-card:hover img { transform: scale(1.06); }
+.proof-card figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 16px 14px; color: #fff; font-weight: 700; font-size: .98rem; background: linear-gradient(to top, rgba(10,8,5,.85), transparent); }
+.proof-tag { position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(10,8,5,.62); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 5px 10px; border-radius: var(--radius-pill); backdrop-filter: blur(4px); }
 
-		<!-- FAQ Section -->
-		<section
-			id="faq"
-			class="py-20 bg-white">
-			<div class="max-w-3xl mx-auto px-4">
-				<h2 class="text-3xl font-bold text-center text-gray-900 mb-10">
-					Questions Fréquentes
-				</h2>
+/* ---------- Quartiers / zones ---------- */
+.zone-head { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.zone-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.zone-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px;
+  border: 1px solid var(--line-strong); background: var(--card); color: var(--ink); font-weight: 700;
+  box-shadow: var(--shadow-sm); transition: all .16s ease;
+}
+.zone-chip svg { width: 1em; height: 1em; color: var(--accent); }
+.zone-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.zone-note { margin-top: 18px; color: var(--ink-soft); font-size: .95rem; }
 
-				<div class="space-y-4">
-					<details
-						class="group bg-white border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-brand-orange transition duration-200 shadow-sm">
-						<summary
-							class="font-bold text-lg text-gray-800 flex justify-between items-center select-none">
-							Combien coûte une intervention en urgence ?
-							<svg
-								class="w-6 h-6 text-brand-orange transform group-open:rotate-180 transition-transform"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M19 9l-7 7-7-7"></path>
-							</svg>
-						</summary>
-						<p
-							class="mt-4 text-gray-600 leading-relaxed pl-2 border-l-2 border-brand-orange">
-							Le tarif dépend de la nature de l'intervention. Une
-							ouverture de porte claquée commence à 90€. Le
-							déplacement est à 50€. Nous vous annonçons toujours
-							le tarif estimatif au téléphone avant de venir.
-						</p>
-					</details>
+/* ---------- Callback form ---------- */
+.cb-grid { align-items: center; }
+.cb-form {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 28px; box-shadow: var(--shadow-md); display: grid; gap: 16px;
+  position: relative; overflow: hidden;
+}
+.cb-form::before { content: ""; position: absolute; left: 0; top: 0; height: 5px; width: 100%; background: linear-gradient(90deg, var(--accent), var(--gold)); }
+.cb-field { display: grid; gap: 6px; }
+.cb-field label { font-weight: 700; font-size: .9rem; color: var(--ink); }
+.cb-form input, .cb-form textarea {
+  font-family: var(--font-body); font-size: 1rem; color: var(--ink);
+  padding: 13px 15px; border: 1.5px solid var(--line-strong); border-radius: 12px;
+  background: var(--paper-2); transition: border-color .16s ease, box-shadow .16s ease; width: 100%;
+}
+.cb-form input:focus, .cb-form textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--ring); background: #fff; }
+.cb-form textarea { resize: vertical; min-height: 84px; }
+.cb-form input.cb-invalid, .cb-form textarea.cb-invalid { border-color: #c0392b; box-shadow: 0 0 0 4px rgba(192,57,43,.14); }
+.cb-submit { width: 100%; min-height: 54px; font-size: 1.05rem; background: #1faf54; box-shadow: 0 14px 30px -12px #1faf54; }
+.cb-submit:hover { transform: translateY(-2px); }
+.cb-hint { margin: 0; font-size: .82rem; color: var(--ink-soft); text-align: center; }
 
-					<details
-						class="group bg-white border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-brand-orange transition duration-200 shadow-sm">
-						<summary
-							class="font-bold text-lg text-gray-800 flex justify-between items-center select-none">
-							Acceptez-vous les prises en charge assurance ?
-							<svg
-								class="w-6 h-6 text-brand-orange transform group-open:rotate-180 transition-transform"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M19 9l-7 7-7-7"></path>
-							</svg>
-						</summary>
-						<p
-							class="mt-4 text-gray-600 leading-relaxed pl-2 border-l-2 border-brand-orange">
-							Oui. En cas de perte de clés ou vol (souvent
-							couverts par votre carte bancaire) ou d'effraction
-							(assurance habitation), nous fournissons une facture
-							détaillée et conforme pour votre remboursement.
-						</p>
-					</details>
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Locksmith",
+      "@id": "https://www.solybat.fr/#business",
+      "name": "Solybat",
+      "image": "https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop",
+      "url": "https://www.solybat.fr/",
+      "telephone": "04 00 00 00 00",
+      "email": "contact@solybat.fr",
+      "priceRange": "€€",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+33400000000",
+        "contactType": "customer service",
+        "areaServed": "FR, CH",
+        "availableLanguage": [
+          "fr"
+        ]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Adresse Solybat à compléter",
+        "addressCountry": "FR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.solybat.fr/#webpage",
+      "url": "https://www.solybat.fr/",
+      "name": "Solybat | Serrurerie, plomberie et dégorgement",
+      "description": "Solybat intervient en serrurerie, plomberie et dégorgement camion pompe avec des pages locales par ville et par métier.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Solybat",
+        "url": "https://www.solybat.fr"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.solybat.fr/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://www.solybat.fr/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Solybat | Serrurerie, plomberie et dégorgement",
+          "item": "https://www.solybat.fr/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.solybat.fr/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quels services proposez-vous ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Serrurerie (ouverture de porte, serrure, cylindre), plomberie (fuite, sanitaire, chauffe-eau) et dégorgement de canalisation, y compris camion pompe selon le besoin."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Intervenez-vous 24h/24 et 7j/7 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, les demandes urgentes sont prises en compte de jour comme de nuit. Selon la disponibilité d'une équipe proche, un délai vous est annoncé dès l'appel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Le prix est-il annoncé avant l'intervention ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Le tarif dépend de l'accès, de l'horaire, du matériel et de la complexité ; il est confirmé avant le début des travaux."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quel numéro dois-je utiliser ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes."
+          }
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
-					<details
-						class="group bg-white border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-brand-orange transition duration-200 shadow-sm">
-						<summary
-							class="font-bold text-lg text-gray-800 flex justify-between items-center select-none">
-							Allez-vous abîmer ma porte ?
-							<svg
-								class="w-6 h-6 text-brand-orange transform group-open:rotate-180 transition-transform"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M19 9l-7 7-7-7"></path>
-							</svg>
-						</summary>
-						<p
-							class="mt-4 text-gray-600 leading-relaxed pl-2 border-l-2 border-brand-orange">
-							Dans 95% des cas de porte claquée (clé oubliée à
-							l'intérieur), nous utilisons la technique de la
-							radio. Cela n'abîme ni la serrure ni la porte. Si la
-							porte est verrouillée, nous perçons uniquement le
-							cylindre, que nous remplaçons ensuite.
-						</p>
-					</details>
 
-					<details
-						class="group bg-white border border-gray-200 rounded-lg p-6 cursor-pointer hover:border-brand-orange transition duration-200 shadow-sm">
-						<summary
-							class="font-bold text-lg text-gray-800 flex justify-between items-center select-none">
-							Quelle est votre zone d'intervention ?
-							<svg
-								class="w-6 h-6 text-brand-orange transform group-open:rotate-180 transition-transform"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M19 9l-7 7-7-7"></path>
-							</svg>
-						</summary>
-						<p
-							class="mt-4 text-gray-600 leading-relaxed pl-2 border-l-2 border-brand-orange">
-							Nous qualifions votre secteur par téléphone avant
-							déplacement afin de confirmer la faisabilité, le délai
-							possible et le bon intervenant.
-						</p>
-					</details>
-				</div>
-			</div>
-		</section>
+<div class="urgency-bar">
+  <div class="wrap urgency-inner">
+    <span class="urgency-text"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Urgence en cours ? Un artisan proche vous rappelle en quelques minutes, 24h/24.</span>
+    <a class="urgency-call js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 04 00 00 00 00</a>
+  </div>
+</div>
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/"><span class="brand-mark">S</span><span>Solybat<small>Urgence 24h/24 · 7j/7</small></span></a>
+    <div class="top-actions">
+      <div class="top-phone"><span>Appel direct</span><strong>04 00 00 00 00</strong></div>
+      <a class="ghost-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp</a>
+      <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler</a>
+    </div>
+  </div>
+</div>
+<div class="nav-shell">
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-links">
+      <a href="/serrurier/lyon/">Serrurier</a>
+      <a href="/plombier/lyon/">Plombier</a>
+      <a href="/degorgement/lyon/">Dégorgement</a>
+      <a href="/zones/">Villes desservies</a>
+      <a href="#tarifs">Tarifs</a>
+    </div>
+    <div class="nav-links">
+      <a href="#avis">Avis</a>
+      <a href="#faq">Questions</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</div>
 
-		<!-- Contact & Map Section -->
-		<section class="py-20 bg-brand-blue text-white">
-			<div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16">
-				<!-- Formulaire -->
-				<div>
-					<h2 class="text-3xl font-bold mb-2">
-						Demande de devis / Contact
-					</h2>
-					<p class="mb-8 text-blue-200">
-						Pour une urgence, privilégiez l'appel téléphonique. Pour
-						un projet, remplissez ce formulaire.
-					</p>
+<main id="contenu">
+  <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
+    <div class="hero-grid">
+      <div>
+        <span class="live-pill"><span class="live-dot"></span>Solybat · urgence locale 24/7</span>
+        <h1>Serrurier, plombier &amp; <em>dégorgement</em> près de chez vous</h1>
+        <p>Un seul point d'entrée pour les urgences locales : ouverture de porte, fuite d'eau, canalisation bouchée et intervention camion pompe selon le besoin.</p>
+        <div class="cta-row">
+          <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler 04 00 00 00 00</a>
+          <a class="ghost-btn" href="#services">Voir les services</a>
+        </div>
+        <div class="cta-sub"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Le bon métier, le bon numéro local, un prix annoncé avant déplacement.</div>
+      </div>
+      <aside class="hero-card">
+        <h2>Intervention locale</h2>
+        <ul>
+          <li>Serrurerie, plomberie et dégorgement</li>
+          <li>France et canton de Genève</li>
+          <li>Appel direct sur mobile</li>
+          <li>Devis annoncé avant intervention</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
 
-					<!-- NOTE: Pour faire fonctionner ce formulaire gratuitement, inscrivez-vous sur https://formspree.io/
-                     Créez un nouveau formulaire et remplacez l'action ci-dessous par l'URL qu'ils vous donnent. -->
-					<form
-						action="#"
-						method="POST"
-						class="space-y-5 bg-white/5 p-8 rounded-2xl border border-white/10 shadow-2xl">
-						<div>
-							<label
-								class="block text-sm font-bold mb-2 text-blue-100"
-								>Nom complet *</label
-							>
-							<input
-								type="text"
-								name="name"
-								required
-								class="w-full px-4 py-3 rounded-lg text-gray-900 bg-white border-transparent focus:border-brand-orange focus:ring-2 focus:ring-brand-orange outline-none transition"
-								placeholder="Votre nom" />
-						</div>
-						<div>
-							<label
-								class="block text-sm font-bold mb-2 text-blue-100"
-								>Téléphone *</label
-							>
-							<input
-								type="tel"
-								name="phone"
-								required
-								class="w-full px-4 py-3 rounded-lg text-gray-900 bg-white border-transparent focus:border-brand-orange focus:ring-2 focus:ring-brand-orange outline-none transition"
-								placeholder="06 .. .. .. .." />
-						</div>
-						<div>
-							<label
-								class="block text-sm font-bold mb-2 text-blue-100"
-								>Message</label
-							>
-							<textarea
-								name="message"
-								required
-								class="w-full px-4 py-3 rounded-lg text-gray-900 bg-white border-transparent focus:border-brand-orange focus:ring-2 focus:ring-brand-orange outline-none transition h-32 resize-none"
-								placeholder="Décrivez votre besoin..."></textarea>
-						</div>
-						<button
-							type="submit"
-							class="bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-lg w-full transition shadow-lg transform active:scale-95">
-							Envoyer ma demande
-						</button>
-						<p class="text-xs text-center text-blue-300">
-							* Champs obligatoires
-						</p>
-					</form>
-				</div>
 
-				<!-- Coordonnées & Map -->
-				<div class="flex flex-col h-full">
-					<div
-						class="bg-white text-gray-800 p-8 rounded-2xl shadow-2xl h-full flex flex-col">
-						<h3 class="text-2xl font-bold mb-6 pb-4 border-b">
-							Nos Coordonnées
-						</h3>
-						<ul class="space-y-6 mb-8">
-							<li class="flex items-start">
-								<svg
-									class="w-6 h-6 text-brand-orange mt-1 mr-3 flex-shrink-0"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-								</svg>
-								<div>
-									<strong class="block text-gray-900"
-										>Adresse :</strong
-									>
-									<span class="text-gray-600"
-										>Adresse Solybat à compléter</span
-									>
-								</div>
-							</li>
-							<li class="flex items-start">
-								<svg
-									class="w-6 h-6 text-brand-orange mt-1 mr-3 flex-shrink-0"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-								</svg>
-								<div>
-									<strong class="block text-gray-900"
-										>Téléphone :</strong
-									>
-									<a
-										href="tel:+33400000000"
-										class="text-brand-primary font-bold hover:underline"
-										>04 00 00 00 00</a
-									>
-								</div>
-							</li>
-							<li class="flex items-start">
-								<svg
-									class="w-6 h-6 text-brand-orange mt-1 mr-3 flex-shrink-0"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-								</svg>
-								<div>
-									<strong class="block text-gray-900"
-										>Email :</strong
-									>
-									<span class="text-gray-600"
-										>contact@solybat.fr</span
-									>
-								</div>
-							</li>
-							<li class="flex items-start">
-								<svg
-									class="w-6 h-6 text-brand-orange mt-1 mr-3 flex-shrink-0"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-								</svg>
-								<div>
-									<strong class="block text-gray-900"
-										>Horaires :</strong
-									>
-									<span class="text-gray-600"
-										>24h/24 et 7j/7</span
-									>
-								</div>
-							</li>
-						</ul>
-						<div
-							class="flex-grow rounded-lg overflow-hidden border border-gray-200 relative bg-gray-100">
-							<!-- Intégration Google Maps (Exemple centré sur Paris) -->
-							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.94722687619!2d2.277019841665155!3d48.8588377391234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis!5e0!3m2!1sfr!2sfr!4v1631234567890!5m2!1sfr!2sfr"
-								width="100%"
-								height="100%"
-								style="border: 0; position: absolute; inset: 0"
-								allowfullscreen=""
-								loading="lazy">
-							</iframe>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+  <section class="reassure" aria-label="Engagements">
+    <div class="wrap reassure-grid">
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div><b>Disponible 24h/24</b><span>Soir, week-end et jours fériés</span></div>
+        </div>
+        
 
-		<!-- Footer -->
-		<footer
-			class="bg-brand-blue text-gray-400 py-10 border-t border-gray-800 text-sm">
-			<div class="max-w-7xl mx-auto px-4 text-center">
-				<p class="mb-4">
-					&copy; 2024 Solybat. Tous droits réservés.
-				</p>
-				<div class="flex justify-center flex-wrap gap-6">
-					<a
-						href="/zones/"
-						class="hover:text-white underline transition">
-						Villes desservies
-					</a>
-					<button
-						onclick="toggleModal('modal-legal')"
-						class="hover:text-white underline transition">
-						Mentions Légales
-					</button>
-					<button
-						onclick="toggleModal('modal-privacy')"
-						class="hover:text-white underline transition">
-						Politique de Confidentialité
-					</button>
-				</div>
-			</div>
-		</footer>
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div><b>Devis au téléphone</b><span>Prix annoncé avant déplacement</span></div>
+        </div>
+        
 
-		<!-- Cookie Banner (RGPD) -->
-		<div
-			id="cookie-banner"
-			class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 shadow-2xl z-[100] flex flex-col md:flex-row items-center justify-between gap-4">
-			<div class="text-sm text-gray-600">
-				<p>
-					<strong>Nous respectons votre vie privée.</strong> Nous
-					utilisons des cookies pour assurer le bon fonctionnement du
-					site et mesurer l'audience.
-				</p>
-			</div>
-			<div class="flex gap-3">
-				<button
-					id="accept-cookies"
-					class="bg-brand-blue text-white px-4 py-2 rounded font-bold text-sm hover:bg-gray-800 transition">
-					Accepter
-				</button>
-				<button
-					id="close-cookies"
-					class="text-gray-500 hover:text-gray-800 text-sm underline">
-					Continuer sans accepter
-				</button>
-			</div>
-		</div>
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <div><b>Sans surprise</b><span>Conditions claires annoncées avant intervention</span></div>
+        </div>
+        
 
-		<!-- Modales -->
-		<div
-			id="modal-legal"
-			class="modal fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-75 hidden opacity-0 pointer-events-none transition-opacity duration-300">
-			<div
-				class="bg-white rounded-lg w-11/12 md:w-1/2 max-h-[80vh] overflow-y-auto p-8 shadow-2xl relative">
-				<button
-					onclick="toggleModal('modal-legal')"
-					class="absolute top-4 right-4 text-gray-400 hover:text-black transition">
-					<svg
-						class="w-8 h-8"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"></path>
-					</svg>
-				</button>
-				<h2 class="text-2xl font-bold text-gray-900 mb-4">
-					Mentions Légales
-				</h2>
-				<div class="text-sm text-gray-600 space-y-4">
-					<p>
-						Conformément aux dispositions de la loi n° 2004-575 du
-						21 juin 2004 pour la confiance en l'économie numérique,
-						il est précisé aux utilisateurs du site l'identité des
-						différents intervenants.
-					</p>
+        <div class="reassure-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><b>Artisan de proximité</b><span>Numéro local France et Genève</span></div>
+        </div>
+        </div>
+  </section>
 
-					<h3 class="font-bold text-gray-900">1. Édition du site</h3>
-					<p>
-						Le site est édité par la société
-						<strong>Solybat</strong>, informations légales à
-						compléter avant mise en production.
-					</p>
-					<p>
-						<strong>Siège social :</strong> Adresse à compléter
-					</p>
-					<p>
-						<strong>Directeur de publication :</strong> Solybat
-					</p>
 
-					<h3 class="font-bold text-gray-900">2. Hébergement</h3>
-					<p>
-						Le site est hébergé par [NOM HÉBERGEUR ex: Vercel Inc.],
-						[ADRESSE HÉBERGEUR].
-					</p>
+  <section id="services" class="section">
+    <div class="wrap">
+      <div class="section-head center">
+        <h2>Services Solybat</h2>
+        <p>Les services sont présentés séparément pour que chaque demande trouve rapidement la bonne réponse.</p>
+      </div>
+      <div class="grid-3">
+        <a class="card service-card" href="/serrurier/lyon/">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+          <h3>Serrurier</h3>
+          <p>Ouverture de porte, serrure bloquée, cylindre à remplacer et sécurisation après effraction.</p>
+          <span class="go">Voir un exemple à Lyon <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </a>
+        
 
-					<h3 class="font-bold text-gray-900">
-						3. Propriété intellectuelle
-					</h3>
-					<p>
-						L'ensemble de ce site relève de la législation française
-						et internationale sur le droit d'auteur et la propriété
-						intellectuelle. Toute reproduction est interdite sans
-						autorisation.
-					</p>
-				</div>
-			</div>
-		</div>
+        <a class="card service-card" href="/plombier/lyon/">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Plombier</h3>
+          <p>Fuite d&#x27;eau, WC bouchés, robinetterie, chauffe-eau et dépannage sanitaire urgent.</p>
+          <span class="go">Voir un exemple à Lyon <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </a>
+        
 
-		<div
-			id="modal-privacy"
-			class="modal fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-75 hidden opacity-0 pointer-events-none transition-opacity duration-300">
-			<div
-				class="bg-white rounded-lg w-11/12 md:w-1/2 max-h-[80vh] overflow-y-auto p-8 shadow-2xl relative">
-				<button
-					onclick="toggleModal('modal-privacy')"
-					class="absolute top-4 right-4 text-gray-400 hover:text-black transition">
-					<svg
-						class="w-8 h-8"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"></path>
-					</svg>
-				</button>
-				<h2 class="text-2xl font-bold text-gray-900 mb-4">
-					Politique de Confidentialité (RGPD)
-				</h2>
-				<div class="text-sm text-gray-600 space-y-4">
-					<p>
-						Les informations recueillies sur le formulaire de
-						contact sont enregistrées dans un fichier informatisé
-						par Solybat pour la gestion de notre
-						clientèle.
-					</p>
-					<p>
-						Elles sont conservées pendant 3 ans et sont destinées au
-						service commercial établi en France.
-					</p>
-					<p>
-						Conformément à la loi « informatique et libertés », vous
-						pouvez exercer votre droit d'accès aux données vous
-						concernant et les faire rectifier en contactant :
-						contact@solybat.fr.
-					</p>
-				</div>
-			</div>
-		</div>
+        <a class="card service-card" href="/degorgement/lyon/">
+          <div class="ico"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v6a4 4 0 0 0 4 4h4"/><path d="M20 20v-6a4 4 0 0 0-4-4h-4"/><path d="M2 4h4"/><path d="M18 20h4"/></svg></div>
+          <h3>Dégorgement</h3>
+          <p>Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées.</p>
+          <span class="go">Voir un exemple à Lyon <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+        </a>
+        </div>
+    </div>
+  </section>
 
-		<script>
-			// Gestion du Menu Mobile
-			const btn = document.getElementById('mobile-menu-btn');
-			const menu = document.getElementById('mobile-menu');
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Villes couvertes en priorité</h2>
+        <p>Les grandes zones ci-dessous concentrent les demandes les plus urgentes et les volumes d'intervention les plus importants.</p>
+      </div>
+      <div class="pill-row"><a class="pill priority-1" href="/serrurier/geneve/">Genève</a>
+<a class="pill priority-1" href="/serrurier/lyon/">Lyon</a>
+<a class="pill priority-1" href="/serrurier/villeurbanne/">Villeurbanne</a>
+<a class="pill priority-1" href="/serrurier/annecy/">Annecy</a>
+<a class="pill priority-1" href="/serrurier/annemasse/">Annemasse</a>
+<a class="pill priority-1" href="/serrurier/chambery/">Chambéry</a>
+<a class="pill priority-1" href="/serrurier/grenoble/">Grenoble</a>
+<a class="pill priority-1" href="/serrurier/saint-etienne/">Saint-Étienne</a>
+<a class="pill priority-1" href="/serrurier/valence/">Valence</a>
+<a class="pill priority-1" href="/serrurier/marseille/">Marseille</a>
+<a class="pill priority-1" href="/serrurier/aix-en-provence/">Aix-en-Provence</a>
+<a class="pill priority-1" href="/serrurier/toulon/">Toulon</a>
+<a class="pill priority-1" href="/serrurier/nice/">Nice</a>
+<a class="pill priority-1" href="/serrurier/cannes/">Cannes</a>
+<a class="pill priority-1" href="/serrurier/antibes/">Antibes</a>
+<a class="pill priority-1" href="/serrurier/avignon/">Avignon</a></div>
+    </div>
+  </section>
 
-			btn.addEventListener('click', () => {
-				menu.classList.toggle('hidden');
-			});
 
-			// Fermer le menu mobile quand on clique sur un lien
-			document.querySelectorAll('#mobile-menu a').forEach((link) => {
-				link.addEventListener('click', () => {
-					menu.classList.add('hidden');
-				});
-			});
+  <section id="avis" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Retours clients</span>
+        <h2>Ce que disent les clients</h2>
+        <p>Exemples représentatifs des retours reçus après une intervention. Les avis vérifiés sont collectés après chaque dépannage réussi.</p>
+      </div>
+      <div class="grid-3">
+        <figure class="review-card">
+          <div class="stars" aria-label="Avis client"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg></div>
+          <blockquote><p>« Porte claquée un soir avec les enfants à l&#x27;intérieur. Serrurier arrivé rapidement, porte ouverte sans rien abîmer et prix confirmé avant de commencer. »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">F</span>
+            <span><b>Famille · particulier</b><span>Intervention Solybat</span></span>
+          </figcaption>
+        </figure>
 
-			// Gestion des Modales
-			function toggleModal(modalID) {
-				const modal = document.getElementById(modalID);
-				const body = document.body;
+        <figure class="review-card">
+          <div class="stars" aria-label="Avis client"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg></div>
+          <blockquote><p>« Serrure forcée pendant une absence : mise en sécurité le jour même et explications claires sur le cylindre à remplacer. »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">P</span>
+            <span><b>Propriétaire · appartement</b><span>Intervention Solybat</span></span>
+          </figcaption>
+        </figure>
 
-				if (modal.classList.contains('hidden')) {
-					// Ouvrir
-					modal.classList.remove('hidden');
-					setTimeout(() => {
-						modal.classList.remove(
-							'opacity-0',
-							'pointer-events-none',
-						);
-					}, 10);
-					body.classList.add('modal-active');
-				} else {
-					// Fermer
-					modal.classList.add('opacity-0', 'pointer-events-none');
-					setTimeout(() => {
-						modal.classList.add('hidden');
-					}, 300);
-					body.classList.remove('modal-active');
-				}
-			}
+        <figure class="review-card">
+          <div class="stars" aria-label="Avis client"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg></div>
+          <blockquote><p>« Devis annoncé au téléphone respecté à l&#x27;euro près. Aucun travail commencé sans mon accord, c&#x27;est rassurant. »</p></blockquote>
+          <figcaption class="review-meta">
+            <span class="review-avatar" aria-hidden="true">G</span>
+            <span><b>Gérant · commerce</b><span>Intervention Solybat</span></span>
+          </figcaption>
+        </figure></div>
+    </div>
+  </section>
 
-			// Fermer la modale si on clique en dehors
-			window.onclick = function (event) {
-				if (event.target.classList.contains('modal')) {
-					toggleModal(event.target.id);
-				}
-			};
 
-			// Gestion du bandeau Cookies (RGPD)
-			const cookieBanner = document.getElementById('cookie-banner');
-			const acceptBtn = document.getElementById('accept-cookies');
-			const closeBtn = document.getElementById('close-cookies');
 
-			// Vérifier si l'utilisateur a déjà accepté
-			if (!localStorage.getItem('cookiesAccepted')) {
-				setTimeout(() => {
-					cookieBanner.classList.add('show');
-				}, 1000); // Petit délai pour ne pas agresser tout de suite
-			}
+  <section id="faq" class="section alt faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Questions fréquentes</span>
+        <h2>Questions fréquentes</h2>
+      </div>
+      <div class="grid-2"><details><summary>Quels services proposez-vous ?</summary><p>Serrurerie (ouverture de porte, serrure, cylindre), plomberie (fuite, sanitaire, chauffe-eau) et dégorgement de canalisation, y compris camion pompe selon le besoin.</p></details>
+<details><summary>Intervenez-vous 24h/24 et 7j/7 ?</summary><p>Oui, les demandes urgentes sont prises en compte de jour comme de nuit. Selon la disponibilité d&#x27;une équipe proche, un délai vous est annoncé dès l&#x27;appel.</p></details>
+<details><summary>Le prix est-il annoncé avant l&#x27;intervention ?</summary><p>Oui. Le tarif dépend de l&#x27;accès, de l&#x27;horaire, du matériel et de la complexité ; il est confirmé avant le début des travaux.</p></details>
+<details><summary>Quel numéro dois-je utiliser ?</summary><p>Un numéro local cohérent avec la zone : +41 pour Genève, 04 pour les zones France couvertes.</p></details></div>
+    </div>
+  </section>
 
-			acceptBtn.addEventListener('click', () => {
-				localStorage.setItem('cookiesAccepted', 'true');
-				cookieBanner.classList.remove('show');
-			});
 
-			closeBtn.addEventListener('click', () => {
-				// On ferme juste pour cette session sans enregistrer le consentement
-				cookieBanner.classList.remove('show');
-			});
-		</script>
 
-		<!-- WIDGET WHATSAPP PERSONNALISÉ -->
-		<!-- Remplace le numéro temporaire par le vrai numéro WhatsApp Solybat (format international sans le +) -->
-		<!-- Tu peux aussi changer le texte pré-rempli après 'text=' -->
-		<a
-			href="https://wa.me/33600000000?text=Bonjour,%20Solybat,%20j'ai%20une%20urgence"
-			target="_blank"
-			class="fixed bottom-6 right-6 z-[90] flex items-center justify-center w-16 h-16 bg-brand-whatsapp rounded-full shadow-2xl whatsapp-pulse hover:scale-110 transition-transform duration-300 group">
-			<!-- Icone WhatsApp -->
-			<svg
-				class="w-9 h-9 text-white"
-				fill="currentColor"
-				viewBox="0 0 24 24"
-				aria-hidden="true">
-				<path
-					d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487 2.193.945 2.636.758 3.111.71.97-.099 2.146-.877 2.449-1.723.303-.847.303-1.572.212-1.723z" />
-			</svg>
+  <section id="rappel" class="section alt">
+    <div class="wrap grid-2 cb-grid">
+      <div>
+        <span class="eyebrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Rappel gratuit</span>
+        <h2>Être rappelé rapidement</h2>
+        <p class="lead">Décrivez votre situation en deux lignes. On vous rappelle pour confirmer le créneau et le prix avant tout déplacement — sans engagement.</p>
+        <ul class="check-list" style="margin-top:18px">
+          <li>Réponse rapide, 7j/7</li>
+          <li>Devis annoncé avant intervention</li>
+          <li>Vos informations servent uniquement à vous rappeler</li>
+        </ul>
+        <div class="cta-sub" style="color:var(--ink-soft);margin-top:18px"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Urgence immédiate ? <a href="tel:+33400000000" class="js-call-track" style="color:var(--accent);font-weight:800">Appelez le 04 00 00 00 00</a></div>
+      </div>
+      <form class="cb-form js-callback" data-city="" data-service="une intervention" novalidate>
+        <div class="cb-field">
+          <label for="rappel-une-intervention-name">Votre prénom</label>
+          <input id="rappel-une-intervention-name" name="name" type="text" autocomplete="given-name" placeholder="Prénom" required>
+        </div>
+        <div class="cb-field">
+          <label for="rappel-une-intervention-phone">Votre téléphone</label>
+          <input id="rappel-une-intervention-phone" name="phone" type="tel" autocomplete="tel" placeholder="06 00 00 00 00" required>
+        </div>
+        <div class="cb-field">
+          <label for="rappel-une-intervention-need">Votre besoin</label>
+          <textarea id="rappel-une-intervention-need" name="need" rows="3" placeholder="Votre ville + nature du problème en quelques mots"></textarea>
+        </div>
+        <button type="submit" class="call-btn cb-submit"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Demander un rappel</button>
+        <p class="cb-hint">Le bouton ouvre WhatsApp avec votre message pré-rempli. Aucune donnée n'est stockée sur ce site.</p>
+      </form>
+    </div>
+  </section>
 
-			<!-- Bulle d'info au survol (Toolip) -->
-			<span
-				class="absolute right-full mr-4 bg-gray-900 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-				Parler à l'assistant IA
-			</span>
+</main>
 
-			<!-- Notification "1" (badge rouge) -->
-			<span class="absolute -top-1 -right-1 flex h-5 w-5">
-				<span
-					class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-				<span
-					class="relative inline-flex rounded-full h-5 w-5 bg-red-600 border-2 border-white text-[10px] text-white font-bold items-center justify-center"
-					>1</span
-				>
-			</span>
-		</a>
-	</body>
+<footer id="contact" class="footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">S</span><span>Solybat</span></a>
+      <p style="margin-top:4px;max-width:42ch">Serrurerie, plomberie et dégorgement en urgence, avec qualification de la demande au téléphone et devis annoncé avant toute intervention.</p>
+      <div style="margin-top:10px;color:#8d8576">Adresse Solybat à compléter</div>
+    </div>
+    <div>
+      <strong>Contact direct</strong>
+      <div class="footer-links">
+        <a href="tel:+33400000000">04 00 00 00 00</a>
+        <a href="mailto:contact@solybat.fr">contact@solybat.fr</a>
+        <a href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div style="margin-top:16px">
+      <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler 04 00 00 00 00</a>
+      </div>
+    </div>
+    <div>
+      <strong>Informations</strong>
+      <div class="footer-links">
+        <a href="/zones/">Villes desservies</a>
+        <a href="/mentions-legales/">Mentions légales</a>
+        <a href="/confidentialite/">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    © 2026 Solybat — Interventions serrurerie, plomberie et dégorgement en France et dans le canton de Genève. Tarifs indicatifs confirmés avant intervention.
+  </div>
+</footer>
+<div class="mobile-bar">
+  <a class="wa-btn" href="https://wa.me/33600000000?text=Bonjour%20Solybat,%20j%27ai%20besoin%20d%27une%20intervention" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.736-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp</a>
+  <a class="call-btn js-call-track" href="tel:+33400000000"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler</a>
+</div>
+<script>
+document.querySelectorAll('.js-call-track').forEach(function(link) {
+  link.addEventListener('click', function() {
+    if (window.gtag) {
+      window.gtag('event', 'phone_call_click', {
+        event_category: 'lead',
+        event_label: window.location.pathname
+      });
+    }
+  });
+});
+(function() {
+  var WA = "33600000000";
+  document.querySelectorAll('.js-callback').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = form.querySelector('[name=name]');
+      var phone = form.querySelector('[name=phone]');
+      var need = form.querySelector('[name=need]');
+      var ok = true;
+      [name, phone].forEach(function(f) {
+        if (!f.value.trim()) { f.classList.add('cb-invalid'); ok = false; }
+        else { f.classList.remove('cb-invalid'); }
+      });
+      if (!ok) { (name.value.trim() ? phone : name).focus(); return; }
+      var city = form.getAttribute('data-city') || '';
+      var service = form.getAttribute('data-service') || 'intervention';
+      var msg = "Bonjour, je suis " + name.value.trim() + " (" + phone.value.trim() + ")."
+        + " Demande de rappel pour " + service + (city ? " à " + city : "") + "."
+        + (need.value.trim() ? " Détail : " + need.value.trim() : "");
+      if (window.gtag) {
+        window.gtag('event', 'callback_request', { event_category: 'lead', event_label: service + ' - ' + city });
+      }
+      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    });
+  });
+})();
+</script>
+
+
+</body>
 </html>

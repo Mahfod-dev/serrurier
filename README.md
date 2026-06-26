@@ -2,12 +2,11 @@
 
 Ce dossier contient un site statique généré pour la stratégie Google Ads et SEO local.
 
-- L'accueil `index.html` existant est conservé.
+- `index.html` est l'accueil du site multi-services.
 - 129 villes issues du document Word.
-- 3 métiers : serrurerie, plomberie et dégorgement.
+- Services inclus : serrurerie, plomberie et dégorgement.
 - 129 pages hubs villes (`/lyon/`, `/geneve/`, etc.).
 - 387 pages locales.
-- Une page d'entrée technique : `campagnes-locales/index.html`.
 - `sitemap.xml` et `robots.txt`.
 - Pages légales : `/mentions-legales/` et `/confidentialite/`.
 - Fichiers d'exploitation Google Ads et SEO local générés dans `.`.
