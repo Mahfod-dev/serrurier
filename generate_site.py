@@ -18,34 +18,85 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 GENERATED_DATE = date.today().isoformat()
 
+# Identité juridique, commune aux deux marques : une seule société édite les
+# deux sites, donc les mentions légales portent la même raison sociale et le
+# nom commercial change seulement à l'affichage.
 BUSINESS = {
-    "name": os.environ.get("SOLYBAT_NAME", "Solybat"),
-    "site_url": os.environ.get("SOLYBAT_SITE_URL", "https://www.solybat.fr"),
-    "email": os.environ.get("SOLYBAT_EMAIL", "contact@solybat.fr"),
-    "legal_name": os.environ.get("SOLYBAT_LEGAL_NAME", "Solybat"),
-    "legal_form": os.environ.get("SOLYBAT_LEGAL_FORM", "Entreprise à compléter"),
-    "siret": os.environ.get("SOLYBAT_SIRET", "SIRET à compléter"),
-    "vat": os.environ.get("SOLYBAT_VAT", "TVA à compléter si applicable"),
-    "director": os.environ.get("SOLYBAT_DIRECTOR", "Responsable de publication à compléter"),
-    "address": os.environ.get("SOLYBAT_ADDRESS", "Adresse Solybat à compléter"),
-    "fr_phone_display": os.environ.get("SOLYBAT_FR_PHONE_DISPLAY", "04 00 00 00 00"),
-    "fr_phone_href": os.environ.get("SOLYBAT_FR_PHONE_HREF", "+33400000000"),
-    "ch_phone_display": os.environ.get("SOLYBAT_CH_PHONE_DISPLAY", "+41 22 000 00 00"),
-    "ch_phone_href": os.environ.get("SOLYBAT_CH_PHONE_HREF", "+41220000000"),
-    "whatsapp": os.environ.get("SOLYBAT_WHATSAPP", "33600000000"),
-    "host_name": os.environ.get("SOLYBAT_HOST_NAME", "Vercel Inc."),
-    "host_address": os.environ.get("SOLYBAT_HOST_ADDRESS", "440 N Barranca Ave #4133, Covina, CA 91723, United States"),
+    # Source : base Sirene / API recherche-entreprises (SIREN 893 610 758).
+    # Entreprise individuelle : la dénomination légale est le nom du dirigeant,
+    # A2H Plomberie étant le nom commercial enregistré.
+    "legal_name": os.environ.get("SITE_LEGAL_NAME", "Abderrahim Hemani (A2H Plomberie)"),
+    "legal_form": os.environ.get("SITE_LEGAL_FORM", "Entrepreneur individuel"),
+    "siret": os.environ.get("SITE_SIRET", "893 610 758 00011"),
+    "vat": os.environ.get("SITE_VAT", "FR24893610758"),
+    "director": os.environ.get("SITE_DIRECTOR", "Abderrahim Hemani"),
+    "address": os.environ.get("SITE_ADDRESS", "2 avenue Pierre Brossolette, 69500 Bron"),
+    "host_name": os.environ.get("SITE_HOST_NAME", "Vercel Inc."),
+    "host_address": os.environ.get("SITE_HOST_ADDRESS", "440 N Barranca Ave #4133, Covina, CA 91723, United States"),
 }
 
+
+# Ligne unique de l'entreprise, partagée par les deux marques tant qu'un second
+# numéro n'est pas ouvert. Les pages du canton de Genève retombent sur ce même
+# numéro affiché au format international : mieux vaut un numéro français
+# réellement joignable qu'une ligne suisse qui n'existe pas.
+DEFAULT_FR_PHONE_DISPLAY = "07 85 04 02 48"
+DEFAULT_FR_PHONE_HREF = "+33785040248"
+DEFAULT_PHONE_INTL_DISPLAY = "+33 7 85 04 02 48"
+
+
+def _brand(prefix: str, name: str, domain: str) -> dict:
+    """Une marque = un nom, un domaine, ses coordonnées et son tracking.
+
+    Les coordonnées retombent sur les variables communes SITE_* quand la marque
+    n'a pas ses propres valeurs. Un numéro par marque reste préférable : il
+    rend le suivi d'appel Google Ads attribuable au bon site.
+    """
+
+    def get(suffix: str, fallback: str) -> str:
+        return os.environ.get(f"{prefix}_{suffix}", os.environ.get(f"SITE_{suffix}", fallback))
+
+    return {
+        "name": os.environ.get(f"{prefix}_NAME", name),
+        "site_url": os.environ.get(f"{prefix}_SITE_URL", f"https://www.{domain}"),
+        "email": os.environ.get(f"{prefix}_EMAIL", f"contact@{domain}"),
+        "fr_phone_display": get("FR_PHONE_DISPLAY", DEFAULT_FR_PHONE_DISPLAY),
+        "fr_phone_href": get("FR_PHONE_HREF", DEFAULT_FR_PHONE_HREF),
+        "ch_phone_display": get("CH_PHONE_DISPLAY", DEFAULT_PHONE_INTL_DISPLAY),
+        "ch_phone_href": get("CH_PHONE_HREF", DEFAULT_FR_PHONE_HREF),
+        "whatsapp": get("WHATSAPP", DEFAULT_FR_PHONE_HREF.lstrip("+")),
+        "ga_id": get("GA_ID", ""),
+        "ads_id": get("ADS_ID", ""),
+        "ads_call_label": get("ADS_CALL_LABEL", ""),
+    }
+
+
+# Une marque par site. "full" est le build multi-services historique, conservé
+# tant que son sort n'est pas tranché ; il n'est plus la cible de production.
+BRANDS = {
+    "serrurier": _brand("SERRURIER", "Serrio", "serrio.fr"),
+    "plombier": _brand("PLOMBIER", "Plombio", "plombio.fr"),
+    "full": _brand("FULL", "Solybat", "solybat.fr"),
+}
+
+# Marque active pendant le rendu, positionnée par apply_brand() à chaque build.
+BRAND = dict(BRANDS["full"])
+
+
+def apply_brand(build: "BuildConfig") -> None:
+    BRAND.clear()
+    BRAND.update(BRANDS[build.key])
+    BRAND["site_url"] = build.site_url
+
 # Bandeau d'urgence affiché tout en haut de chaque page.
-# SOLYBAT_URGENCY_TEXT permet de personnaliser le message.
+# SITE_URGENCY_TEXT permet de personnaliser le message.
 # ATTENTION : ne promettez un délai chiffré (ex. "intervention en moins de
 # 30 min") que s'il est réellement tenable sur la zone. La checklist SEO du
 # projet interdit les délais garantis impossibles à tenir. Par défaut, on
 # affiche une formulation défendable. Pour activer un délai strict :
-#   SOLYBAT_URGENCY_TEXT="Intervention en moins de 30 min sur les zones proches"
+#   SITE_URGENCY_TEXT="Intervention en moins de 30 min sur les zones proches"
 URGENCY_BANNER = os.environ.get(
-    "SOLYBAT_URGENCY_TEXT",
+    "SITE_URGENCY_TEXT",
     "Urgence en cours ? Un artisan proche vous rappelle en quelques minutes, 24h/24.",
 )
 
@@ -53,7 +104,7 @@ URGENCY_BANNER = os.environ.get(
 # photos d'intervention (véhicule, matériel, chantier sans visage ni adresse
 # visible). Tant que ce sont des illustrations, la légende le précise pour ne
 # pas présenter des photos tierces comme vos propres chantiers.
-PROOF_ILLUSTRATIVE = os.environ.get("SOLYBAT_PROOF_REAL", "") != "1"
+PROOF_ILLUSTRATIVE = os.environ.get("SITE_PROOF_REAL", "") != "1"
 PROOF_IMAGES = {
     "serrurier": [
         ("https://images.unsplash.com/photo-1622372738946-62e02505feb3?q=80&w=900&auto=format&fit=crop", "Ouverture et changement de cylindre"),
@@ -140,7 +191,7 @@ SERVICES = {
         "schema_type": "Locksmith",
         "headline": "Serrurier à {city} - urgence 24/7",
         "short": "Ouverture de porte, serrure bloquée, cylindre à remplacer et sécurisation après effraction.",
-        "hero": "Porte claquée, clé perdue ou serrure forcée : Solybat intervient rapidement à {city}.",
+        "hero": "Porte claquée, clé perdue ou serrure forcée : {brand} intervient rapidement à {city}.",
         "image": "https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop",
         "accent": "#dd4f1e",
         "secondary": "#1f4e89",
@@ -188,7 +239,7 @@ SERVICES = {
         "schema_type": "Plumber",
         "headline": "Plombier à {city} - dépannage rapide",
         "short": "Fuite d'eau, WC bouchés, robinetterie, chauffe-eau et dépannage sanitaire urgent.",
-        "hero": "Fuite, dégât des eaux ou panne sanitaire : Solybat envoie un plombier à {city}.",
+        "hero": "Fuite, dégât des eaux ou panne sanitaire : {brand} envoie un plombier à {city}.",
         "image": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?q=80&w=1800&auto=format&fit=crop",
         "accent": "#0e6ba8",
         "secondary": "#dd4f1e",
@@ -232,7 +283,7 @@ SERVICES = {
         "schema_type": "Plumber",
         "headline": "Dégorgement canalisation à {city}",
         "short": "Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées.",
-        "hero": "Canalisation bouchée, regard plein ou besoin de camion pompe : Solybat intervient à {city}.",
+        "hero": "Canalisation bouchée, regard plein ou besoin de camion pompe : {brand} intervient à {city}.",
         "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=1800&auto=format&fit=crop",
         "accent": "#0e7c8f",
         "secondary": "#dd4f1e",
@@ -864,7 +915,7 @@ SERVICE_LOCAL_CASES = {
 # Vide par défaut : aucun exemple n'est inventé (règle d'honnêteté du projet).
 # Le client remplit le modèle `ops/<site>/seo/real-cases-template.csv` généré à
 # chaque build, puis on régénère en pointant le fichier rempli :
-#   SOLYBAT_CASES_FILE=/chemin/real-cases.csv python3 generate_site.py --target split
+#   SITE_CASES_FILE=/chemin/real-cases.csv python3 generate_site.py --target split
 # Colonnes attendues : city_slug, service, situation, secteur, solution, delai
 # Structure résultante : { city_slug: { service_key: [ {situation, secteur, solution, delai}, ... ] } }
 # La section « Exemples d'interventions » ne s'affiche que pour les villes/métiers
@@ -879,12 +930,12 @@ def _register_case(slug: str, service_key: str, case: dict[str, str]) -> None:
 
 
 def load_real_cases() -> None:
-    """Charge les cas réels depuis le CSV désigné par SOLYBAT_CASES_FILE.
+    """Charge les cas réels depuis le CSV désigné par SITE_CASES_FILE.
 
     Sans variable d'environnement ou sans fichier, on ne fait rien : la section
     reste simplement masquée. On tolère la clé métier (`serrurier`) comme le
     libellé (`Serrurier`) dans la colonne `service`."""
-    path_value = os.environ.get("SOLYBAT_CASES_FILE", "").strip()
+    path_value = os.environ.get("SITE_CASES_FILE", "").strip()
     if not path_value:
         return
     path = Path(path_value)
@@ -1105,10 +1156,6 @@ class BuildConfig:
     include_city_hubs: bool
 
 
-SPLIT_DOMAIN_DEFAULTS = {
-    "serrurier": "https://serrurier.solybat.fr",
-    "plombier": "https://plombier.solybat.fr",
-}
 
 
 def strip_accents(value: str) -> str:
@@ -1184,8 +1231,8 @@ def load_cities() -> list[City]:
 
 def phone_for(city: City) -> tuple[str, str]:
     if city.country == "CH":
-        return BUSINESS["ch_phone_display"], BUSINESS["ch_phone_href"]
-    return BUSINESS["fr_phone_display"], BUSINESS["fr_phone_href"]
+        return BRAND["ch_phone_display"], BRAND["ch_phone_href"]
+    return BRAND["fr_phone_display"], BRAND["fr_phone_href"]
 
 
 def page_url(path: str, build: BuildConfig) -> str:
@@ -1727,6 +1774,27 @@ def clamp_meta(text: str, limit: int = 158) -> str:
     return cut + "…"
 
 
+def analytics_tag() -> str:
+    """Balise gtag.js de la marque courante (GA4 et/ou Google Ads).
+
+    Rien n'est injecté tant que les identifiants ne sont pas renseignés : un
+    site sans tag reste valide, alors qu'un tag avec un faux ID pollue les
+    statistiques et les conversions.
+    """
+    ids = [value for value in (BRAND["ga_id"], BRAND["ads_id"]) if value]
+    if not ids:
+        return ""
+    configs = "\n".join(f"  gtag('config', '{esc(value)}');" for value in ids)
+    return f"""
+  <script async src="https://www.googletagmanager.com/gtag/js?id={esc(ids[0])}"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+{configs}
+  </script>"""
+
+
 def layout(title: str, description: str, path: str, body: str, schema: dict, build: BuildConfig) -> str:
     canonical = page_url(path, build)
     description = clamp_meta(description)
@@ -1758,7 +1826,7 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="{locale}">
-  <meta property="og:site_name" content="{esc(BUSINESS["name"])}">
+  <meta property="og:site_name" content="{esc(BRAND["name"])}">
   <meta property="og:title" content="{esc(title)}">
   <meta property="og:description" content="{esc(description)}">
   <meta property="og:url" content="{esc(canonical)}">
@@ -1767,7 +1835,7 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
   <meta name="twitter:title" content="{esc(title)}">
   <meta name="twitter:description" content="{esc(description)}">
   <style>{css(build)}</style>
-  <script type="application/ld+json">{schema_json}</script>
+  <script type="application/ld+json">{schema_json}</script>{analytics_tag()}
 </head>
 <body>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -1797,7 +1865,7 @@ def icon(name: str) -> str:
 
 
 def whatsapp_link() -> str:
-    return f'https://wa.me/{esc(BUSINESS["whatsapp"])}?text=Bonjour%20{esc(BUSINESS["name"])},%20j%27ai%20besoin%20d%27une%20intervention'
+    return f'https://wa.me/{esc(BRAND["whatsapp"])}?text=Bonjour%20{esc(BRAND["name"])},%20j%27ai%20besoin%20d%27une%20intervention'
 
 
 def header(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
@@ -1813,7 +1881,7 @@ def header(current_phone_display: str, current_phone_href: str, build: BuildConf
 </div>
 <div class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="/"><span class="brand-mark">S</span><span>{esc(BUSINESS["name"])}<small>Urgence 24h/24 · 7j/7</small></span></a>
+    <a class="brand" href="/"><span class="brand-mark">{esc(BRAND["name"][:1])}</span><span>{esc(BRAND["name"])}<small>Urgence 24h/24 · 7j/7</small></span></a>
     <div class="top-actions">
       <div class="top-phone"><span>Appel direct</span><strong>{esc(current_phone_display)}</strong></div>
       <a class="ghost-btn" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} WhatsApp</a>
@@ -1840,11 +1908,18 @@ def header(current_phone_display: str, current_phone_href: str, build: BuildConf
 
 def footer(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
     scope = service_names(build)
+    # Conversion Google Ads sur le clic téléphone : n'est émise que si l'ID de
+    # conversion et son libellé sont fournis pour cette marque.
+    call_conversion = ""
+    if BRAND["ads_id"] and BRAND["ads_call_label"]:
+        send_to = f'{BRAND["ads_id"]}/{BRAND["ads_call_label"]}'
+        call_conversion = f"""
+      window.gtag('event', 'conversion', {{ send_to: '{esc(send_to)}' }});"""
     return f"""
 <footer id="contact" class="footer">
   <div class="wrap">
     <div>
-      <a class="brand" href="/"><span class="brand-mark">S</span><span>{esc(BUSINESS["name"])}</span></a>
+      <a class="brand" href="/"><span class="brand-mark">{esc(BRAND["name"][:1])}</span><span>{esc(BRAND["name"])}</span></a>
       <p style="margin-top:4px;max-width:42ch">{esc(scope.capitalize())} en urgence, avec qualification de la demande au téléphone et devis annoncé avant toute intervention.</p>
       <div style="margin-top:10px;color:#8d8576">{esc(BUSINESS["address"])}</div>
     </div>
@@ -1852,7 +1927,7 @@ def footer(current_phone_display: str, current_phone_href: str, build: BuildConf
       <strong>Contact direct</strong>
       <div class="footer-links">
         <a href="tel:{esc(current_phone_href)}">{esc(current_phone_display)}</a>
-        <a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a>
+        <a href="mailto:{esc(BRAND["email"])}">{esc(BRAND["email"])}</a>
         <a href="{whatsapp_link()}" target="_blank" rel="noopener">WhatsApp</a>
       </div>
       <div style="margin-top:16px">
@@ -1869,7 +1944,7 @@ def footer(current_phone_display: str, current_phone_href: str, build: BuildConf
     </div>
   </div>
   <div class="wrap footer-bottom">
-    © {GENERATED_DATE[:4]} {esc(BUSINESS["name"])} — Interventions {esc(scope)} en France et dans le canton de Genève. Tarifs indicatifs confirmés avant intervention.
+    © {GENERATED_DATE[:4]} {esc(BRAND["name"])} — Interventions {esc(scope)} en France et dans le canton de Genève. Tarifs indicatifs confirmés avant intervention.
   </div>
 </footer>
 <div class="mobile-bar">
@@ -1883,12 +1958,12 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
       window.gtag('event', 'phone_call_click', {{
         event_category: 'lead',
         event_label: window.location.pathname
-      }});
+      }});{call_conversion}
     }}
   }});
 }});
 (function() {{
-  var WA = "{esc(BUSINESS["whatsapp"])}";
+  var WA = "{esc(BRAND["whatsapp"])}";
   document.querySelectorAll('.js-callback').forEach(function(form) {{
     form.addEventListener('submit', function(e) {{
       e.preventDefault();
@@ -1925,8 +2000,8 @@ def local_business_schema(
     service_key: str | None,
     build: BuildConfig,
 ) -> dict:
-    phone_display = BUSINESS["fr_phone_display"]
-    phone_href = BUSINESS["fr_phone_href"]
+    phone_display = BRAND["fr_phone_display"]
+    phone_href = BRAND["fr_phone_href"]
     country = "FR"
     if city:
         phone_display, phone_href = phone_for(city)
@@ -1938,11 +2013,11 @@ def local_business_schema(
             {
                 "@type": service["schema_type"],
                 "@id": f"{page_url(path, build)}#business",
-                "name": BUSINESS["name"],
+                "name": BRAND["name"],
                 "image": service.get("image"),
                 "url": page_url(path, build),
                 "telephone": phone_display,
-                "email": BUSINESS["email"],
+                "email": BRAND["email"],
                 "priceRange": "€€",
                 "contactPoint": {
                     "@type": "ContactPoint",
@@ -1969,7 +2044,7 @@ def local_business_schema(
                 "url": page_url(path, build),
                 "name": title,
                 "description": description,
-                "isPartOf": {"@type": "WebSite", "name": BUSINESS["name"], "url": build.site_url},
+                "isPartOf": {"@type": "WebSite", "name": BRAND["name"], "url": build.site_url},
             },
             {
                 "@type": "BreadcrumbList",
@@ -2325,7 +2400,7 @@ def detail_section(city: City, service: dict[str, object], service_key: str) -> 
     plural = str(service["plural"])
     intro = pick(city.slug, SERVICE_INTRO_VARIANTS.get(service_key, [""]), "intro")
     local_lead = pick(city.slug, SERVICE_LOCAL_LEAD, "lead").format(
-        name=BUSINESS["name"], city=city.name, label=label, zone=city.zone, region=city.region
+        name=BRAND["name"], city=city.name, label=label, zone=city.zone, region=city.region
     )
     region_display = re.sub(r"\s*\([^)]*\)\s*$", "", city.region)
     icons = {"serrurier": "key", "plombier": "drop", "degorgement": "pipe"}
@@ -2505,15 +2580,15 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     service = SERVICES[service_key]
     phone_display, phone_href = phone_for(city)
     path = service_path(city, service_key, build)
-    title = service_title(str(service["label"]), city.name, BUSINESS["name"])
-    description = f"{service['label']} à {city.name} en urgence 24h/24 : {BUSINESS['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
+    title = service_title(str(service["label"]), city.name, BRAND["name"])
+    description = f"{service['label']} à {city.name} en urgence 24h/24 : {BRAND['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     benefits = "\n".join(f"<li>{esc(item)}</li>" for item in reorder(city.slug, service["benefits"], "benefits"))
     pricing_rows = "\n".join(
         f"<tr><td>{esc(label)}</td><td>{esc(price)}</td></tr>" for label, price in service["pricing"]
     )
     other_services = service_links_for_city(city, build, service_key)
-    hero = service["hero"].format(city=city.name)
+    hero = service["hero"].format(city=city.name, brand=BRAND["name"])
     headline = service["headline"].format(city=city.name)
     local_section = local_enrichment_section(city, service_key, nearby)
     cases_section = local_cases_section(city, service_key)
@@ -2667,8 +2742,8 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
 def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
     phone_display, phone_href = phone_for(city)
     path = city_hub_path(city)
-    title = f"Serrurier & plombier à {city.name} | {BUSINESS['name']}"
-    description = f"Solybat intervient à {city.name} en serrurerie, plomberie et dégorgement. Choisissez le service adapté : urgence serrure, fuite d'eau ou canalisation bouchée."
+    title = f"Serrurier & plombier à {city.name} | {BRAND['name']}"
+    description = f"{BRAND['name']} intervient à {city.name} en serrurerie, plomberie et dégorgement. Choisissez le service adapté : urgence serrure, fuite d'eau ou canalisation bouchée."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     local = local_seo_for(city, nearby)
     sector_pills = " ".join(f'<span class="pill">{esc(area)}</span>' for area in local["micro_areas"])
@@ -2749,8 +2824,8 @@ def city_page(city: City, all_cities: list[City], build: BuildConfig) -> str:
 
 
 def home_page(cities: list[City], build: BuildConfig) -> str:
-    phone_display = BUSINESS["fr_phone_display"]
-    phone_href = BUSINESS["fr_phone_href"]
+    phone_display = BRAND["fr_phone_display"]
+    phone_href = BRAND["fr_phone_href"]
     homepage_path = "/"
     p1 = [c for c in cities if c.priority == 1]
 
@@ -2758,8 +2833,8 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         primary = SERVICES[build.primary_service_key]
         primary_label = str(primary["label"])
         service_scope = service_names(build)
-        title = f"{BUSINESS['name']} | {primary_label} urgence 24/7"
-        description = f"{BUSINESS['name']} intervient en {service_scope} avec des pages locales par ville, appel direct et devis avant intervention."
+        title = f"{BRAND['name']} | {primary_label} urgence 24/7"
+        description = f"{BRAND['name']} intervient en {service_scope} avec des pages locales par ville, appel direct et devis avant intervention."
         domain_scope = "la serrurerie" if build.primary_service_key == "serrurier" else "la plomberie"
         priority_links = "\n".join(
             f'<a class="pill priority-1" href="{service_path(c, build.primary_service_key, build)}">{esc(c.name)}</a>' for c in p1
@@ -2868,7 +2943,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
   <section class="hero" style="--hero-image: url('{esc(primary["image"])}')">
     <div class="hero-grid">
       <div>
-        <span class="live-pill"><span class="live-dot"></span>{esc(BUSINESS["name"])} · urgence locale 24/7</span>
+        <span class="live-pill"><span class="live-dot"></span>{esc(BRAND["name"])} · urgence locale 24/7</span>
         <h1><em>{esc(primary_label)}</em> de confiance, ville par ville</h1>
         <p>Un service dédié à {esc(domain_scope)} pour répondre vite aux demandes urgentes, ville par ville, avec une qualification claire et un prix annoncé avant déplacement.</p>
         <div class="hero-badges">
@@ -2954,8 +3029,8 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         })
         return layout(title, description, homepage_path, body, schema, build)
 
-    title = f"{BUSINESS['name']} | Serrurerie, plomberie et dégorgement"
-    description = "Solybat intervient en serrurerie, plomberie et dégorgement camion pompe avec des pages locales par ville et par métier."
+    title = f"{BRAND['name']} | Serrurerie, plomberie et dégorgement"
+    description = f"{BRAND['name']} intervient en serrurerie, plomberie et dégorgement camion pompe avec des pages locales par ville et par métier."
     priority_links = "\n".join(
         f'<a class="pill priority-1" href="{service_path(c, "serrurier", build)}">{esc(c.name)}</a>' for c in p1
     )
@@ -2979,7 +3054,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
           <blockquote><p>« {esc(text)} »</p></blockquote>
           <figcaption class="review-meta">
             <span class="review-avatar" aria-hidden="true">{esc(who[0])}</span>
-            <span><b>{esc(who)} · {esc(context)}</b><span>Intervention Solybat</span></span>
+            <span><b>{esc(who)} · {esc(context)}</b><span>Intervention {esc(BRAND["name"])}</span></span>
           </figcaption>
         </figure>"""
         for text, who, context in SERVICE_REVIEWS["serrurier"][:3]
@@ -3022,7 +3097,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
       <div>
-        <span class="live-pill"><span class="live-dot"></span>Solybat · urgence locale 24/7</span>
+        <span class="live-pill"><span class="live-dot"></span>{esc(BRAND["name"])} · urgence locale 24/7</span>
         <h1>Serrurier, plombier &amp; <em>dégorgement</em> près de chez vous</h1>
         <p>Un seul point d'entrée pour les urgences locales : ouverture de porte, fuite d'eau, canalisation bouchée et intervention camion pompe selon le besoin.</p>
         <div class="cta-row">
@@ -3048,7 +3123,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
   <section id="services" class="section">
     <div class="wrap">
       <div class="section-head center">
-        <h2>Services Solybat</h2>
+        <h2>Services {esc(BRAND["name"])}</h2>
         <p>Les services sont présentés séparément pour que chaque demande trouve rapidement la bonne réponse.</p>
       </div>
       <div class="grid-3">{cards}</div>
@@ -3086,11 +3161,11 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
 
 
 def zones_page(cities: list[City], build: BuildConfig) -> str:
-    phone_display = BUSINESS["fr_phone_display"]
-    phone_href = BUSINESS["fr_phone_href"]
+    phone_display = BRAND["fr_phone_display"]
+    phone_href = BRAND["fr_phone_href"]
     scope = service_names(build)
-    title = f"Zones d'intervention {build.label} | {BUSINESS['name']}"
-    description = f"Toutes les villes couvertes par Solybat en {scope}, avec accès direct à chaque page locale."
+    title = f"Zones d'intervention {build.label} | {BRAND['name']}"
+    description = f"Toutes les villes couvertes par {BRAND['name']} en {scope}, avec accès direct à chaque page locale."
     sections: list[str] = []
     zones = sorted({(c.region, c.zone) for c in cities})
     for region, zone in zones:
@@ -3148,14 +3223,14 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
 
 
 def legal_page(kind: str, build: BuildConfig) -> str:
-    phone_display = BUSINESS["fr_phone_display"]
-    phone_href = BUSINESS["fr_phone_href"]
+    phone_display = BRAND["fr_phone_display"]
+    phone_href = BRAND["fr_phone_href"]
     schema_key = build.primary_service_key or build.service_keys[0]
     scope = service_names(build)
     if kind == "mentions":
         path = "/mentions-legales/"
-        title = f"Mentions légales | {BUSINESS['name']}"
-        description = f"Mentions légales du site {BUSINESS['name']} dédié aux interventions {scope}."
+        title = f"Mentions légales | {BRAND['name']}"
+        description = f"Mentions légales du site {BRAND['name']} dédié aux interventions {scope}."
         content = f"""
   <section class="section">
     <div class="wrap grid-2">
@@ -3179,7 +3254,7 @@ def legal_page(kind: str, build: BuildConfig) -> str:
     <div class="wrap grid-2">
       <div class="card">
         <h2>Contact</h2>
-        <p>Téléphone : <a href="tel:{esc(phone_href)}">{esc(phone_display)}</a><br>Email : <a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a></p>
+        <p>Téléphone : <a href="tel:{esc(phone_href)}">{esc(phone_display)}</a><br>Email : <a href="mailto:{esc(BRAND["email"])}">{esc(BRAND["email"])}</a></p>
       </div>
       <div class="card">
         <h2>Hébergement</h2>
@@ -3198,8 +3273,8 @@ def legal_page(kind: str, build: BuildConfig) -> str:
 """
     elif kind == "privacy":
         path = "/confidentialite/"
-        title = f"Politique de confidentialité | {BUSINESS['name']}"
-        description = f"Politique de confidentialité du site {BUSINESS['name']} dédié aux interventions {scope}."
+        title = f"Politique de confidentialité | {BRAND['name']}"
+        description = f"Politique de confidentialité du site {BRAND['name']} dédié aux interventions {scope}."
         content = f"""
   <section class="section">
     <div class="wrap grid-2">
@@ -3212,7 +3287,7 @@ def legal_page(kind: str, build: BuildConfig) -> str:
       </div>
       <div class="card">
         <h2>Responsable du traitement</h2>
-        <p>{esc(BUSINESS["legal_name"])}<br>{esc(BUSINESS["address"])}<br><a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a></p>
+        <p>{esc(BUSINESS["legal_name"])}<br>{esc(BUSINESS["address"])}<br><a href="mailto:{esc(BRAND["email"])}">{esc(BRAND["email"])}</a></p>
       </div>
     </div>
   </section>
@@ -3233,7 +3308,7 @@ def legal_page(kind: str, build: BuildConfig) -> str:
       </div>
       <div class="card">
         <h2>Vos droits</h2>
-        <p>Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à <a href="mailto:{esc(BUSINESS["email"])}">{esc(BUSINESS["email"])}</a>.</p>
+        <p>Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à <a href="mailto:{esc(BRAND["email"])}">{esc(BRAND["email"])}</a>.</p>
       </div>
       <div class="card">
         <h2>Mesure d'audience et appels</h2>
@@ -3336,7 +3411,7 @@ def write_ads_files(cities: list[City], build: BuildConfig) -> None:
                     writer.writerow([campaign, ad_group, "Phrase", keyword, f'"{keyword}"', final_url])
 
     with (ads_dir / "campaign-settings.md").open("w", encoding="utf-8") as f:
-        f.write(f"""# Configuration Google Ads Solybat
+        f.write(f"""# Configuration Google Ads {BRAND["name"]}
 
 ## Structure
 
@@ -3368,8 +3443,8 @@ def write_ads_files(cities: list[City], build: BuildConfig) -> None:
 ## A remplacer avant production
 
 - Domaine actuel dans ce build : `{build.site_url}`
-- Numéro France actuel : `{BUSINESS["fr_phone_display"]}`
-- Numéro Genève actuel : `{BUSINESS["ch_phone_display"]}`
+- Numéro France actuel : `{BRAND["fr_phone_display"]}`
+- Numéro Genève actuel : `{BRAND["ch_phone_display"]}`
 """)
 
 
@@ -3410,7 +3485,7 @@ def write_seo_files(cities: list[City], build: BuildConfig) -> None:
 
     # Modèle de collecte des cas d'interventions réels. Le client remplit les
     # colonnes situation / secteur / solution / delai, puis on régénère avec
-    #   SOLYBAT_CASES_FILE=<ce fichier rempli> python3 generate_site.py ...
+    #   SITE_CASES_FILE=<ce fichier rempli> python3 generate_site.py ...
     with (seo_dir / "real-cases-template.csv").open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["city_slug", "service", "situation", "secteur", "solution", "delai"])
@@ -3419,7 +3494,7 @@ def write_seo_files(cities: list[City], build: BuildConfig) -> None:
                 writer.writerow([city.slug, service_key, "", "", "", ""])
 
     with (seo_dir / "content-collection-checklist.md").open("w", encoding="utf-8") as f:
-        f.write("""# Checklist SEO local Solybat
+        f.write(f"""# Checklist SEO local {BRAND["name"]}
 
 Objectif : renforcer progressivement les pages villes sans publier de fausses preuves.
 
@@ -3428,7 +3503,7 @@ Objectif : renforcer progressivement les pages villes sans publier de fausses pr
 - Ajouter 3 à 6 secteurs réels couverts.
 - Ajouter au moins 1 exemple d'intervention réel par métier en remplissant
   `real-cases-template.csv` (colonnes situation / secteur / solution / delai),
-  puis régénérer avec `SOLYBAT_CASES_FILE=<fichier rempli>`.
+  puis régénérer avec `SITE_CASES_FILE=<fichier rempli>`.
 - Ajouter une photo non sensible : véhicule, matériel, chantier sans visage ni adresse visible.
 - Ajouter 1 avis client réel si le client l'a publié ou autorisé.
 - Ajouter un délai moyen réaliste par zone si la donnée est suivie.
@@ -3438,7 +3513,7 @@ Objectif : renforcer progressivement les pages villes sans publier de fausses pr
 
 - Faux avis.
 - Faux chantiers.
-- Photos prises ailleurs sans rapport avec Solybat.
+- Photos prises ailleurs sans rapport avec {BRAND["name"]}.
 - Délais garantis impossibles à tenir.
 - Coordonnées client, plaques, digicodes ou adresses privées.
 """)
@@ -3446,15 +3521,16 @@ Objectif : renforcer progressivement les pages villes sans publier de fausses pr
 
 def production_warnings() -> list[str]:
     checks = {
-        "SOLYBAT_ADDRESS": BUSINESS["address"],
-        "SOLYBAT_FR_PHONE_DISPLAY": BUSINESS["fr_phone_display"],
-        "SOLYBAT_FR_PHONE_HREF": BUSINESS["fr_phone_href"],
-        "SOLYBAT_CH_PHONE_DISPLAY": BUSINESS["ch_phone_display"],
-        "SOLYBAT_CH_PHONE_HREF": BUSINESS["ch_phone_href"],
-        "SOLYBAT_WHATSAPP": BUSINESS["whatsapp"],
-        "SOLYBAT_LEGAL_FORM": BUSINESS["legal_form"],
-        "SOLYBAT_SIRET": BUSINESS["siret"],
-        "SOLYBAT_DIRECTOR": BUSINESS["director"],
+        "SITE_LEGAL_NAME": BUSINESS["legal_name"],
+        "SITE_ADDRESS": BUSINESS["address"],
+        "SITE_FR_PHONE_DISPLAY": BRAND["fr_phone_display"],
+        "SITE_FR_PHONE_HREF": BRAND["fr_phone_href"],
+        "SITE_CH_PHONE_DISPLAY": BRAND["ch_phone_display"],
+        "SITE_CH_PHONE_HREF": BRAND["ch_phone_href"],
+        "SITE_WHATSAPP": BRAND["whatsapp"],
+        "SITE_LEGAL_FORM": BUSINESS["legal_form"],
+        "SITE_SIRET": BUSINESS["siret"],
+        "SITE_DIRECTOR": BUSINESS["director"],
     }
     warning_markers = ("à compléter", "00 00", "+33400000000", "+41220000000", "33600000000", "SIRET")
     warnings: list[str] = []
@@ -3465,24 +3541,36 @@ def production_warnings() -> list[str]:
 
 
 def write_production_checklist(build: BuildConfig) -> None:
+    prefix = build.key.upper()
     warnings = production_warnings()
     warning_lines = "\n".join(f"- {item}" for item in warnings) if warnings else "- Aucun placeholder détecté dans les champs critiques."
+    tracking = []
+    if not BRAND["ga_id"]:
+        tracking.append(f"- `{prefix}_GA_ID` absent : aucune mesure d'audience GA4 sur ce site.")
+    if not BRAND["ads_id"]:
+        tracking.append(f"- `{prefix}_ADS_ID` absent : aucune conversion Google Ads remontée.")
+    elif not BRAND["ads_call_label"]:
+        tracking.append(f"- `{prefix}_ADS_CALL_LABEL` absent : le clic téléphone n'est pas compté comme conversion.")
+    tracking_lines = "\n".join(tracking) if tracking else "- Tag GA4 et conversion d'appel Google Ads configurés."
     write(
         operations_root(build) / "preproduction-checklist.md",
-        f"""# Checklist préproduction - {build.label}
+        f"""# Checklist préproduction - {build.label} ({BRAND["name"]})
 
 ## Données à confirmer
 
 {warning_lines}
 
+## Mesure et conversions
+
+{tracking_lines}
+
 ## Vérifications avant mise en ligne
 
-- Domaine final renseigné dans `SERRURIER_SITE_URL` ou `PLOMBIER_SITE_URL`.
+- Domaine final renseigné dans `{prefix}_SITE_URL` (actuellement {build.site_url}).
 - Numéros d'appel testés depuis mobile.
 - WhatsApp testé avec le numéro final.
 - Mentions légales complétées : forme juridique, SIRET, responsable de publication, adresse.
-- Balises Google Ads / Analytics installées si nécessaires.
-- Conversion de clic téléphone testée avec `.js-call-track`.
+- Conversion de clic téléphone testée en réel (clic `.js-call-track` visible dans Google Ads).
 - Pages `/mentions-legales/`, `/confidentialite/`, `/robots.txt` et `/sitemap.xml` accessibles.
 - Aucun fichier `google-ads/`, `seo/`, `ops/` ou `README.md` dans le dossier public `dist`.
 """,
@@ -3501,7 +3589,7 @@ def write_readme(cities: list[City], build: BuildConfig) -> None:
     readme_path = build.output_root / "README.md" if build.output_root == ROOT else operations_root(build) / "README.md"
     write(
         readme_path,
-        f"""# Site local Solybat - {build.label}
+        f"""# Site local {BRAND["name"]} - {build.label}
 
 Ce dossier contient un site statique généré pour la stratégie Google Ads et SEO local.
 
@@ -3545,7 +3633,7 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
         return BuildConfig(
             key="full",
             label="multi-services",
-            site_url=site_url or os.environ.get("SOLYBAT_SITE_URL", BUSINESS["site_url"]),
+            site_url=site_url or BRANDS["full"]["site_url"],
             output_root=resolved_output,
             service_keys=tuple(SERVICES.keys()),
             primary_service_key=None,
@@ -3555,7 +3643,7 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
         return BuildConfig(
             key="serrurier",
             label="serrurier",
-            site_url=site_url or os.environ.get("SERRURIER_SITE_URL", SPLIT_DOMAIN_DEFAULTS["serrurier"]),
+            site_url=site_url or BRANDS["serrurier"]["site_url"],
             output_root=output_root or ROOT / "dist" / "serrurier",
             service_keys=("serrurier",),
             primary_service_key="serrurier",
@@ -3565,7 +3653,7 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
         return BuildConfig(
             key="plombier",
             label="plombier",
-            site_url=site_url or os.environ.get("PLOMBIER_SITE_URL", SPLIT_DOMAIN_DEFAULTS["plombier"]),
+            site_url=site_url or BRANDS["plombier"]["site_url"],
             output_root=output_root or ROOT / "dist" / "plombier",
             service_keys=("plombier", "degorgement"),
             primary_service_key="plombier",
@@ -3575,6 +3663,7 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
 
 
 def render_build(cities: list[City], build: BuildConfig) -> int:
+    apply_brand(build)
     prepare_output(build)
     write(output_path_for("/", build), home_page(cities, build))
     write(output_path_for("/zones/", build), zones_page(cities, build))
@@ -3599,7 +3688,7 @@ def render_build(cities: list[City], build: BuildConfig) -> int:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate Solybat static pages.")
+    parser = argparse.ArgumentParser(description="Generate static pages for the local-service sites.")
     parser.add_argument(
         "--target",
         choices=("full", "serrurier", "plombier", "split"),
