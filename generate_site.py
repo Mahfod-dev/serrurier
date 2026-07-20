@@ -1774,6 +1774,25 @@ def clamp_meta(text: str, limit: int = 158) -> str:
     return cut + "…"
 
 
+def favicon_svg(build: BuildConfig) -> str:
+    """Favicon de la marque : son initiale sur la couleur du métier.
+
+    Format SVG uniquement, pour rester sans dépendance d'image dans le build.
+    La police est volontairement générique : un favicon est rendu hors du
+    document, les polices du site n'y sont pas disponibles.
+    """
+    primary_key = build.primary_service_key or build.service_keys[0]
+    accent = str(SERVICES[primary_key]["accent"])
+    initial = esc(BRAND["name"][:1].upper())
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="{esc(BRAND["name"])}">
+  <rect width="64" height="64" rx="14" fill="{accent}"/>
+  <text x="32" y="33" text-anchor="middle" dominant-baseline="central"
+        font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700"
+        fill="#ffffff">{initial}</text>
+</svg>
+"""
+
+
 def analytics_tag() -> str:
     """Balise gtag.js de la marque courante (GA4 et/ou Google Ads).
 
@@ -1819,6 +1838,7 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
   <meta name="description" content="{esc(description)}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{esc(canonical)}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#17140f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3675,6 +3695,7 @@ def render_build(cities: list[City], build: BuildConfig) -> int:
         for service_key in build.service_keys:
             write(output_path_for(service_path(city, service_key, build), build), service_page(city, service_key, cities, build))
 
+    write(build.output_root / "favicon.svg", favicon_svg(build))
     write(build.output_root / "sitemap.xml", sitemap(cities, build))
     write(
         build.output_root / "robots.txt",
