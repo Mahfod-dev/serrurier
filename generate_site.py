@@ -1767,6 +1767,8 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
 .cb-submit { width: 100%; min-height: 54px; font-size: 1.05rem; background: #1faf54; box-shadow: 0 14px 30px -12px #1faf54; }
 .cb-submit:hover { transform: translateY(-2px); }
 .cb-hint { margin: 0; font-size: .82rem; color: var(--ink-soft); text-align: center; }
+.cb-status { margin: 0; font-size: .88rem; line-height: 1.5; padding: 12px 14px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 10%, #fff); border: 1px solid color-mix(in srgb, var(--accent) 32%, #fff); color: var(--ink); }
+.cb-status a { color: var(--accent); font-weight: 800; text-decoration: underline; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -2062,6 +2064,9 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
 }});
 (function() {{
   var WA = "{esc(BRAND["whatsapp"])}";
+  var MAIL = "{esc(BRAND["email"])}";
+  var TEL = "{esc(BRAND["fr_phone_href"])}";
+  var TEL_LABEL = "{esc(BRAND["fr_phone_display"])}";
   document.querySelectorAll('.js-callback').forEach(function(form) {{
     form.addEventListener('submit', function(e) {{
       e.preventDefault();
@@ -2082,7 +2087,20 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
       if (window.gtag) {{
         window.gtag('event', 'callback_request', {{ event_category: 'lead', event_label: service + ' - ' + city }});
       }}
-      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      var win = window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      // Sans ce repli, la demande est perdue en silence dès que WhatsApp n'est
+      // pas disponible (ordinateur sans WhatsApp, fenêtre bloquée) ou que le
+      // visiteur ne valide pas l'envoi dans l'application.
+      var status = form.querySelector('.js-cb-status');
+      if (status) {{
+        var subject = 'Demande de rappel' + (service ? ' - ' + service : '') + (city ? ' a ' + city : '');
+        var mail = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
+        status.innerHTML = (win ? 'WhatsApp est ouvert : <strong>appuyez sur Envoyer</strong> pour que la demande nous parvienne.'
+                                : "<strong>WhatsApp n'a pas pu s'ouvrir.</strong>")
+          + ' Autrement, <a href="' + mail + '">envoyez votre demande par e-mail</a>'
+          + ' ou appelez le <a class="js-call-track" href="tel:' + TEL + '">' + TEL_LABEL + '</a>.';
+        status.hidden = false;
+      }}
     }});
   }});
 }})();
@@ -2112,7 +2130,12 @@ def local_business_schema(
                 "@type": service["schema_type"],
                 "@id": f"{page_url(path, build)}#business",
                 "name": BRAND["name"],
-                "image": service.get("image"),
+                # Le champ `image` du business est utilisé par Google comme
+                # photo de l'entreprise. Tant que les visuels sont des
+                # illustrations, on ne le remplit pas : ce serait présenter une
+                # photo tierce comme celle de l'artisan. Renseigné dès que
+                # SITE_PROOF_REAL=1 fournit de vraies photos.
+                **({} if PROOF_ILLUSTRATIVE else {"image": service.get("image")}),
                 "url": page_url(path, build),
                 "telephone": phone_display,
                 "email": BRAND["email"],
@@ -2413,7 +2436,7 @@ def reviews_section(city: City, service: dict[str, object], service_key: str) ->
       <div class="section-head">
         <span class="eyebrow">Retours clients</span>
         <h2>Ce que disent les clients après une intervention {esc(label)}</h2>
-        <p>Exemples représentatifs des retours reçus pour ce type d'intervention. Les avis vérifiés sont collectés après chaque dépannage réussi à {esc(city.name)} et dans le secteur proche.</p>
+        <p>Exemples représentatifs des retours reçus pour ce type d'intervention à {esc(city.name)} et dans le secteur proche.</p>
       </div>
       <div class="grid-3">{cards}</div>
     </div>
@@ -2666,8 +2689,9 @@ def callback_form(city_name: str, service_label: str, phone_display: str, phone_
           <label for="{uid}-need">Votre besoin</label>
           <textarea id="{uid}-need" name="need" rows="3" placeholder="{placeholder}"></textarea>
         </div>
-        <button type="submit" class="call-btn cb-submit">{icon("wa")} Demander un rappel</button>
-        <p class="cb-hint">Le bouton ouvre WhatsApp avec votre message pré-rempli. Aucune donnée n'est stockée sur ce site.</p>
+        <button type="submit" class="call-btn cb-submit">{icon("wa")} Envoyer ma demande sur WhatsApp</button>
+        <p class="cb-status js-cb-status" role="status" hidden></p>
+        <p class="cb-hint">Le bouton ouvre WhatsApp avec votre message pré-rempli, qu'il reste à envoyer. Aucune donnée n'est stockée sur ce site.</p>
       </form>
     </div>
   </section>
@@ -2932,7 +2956,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         primary_label = str(primary["label"])
         service_scope = service_names(build)
         title = f"{BRAND['name']} | {primary_label} urgence 24/7"
-        description = f"{BRAND['name']} intervient en {service_scope} avec des pages locales par ville, appel direct et devis avant intervention."
+        description = f"{BRAND['name']} intervient en {service_scope} 24h/24 et 7j/7 : appel direct, diagnostic au téléphone et devis annoncé avant tout déplacement, ville par ville."
         domain_scope = "la serrurerie" if build.primary_service_key == "serrurier" else "la plomberie"
         priority_links = "\n".join(
             f'<a class="pill priority-1" href="{service_path(c, build.primary_service_key, build)}">{esc(c.name)}</a>' for c in p1
@@ -3008,7 +3032,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
       <div class="section-head">
         <span class="eyebrow">Retours clients</span>
         <h2>Ce que disent les clients</h2>
-        <p>Exemples représentatifs des retours reçus après une intervention. Les avis vérifiés sont collectés après chaque dépannage réussi.</p>
+        <p>Exemples représentatifs des retours reçus après une intervention.</p>
       </div>
       <div class="grid-3">{review_cards}</div>
     </div>
@@ -3165,7 +3189,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
       <div class="section-head">
         <span class="eyebrow">Retours clients</span>
         <h2>Ce que disent les clients</h2>
-        <p>Exemples représentatifs des retours reçus après une intervention. Les avis vérifiés sont collectés après chaque dépannage réussi.</p>
+        <p>Exemples représentatifs des retours reçus après une intervention.</p>
       </div>
       <div class="grid-3">{full_review_cards}</div>
     </div>
@@ -3267,7 +3291,7 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
     phone_href = BRAND["fr_phone_href"]
     scope = service_names(build)
     title = f"Zones d'intervention {build.label} | {BRAND['name']}"
-    description = f"Toutes les villes couvertes par {BRAND['name']} en {scope}, avec accès direct à chaque page locale."
+    description = f"Toutes les villes couvertes par {BRAND['name']} en {scope} : accès direct à chaque page locale, avec appel direct et devis annoncé avant tout déplacement."
     sections: list[str] = []
     zones = sorted({(c.region, c.zone) for c in cities})
     for region, zone in zones:
@@ -3332,7 +3356,7 @@ def legal_page(kind: str, build: BuildConfig) -> str:
     if kind == "mentions":
         path = "/mentions-legales/"
         title = f"Mentions légales | {BRAND['name']}"
-        description = f"Mentions légales du site {BRAND['name']} dédié aux interventions {scope}."
+        description = f"Mentions légales du site {BRAND['name']}, dédié aux interventions {scope} : éditeur, identité de l'entreprise, hébergeur et conditions d'utilisation du site."
         content = f"""
   <section class="section">
     <div class="wrap grid-2">
@@ -3376,7 +3400,7 @@ def legal_page(kind: str, build: BuildConfig) -> str:
     elif kind == "privacy":
         path = "/confidentialite/"
         title = f"Politique de confidentialité | {BRAND['name']}"
-        description = f"Politique de confidentialité du site {BRAND['name']} dédié aux interventions {scope}."
+        description = f"Politique de confidentialité du site {BRAND['name']}, dédié aux interventions {scope} : données collectées lors d'une demande de rappel, durée de conservation et vos droits."
         content = f"""
   <section class="section">
     <div class="wrap grid-2">
