@@ -112,6 +112,12 @@ PROOF_ILLUSTRATIVE = os.environ.get("SITE_PROOF_REAL", "") != "1"
 # vrai domaine, et fige des tarifs qui ne sont pas encore validés par le client.
 # À passer à "0" (ou supprimer la variable) le jour du lancement réel.
 SITE_NOINDEX = os.environ.get("SITE_NOINDEX", "") == "1"
+
+# Le formulaire de rappel doit décrire ce qu'il fait réellement. Quand le SMTP
+# est configuré (voir api/callback.py), la demande part par e-mail et le
+# visiteur n'a rien à valider ; sinon le bouton ouvre WhatsApp et le texte doit
+# le dire. Ces variables sont lues au build par Vercel comme au runtime.
+CALLBACK_SERVER_MAIL = bool(os.environ.get("SMTP_USER", "").strip() and os.environ.get("SMTP_PASSWORD", ""))
 PROOF_IMAGES = {
     "serrurier": [
         ("https://images.unsplash.com/photo-1622372738946-62e02505feb3?q=80&w=900&auto=format&fit=crop", "Ouverture et changement de cylindre"),
@@ -1767,6 +1773,7 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
 .cb-submit { width: 100%; min-height: 54px; font-size: 1.05rem; background: #1faf54; box-shadow: 0 14px 30px -12px #1faf54; }
 .cb-submit:hover { transform: translateY(-2px); }
 .cb-hint { margin: 0; font-size: .82rem; color: var(--ink-soft); text-align: center; }
+.cb-decoy { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .cb-status { margin: 0; font-size: .88rem; line-height: 1.5; padding: 12px 14px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 10%, #fff); border: 1px solid color-mix(in srgb, var(--accent) 32%, #fff); color: var(--ink); }
 .cb-status a { color: var(--accent); font-weight: 800; text-decoration: underline; }
 
@@ -2087,20 +2094,53 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
       if (window.gtag) {{
         window.gtag('event', 'callback_request', {{ event_category: 'lead', event_label: service + ' - ' + city }});
       }}
-      var win = window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
-      // Sans ce repli, la demande est perdue en silence dès que WhatsApp n'est
-      // pas disponible (ordinateur sans WhatsApp, fenêtre bloquée) ou que le
-      // visiteur ne valide pas l'envoi dans l'application.
       var status = form.querySelector('.js-cb-status');
-      if (status) {{
-        var subject = 'Demande de rappel' + (service ? ' - ' + service : '') + (city ? ' a ' + city : '');
-        var mail = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
+      var submit = form.querySelector('[type=submit]');
+      var subject = 'Demande de rappel' + (service ? ' - ' + service : '') + (city ? ' a ' + city : '');
+      var mail = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
+
+      // Repli commun : WhatsApp puis, dans tous les cas, e-mail et téléphone.
+      // Sans lui, la demande est perdue en silence dès que WhatsApp manque
+      // (ordinateur sans WhatsApp, fenêtre bloquée) ou que le visiteur ne
+      // valide pas l'envoi dans l'application.
+      function fallbackWhatsApp() {{
+        var win = window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+        if (!status) return;
         status.innerHTML = (win ? 'WhatsApp est ouvert : <strong>appuyez sur Envoyer</strong> pour que la demande nous parvienne.'
                                 : "<strong>WhatsApp n'a pas pu s'ouvrir.</strong>")
           + ' Autrement, <a href="' + mail + '">envoyez votre demande par e-mail</a>'
           + ' ou appelez le <a class="js-call-track" href="tel:' + TEL + '">' + TEL_LABEL + '</a>.';
         status.hidden = false;
       }}
+
+      // On tente d'abord l'envoi côté serveur : la demande arrive dans la boîte
+      // de contact sans que le visiteur ait à valider quoi que ce soit. Si la
+      // fonction n'est pas configurée (503) ou échoue, on retombe sur WhatsApp.
+      if (!window.fetch) {{ fallbackWhatsApp(); return; }}
+      if (submit) {{ submit.disabled = true; }}
+      fetch('/api/callback', {{
+        method: 'POST',
+        headers: {{ 'Content-Type': 'application/json' }},
+        body: JSON.stringify({{
+          name: name.value.trim(), phone: phone.value.trim(), need: need.value.trim(),
+          city: city, service: service, page: location.pathname,
+          company: (form.querySelector('[name=company]') || {{}}).value || ''
+        }})
+      }}).then(function(r) {{ return r.ok ? r.json() : null; }})
+        .then(function(d) {{
+          if (submit) {{ submit.disabled = false; }}
+          if (d && d.ok) {{
+            form.reset();
+            if (status) {{
+              status.innerHTML = '<strong>Demande envoyée.</strong> Vous allez être rappelé au plus vite.'
+                + ' Urgence immédiate ? Appelez le <a class="js-call-track" href="tel:' + TEL + '">' + TEL_LABEL + '</a>.';
+              status.hidden = false;
+            }}
+          }} else {{
+            fallbackWhatsApp();
+          }}
+        }})
+        .catch(function() {{ if (submit) {{ submit.disabled = false; }} fallbackWhatsApp(); }});
     }});
   }});
 }})();
@@ -2662,6 +2702,15 @@ def callback_form(city_name: str, service_label: str, phone_display: str, phone_
         else "Votre ville + nature du problème en quelques mots"
     )
     uid = re.sub(r"[^a-z0-9]+", "-", f"{anchor_id}-{service_label}".lower()).strip("-")
+    if CALLBACK_SERVER_MAIL:
+        submit_icon, submit_label = icon("phone"), "Demander un rappel"
+        submit_hint = "Votre demande nous est envoyée directement. Elle sert uniquement à vous rappeler."
+    else:
+        submit_icon, submit_label = icon("wa"), "Envoyer ma demande sur WhatsApp"
+        submit_hint = (
+            "Le bouton ouvre WhatsApp avec votre message pré-rempli, qu'il reste à envoyer. "
+            "Aucune donnée n'est stockée sur ce site."
+        )
     return f"""
   <section id="{esc(anchor_id)}" class="section alt">
     <div class="wrap grid-2 cb-grid">
@@ -2689,9 +2738,13 @@ def callback_form(city_name: str, service_label: str, phone_display: str, phone_
           <label for="{uid}-need">Votre besoin</label>
           <textarea id="{uid}-need" name="need" rows="3" placeholder="{placeholder}"></textarea>
         </div>
-        <button type="submit" class="call-btn cb-submit">{icon("wa")} Envoyer ma demande sur WhatsApp</button>
+        <div class="cb-decoy" aria-hidden="true">
+          <label for="{uid}-company">Société</label>
+          <input id="{uid}-company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="call-btn cb-submit">{submit_icon} {submit_label}</button>
         <p class="cb-status js-cb-status" role="status" hidden></p>
-        <p class="cb-hint">Le bouton ouvre WhatsApp avec votre message pré-rempli, qu'il reste à envoyer. Aucune donnée n'est stockée sur ce site.</p>
+        <p class="cb-hint">{submit_hint}</p>
       </form>
     </div>
   </section>
