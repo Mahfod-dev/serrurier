@@ -213,7 +213,9 @@ SERVICES = {
             "Blindage de porte et renforcement de sécurité",
             "Mise en sécurité après tentative d'effraction",
             "Dépannage de rideau métallique de commerce",
-            "Devis annoncé avant intervention",
+            # « Devis annoncé avant intervention » n'est pas listé ici : les
+            # gabarits l'ajoutent déjà en dur pour les trois services, et le
+            # répéter affichait la ligne deux fois sur tout le site Serrio.
         ],
         "trust_points": [
             "Diagnostic téléphonique avant déplacement",
@@ -1684,7 +1686,15 @@ a.pill:hover { border-color: var(--accent); color: var(--accent); transform: tra
   .trust-item:last-child { border-bottom: 0; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; padding: 44px 0 40px; gap: 32px; }
   .cta-panel { align-items: flex-start; flex-direction: column; }
-  .nav-shell { display: none; }
+  /* La barre de navigation était purement masquée sous 880px, sans menu de
+     remplacement : sur mobile — l'essentiel du trafic en dépannage — plus
+     aucun accès aux tarifs, aux villes desservies, aux avis ni à la FAQ. On la
+     conserve en défilement horizontal : rien à ouvrir, les liens restent
+     visibles et atteignables au pouce. */
+  .nav { flex-wrap: nowrap; justify-content: flex-start; gap: 18px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-links { flex-wrap: nowrap; gap: 18px; }
+  .nav-links a { white-space: nowrap; }
   .footer { padding-bottom: 96px; }
   .footer .wrap { grid-template-columns: 1fr; }
   .mobile-bar {
@@ -1902,10 +1912,64 @@ def whatsapp_link() -> str:
     return f'https://wa.me/{esc(BRAND["whatsapp"])}?text=Bonjour%20{esc(BRAND["name"])},%20j%27ai%20besoin%20d%27une%20intervention'
 
 
-def header(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
+def pricing_section(build: BuildConfig) -> str:
+    """Grille tarifaire de l'accueil.
+
+    Le menu pointe vers `#tarifs` depuis toutes les pages, mais seule la page
+    ville portait cette ancre : sur l'accueil, le lien ne faisait rien. On
+    réutilise ici les grilles de `SERVICES[...]["pricing"]`, celles des pages
+    ville, pour qu'il n'existe qu'une seule source de vérité tarifaire.
+    """
+    blocks = []
+    multi = len(build.service_keys) > 1
+    for key in build.service_keys:
+        service = SERVICES[key]
+        rows = "\n".join(
+            f"<tr><td>{esc(label)}</td><td>{esc(price)}</td></tr>" for label, price in service["pricing"]
+        )
+        heading = f"<h3>{esc(str(service['label']))}</h3>" if multi else ""
+        blocks.append(
+            f"""{heading}
+      <table class="price-table">
+        <thead><tr><th>Prestation</th><th>Prix indicatif</th></tr></thead>
+        <tbody>{rows}</tbody>
+      </table>"""
+        )
+    tables = "\n      ".join(blocks)
+    return f"""
+  <section id="tarifs" class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Tarifs et devis</h2>
+        <p>Les prix dépendent de l'accès, de l'horaire, du matériel et de la complexité. Le devis est annoncé avant intervention.</p>
+      </div>
+      {tables}
+      <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
+    </div>
+  </section>
+"""
+
+
+# Ancres présentes sur les pages qui déroulent le contenu commercial complet
+# (accueil, ville, service). Les pages qui ne les ont pas — zones, mentions
+# légales, confidentialité — doivent renvoyer vers l'accueil, sinon le lien de
+# menu ne fait strictement rien. `contact` est dans le footer, donc partout.
+FULL_PAGE_ANCHORS = frozenset({"tarifs", "avis", "faq"})
+
+
+def header(
+    current_phone_display: str,
+    current_phone_href: str,
+    build: BuildConfig,
+    local_anchors: frozenset[str] = FULL_PAGE_ANCHORS,
+) -> str:
     service_links = "\n      ".join(
         f'<a href="{example_service_path(key, build)}">{esc(SERVICES[key]["label"])}</a>' for key in build.service_keys
     )
+
+    def anchor(name: str) -> str:
+        return f"#{name}" if name in local_anchors else f"/#{name}"
+
     return f"""
 <div class="urgency-bar">
   <div class="wrap urgency-inner">
@@ -1928,11 +1992,11 @@ def header(current_phone_display: str, current_phone_href: str, build: BuildConf
     <div class="nav-links">
       {service_links}
       <a href="/zones/">Villes desservies</a>
-      <a href="#tarifs">Tarifs</a>
+      <a href="{anchor('tarifs')}">Tarifs</a>
     </div>
     <div class="nav-links">
-      <a href="#avis">Avis</a>
-      <a href="#faq">Questions</a>
+      <a href="{anchor('avis')}">Avis</a>
+      <a href="{anchor('faq')}">Questions</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
@@ -3046,6 +3110,8 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
 
 {home_reviews}
 
+{pricing_section(build)}
+
 {home_faq}
 
 {callback_form("", primary_label, phone_display, phone_href)}
@@ -3176,6 +3242,8 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
 
 {full_reviews}
 
+{pricing_section(build)}
+
 {full_faq}
 
 {callback_form("", "une intervention", phone_display, phone_href)}
@@ -3228,7 +3296,7 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
             """
         )
     body = f"""
-{header(phone_display, phone_href, build)}
+{header(phone_display, phone_href, build, local_anchors=frozenset())}
 <main id="contenu">
   <section class="hero" style="--hero-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop')">
     <div class="hero-grid">
@@ -3359,7 +3427,7 @@ def legal_page(kind: str, build: BuildConfig) -> str:
         raise ValueError(f"Unknown legal page: {kind}")
 
     body = f"""
-{header(phone_display, phone_href, build)}
+{header(phone_display, phone_href, build, local_anchors=frozenset())}
 <main id="contenu">
 {content}
 </main>
