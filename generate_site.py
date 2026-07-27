@@ -105,6 +105,13 @@ URGENCY_BANNER = os.environ.get(
 # visible). Tant que ce sont des illustrations, la légende le précise pour ne
 # pas présenter des photos tierces comme vos propres chantiers.
 PROOF_ILLUSTRATIVE = os.environ.get("SITE_PROOF_REAL", "") != "1"
+
+# Mise en ligne avant le domaine définitif : tant que le site tourne sur une URL
+# `.vercel.app`, on interdit l'indexation (balise robots + robots.txt fermé).
+# Sinon Google indexe l'URL technique, ce qui crée un doublon qui pénalisera le
+# vrai domaine, et fige des tarifs qui ne sont pas encore validés par le client.
+# À passer à "0" (ou supprimer la variable) le jour du lancement réel.
+SITE_NOINDEX = os.environ.get("SITE_NOINDEX", "") == "1"
 PROOF_IMAGES = {
     "serrurier": [
         ("https://images.unsplash.com/photo-1622372738946-62e02505feb3?q=80&w=900&auto=format&fit=crop", "Ouverture et changement de cylindre"),
@@ -1836,7 +1843,7 @@ def layout(title: str, description: str, path: str, body: str, schema: dict, bui
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(description)}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="{'noindex, nofollow' if SITE_NOINDEX else 'index, follow'}">
   <link rel="canonical" href="{esc(canonical)}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#17140f">
@@ -3699,7 +3706,9 @@ def render_build(cities: list[City], build: BuildConfig) -> int:
     write(build.output_root / "sitemap.xml", sitemap(cities, build))
     write(
         build.output_root / "robots.txt",
-        f"User-agent: *\nDisallow: /google-ads/\nSitemap: {build.site_url.rstrip('/')}/sitemap.xml\n",
+        "User-agent: *\nDisallow: /\n"
+        if SITE_NOINDEX
+        else f"User-agent: *\nDisallow: /google-ads/\nSitemap: {build.site_url.rstrip('/')}/sitemap.xml\n",
     )
     write_ads_files(cities, build)
     write_seo_files(cities, build)

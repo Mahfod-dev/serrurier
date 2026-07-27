@@ -5,3 +5,4 @@ __pycache__/
 ops/
 preproduction-checklist.md
 public/
+.vercel
