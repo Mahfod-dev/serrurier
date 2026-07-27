@@ -2118,7 +2118,9 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
       // fonction n'est pas configurée (503) ou échoue, on retombe sur WhatsApp.
       if (!window.fetch) {{ fallbackWhatsApp(); return; }}
       if (submit) {{ submit.disabled = true; }}
-      fetch('/api/callback', {{
+      // Slash final obligatoire : `trailingSlash: true` dans vercel.json
+      // redirige sinon en 308, aller-retour inutile sur un POST.
+      fetch('/api/callback/', {{
         method: 'POST',
         headers: {{ 'Content-Type': 'application/json' }},
         body: JSON.stringify({{
