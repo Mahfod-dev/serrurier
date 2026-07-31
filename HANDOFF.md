@@ -40,8 +40,14 @@ Téléphone unique pour les deux marques : `07 85 04 02 48`.
 ### Google Ads
 - MCC **`Flowcontent`** — 418-450-2107
 - Compte client **`Serrio — Serrurerie Lyon`** — 602-385-7315
-- **Suivi de conversion vérifié en conditions réelles** : un clic sur le numéro
-  émet `gtag('event','conversion',{send_to:'AW-18353985421/bnRXCJevyNccEI2v7q9E'})`
+- **Suivi de conversion en place** : un clic sur le numéro émet
+  `gtag('event','conversion',{send_to:'AW-18353985421/3QJXCIbG5dgcEI2v7q9E'})`
+  — action **« Lead par téléphone »**, câblée le 31/07/2026 en remplacement du
+  libellé initial `bnRXCJevyNccEI2v7q9E`. Il n'y a pas de page de remerciement
+  sur ce site : la conversion se déclenche au clic sur `.js-call-track`, pas au
+  chargement d'une page. Google affichera **« balise non validée »** tant qu'un
+  clic réel n'aura pas généré de conversion — c'est attendu campagne en veille,
+  ce n'est pas un défaut d'installation.
 - **Campagne pilote publiée, en veille** : `Serrurier - Bron & Lyon - Search`,
   25 €/jour, 2 groupes (Bron, Lyon), 2 annonces, 24 exclusions au niveau campagne,
   composant Appel
@@ -120,7 +126,13 @@ python3 ops/serrurier/google-ads/build_keywords_symptomes.py
 
 `SITE_TARGET=serrurier` · `SITE_NOINDEX=0` · `SMTP_USER=contact@serrio.fr` ·
 `SMTP_PASSWORD` (secret, posé par l'utilisateur) · `SERRURIER_ADS_ID=AW-18353985421` ·
-`SERRURIER_ADS_CALL_LABEL=bnRXCJevyNccEI2v7q9E`
+`SERRURIER_ADS_CALL_LABEL=3QJXCIbG5dgcEI2v7q9E`
+
+⚠️ Ces variables sont **sensibles** côté Vercel : `vercel env pull` les rend
+vides. Pour contrôler leur valeur, lire le HTML publié plutôt que le `.env` :
+`curl -s https://www.serrio.fr/ | grep -o "send_to: '[^']*'"`.
+Un changement de variable n'a d'effet qu'après redéploiement :
+`vercel redeploy <url-du-dernier-deploiement> --scope mahfoddevs-projects`.
 
 `SERRURIER_GA_ID` **absent** — aucune propriété GA4 créée.
 
