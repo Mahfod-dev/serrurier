@@ -38,19 +38,67 @@ Téléphone unique pour les deux marques : `07 85 04 02 48`.
 - ⚠️ Appeler **`/api/callback/` avec le slash final** (`trailingSlash: true`)
 
 ### Google Ads
-- MCC **`Flowcontent`** — 418-450-2107
+- MCC **`Flowcontent`** — 418-450-2107, détenu par **`technical-lead@devhighway.com`**
+  (⚠️ *pas* `strategie@flowcontent.io` : ce compte affiche « aucun compte Google Ads »
+  dans l'interface web, alors que la connexion OAuth de l'API passe par lui — voir §4bis)
 - Compte client **`Serrio — Serrurerie Lyon`** — 602-385-7315
+- **Moyen de paiement en place** : Mastercard ••••5600, profil de paiement
+  **A2H PLOMBERIE** `5104-8315-1394`. Ce profil est **partagé au niveau du MCC** :
+  renommer l'organisation impacte tous les comptes qui l'utilisent.
 - **Suivi de conversion en place** : un clic sur le numéro émet
   `gtag('event','conversion',{send_to:'AW-18353985421/3QJXCIbG5dgcEI2v7q9E'})`
-  — action **« Lead par téléphone »**, câblée le 31/07/2026 en remplacement du
-  libellé initial `bnRXCJevyNccEI2v7q9E`. Il n'y a pas de page de remerciement
-  sur ce site : la conversion se déclenche au clic sur `.js-call-track`, pas au
-  chargement d'une page. Google affichera **« balise non validée »** tant qu'un
-  clic réel n'aura pas généré de conversion — c'est attendu campagne en veille,
-  ce n'est pas un défaut d'installation.
-- **Campagne pilote publiée, en veille** : `Serrurier - Bron & Lyon - Search`,
-  25 €/jour, 2 groupes (Bron, Lyon), 2 annonces, 24 exclusions au niveau campagne,
-  composant Appel
+  — action **« Lead par téléphone »**, câblée le 01/08/2026 en remplacement du
+  libellé initial `bnRXCJevyNccEI2v7q9E`. Vérifiée en conditions réelles :
+  `googleadservices.com/pagead/conversion/…&label=3QJXCIbG5dgcEI2v7q9E` → **200**.
+  Il n'y a pas de page de remerciement : la conversion part au clic sur
+  `.js-call-track`, pas au chargement d'une page.
+- ⚠️ **4 actions de conversion coexistent**, dont **3 en « Principale »** :
+  `Appels à partir des annonces`, `Clic numéro site` et `Lead par téléphone`.
+  Les deux dernières mesurent probablement la même chose → risque de double
+  comptage dès la première vraie conversion. Ménage à faire.
+- **Campagne `Serrurier - Bron & Lyon - Search` : ACTIVÉE et diffusant** (le
+  présent document la disait en veille, c'était faux). Publiée le 28/07/2026,
+  premières impressions le 29/07, premiers clics le 31/07. 25 €/jour.
+
+#### Premiers chiffres réels (au 01/08/2026)
+
+| | 31 juil. | 1er août | Total |
+|---|---|---|---|
+| Clics facturés | 2 | 2 | **4** |
+| Coût | 10,23 € | 39,10 € | **49,33 €** |
+| CPC | 5,11 € | 19,55 € | 12,33 € |
+| Clics invalides filtrés | 8 | 1 | **9** |
+| Conversions | 0 | 0 | **0** |
+
+Deux constats à ne pas perdre :
+
+1. **Les requêtes réelles sont « serrurier lyon » et « serrurier bron »** — 100 %
+   de la dépense. Les mots-clés « symptôme » (`ouverture porte Lyon`…) sont bien
+   ceux achetés, mais la requête large les fait matcher sur le terme métier. **Le
+   contournement de la restriction Local Services ne contourne rien**, et l'artisan
+   n'est toujours pas assuré en serrurerie (§3).
+2. **Ciblage géographique corrigé le 01/08/2026** : `positive_geo_target_type`
+   est passé de `PRESENCE_OR_INTEREST` (défaut Google) à **`PRESENCE`**. Avant
+   correction, la campagne diffusait à Paris, Bordeaux, Agen, Montpellier et
+   **Doha (Qatar)** ; 2 clics parisiens ont coûté 10,23 €, soit 21 % du budget
+   dépensé. Paris captait plus d'impressions que Bron et Lyon réunis.
+
+### Validation de l'annonceur — échéance 31 août 2026
+Sans elle, **le compte est mis en veille**. État au 01/08/2026 : **en cours d'examen**
+(délai annoncé 1 à 10 jours).
+
+- Étape 1 « questions sur votre entreprise » → **envoyée**, réponse : *nom légal
+  d'une autre organisation* (et non « Serrio », qui est une marque sans existence
+  juridique). Les annonces afficheront « Annonces financées par … » avec le nom légal.
+- Étape 2 « informations Dun & Bradstreet » → **envoyée** sans numéro DUNS
+  (**facultatif**, c'est seulement un accélérateur ; le portail `dunsnumberlookup.dnb.com`
+  ne couvre pas la France, c'est Altares qui gère, 5 à 30 jours ouvrés).
+- **Reste à faire par le client** : téléverser un document d'immatriculation +
+  une pièce d'identité. ⚠️ **A2H Plomberie est une entreprise individuelle
+  artisanale : elle n'a pas de Kbis.** Prendre l'**avis de situation SIRENE**
+  (gratuit, immédiat, `avis-situation-sirene.insee.fr`, SIRET 893 610 758 00011).
+- Nom légal exact au répertoire : **`ABDERRAHIM HEMANI (A2H PLOMBERIE)`**
+- Tâche annexe : « annonces à caractère politique pour l'UE » → répondre **non**.
 
 ---
 
@@ -58,10 +106,14 @@ Téléphone unique pour les deux marques : `07 85 04 02 48`.
 
 ### 🔴 Dépend du client, bloque tout le reste
 
-1. **Moyen de paiement** dans le compte Ads. Sans lui, aucune diffusion.
-   Le compte doit rester **au nom du client**, facturation directe. Ne jamais
-   saisir sa carte dans un compte au nom de l'agence.
-2. **Assurance RC pro étendue à la serrurerie.** Il est assuré pour la
+1. ~~**Moyen de paiement**~~ — **réglé** (01/08/2026). Mastercard ••••5600 sur un
+   profil de paiement au nom **A2H PLOMBERIE**, donc bien au nom du client.
+   Reste à confirmer que la carte est celle de l'artisan et non celle de l'agence.
+   **Nouveau bloquant à la place** : les documents de validation de l'annonceur,
+   à fournir avant le 31 août sous peine de mise en veille du compte (§2).
+2. **Assurance RC pro étendue à la serrurerie.** *Devenu urgent* : la campagne
+   diffuse **déjà** sur « serrurier lyon » et « serrurier bron » et a été facturée
+   pour, alors que la couverture n'existe pas. Il est assuré pour la
    plomberie (43.22A) mais le site vend de la serrurerie. Double conséquence :
    risque juridique, **et** blocage des mots-clés « serrurier » par Google
    (voir §5).
@@ -137,6 +189,34 @@ Un changement de variable n'a d'effet qu'après redéploiement :
 `SERRURIER_GA_ID` **absent** — aucune propriété GA4 créée.
 
 ---
+
+## 4bis. Accès API Google Ads — la voie rapide
+
+**L'API est opérationnelle et le jeton développeur est approuvé** (le §3 la classait
+en « plus tard, à demander » : obsolète). Elle est bien plus fiable que l'interface
+web, qui affiche des plages de dates périmées et se trompe sur les droits d'accès.
+
+Les secrets vivent sur le serveur **`root@157.90.160.24`** (hôte `flowblog`) et
+n'ont pas à en sortir :
+
+| Élément | Où |
+|---|---|
+| `GOOGLE_ADS_DEVELOPER_TOKEN` | env du conteneur `blog-api-blue` |
+| Jeton OAuth | Nango, connexion `74748dbf-86f8-49f0-8a5d-14fed0faa7ac` (`google-ads`) |
+| `NANGO_SERVER_URL` / `NANGO_SECRET_KEY` | `/opt/blog-api/.env` |
+| Code métier | `~/Desktop/backend-flowcontent/blog-api/src/modules/google-ads/` |
+
+En-têtes : `login-customer-id: 4184502107` (le MCC), endpoint
+`googleads.googleapis.com/v23/customers/6023857315/googleAds:search`.
+
+⚠️ **Passer par un script envoyé sur stdin** (`ssh root@… 'python3 -' < script.py`) :
+les requêtes GAQL contiennent des guillemets qui se perdent dans l'échappement
+shell d'une commande SSH en ligne, et la requête revient silencieusement vide.
+
+Requêtes qui ont servi et resserviront : `search_term_view` (les vraies requêtes
+tapées, ≠ mots-clés achetés), `user_location_view` + `segments.geo_target_city`
+(ville réelle de l'internaute), `metrics.invalid_clicks`, `segments.device`,
+`segments.hour`, `campaign.geo_target_type_setting`.
 
 ## 5. Pièges connus — lire avant d'agir
 
