@@ -1991,7 +1991,7 @@ def header(
     <a class="brand" href="/"><span class="brand-mark">{esc(BRAND["name"][:1])}</span><span>{esc(BRAND["name"])}<small>Urgence 24h/24 · 7j/7</small></span></a>
     <div class="top-actions">
       <div class="top-phone"><span>Appel direct</span><strong>{esc(current_phone_display)}</strong></div>
-      <a class="ghost-btn" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} WhatsApp</a>
+      <a class="ghost-btn js-wa-track" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} WhatsApp</a>
       <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">{icon("phone")} Appeler</a>
     </div>
   </div>
@@ -2015,13 +2015,17 @@ def header(
 
 def footer(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
     scope = service_names(build)
-    # Conversion Google Ads sur le clic téléphone : n'est émise que si l'ID de
-    # conversion et son libellé sont fournis pour cette marque.
-    call_conversion = ""
+    # Conversion Google Ads : UNE seule action pour les trois chemins de contact
+    # (appel, WhatsApp, demande de rappel). À ce volume Google a besoin de
+    # signal, pas de granularité — le détail reste segmentable dans GA4 par le
+    # `kind` de l'événement. L'action est en ONE_PER_CLICK côté Google, donc un
+    # visiteur qui emprunte deux chemins ne compte qu'une fois.
+    # N'est émise que si l'ID de conversion et son libellé sont fournis.
+    lead_conversion = ""
     if BRAND["ads_id"] and BRAND["ads_call_label"]:
         send_to = f'{BRAND["ads_id"]}/{BRAND["ads_call_label"]}'
-        call_conversion = f"""
-      window.gtag('event', 'conversion', {{ send_to: '{esc(send_to)}' }});"""
+        lead_conversion = f"""
+  window.gtag('event', 'conversion', {{ send_to: '{esc(send_to)}' }});"""
     return f"""
 <footer id="contact" class="footer">
   <div class="wrap">
@@ -2033,9 +2037,9 @@ def footer(current_phone_display: str, current_phone_href: str, build: BuildConf
     <div>
       <strong>Contact direct</strong>
       <div class="footer-links">
-        <a href="tel:{esc(current_phone_href)}">{esc(current_phone_display)}</a>
+        <a class="js-call-track" href="tel:{esc(current_phone_href)}">{esc(current_phone_display)}</a>
         <a href="mailto:{esc(BRAND["email"])}">{esc(BRAND["email"])}</a>
-        <a href="{whatsapp_link()}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="js-wa-track" href="{whatsapp_link()}" target="_blank" rel="noopener">WhatsApp</a>
       </div>
       <div style="margin-top:16px">
       <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">{icon("phone")} Appeler {esc(current_phone_display)}</a>
@@ -2055,19 +2059,28 @@ def footer(current_phone_display: str, current_phone_href: str, build: BuildConf
   </div>
 </footer>
 <div class="mobile-bar">
-  <a class="wa-btn" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} WhatsApp</a>
+  <a class="wa-btn js-wa-track" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} WhatsApp</a>
   <a class="call-btn js-call-track" href="tel:{esc(current_phone_href)}">{icon("phone")} Appeler</a>
 </div>
 <script>
-document.querySelectorAll('.js-call-track').forEach(function(link) {{
-  link.addEventListener('click', function() {{
-    if (window.gtag) {{
-      window.gtag('event', 'phone_call_click', {{
-        event_category: 'lead',
-        event_label: window.location.pathname
-      }});{call_conversion}
-    }}
-  }});
+// Point d'entrée unique des trois chemins de contact. Avant lui, seuls les
+// clics téléphone remontaient : WhatsApp et les demandes de rappel étaient
+// invisibles de Google Ads, qui optimisait donc sur une fraction du signal.
+function fcLead(kind, detail) {{
+  if (!window.gtag) return;
+  window.gtag('event', 'lead_contact', {{
+    event_category: 'lead',
+    event_label: kind + ' | ' + (detail || window.location.pathname)
+  }});{lead_conversion}
+}}
+// Délégation sur le document, et non un querySelectorAll au chargement : les
+// liens d'appel insérés APRÈS coup (messages de statut du formulaire) ne
+// recevaient alors jamais d'écouteur. `closest` remonte aussi depuis le <path>
+// d'une icône SVG, qui est la cible réelle du clic la plupart du temps.
+document.addEventListener('click', function(e) {{
+  var el = e.target && e.target.closest && e.target.closest('.js-call-track, .js-wa-track');
+  if (!el) return;
+  fcLead(el.classList.contains('js-wa-track') ? 'whatsapp' : 'phone_call');
 }});
 (function() {{
   var WA = "{esc(BRAND["whatsapp"])}";
@@ -2091,9 +2104,10 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
       var msg = "Bonjour, je suis " + name.value.trim() + " (" + phone.value.trim() + ")."
         + " Demande de rappel pour " + service + (city ? " à " + city : "") + "."
         + (need.value.trim() ? " Détail : " + need.value.trim() : "");
-      if (window.gtag) {{
-        window.gtag('event', 'callback_request', {{ event_category: 'lead', event_label: service + ' - ' + city }});
-      }}
+      // La conversion n'est PAS émise ici : une demande comptée alors qu'elle
+      // n'est jamais partie apprendrait à Google à acheter des clics qui ne
+      // rapportent rien. Elle l'est plus bas, une fois l'envoi confirmé.
+      var leadDetail = service + ' - ' + city;
       var status = form.querySelector('.js-cb-status');
       var submit = form.querySelector('[type=submit]');
       var subject = 'Demande de rappel' + (service ? ' - ' + service : '') + (city ? ' a ' + city : '');
@@ -2105,6 +2119,10 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
       // valide pas l'envoi dans l'application.
       function fallbackWhatsApp() {{
         var win = window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+        // Compté seulement si la fenêtre s'est ouverte : une popup bloquée
+        // n'est pas un lead. Le visiteur doit encore appuyer sur Envoyer, mais
+        // c'est le dernier signal observable depuis la page.
+        if (win) {{ fcLead('callback_whatsapp', leadDetail); }}
         if (!status) return;
         status.innerHTML = (win ? 'WhatsApp est ouvert : <strong>appuyez sur Envoyer</strong> pour que la demande nous parvienne.'
                                 : "<strong>WhatsApp n'a pas pu s'ouvrir.</strong>")
@@ -2132,6 +2150,7 @@ document.querySelectorAll('.js-call-track').forEach(function(link) {{
         .then(function(d) {{
           if (submit) {{ submit.disabled = false; }}
           if (d && d.ok) {{
+            fcLead('callback_form', leadDetail);
             form.reset();
             if (status) {{
               status.innerHTML = '<strong>Demande envoyée.</strong> Vous allez être rappelé au plus vite.'
@@ -2836,7 +2855,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
         </div>
         <div class="cta-row">
           <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
-          <a class="ghost-btn" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} Envoyer une photo</a>
+          <a class="ghost-btn js-wa-track" href="{whatsapp_link()}" target="_blank" rel="noopener">{icon("wa")} Envoyer une photo</a>
         </div>
         <div class="cta-sub">{icon("check")} Décrivez votre situation, recevez un prix clair, sans engagement.</div>
       </div>
@@ -3617,7 +3636,8 @@ def write_ads_files(cities: list[City], build: BuildConfig) -> None:
 ## Tracking
 
 - Installer le tag Google Ads / gtag.
-- Déclarer les clics sur `.js-call-track` comme conversions d'appel.
+- Déclarer les leads comme conversions : une seule action reçoit les trois
+  chemins (`.js-call-track`, `.js-wa-track`, demande de rappel aboutie).
 - Ajouter le call tracking dynamique avant d'activer le CPA cible.
 - Installer ClickCease ou équivalent avant ouverture du budget.
 
@@ -3751,7 +3771,8 @@ def write_production_checklist(build: BuildConfig) -> None:
 - Numéros d'appel testés depuis mobile.
 - WhatsApp testé avec le numéro final.
 - Mentions légales complétées : forme juridique, SIRET, responsable de publication, adresse.
-- Conversion de clic téléphone testée en réel (clic `.js-call-track` visible dans Google Ads).
+- Conversions testées en réel dans Google Ads, sur les trois chemins : clic
+  téléphone, clic WhatsApp, demande de rappel envoyée.
 - Pages `/mentions-legales/`, `/confidentialite/`, `/robots.txt` et `/sitemap.xml` accessibles.
 - Aucun fichier `google-ads/`, `seo/`, `ops/` ou `README.md` dans le dossier public `dist`.
 """,
