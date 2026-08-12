@@ -68,6 +68,10 @@ def _brand(prefix: str, name: str, domain: str) -> dict:
         "ga_id": get("GA_ID", ""),
         "ads_id": get("ADS_ID", ""),
         "ads_call_label": get("ADS_CALL_LABEL", ""),
+        # Un libellé par chemin de contact. Absents, ils retombent sur
+        # ADS_CALL_LABEL : le comportement d'avant, une action unique.
+        "ads_whatsapp_label": get("ADS_WHATSAPP_LABEL", ""),
+        "ads_callback_label": get("ADS_CALLBACK_LABEL", ""),
     }
 
 
@@ -2015,17 +2019,32 @@ def header(
 
 def footer(current_phone_display: str, current_phone_href: str, build: BuildConfig) -> str:
     scope = service_names(build)
-    # Conversion Google Ads : UNE seule action pour les trois chemins de contact
-    # (appel, WhatsApp, demande de rappel). À ce volume Google a besoin de
-    # signal, pas de granularité — le détail reste segmentable dans GA4 par le
-    # `kind` de l'événement. L'action est en ONE_PER_CLICK côté Google, donc un
-    # visiteur qui emprunte deux chemins ne compte qu'une fois.
-    # N'est émise que si l'ID de conversion et son libellé sont fournis.
+    # Conversion Google Ads : UNE action par chemin de contact.
+    #
+    # Avant le 12 août 2026, les trois chemins partaient dans une action unique
+    # catégorisée PHONE_CALL_LEAD. Google affichait donc « 5 appels » là où le
+    # client n'en avait reçu que 2 — les 3 autres étaient des WhatsApp et des
+    # demandes de rappel. Le commentaire d'alors renvoyait la granularité à GA4,
+    # mais GA_ID n'a jamais été renseigné : la ventilation n'existait nulle part.
+    #
+    # Chaque libellé absent retombe sur ADS_CALL_LABEL : tant que les nouvelles
+    # actions ne sont pas créées côté Google Ads, le site se comporte comme avant.
     lead_conversion = ""
     if BRAND["ads_id"] and BRAND["ads_call_label"]:
-        send_to = f'{BRAND["ads_id"]}/{BRAND["ads_call_label"]}'
+
+        def _send_to(label: str) -> str:
+            return f'{BRAND["ads_id"]}/{label or BRAND["ads_call_label"]}'
+
+        routes = {
+            "phone_call": _send_to(BRAND["ads_call_label"]),
+            "whatsapp": _send_to(BRAND["ads_whatsapp_label"]),
+            "callback_form": _send_to(BRAND["ads_callback_label"]),
+            "callback_whatsapp": _send_to(BRAND["ads_callback_label"]),
+        }
+        routes_js = ", ".join(f"'{esc(k)}': '{esc(v)}'" for k, v in routes.items())
         lead_conversion = f"""
-  window.gtag('event', 'conversion', {{ send_to: '{esc(send_to)}' }});"""
+  var SEND_TO = {{{routes_js}}};
+  window.gtag('event', 'conversion', {{ send_to: SEND_TO[kind] || SEND_TO['phone_call'] }});"""
     return f"""
 <footer id="contact" class="footer">
   <div class="wrap">
