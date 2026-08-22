@@ -142,7 +142,7 @@ PROOF_IMAGES = {
 
 CITY_GROUPS = """
 Canton de Genève (Suisse)|Genève et Couronne|CH|Genève,Vernier,Lancy,Meyrin,Carouge,Thônex,Versoix,Le Grand-Saconnex,Chêne-Bougeries,Onex,Plan-les-Ouates,Collonge-Bellerive,Pregny-Chambésy,Veyrier,Châtelaine
-Auvergne-Rhône-Alpes (France)|Rhône (69) & Métropole de Lyon|FR|Lyon,Villeurbanne,Bron,Vénissieux,Vaulx-en-Velin,Saint-Priest,Caluire-et-Cuire,Rillieux-la-Pape,Meyzieu,Décines-Charpieu,Oullins-Pierre-Bénite,Sainte-Foy-lès-Lyon,Saint-Fons,Givors,Villefranche-sur-Saône,Tassin-la-Demi-Lune,Écully,Genas,Brignais,Chassieu,Corbas,Craponne,Mions,Feyzin,Tarare
+Auvergne-Rhône-Alpes (France)|Rhône (69) & Métropole de Lyon|FR|Lyon,Lyon 1,Lyon 2,Lyon 3,Lyon 4,Lyon 5,Lyon 6,Lyon 7,Lyon 8,Lyon 9,Villeurbanne,Bron,Vénissieux,Vaulx-en-Velin,Saint-Priest,Caluire-et-Cuire,Rillieux-la-Pape,Meyzieu,Décines-Charpieu,Oullins-Pierre-Bénite,Sainte-Foy-lès-Lyon,Saint-Fons,Givors,Villefranche-sur-Saône,Tassin-la-Demi-Lune,Écully,Genas,Brignais,Chassieu,Corbas,Craponne,Mions,Feyzin,Tarare
 Auvergne-Rhône-Alpes (France)|Haute-Savoie (74) & Savoie (73)|FR|Annecy,Thonon-les-Bains,Annemasse,Cluses,Sallanches,Rumilly,Bonneville,Passy,Gaillard,Saint-Julien-en-Genevois,La Roche-sur-Foron,Publier,Évian-les-Bains,Cranves-Sales,Scionzier,Reignier-Ésery,Vétraz-Monthoux,Chambéry,Aix-les-Bains,Albertville,La Motte-Servolex,Bourg-Saint-Maurice,Ugine,Saint-Jean-de-Maurienne
 Auvergne-Rhône-Alpes (France)|Isère (38) & Ain (01)|FR|Grenoble,Saint-Martin-d'Hères,Échirolles,Vienne,Bourgoin-Jallieu,Voiron,Villefontaine,Meylan,L'Isle-d'Abeau,Bourg-en-Bresse,Oyonnax,Valserhône (Bellegarde),Ambérieu-en-Bugey,Gex,Saint-Genis-Pouilly,Ferney-Voltaire,Divonne-les-Bains,Miribel
 Auvergne-Rhône-Alpes (France)|Loire (42), Drôme (26) & Ardèche (07)|FR|Saint-Étienne,Saint-Chamond,Roanne,Valence,Montélimar,Romans-sur-Isère,Annonay,Guilherand-Granges,Tournon-sur-Rhône
@@ -153,6 +153,17 @@ Provence-Alpes-Côte d'Azur (France)|Alpes-Maritimes (06) & Vaucluse (84)|FR|Nic
 P1 = {
     "Genève",
     "Lyon",
+    "Lyon 1",
+    "Lyon 2",
+    "Lyon 3",
+    "Lyon 4",
+    "Lyon 5",
+    "Lyon 6",
+    "Lyon 7",
+    "Lyon 8",
+    "Lyon 9",
+    # Arrondissements : 5 170 recherches/mois cumulees, servies jusqu'au 22/08
+    # par la seule page /lyon/ -> note de page BELOW_AVERAGE et CPC surpaye.
     "Villeurbanne",
     # Commune du siège (2 avenue Pierre Brossolette, 69500 Bron) : c'est là que
     # l'implantation réelle donne le plus de légitimité locale.
@@ -376,6 +387,42 @@ LOCAL_SEO = {
     "geneve": {
         "micro_areas": ["Cornavin", "Plainpalais", "Eaux-Vives", "Pâquis", "Champel", "Nations"],
         "local_note": "À Genève, la cohérence du numéro suisse et la précision du secteur sont essentielles pour rassurer un client en urgence.",
+    },
+    "lyon-1": {
+        "micro_areas": ["Terreaux", "Croix-Paquet", "Pentes de la Croix-Rousse", "Saint-Vincent", "Hôtel de Ville"],
+        "local_note": "Dans le 1er, le bâti ancien des pentes impose souvent des portes palières d'origine et des cages d'escalier étroites : le diagnostic au téléphone évite d'arriver sans le bon matériel.",
+    },
+    "lyon-2": {
+        "micro_areas": ["Bellecour", "Perrache", "Confluence", "Ainay", "Cordeliers", "Jacobins"],
+        "local_note": "Sur la presqu'île, immeubles haussmanniens et locaux commerciaux se côtoient : les serrures multipoints et les rideaux métalliques y sont fréquents.",
+    },
+    "lyon-3": {
+        "micro_areas": ["Part-Dieu", "Montchat", "Sans-Souci", "Villette", "Préfecture", "Dauphiné"],
+        "local_note": "Le 3e mêle bureaux de la Part-Dieu et résidentiel dense de Montchat : les interventions vont du cylindre de bureau à la porte pavillonnaire.",
+    },
+    "lyon-4": {
+        "micro_areas": ["Croix-Rousse", "Serin", "Plateau", "Hénon"],
+        "local_note": "Sur le plateau de la Croix-Rousse, les accès étroits et le stationnement contraint rendent la préparation de l'intervention déterminante.",
+    },
+    "lyon-5": {
+        "micro_areas": ["Vieux Lyon", "Saint-Just", "Point du Jour", "Ménival", "Fourvière", "Saint-Georges"],
+        "local_note": "Le 5e concentre le bâti historique du Vieux Lyon : serrures anciennes et portes classées demandent une ouverture sans dégradation.",
+    },
+    "lyon-6": {
+        "micro_areas": ["Brotteaux", "Foch", "Parc de la Tête d'Or", "Masséna", "Bellecombe"],
+        "local_note": "Dans le 6e, les portes blindées et les serrures haute sécurité sont courantes : le type de serrure se qualifie avant le déplacement.",
+    },
+    "lyon-7": {
+        "micro_areas": ["Guillotière", "Jean Macé", "Gerland", "Debourg", "Saxe"],
+        "local_note": "Le 7e connaît une forte rotation locative entre Guillotière et Gerland : remplacements de cylindre et ouvertures après perte de clés y sont fréquents.",
+    },
+    "lyon-8": {
+        "micro_areas": ["Monplaisir", "Bachut", "États-Unis", "Grand Trou", "Laënnec", "Mermoz"],
+        "local_note": "Le 8e alterne grands ensembles et secteurs pavillonnaires : l'accès à l'immeuble conditionne souvent le délai réel.",
+    },
+    "lyon-9": {
+        "micro_areas": ["Vaise", "Gorge de Loup", "La Duchère", "Saint-Rambert", "Champvert"],
+        "local_note": "Entre Vaise et la Duchère, le 9e mêle collectif et pavillonnaire ; l'atelier de Bron y accède par le périphérique sans traverser le centre.",
     },
     "lyon": {
         "micro_areas": ["Part-Dieu", "Presqu'île", "Croix-Rousse", "Vieux Lyon", "Gerland", "Confluence"],
