@@ -86,6 +86,29 @@ Lyon et ses 9 arrondissements, 55 mots-clés) et `Dégorgement - Rhône - Search
 (34 communes, 170 mots-clés), 40 exclusions par campagne. Mode d'emploi complet
 et pièges dans `editor-import/README-import.md`.
 
+### Savoie, Haute-Savoie et Isère en standby sur Serrio (24/08/2026, soir)
+
+**Demande du client.** Plutôt que de retirer les 33 villes concernées des zones
+ciblées une par une, les **trois départements ont été EXCLUS** au niveau de la
+campagne : dans Google Ads l'exclusion prime sur l'inclusion, c'est 3 opérations
+au lieu de 33, et le retour arrière se fait en supprimant les 3 exclusions.
+
+État après enregistrement : **Ciblées : 58 lieux — Exclues : 4 lieux**
+(Paris, déjà exclu depuis juillet, + Savoie, Haute-Savoie, Isère).
+
+⚠️ **Les 33 groupes d'annonces de ces villes restent ACTIFS** (`Serrurier - Annecy`,
+`- Chambéry`, `- Grenoble`…). L'exclusion géographique suffit à couper la
+diffusion locale, mais un internaute **présent à Lyon** qui taperait
+« serrurier annecy » pourrait encore déclencher le groupe Annecy. Résiduel, mais
+à traiter si le standby dure : les mettre en veille.
+
+**Ce que ce standby coupe, chiffres à l'appui** (25/07 – 23/08) : les
+départements 73/74 avaient produit **5 conversions sur 26** pour ~207 €, dont
+**Annemasse — le meilleur coût par conversion du compte, 13,78 €** (contre 51 €
+pour Lyon et 42 € de moyenne). Annecy 1 conv./83,61 €, Chambéry 1 conv./28,95 €.
+Le client a été informé de ces chiffres et a maintenu sa décision — le motif est
+la distance, pas la performance.
+
 ### Plombio est devenu un site de DÉBOUCHAGE (24/08/2026, soir)
 
 **Décision structurante.** Plombio générait deux pages par ville — une plomberie
