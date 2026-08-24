@@ -3097,7 +3097,10 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         service_scope = service_names(build)
         title = f"{BRAND['name']} | {primary_label} urgence 24/7"
         description = f"{BRAND['name']} intervient en {service_scope} 24h/24 et 7j/7 : appel direct, diagnostic au téléphone et devis annoncé avant tout déplacement, ville par ville."
-        domain_scope = "la serrurerie" if build.primary_service_key == "serrurier" else "la plomberie"
+        domain_scope = {
+            "serrurier": "la serrurerie",
+            "degorgement": "le débouchage de canalisation",
+        }.get(build.primary_service_key or "", "la plomberie")
         priority_links = "\n".join(
             f'<a class="pill priority-1" href="{service_path(c, build.primary_service_key, build)}">{esc(c.name)}</a>' for c in p1
         )
@@ -3918,13 +3921,19 @@ def build_config(target: str, output_root: Path | None = None, site_url: str | N
             include_city_hubs=False,
         )
     if target == "plombier":
+        # Plombio est un site de DÉBOUCHAGE, pas un site de plomberie générale.
+        # Décision du 24/08/2026 : la campagne Ads achète du dégorgement, et deux
+        # pages par ville (une plomberie + une dégorgement) se cannibalisaient sur
+        # la même requête locale. Une ville = une page, comme Serrio.
+        # Le contenu plomberie reste dans SERVICES et se rallume en ajoutant
+        # "plombier" à service_keys.
         return BuildConfig(
             key="plombier",
-            label="plombier",
+            label="dégorgement",
             site_url=site_url or BRANDS["plombier"]["site_url"],
             output_root=output_root or ROOT / "dist" / "plombier",
-            service_keys=("plombier", "degorgement"),
-            primary_service_key="plombier",
+            service_keys=("degorgement",),
+            primary_service_key="degorgement",
             include_city_hubs=False,
         )
     raise ValueError(f"Unknown target: {target}")
