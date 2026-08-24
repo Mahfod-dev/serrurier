@@ -349,17 +349,21 @@ SERVICES = {
         # panne veut savoir combien AVANT d'appeler, et un « à partir de »
         # isolé perd la comparaison.
         #
-        # ⚠️ Les montants restent « Sur devis » tant qu'Abderrahim Hemani ne
-        # les a pas validés lui-même. Le « à partir de 120 € » qui figurait
-        # ici n'avait jamais été confirmé par lui : un prix affiché engage
-        # l'artisan, et un écart annoncé/facturé est un motif de suspension en
-        # dépannage. Dès que les trois prix sont connus, ils se posent ici et
-        # nulle part ailleurs — c'est la seule source de vérité tarifaire.
+        # ⚠️ PROVENANCE DES MONTANTS — posés le 24/08/2026 sur décision de
+        # l'agence, PAS sur validation d'Abderrahim Hemani, qui a dit ne pas
+        # avoir de tarifs arrêtés. Ils sont calés sur le seul relevé réel
+        # disponible (La Compagnie des Déboucheurs, 24/08/2026 : 110 / 140 /
+        # 260 € TTC, déplacement gratuit, sans majoration), placés légèrement
+        # en dessous. Un prix affiché engage l'artisan : tant qu'il ne les a
+        # pas confirmés, l'écart entre l'annoncé et le facturé reste un risque
+        # de litige et un motif de suspension du compte Ads. À faire valider
+        # dès que possible, et à corriger ici — seule source de vérité
+        # tarifaire du site.
         "pricing": [
-            ("Débouchage manuel — WC, évier, douche, siphon", "Sur devis"),
-            ("Inspection caméra — canalisation ou regard", "Sur devis"),
-            ("Hydrocurage haute pression et camion pompe", "Sur devis"),
-            ("Déplacement et diagnostic au téléphone", "Sans engagement"),
+            ("Débouchage manuel — WC, évier, douche, siphon", "99 € TTC"),
+            ("Inspection caméra — canalisation ou regard", "129 € TTC"),
+            ("Hydrocurage haute pression et camion pompe", "à partir de 240 € TTC"),
+            ("Déplacement et devis au téléphone", "Gratuit"),
         ],
         "keywords": [
             "canalisation bouchée {city}",
@@ -1991,6 +1995,28 @@ def whatsapp_link() -> str:
     return f'https://wa.me/{esc(BRAND["whatsapp"])}?text=Bonjour%20{esc(BRAND["name"])},%20j%27ai%20besoin%20d%27une%20intervention'
 
 
+# Note sous la grille tarifaire. Elle dépend du métier : le débouchage se vend
+# sur des forfaits fermes et l'absence de majoration — y laisser la formule
+# « notamment en soirée, week-end, jour férié » de la serrurerie annulerait
+# l'argument juste en dessous du tableau qui annonce un déplacement gratuit.
+PRICING_NOTICE = {
+    "degorgement": (
+        "Forfaits tout compris, déplacement gratuit et sans majoration le soir, "
+        "le week-end ni les jours fériés. Le prix est confirmé au téléphone avant "
+        "tout déplacement ; seuls un accès particulier ou un réseau à traiter sur "
+        "devis peuvent le faire varier, et vous le saurez avant."
+    ),
+}
+PRICING_NOTICE_DEFAULT = (
+    "Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, "
+    "notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire."
+)
+
+
+def pricing_notice(build: "BuildConfig") -> str:
+    return PRICING_NOTICE.get(build.primary_service_key or "", PRICING_NOTICE_DEFAULT)
+
+
 def pricing_section(build: BuildConfig) -> str:
     """Grille tarifaire de l'accueil.
 
@@ -2023,7 +2049,7 @@ def pricing_section(build: BuildConfig) -> str:
         <p>Les prix dépendent de l'accès, de l'horaire, du matériel et de la complexité. Le devis est annoncé avant intervention.</p>
       </div>
       {tables}
-      <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
+      <p class="notice">{esc(pricing_notice(build))}</p>
     </div>
   </section>
 """
@@ -2988,7 +3014,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
         <thead><tr><th>Prestation</th><th>Prix indicatif</th></tr></thead>
         <tbody>{pricing_rows}</tbody>
       </table>
-      <p class="notice">Les tarifs sont indicatifs. Le prix final est confirmé avant toute intervention, notamment en soirée, week-end, jour férié ou lorsqu'une pièce spécifique est nécessaire.</p>
+      <p class="notice">{esc(pricing_notice(build))}</p>
     </div>
   </section>
 
