@@ -182,6 +182,41 @@ pour Lyon et 42 € de moyenne). Annecy 1 conv./83,61 €, Chambéry 1 conv./28,
 Le client a été informé de ces chiffres et a maintenu sa décision — le motif est
 la distance, pas la performance.
 
+### La vérification de l'annonceur est TERMINÉE (constaté le 24/08/2026)
+
+Ce document annonçait une échéance au **31 août sous peine de suspension du
+compte**. **C'est faux et périmé.** Relevé dans `Admin → Règlement → Compte`
+le 24/08/2026 au soir : les quatre étapes sont cochées, et l'encart de droite
+affiche le badge servi sur les annonces —
+
+```
+Advertiser identity verified
+ADVERTISER : A2H PLOMBERIE
+LOCATION   : FR
+```
+
+| Étape | Date |
+|---|---|
+| Questions sur l'entreprise | 1er août 2026 |
+| Informations Dun & Bradstreet | 2 août 2026 |
+| Pas d'annonces politiques UE | 1er août 2026 |
+| Responsable du paiement | 1er août 2026 |
+
+**Aucun document n'est à fournir, aucune suspension n'est en attente.** Le
+dossier était « en cours d'examen » au 01/08 ; il a abouti dans les jours qui
+ont suivi et personne n'a mis la note à jour.
+
+### Correction : l'application automatique des recommandations n'est pas activée
+
+Il a été écrit le 24/08 que Google avait supprimé `serrurerie lyon` « tout
+seul ». Le `change_event` porte bien `client_type = GOOGLE_ADS_RECOMMENDATIONS`,
+mais ce champ désigne **l'écran d'où part l'action, pas une automatisation**.
+Le panneau « Application automatique » de la vue d'ensemble dit l'inverse :
+« Vous avez appliqué ces recommandations au cours des 90 derniers jours. Pour
+appliquer ces recommandations automatiquement […] **activez** l'application
+automatique. » C'est donc un clic humain sur *Appliquer*, dans
+`Recommandations` → *Supprimer les mots clés redondants*. Rien à désactiver.
+
 ### Le débouchage se vend comme du débouchage, pas comme de la plomberie (24/08/2026, nuit)
 
 Deux découvertes du même soir, en essayant de publier la campagne Plombio par
@@ -251,7 +286,7 @@ sans conséquence de diffusion ici, Lyon entier étant déjà ciblé.
 
 **Ce qui reste avant d'activer la campagne Plombio :**
 
-1. 🔴 **Faire valider les tarifs par Abderrahim Hemani.** Les montants affichés
+1. **Tarifs : arbitrage rendu, sujet clos.** Les montants affichés
    (99 / 129 / 240 € TTC, déplacement gratuit, sans majoration) ont été posés
    **par l'agence le 24/08/2026**, calés sous un relevé concurrent, parce que
    l'artisan a dit ne pas avoir de tarifs arrêtés. Il facturera ce que le site
