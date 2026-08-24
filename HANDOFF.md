@@ -86,6 +86,41 @@ Lyon et ses 9 arrondissements, 55 mots-clés) et `Dégorgement - Rhône - Search
 (34 communes, 170 mots-clés), 40 exclusions par campagne. Mode d'emploi complet
 et pièges dans `editor-import/README-import.md`.
 
+### Plombio est devenu un site de DÉBOUCHAGE (24/08/2026, soir)
+
+**Décision structurante.** Plombio générait deux pages par ville — une plomberie
+(`/lyon/`) et une dégorgement (`/degorgement/lyon/`) — qui se disputaient la même
+requête locale, et son accueil tombait dans la branche « multi-métier » du
+générateur : la section prestations n'affichait que **2 cartes dans une grille
+prévue pour 3**, avec un vide à droite.
+
+`BUILDS["plombier"]` est donc passé à `service_keys=("degorgement",)` /
+`primary_service_key="degorgement"`. Conséquences :
+
+- **282 pages → 143**, une ville = une page, à la racine, **exactement
+  l'architecture de Serrio**
+- Accueil : titre « Plombio | Dégorgement urgence 24/7 », H1 « Dégorgement de
+  confiance, ville par ville », **6 cartes de prestations** (la branche
+  mono-métier), avis « Intervention dégorgement », nav épurée
+- **143/143 titres ≤ 60 et meta-descriptions dans 120-160**, 0 ancre morte
+  ⚠️ mesurer après `html.unescape()` : `&#x27;` compte 6 caractères bruts et
+  fait croire à des dépassements sur les villes à apostrophe (L'Isle-d'Abeau,
+  Saint-Martin-d'Hères)
+- **Le contenu plomberie n'est pas supprimé** : il reste dans `SERVICES` et se
+  rallume en remettant `"plombier"` dans `service_keys`
+
+**Redirections 301** posées dans `vercel.json` pour les anciennes URL indexées et
+utilisées comme destination par les annonces :
+`/degorgement/:slug/` → `/:slug/`.
+⚠️ **Piège Vercel** : avec `trailingSlash: true`, la normalisation de l'URL a lieu
+**avant** l'évaluation des redirects. Une source sans slash final
+(`/degorgement/:slug`) n'est donc jamais atteinte et la page tombe en 404 — la
+source doit porter le slash.
+
+Les CSV Ads ont été régénérés : les URL finales pointent désormais vers
+`https://www.plombio.fr/<ville>/`. Le chemin d'affichage des annonces reste
+`degorgement/<ville>` — décoratif, il décrit bien la page.
+
 ### www.plombio.fr est en ligne (24/08/2026, après-midi)
 
 Domaine acheté chez **Infomaniak** et branché sur Vercel le jour même :
