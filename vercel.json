@@ -24,13 +24,8 @@
   ],
   "redirects": [
     {
-      "source": "/degorgement/:slug",
-      "destination": "/:slug",
-      "permanent": true
-    },
-    {
-      "source": "/degorgement",
-      "destination": "/",
+      "source": "/degorgement/:slug*",
+      "destination": "/:slug*",
       "permanent": true
     }
   ]
