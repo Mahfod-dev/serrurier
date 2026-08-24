@@ -86,6 +86,40 @@ Lyon et ses 9 arrondissements, 55 mots-clés) et `Dégorgement - Rhône - Search
 (34 communes, 170 mots-clés), 40 exclusions par campagne. Mode d'emploi complet
 et pièges dans `editor-import/README-import.md`.
 
+### Brouillon de campagne débouchage créé dans le compte Serrio (24/08/2026)
+
+**`Degorgement - Bron et Lyon - Search`** — `draftId=10210785649`,
+`campaignId=281499152191416`. **Brouillon, non activé, sans budget : rien ne peut
+diffuser.** Il se retrouve dans `Campagnes → onglet Brouillons`.
+
+Ce qui est déjà réglé :
+
+| Réglage | Valeur |
+|---|---|
+| Type | Réseau de Recherche |
+| Réseaux | **Recherche Google seule** — partenaires ET Display décochés |
+| Enchères | **Maximiser les clics** (pas de tag Plombio, donc rien à apprendre pour « conversions ») |
+| Zones | **Bron + Lyon**, ciblage **Présence** |
+| Langue | Français |
+| Site | `https://www.plombio.fr` · Téléphone `07 85 04 02 48` (France) |
+| AI Max | **désactivé** · génération de mots-clés par IA **ignorée** |
+| Mots-clés | 5 saisis pour Lyon, en expression exacte |
+
+**Ce qui reste** : l'annonce responsive, le budget, et les 10 autres groupes
+(Bron + les 9 arrondissements). ➜ **Passer par Ads Editor** avec
+`ops/plombier/google-ads/editor-import/` : c'est 5 minutes contre plusieurs
+centaines de clics dans l'interface web.
+
+⚠️ **Deux pièges rencontrés dans le parcours de création, à connaître** :
+1. **Google recommande un budget de 256,61 €/jour** (options à 205 € et 307 €)
+   pour deux villes. Il faut **« Définir un budget personnalisé » et saisir 25 €**.
+2. **Une confirmation d'identité est demandée** au moment du budget — seul
+   l'utilisateur peut la passer.
+3. Taper du texte hors d'un champ déclenche les **raccourcis clavier** de Google
+   Ads et fait quitter le formulaire. Toujours cliquer dans le champ d'abord.
+4. Le champ de zone géographique propose **les résultats américains en premier**
+   (« Bron » → « Bronx, New York ») : écrire « Bron, Auvergne » pour désambiguïser.
+
 ### Deux croyances de ce dossier corrigées le 24/08/2026
 
 **1. La RC pro couvre la serrurerie.** Confirmé par le client. Le « bloquant n°2 »
