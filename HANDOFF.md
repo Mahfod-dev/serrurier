@@ -5,6 +5,54 @@ contexte préalable. Aucun secret n'y figure.
 
 ---
 
+## 0. Mise à jour du 24 août 2026 — lire en premier
+
+Trois faits nouveaux, vérifiés dans l'interface Google Ads le 24/08 :
+
+1. **La campagne `Serrurier - Bron & Lyon - Search` a été mise en veille ce jour.**
+   Plus aucune campagne ne diffuse sur le compte Serrio.
+2. **Son budget avait été porté à 300,00 €/jour** — douze fois les 25 €/jour
+   décidés au lancement. Origine non identifiée : soit une modification manuelle,
+   soit une recommandation Google appliquée automatiquement. ⚠️ **À vérifier dans
+   `Historique des modifications` avant toute réactivation**, et à désactiver si
+   l'auto-application des recommandations est en cause.
+3. **Dépense réelle : 1 096,52 € sur 25 juil. – 23 août** (212 clics, CPC moyen
+   5,17 €, 2 499 impressions). Le §2 ci-dessous parle de 49,33 € : c'était l'état
+   au 1er août.
+
+**Conversions** : la colonne campagne affiche **26 conversions**, mais le
+récapitulatif Objectifs ne compte que **9 « Leads par téléphone »** sur une
+période presque identique. L'écart confirme le **double comptage** annoncé au
+§2 — trois actions de conversion en « Principale », dont deux qui mesurent la
+même chose. Ménage à faire avant de se fier au moindre CPA. Sur la base des
+9 leads réels, le coût par lead est de ~122 €.
+
+**Le pivot décidé** : la serrurerie reste bloquée tant que la RC pro ne la couvre
+pas. L'effort passe sur **Plombio / dégorgement**, qui est dans l'activité
+déclarée 43.22A et assuré. Les imports Ads Editor sont générés :
+
+```bash
+python3 ops/plombier/google-ads/build_editor_import.py
+```
+
+→ `ops/plombier/google-ads/editor-import/` : deux campagnes **à 25 €/jour
+chacune, en veille**, `Dégorgement - Bron & Lyon - Search` (11 groupes : Bron,
+Lyon et ses 9 arrondissements, 55 mots-clés) et `Dégorgement - Rhône - Search`
+(34 communes, 170 mots-clés), 40 exclusions par campagne. Mode d'emploi complet
+et pièges dans `editor-import/README-import.md`.
+
+**Ce qui manque avant de pouvoir lancer Plombio** : le domaine `plombio.fr`
+(non acheté), la levée de `SITE_NOINDEX` sur le projet Vercel `plombio`, la
+boîte `contact@plombio.fr` + `SMTP_*`, le compte Ads Plombio sous le MCC, les
+variables `PLOMBIER_ADS_ID` / `PLOMBIER_ADS_CALL_LABEL`, et la validation du
+seul tarif chiffré du site (« débouchage simple à partir de 120 € »).
+
+⚠️ **Échéance inchangée : validation de l'annonceur avant le 31 août 2026**, sans
+quoi le compte passe en veille — un compte Plombio créé sous le même MCC dépend
+de la même identité.
+
+---
+
 ## 1. Le projet en bref
 
 Générateur de sites locaux multivilles (`generate_site.py`, Python, sans
