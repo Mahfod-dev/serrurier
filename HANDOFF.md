@@ -40,6 +40,38 @@ Principale/Secondaire ne se règle que dans `action → Modifier les paramètres
 Optimisation des actions`. Le menu ⋮ et la sélection multiple ne proposent que
 « Supprimer » — **à ne jamais faire**, c'est irréversible et l'historique part avec.
 
+### État réel de la campagne serrurerie (vérifié le 24/08 au soir)
+
+Le §2 la décrit comme un « pilote sur 2 villes ». **C'est faux depuis longtemps.**
+Relevé dans l'interface :
+
+| | Valeur |
+|---|---|
+| État | **Activée**, « Stratégie d'enchères limitée » (avertissement, pas un blocage) |
+| Budget | **300,00 €/jour** (choix client) |
+| Groupes d'annonces | **67**, pas 2 — Lyon, Bron, Lyon 6, Oullins, Meyzieu, mais aussi **Annecy, Annemasse, Thonon-les-Bains, Chambéry, Cluses, Aix-les-Bains, Albertville, Ambérieu-en-Bugey…** |
+| Zones géographiques | **58 ciblées**, et **Paris exclu** (leçon de juillet appliquée) |
+| Option de ciblage | **Présence** (pas « Présence ou intérêt ») ✅ |
+| Réseaux | **Recherche Google seule**, sans partenaires ✅ |
+| Stratégie d'enchères | Maximiser les clics |
+| Requête large | **Désactivée** ✅ |
+| Composants auto / AI Max | **Désactivés** ✅ |
+| Annonces | **« Éligible »** — voir ci-dessous |
+
+**La question ouverte depuis le 28/07 est tranchée : les annonces contenant le mot
+« Serrurier » sont ÉLIGIBLES.** Elles diffusent, l'examen est passé. La restriction
+Local Services frappe les **mots-clés**, pas les créations — inutile de réécrire les
+titres.
+
+**Répartition du coût** : `Serrurier - Lyon` pèse **665,02 € sur 1 096,52 €** (61 %),
+1 504 impressions, CTR 8,11 %. Les villes savoyardes restent marginales (Annecy
+83,61 €, Annemasse 41,34 €, Chambéry 28,95 €).
+
+⚠️ **Point à trancher avec le client** : Annecy, Thonon, Cluses, Albertville et
+Aix-les-Bains sont à **100–200 km de Bron**. Sur du dépannage en urgence, un lead
+qui vient de là est difficilement servable. Les pages existent (le site couvre 130
+villes), mais la question est commerciale : l'artisan s'y déplace-t-il vraiment ?
+
 **Plombio se prépare en parallèle**, sans rien retirer à la serrurerie : le
 dégorgement est dans l'activité déclarée 43.22A et assuré, donc sans restriction
 Local Services sur les mots-clés. Les imports Ads Editor sont générés :
@@ -71,11 +103,22 @@ Différences Infomaniak / OVH : **aucun enregistrement de parking** (le piège d
 n'est pas venu seul : il a fallu `POST /v9/projects/plombio/domains/<d>/verify`
 puis `POST /v7/certs {"cns":[...]}`.
 
-**Ce qui manque encore pour lancer Plombio** : `SMTP_PASSWORD` (à poser par
-l'utilisateur, puis redéployer — le libellé du bouton est lu au build), le compte
-Ads Plombio sous le MCC, les variables `PLOMBIER_ADS_ID` /
-`PLOMBIER_ADS_CALL_LABEL`, la propriété Search Console, et la validation du seul
-tarif chiffré du site (« débouchage simple à partir de 120 € »).
+**✅ Formulaire de rappel Plombio OPÉRATIONNEL (24/08/2026)** — testé en production :
+`POST /api/callback/` → **200 `{"ok": true}` en 2,6 s**, e-mail réellement parti.
+Garde-fous vérifiés : nom vide → 422, téléphone invalide → 422. Bouton passé à
+« Demander un rappel ».
+
+Le mot de passe SMTP est un **mot de passe d'application Infomaniak** (Service Mail →
+l'adresse → onglet *Appareil connecté* → « Ajouter un appareil » → **« Configurer
+moi-même »**, qui génère un mot de passe dédié). Avantage sur Serrio : il est
+**indépendant du mot de passe de la boîte**, donc l'artisan peut configurer son
+téléphone sans casser le formulaire. Compte Infomaniak : **`strategie@flowcontent.io`**
+(organisation FLOWBLOG) — noter que `plombio.fr` est donc détenu par FlowContent.
+
+**Ce qui manque encore pour lancer Plombio** : le compte Ads Plombio sous le MCC, les
+variables `PLOMBIER_ADS_ID` / `PLOMBIER_ADS_CALL_LABEL` (+ redéploiement), la
+propriété Search Console, et la validation du seul tarif chiffré du site
+(« débouchage simple à partir de 120 € »).
 
 ⚠️ `/degorgement/` seul renvoie 404 (seules les pages ville existent), comme
 `/serrurier/` sur Serrio. Absent du sitemap, sans effet SEO.
