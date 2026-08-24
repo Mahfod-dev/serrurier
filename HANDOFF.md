@@ -293,8 +293,25 @@ sans conséquence de diffusion ici, Lyon entier étant déjà ciblé.
    annonce, ou il y aura litige. C'est la dette la plus urgente du dossier.
 2. Supprimer le brouillon web `Degorgement - Bron et Lyon - Search`, devenu
    inutile — son nom diffère, il ne fait doublon avec rien mais encombre.
-3. Créer l'action de conversion Plombio, poser `PLOMBIER_ADS_ID` et
-   `PLOMBIER_ADS_CALL_LABEL`, redéployer.
+3. ✅ **Fait le 24/08/2026.** Trois actions de conversion créées par
+   `POST /google-ads/conversions` de Flowcontent, une par chemin de contact :
+
+   | Action | ID | Libellé gtag |
+   |---|---|---|
+   | Plombio — Lead par téléphone | `7732671333` | `3i1FCOXmnOccEI2v7q9E` |
+   | Plombio — Lead WhatsApp | `7732465151` | `FiogCP-bkOccEI2v7q9E` |
+   | Plombio — Demande de rappel | `7732671246` | `NGR5CI7mnOccEI2v7q9E` |
+
+   `PLOMBIER_ADS_ID` = `AW-18353985421` — **le même compte que Serrio**, donc
+   le même identifiant de conversion ; ce sont les libellés qui séparent les
+   deux marques. Variables posées sur le projet Vercel `plombio`, redéployé,
+   les quatre balises sont vérifiées en ligne.
+
+   ⚠️ Les trois actions sont créées **primaires** par le service. Elles ont été
+   repassées en **secondaires** aussitôt : primaires, elles seraient entrées
+   dans les objectifs du compte, donc dans les enchères de la campagne
+   serrurerie à 300 €/jour. La campagne Plombio enchérit sur `MAXIMIZE_CLICKS`
+   et n'en a pas besoin ; les conversions restent mesurées.
 4. Déployer le playbook `degorgement` (`./deploy.sh`, blue-green sans coupure).
 
 ### Plombio est devenu un site de DÉBOUCHAGE (24/08/2026, soir)
