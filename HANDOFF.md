@@ -130,9 +130,27 @@ et le compte Serrio ne porte plus de risque de suspension particulier.
 **2. Les mots-clés « serrurier <ville> » sont déjà dans le compte et diffusent.**
 Le §5 dit que Local Services les bloque et qu'il faut une dérogation. Vérification
 faite dans `Mots clés` : **337 mots-clés**, dont `"serrurier Chambéry"` en
-**expression exacte et Éligible**. `"serrurier lyon 3"` et `"serrurier lyon 7"`
-existent aussi, en veille. **Il n'y a donc pas de dérogation à demander** — la
-restriction vue dans Ads Editor le 28/07 n'a pas empêché la publication.
+**expression exacte et Éligible**. **Il n'y a donc pas de dérogation à demander**
+— la restriction vue dans Ads Editor le 28/07 n'a pas empêché la publication.
+
+⚠️ Ce document a un temps dit que `"serrurier lyon 3"` et `"serrurier lyon 7"`
+étaient « en veille sans raison connue, à réactiver ». **C'est faux, et il ne faut
+pas les réactiver.** Relevé API du 24/08/2026 : le compte contient **340 mots-clés,
+330 actifs, 9 en veille, 1 supprimé**. Les 9 en veille sont `serrurier lyon 1` à
+`serrurier lyon 9`, en expression exacte, dans le groupe générique
+`Serrurier - Lyon`. Ils ont été mis en veille par l'API le **22/08 à 22h14**, six
+minutes après la création des neuf groupes d'arrondissement à 22h08 : chaque
+arrondissement a désormais son propre groupe avec **3 mots-clés actifs**
+(`serrurier Lyon N`, `serrurier urgence Lyon N`, `depannage serrurier Lyon N`),
+soit **27 mots-clés à la place de 9**. Les réactiver remettrait deux groupes en
+concurrence sur la même requête, ce que la séparation des arrondissements visait
+précisément à supprimer.
+
+Le mot-clé **supprimé** est `"serrurerie lyon"`, retiré le **23/08 à 19h38** par
+`GOOGLE_ADS_RECOMMENDATIONS` — c'est-à-dire **par Google lui-même**, via
+l'application automatique des recommandations, et non par nous. À traiter :
+désactiver l'auto-application dans `Recommandations` → `Application automatique`,
+sinon Google continuera de modifier le compte sans qu'on le décide.
 
 Conséquence sur l'architecture des comptes : **Plombio peut aller dans le compte
 Serrio**, l'argument du risque de contagion ne tient plus. Deux précautions si on
