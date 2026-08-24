@@ -18,12 +18,27 @@ Trois faits nouveaux, vérifiés dans l'interface Google Ads le 24/08 :
    5,17 €, 2 499 impressions). Le §2 ci-dessous parle de 49,33 € : c'était l'état
    au 1er août.
 
-**Conversions** : la colonne campagne affiche **26 conversions**, mais le
-récapitulatif Objectifs ne compte que **9 « Leads par téléphone »** sur une
-période presque identique. L'écart confirme le **double comptage** annoncé au
-§2 — trois actions de conversion en « Principale », dont deux qui mesurent la
-même chose. Ménage à faire avant de se fier au moindre CPA. Sur la base des
-9 leads réels, le coût par lead est de ~122 €.
+**Conversions : 26, et elles sont réelles.** Le §2 annonçait un double comptage ;
+vérification faite le 24/08, il n'y en a pas. Le site câble trois chemins avec
+trois libellés distincts, et chacun a son action :
+
+| Action | Libellé | Conversions |
+|---|---|---|
+| `Lead par téléphone` | `3QJXCIbG5dgcEI2v7q9E` | **20** |
+| `Lead WhatsApp` | `J34oCMPA4OEcEI2v7q9E` | **6** |
+| `Lead demande de rappel` | `ZXThCMbA4OEcEI2v7q9E` | 0 (formulaire récent) |
+
+Soit **~42 € par contact**, pas 122 €.
+
+**Ménage fait le 24/08** : trois actions parasites en « Principale », toutes à 0
+conversion et en « mauvaise configuration », sont passées en **Secondaire** —
+`Clic numéro site`, `Lead par téléphone (1)` et `Lead par téléphone (2)`, toutes
+orphelines (aucun libellé émis par le site). `Appels à partir des annonces` reste
+en Principale : elle mesure les appels depuis l'extension d'appel, chemin distinct.
+
+Principale/Secondaire ne se règle que dans `action → Modifier les paramètres →
+Optimisation des actions`. Le menu ⋮ et la sélection multiple ne proposent que
+« Supprimer » — **à ne jamais faire**, c'est irréversible et l'historique part avec.
 
 **Plombio se prépare en parallèle**, sans rien retirer à la serrurerie : le
 dégorgement est dans l'activité déclarée 43.22A et assuré, donc sans restriction
