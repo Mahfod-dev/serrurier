@@ -311,28 +311,33 @@ SERVICES = {
         ],
     },
     "degorgement": {
-        "label": "Dégorgement",
-        "plural": "dégorgement",
+        # « Dégorgement » est un mot d'artisan. Personne ne le tape à 23h avec
+        # de l'eau sur le carrelage : on écrit « wc bouché ». Le vocabulaire
+        # du site suit désormais celui du client — le symptôme d'abord, la
+        # technique ensuite (décision du 24/08/2026, après relevé du champ
+        # lexical des spécialistes du créneau).
+        "label": "Débouchage",
+        "plural": "débouchage",
         "schema_type": "Plumber",
-        "headline": "Dégorgement canalisation à {city}",
-        "short": "Débouchage, curage, hydrocurage, camion pompe et intervention sur canalisations obstruées.",
-        "hero": "Canalisation bouchée, regard plein ou besoin de camion pompe : {brand} intervient à {city}.",
+        "headline": "Débouchage de canalisation à {city}",
+        "short": "WC, évier, douche ou regard bouché : débouchage, curage et inspection caméra.",
+        "hero": "WC bouché, évier qui ne s'évacue plus, regard qui déborde : {brand} intervient à {city}.",
         "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=1800&auto=format&fit=crop",
         "accent": "#0e7c8f",
         "secondary": "#dd4f1e",
         "audience": "maisons, immeubles, locaux commerciaux et réseaux extérieurs accessibles",
         "promise": "Un bouchon de canalisation demande une qualification précise : point de blocage, accès, remontées d'eau et besoin éventuel d'hydrocurage.",
         "benefits": [
-            "Débouchage canalisation haute pression",
-            "Curage préventif ou curatif",
-            "Camion pompe selon accessibilité",
-            "Diagnostic avant travaux lourds",
+            "WC, évier, douche et baignoire",
+            "Regard et évacuation extérieure",
+            "Inspection caméra avant travaux",
+            "Débouchage, curage ou camion pompe",
         ],
         "trust_points": [
-            "Qualification du bouchon avant déplacement",
-            "Vérification de l'accès au regard ou à l'évacuation",
-            "Solution adaptée : débouchage simple, curage ou camion pompe",
-            "Conseils pour éviter une récidive rapide",
+            "Le problème est qualifié au téléphone avant tout déplacement",
+            "L'accès au regard ou à l'évacuation est vérifié avec vous",
+            "La méthode est choisie selon le bouchon, pas selon la facture",
+            "Les causes de récidive vous sont expliquées après intervention",
         ],
         "steps": [
             ("Localiser", "Vous précisez l'équipement concerné, les remontées et l'accès aux regards."),
@@ -340,18 +345,28 @@ SERVICES = {
             ("Déboucher", "L'intervention est menée avec le matériel adapté au type de bouchon."),
             ("Prévenir", "Les causes possibles et les signes de récidive sont expliqués après intervention."),
         ],
+        # Trois forfaits, comme les acteurs établis du créneau : le client en
+        # panne veut savoir combien AVANT d'appeler, et un « à partir de »
+        # isolé perd la comparaison.
+        #
+        # ⚠️ Les montants restent « Sur devis » tant qu'Abderrahim Hemani ne
+        # les a pas validés lui-même. Le « à partir de 120 € » qui figurait
+        # ici n'avait jamais été confirmé par lui : un prix affiché engage
+        # l'artisan, et un écart annoncé/facturé est un motif de suspension en
+        # dépannage. Dès que les trois prix sont connus, ils se posent ici et
+        # nulle part ailleurs — c'est la seule source de vérité tarifaire.
         "pricing": [
-            ("Diagnostic canalisation", "Sur devis"),
-            ("Débouchage simple", "à partir de 120 €"),
-            ("Hydrocurage", "Sur devis"),
-            ("Camion pompe", "Sur devis"),
+            ("Débouchage manuel — WC, évier, douche, siphon", "Sur devis"),
+            ("Inspection caméra — canalisation ou regard", "Sur devis"),
+            ("Hydrocurage haute pression et camion pompe", "Sur devis"),
+            ("Déplacement et diagnostic au téléphone", "Sans engagement"),
         ],
         "keywords": [
-            "camion pompe {city}",
-            "dégorgement {city}",
-            "débouchage canalisation {city}",
             "canalisation bouchée {city}",
-            "hydrocurage {city}",
+            "wc bouché {city}",
+            "débouchage canalisation {city}",
+            "évier bouché {city}",
+            "débouchage {city}",
         ],
     },
 }
@@ -1060,7 +1075,7 @@ SERVICE_REVIEWS = {
         ("Mitigeur de cuisine remplacé proprement, tarif clair et conforme à ce qui avait été annoncé au téléphone.", "Particulier", "appartement"),
     ],
     "degorgement": [
-        ("Canalisation bouchée avec remontées d'eau : situation qualifiée précisément au téléphone puis hydrocurage efficace le jour même.", "Particulier", "maison"),
+        ("WC bouchés avec remontées d'eau : situation qualifiée précisément au téléphone puis intervention efficace le jour même.", "Particulier", "maison"),
         ("Regard plein, camion pompe envoyé après vérification de l'accès. Travail soigné et conseils pour éviter la récidive.", "Gérant", "résidence"),
         ("Débouchage réalisé dans la journée, prix confirmé avant de commencer, aucune mauvaise surprise sur la facture.", "Propriétaire", "immeuble"),
         ("Évacuation lente depuis des semaines, réglée en une intervention. Explications claires sur l'entretien à prévoir.", "Locataire", "appartement"),
@@ -1094,11 +1109,11 @@ SERVICE_VALUE = {
         ],
     ),
     "degorgement": (
-        "Le bon matériel pour votre canalisation, pas plus que nécessaire",
+        "Un déboucheur équipé, pas seulement un plombier",
         [
-            "Selon le type de bouchon et l'accès, on oriente vers un débouchage simple, un hydrocurage ou un camion pompe — et on vous l'explique avant. L'objectif est de rétablir l'écoulement sans engager de travaux lourds inutiles.",
-            "Avant de sortir le gros matériel, on qualifie le bouchon : profondeur, accès, nature du dépôt. Un débouchage mécanique suffit souvent ; l'hydrocurage ou le camion pompe ne sont proposés que lorsqu'ils sont réellement nécessaires.",
-            "Rétablir l'écoulement durablement, sans surdimensionner l'intervention : voilà l'objectif. La solution est choisie selon le diagnostic réel et vous est expliquée avant tout démarrage des travaux.",
+            "Déboucher une canalisation demande un matériel que le plombier généraliste n'emporte pas toujours : caméra d'inspection, hydrocureuse haute pression, pompe. Selon le bouchon et l'accès, on oriente vers un débouchage simple, un hydrocurage ou un camion pompe — et on vous l'explique avant.",
+            "Un plombier répare l'installation ; un déboucheur traite l'évacuation, avec l'outillage correspondant. Avant de sortir le gros matériel, on qualifie le bouchon : profondeur, accès, nature du dépôt. Un débouchage mécanique suffit souvent, et on le dit.",
+            "Rétablir l'écoulement durablement, sans surdimensionner l'intervention : voilà l'objectif. La solution est choisie selon le diagnostic réel — caméra d'abord quand le point de blocage est incertain — et vous est expliquée avant tout démarrage.",
         ],
     ),
 }
@@ -1115,7 +1130,7 @@ SERVICE_INTRO_VARIANTS = {
         "Une intervention de plomberie réussie, c'est d'abord stopper l'eau et limiter les dégâts, puis traiter la cause : joint, flexible, mécanisme, robinetterie ou évacuation. Chaque élément remplacé est expliqué avant, et le prix est confirmé avant de commencer — y compris en soirée, le week-end et les jours fériés.",
     ],
     "degorgement": [
-        "Un bouchon de canalisation peut aller du simple ralentissement d'évacuation à un réseau complètement saturé avec remontées d'eau. Selon la profondeur, l'accès et la nature du dépôt, la bonne réponse va du débouchage mécanique à l'hydrocurage haute pression ou au camion pompe. Une qualification précise au téléphone évite un déplacement mal préparé.",
+        "Des WC qui refoulent, un évier qui met dix minutes à se vider, une douche où l'eau stagne : un bouchon se manifeste rarement au même endroit deux fois. Selon la profondeur, l'accès et la nature du dépôt, la bonne réponse va du débouchage mécanique à l'hydrocurage haute pression ou au camion pompe. Une qualification précise au téléphone évite un déplacement mal préparé.",
         "Tous les bouchons ne se traitent pas de la même façon. Un évier qui s'évacue lentement, un WC bloqué, un regard plein ou des remontées dans plusieurs points appellent des solutions différentes : débouchage haute pression, hydrocurage ou camion pompe selon le diamètre, l'accès et l'origine du dépôt.",
         "Le dégorgement de canalisation demande d'abord de localiser le point de blocage, puis de choisir le matériel adapté plutôt que d'appliquer une solution unique. L'objectif est de rétablir un écoulement durable sans engager de travaux lourds inutiles, et de vous expliquer comment éviter la récidive.",
     ],
@@ -1140,13 +1155,15 @@ SERVICE_DETAIL = {
         ("Remplacement de sanitaires", "Pose ou échange de WC, lavabo, siphon et mécanisme de chasse, avec test final d'étanchéité."),
         ("Dégât des eaux", "Coupure rapide, limitation des dégâts et compte rendu simple pour l'assurance ou le propriétaire si nécessaire."),
     ],
+    # L'ordre compte : le visiteur cherche son équipement, pas une technique.
+    # « Hydrocurage » en tête ne dit rien à quelqu'un dont les WC débordent.
     "degorgement": [
-        ("Débouchage haute pression", "Élimination des bouchons par jet d'eau haute pression adapté au diamètre et au type de canalisation."),
-        ("Hydrocurage", "Nettoyage complet de la canalisation pour retirer graisses, dépôts et racines et rétablir un écoulement durable."),
-        ("Curage de canalisation", "Entretien curatif ou préventif des réseaux d'évacuation des eaux usées et pluviales."),
-        ("Camion pompe", "Pompage et vidange lorsque les eaux remontent, qu'un regard est plein ou que le réseau est saturé, selon l'accès."),
-        ("Inspection caméra", "Repérage du point de blocage et de l'état de la canalisation pour orienter l'intervention sans casse inutile."),
-        ("Bac à graisse et regards", "Vidange et nettoyage de bac à graisse, fosse accessible ou regards pour les locaux et la restauration."),
+        ("WC et toilettes bouchés", "Cuvette qui ne s'évacue plus ou qui déborde : débouchage mécanique ou haute pression selon l'origine du bouchon."),
+        ("Évier, lavabo et siphon", "Évacuation lente ou totalement bloquée en cuisine ou en salle de bains, siphon encrassé, remontées d'odeurs."),
+        ("Douche et baignoire", "Eau qui stagne, écoulement au ralenti : dégagement du bouchon de cheveux, savon et dépôts dans l'évacuation."),
+        ("Machine à laver et lave-vaisselle", "Évacuation qui refoule au cycle d'essorage ou de vidange, tuyau et raccordement à contrôler."),
+        ("Regard, égout et extérieur", "Regard plein, remontées dans plusieurs points, réseau extérieur saturé : pompage ou hydrocurage selon l'accès."),
+        ("Inspection caméra et curage", "Repérage du point de blocage avant de décider, puis curage préventif ou curatif pour éviter la récidive."),
     ],
 }
 
@@ -1185,7 +1202,9 @@ EXTRA_FAQ = {
         ("Que faire en attendant le plombier ?", "Coupez l'arrivée d'eau si vous le pouvez, épongez et protégez les sols, et préparez une photo de la fuite. Cela aide à confirmer le matériel nécessaire avant l'arrivée."),
     ],
     "degorgement": [
+        ("Quelle différence entre un plombier et un déboucheur ?", "Le plombier intervient sur l'installation : robinetterie, chauffe-eau, sanitaires, recherche de fuite. Le déboucheur traite l'évacuation et les canalisations obstruées, avec un outillage spécifique — caméra d'inspection, hydrocureuse haute pression, pompe. Sur un bouchon profond ou un regard saturé, c'est ce matériel qui fait la différence."),
         ("Débouchage simple ou hydrocurage ?", "Cela dépend de la nature et de la profondeur du bouchon. Un débouchage mécanique suffit souvent ; l'hydrocurage ou le camion pompe sont réservés aux cas de remontées, de regards pleins ou de réseaux saturés."),
+        ("Combien coûte un débouchage ?", "Le prix dépend de l'équipement concerné, de l'accès et du matériel nécessaire. Il est annoncé au téléphone, avant tout déplacement : décrivez la situation et vous saurez à quoi vous attendre avant que quiconque se déplace."),
         ("Comment éviter que ça recommence ?", "Après intervention, les causes probables et les bons gestes (graisses, lingettes, entretien périodique) sont expliqués pour limiter les récidives."),
     ],
 }
