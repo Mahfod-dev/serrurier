@@ -86,6 +86,27 @@ Lyon et ses 9 arrondissements, 55 mots-clés) et `Dégorgement - Rhône - Search
 (34 communes, 170 mots-clés), 40 exclusions par campagne. Mode d'emploi complet
 et pièges dans `editor-import/README-import.md`.
 
+### Deux croyances de ce dossier corrigées le 24/08/2026
+
+**1. La RC pro couvre la serrurerie.** Confirmé par le client. Le « bloquant n°2 »
+qui traîne depuis juillet — *l'artisan vend de la serrurerie sans être assuré
+pour* — n'existe pas. Le risque juridique sur les 212 clics déjà servis tombe,
+et le compte Serrio ne porte plus de risque de suspension particulier.
+
+**2. Les mots-clés « serrurier <ville> » sont déjà dans le compte et diffusent.**
+Le §5 dit que Local Services les bloque et qu'il faut une dérogation. Vérification
+faite dans `Mots clés` : **337 mots-clés**, dont `"serrurier Chambéry"` en
+**expression exacte et Éligible**. `"serrurier lyon 3"` et `"serrurier lyon 7"`
+existent aussi, en veille. **Il n'y a donc pas de dérogation à demander** — la
+restriction vue dans Ads Editor le 28/07 n'a pas empêché la publication.
+
+Conséquence sur l'architecture des comptes : **Plombio peut aller dans le compte
+Serrio**, l'argument du risque de contagion ne tient plus. Deux précautions si on
+fait ce choix : définir les **objectifs de conversion au niveau de la campagne**
+Plombio (au lieu de « Par défaut dans le compte ») pour ne pas mélanger les
+signaux d'enchères, et renommer le compte, qui s'appelle encore
+« Serrio — Serrurerie Lyon ».
+
 ### Savoie, Haute-Savoie et Isère en standby sur Serrio (24/08/2026, soir)
 
 **Demande du client.** Plutôt que de retirer les 33 villes concernées des zones
