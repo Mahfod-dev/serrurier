@@ -182,6 +182,56 @@ pour Lyon et 42 € de moyenne). Annecy 1 conv./83,61 €, Chambéry 1 conv./28,
 Le client a été informé de ces chiffres et a maintenu sa décision — le motif est
 la distance, pas la performance.
 
+### Le débouchage se vend comme du débouchage, pas comme de la plomberie (24/08/2026, nuit)
+
+Deux découvertes du même soir, en essayant de publier la campagne Plombio par
+l'API Flowcontent plutôt que par Ads Editor.
+
+**1. Le campaign-builder de Flowcontent fonctionne, et il vaut mieux qu'Ads
+Editor.** Endpoints `POST /api/google-ads/campaign-plan/{build,validate,publish}`,
+déployés en prod, écran `/[locale]/lancer-ma-publicite`. Création atomique en une
+requête `googleAds:mutate`, campagne créée `PAUSED`, `PRESENCE` en dur, mode
+`validateOnly` qui vérifie chez Google sans rien écrire. Le `build` a produit un
+plan complet sur le compte Serrio, pages ville comprises.
+
+⚠️ L'écran n'envoie **pas** `landingPages`, `extraKeywords` ni
+`confirmedComplianceKeys`, et n'appelle jamais `validate`. Utilisé tel quel, il
+enverrait les onze groupes sur la page d'accueil. Passer par l'API tant que ces
+champs manquent — le jeton se lit dans la session NextAuth de l'admin
+(`GET /api/auth/session` → `user.apiToken`), l'API est `https://flowbackendapi.store/api`.
+
+**2. Le playbook `plomberie` vendait la mauvaise prestation.** Sur les onze
+groupes, il produisait 18 mots-clés par ville dont 10 de plomberie générale :
+`plombier {ville}`, `chauffe eau en panne {ville}`, `dégât des eaux {ville}`,
+`radiateur qui fuit {ville}`. Sur un site devenu 100 % débouchage, ce sont des
+clics payés pour une prestation que les pages n'annoncent pas.
+
+Un playbook **`degorgement`** a été créé (`backend-flowcontent`, commit
+`a42f9a4f`, **non déployé** : le conteneur `blog-api-blue` tourne encore
+l'ancien code). Il achète le symptôme et refuse en exclusion ce que le site ne
+vend pas. `plombier` n'est **pas** exclu : « plombier wc bouché » est un bon
+client, qui nomme le métier faute de connaître le mot « déboucheur ».
+
+**3. Le site parlait comme l'artisan.** Relevé du champ lexical d'un spécialiste
+du créneau : il écrit « WC bouché », « évier bouché », « regard qui déborde » là
+où nous écrivions « dégorgement », « hydrocurage », « camion pompe ». Les pages
+ont été réécrites (commit `bff5c43`, en ligne) : symptôme d'abord, prestations
+rangées par équipement, positionnement « déboucheur ≠ plombier » dans le bénéfice
+central et la FAQ.
+
+**4. Le « à partir de 120 € » a été retiré du site.** Il n'avait jamais été
+confirmé par Abderrahim Hemani, et le builder refuse — à juste titre — de publier
+une campagne qui achète du trafic vers une page affichant un prix non validé. La
+grille est désormais structurée en trois forfaits (débouchage manuel, inspection
+caméra, hydrocurage/camion pompe), tous « Sur devis » **en attente des montants
+de l'artisan**. Il fait les trois prestations, confirmé par l'utilisateur le
+24/08. Dès que les prix arrivent, ils se posent dans
+`SERVICES["degorgement"]["pricing"]` et nulle part ailleurs.
+
+**Ce qui reste pour publier la campagne Plombio :** les trois prix, puis
+déployer le backend, puis `build` avec `vertical: 'degorgement'` →
+`validate` → `publish`.
+
 ### Plombio est devenu un site de DÉBOUCHAGE (24/08/2026, soir)
 
 **Décision structurante.** Plombio générait deux pages par ville — une plomberie
