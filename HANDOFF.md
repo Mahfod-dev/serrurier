@@ -9,13 +9,11 @@ contexte préalable. Aucun secret n'y figure.
 
 Trois faits nouveaux, vérifiés dans l'interface Google Ads le 24/08 :
 
-1. **La campagne `Serrurier - Bron & Lyon - Search` a été mise en veille ce jour.**
-   Plus aucune campagne ne diffuse sur le compte Serrio.
-2. **Son budget avait été porté à 300,00 €/jour** — douze fois les 25 €/jour
-   décidés au lancement. Origine non identifiée : soit une modification manuelle,
-   soit une recommandation Google appliquée automatiquement. ⚠️ **À vérifier dans
-   `Historique des modifications` avant toute réactivation**, et à désactiver si
-   l'auto-application des recommandations est en cause.
+1. **La campagne `Serrurier - Bron & Lyon - Search` diffuse.** Elle a été mise en
+   veille puis **réactivée le jour même à la demande de l'utilisateur**.
+2. **Son budget est de 300,00 €/jour : c'est une demande du client.** Les mentions
+   de 25 €/jour ailleurs dans ce document sont périmées sur ce point. ⚠️ Ne pas
+   traiter ce montant comme une dérive et ne pas proposer de le réduire.
 3. **Dépense réelle : 1 096,52 € sur 25 juil. – 23 août** (212 clics, CPC moyen
    5,17 €, 2 499 impressions). Le §2 ci-dessous parle de 49,33 € : c'était l'état
    au 1er août.
@@ -27,9 +25,9 @@ période presque identique. L'écart confirme le **double comptage** annoncé au
 même chose. Ménage à faire avant de se fier au moindre CPA. Sur la base des
 9 leads réels, le coût par lead est de ~122 €.
 
-**Le pivot décidé** : la serrurerie reste bloquée tant que la RC pro ne la couvre
-pas. L'effort passe sur **Plombio / dégorgement**, qui est dans l'activité
-déclarée 43.22A et assuré. Les imports Ads Editor sont générés :
+**Plombio se prépare en parallèle**, sans rien retirer à la serrurerie : le
+dégorgement est dans l'activité déclarée 43.22A et assuré, donc sans restriction
+Local Services sur les mots-clés. Les imports Ads Editor sont générés :
 
 ```bash
 python3 ops/plombier/google-ads/build_editor_import.py
