@@ -228,9 +228,39 @@ de l'artisan**. Il fait les trois prestations, confirmé par l'utilisateur le
 24/08. Dès que les prix arrivent, ils se posent dans
 `SERVICES["degorgement"]["pricing"]` et nulle part ailleurs.
 
-**Ce qui reste pour publier la campagne Plombio :** les trois prix, puis
-déployer le backend, puis `build` avec `vertical: 'degorgement'` →
-`validate` → `publish`.
+**5. La campagne Plombio est publiée — EN PAUSE.** Le 24/08/2026 à 22h50, par
+`campaign-plan/publish` : **159 ressources créées, aucun échec**. Vérifié
+ensuite par l'API Google Ads, indépendamment de l'outil qui a écrit :
+
+```
+Plombio — Search — Local par ville   PAUSED   budget 25 €/j
+11 groupes · 88 mots-clés · 0 mot-clé de plomberie générale
+```
+
+Le playbook `degorgement` n'étant pas déployé, le plan a été construit avec
+`vertical: 'plombier'` puis **corrigé côté client avant validation** : retrait
+des 110 mots-clés de plomberie générale, ajout de 13 exclusions, et réécriture
+des 11 annonces, qui promettaient « Plombier à {ville} », « Chauffe-eau et
+sanitaires » et « Recherche de fuite » — des prestations que les pages
+n'annoncent pas. C'est un rattrapage manuel : **déployer le playbook rend ce
+travail inutile la prochaine fois.**
+
+À noter : Google résout les arrondissements lyonnais en codes postaux
+(`69001`, `2nd arrondissement`…), sauf **« Lyon 6 », résolu en « Lyon »** —
+sans conséquence de diffusion ici, Lyon entier étant déjà ciblé.
+
+**Ce qui reste avant d'activer la campagne Plombio :**
+
+1. 🔴 **Faire valider les tarifs par Abderrahim Hemani.** Les montants affichés
+   (99 / 129 / 240 € TTC, déplacement gratuit, sans majoration) ont été posés
+   **par l'agence le 24/08/2026**, calés sous un relevé concurrent, parce que
+   l'artisan a dit ne pas avoir de tarifs arrêtés. Il facturera ce que le site
+   annonce, ou il y aura litige. C'est la dette la plus urgente du dossier.
+2. Supprimer le brouillon web `Degorgement - Bron et Lyon - Search`, devenu
+   inutile — son nom diffère, il ne fait doublon avec rien mais encombre.
+3. Créer l'action de conversion Plombio, poser `PLOMBIER_ADS_ID` et
+   `PLOMBIER_ADS_CALL_LABEL`, redéployer.
+4. Déployer le playbook `degorgement` (`./deploy.sh`, blue-green sans coupure).
 
 ### Plombio est devenu un site de DÉBOUCHAGE (24/08/2026, soir)
 
