@@ -41,11 +41,31 @@ Lyon et ses 9 arrondissements, 55 mots-clés) et `Dégorgement - Rhône - Search
 (34 communes, 170 mots-clés), 40 exclusions par campagne. Mode d'emploi complet
 et pièges dans `editor-import/README-import.md`.
 
-**Ce qui manque avant de pouvoir lancer Plombio** : le domaine `plombio.fr`
-(non acheté), la levée de `SITE_NOINDEX` sur le projet Vercel `plombio`, la
-boîte `contact@plombio.fr` + `SMTP_*`, le compte Ads Plombio sous le MCC, les
-variables `PLOMBIER_ADS_ID` / `PLOMBIER_ADS_CALL_LABEL`, et la validation du
-seul tarif chiffré du site (« débouchage simple à partir de 120 € »).
+### www.plombio.fr est en ligne (24/08/2026, après-midi)
+
+Domaine acheté chez **Infomaniak** et branché sur Vercel le jour même :
+
+- `A @ → 216.150.1.1`, `CNAME www → 72cb9a4e97540290.vercel-dns-016.com.`
+  (⚠️ CNAME **unique par projet**, différent de celui de serrio)
+- Apex → www en **308**, HTTPS actif
+- **`SITE_NOINDEX=0`** et redéployé : `robots.txt` normal, `Sitemap:` déclaré,
+  `index, follow`, **282 URL** dont **139 pages `/degorgement/<ville>/`**
+- `SMTP_USER=contact@plombio.fr`, `SMTP_HOST=mail.infomaniak.com`, `SMTP_PORT=465`
+
+Différences Infomaniak / OVH : **aucun enregistrement de parking** (le piège des
+`AAAA` IPv6 d'OVH ne se pose pas), et la messagerie est pré-câblée dès l'achat
+(MX, SPF, **DKIM**, **DMARC `p=reject`**, SRV) — ne pas y toucher. Le certificat
+n'est pas venu seul : il a fallu `POST /v9/projects/plombio/domains/<d>/verify`
+puis `POST /v7/certs {"cns":[...]}`.
+
+**Ce qui manque encore pour lancer Plombio** : `SMTP_PASSWORD` (à poser par
+l'utilisateur, puis redéployer — le libellé du bouton est lu au build), le compte
+Ads Plombio sous le MCC, les variables `PLOMBIER_ADS_ID` /
+`PLOMBIER_ADS_CALL_LABEL`, la propriété Search Console, et la validation du seul
+tarif chiffré du site (« débouchage simple à partir de 120 € »).
+
+⚠️ `/degorgement/` seul renvoie 404 (seules les pages ville existent), comme
+`/serrurier/` sur Serrio. Absent du sitemap, sans effet SEO.
 
 ⚠️ **Échéance inchangée : validation de l'annonceur avant le 31 août 2026**, sans
 quoi le compte passe en veille — un compte Plombio créé sous le même MCC dépend
