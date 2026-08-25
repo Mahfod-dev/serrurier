@@ -182,6 +182,39 @@ pour Lyon et 42 € de moyenne). Annecy 1 conv./83,61 €, Chambéry 1 conv./28,
 Le client a été informé de ces chiffres et a maintenu sa décision — le motif est
 la distance, pas la performance.
 
+### Le débouchage diffuse : deux campagnes, 150 €/jour (25/08/2026)
+
+| Campagne | Budget | Groupes | Mots-clés |
+|---|---|---|---|
+| `Plombio — Search — Local par ville` | 60 €/j | 11 | 88 |
+| `Plombio Rhône — Search — Local par ville` | 90 €/j | 23 | 460 |
+
+Les deux `ENABLED`, `SERVING`, ciblage `PRESENCE`, créées par
+`campaign-plan/publish` — 159 puis 576 ressources, aucun échec. Budget de
+150 €/jour voulu par le client, comme les 300 €/jour de la serrurerie.
+
+**Le budget dépasse volontairement le marché mesuré.** Relevé Keyword Planner
+du 25/08 sur les 88 mots-clés du périmètre Lyon/Bron : **516 recherches par
+mois au total, et 82 mots-clés sur 88 à zéro**. `debouchage canalisation lyon`
+porte à lui seul **416/mois**, soit 81 % du marché ; les neuf arrondissements
+sont à **0**. À 8 % de taux de clic et 5 € le clic, ce périmètre absorbe
+**environ 7 €/jour**, pas 150.
+
+C'est pour cette raison que l'élargissement au Rhône a été fait **en même temps
+que la hausse de budget**, et pas après : un budget qu'on ne peut pas dépenser
+pousse Google à élargir seul les requêtes servies — le mécanisme même qui a
+porté le CPC de Serrio à 5,19 €, contre ~1,70 € chez ses concurrents pour une
+dépense identique.
+
+**À surveiller sous 48 h** : `search_term_view`. Si les requêtes réelles
+dérivent (produits, DIY, plomberie générale), redescendre le budget plutôt que
+d'ajouter des exclusions une par une.
+
+⚠️ Google ne connaît pas la commune nouvelle **« Oullins-Pierre-Bénite »**
+(2024). Le ciblage porte « Oullins » ; la page d'arrivée reste
+`/oullins-pierre-benite/`. Le builder a refusé de publier avant correction —
+« on ne publie pas avec un ciblage approximatif ».
+
 ### La vérification de l'annonceur est TERMINÉE (constaté le 24/08/2026)
 
 Ce document annonçait une échéance au **31 août sous peine de suspension du
