@@ -182,6 +182,45 @@ pour Lyon et 42 € de moyenne). Annecy 1 conv./83,61 €, Chambéry 1 conv./28,
 Le client a été informé de ces chiffres et a maintenu sa décision — le motif est
 la distance, pas la performance.
 
+### La ville dans le mot-clé nous privait de l'essentiel du marché (25/08/2026)
+
+Analyse Keyword Planner du 25/08, avant de porter le budget à 150 €/jour.
+
+**Le marché « avec ville » est minuscule et cher.** `debouchage canalisation
+lyon` : 390 recherches/mois, enchère haut de page **2,93 → 15,75 €**. Tout le
+reste du local est entre 10 et 70/mois ; `débouchage wc lyon` monte à
+**26,94 €** l'enchère haute pour 30 recherches.
+
+**Le marché « sans ville » est dix fois plus gros, et aussi qualifié :**
+
+| Requête | Volume | Enchère haut de page |
+|---|---|---|
+| deboucheur toilette | 2 900/mois | 2,46 → 13,12 € |
+| déboucheur canalisation professionnel | 1 300/mois | 1,00 → 6,59 € |
+| entreprise débouchage canalisation | 1 000/mois | 1,62 → 10,34 € |
+| débouchage canalisation urgence | 720/mois | 1,75 → 10,58 € |
+| societe debouchage canalisation | 590/mois | 2,30 → 15,84 € |
+| débouchage canalisation tarif | 590/mois | 1,00 → 6,07 € |
+
+**Le ciblage `PRESENCE` fait déjà le tri géographique : l'internaute n'a pas
+besoin d'écrire « lyon » pour qu'on sache qu'il y est.** Exiger le nom de la
+ville dans le mot-clé nous coupait de ces requêtes. Un groupe
+**`Debouchage - Generique Rhone`** a été créé dans la campagne Rhône —
+12 mots-clés en expression exacte, une annonce, destination l'accueil.
+
+**Lire l'enchère basse plutôt que le volume.** `deboucher wc` fait
+14 800/mois mais son enchère basse est à **0,49 €**, et `deboucher evier`
+à **0,15 €** : personne ne mise sur quelqu'un qui veut faire lui-même. Les
+gros volumes de ce marché sont informationnels. L'écart bas/haut trahit
+l'intention mieux que le volume.
+
+**Plafond d'enchère posé à 8 €** sur les deux campagnes. « Maximiser les
+clics » sans plafond suivrait les enchères hautes : à 150 €/jour, deux clics
+à 25 € mangeraient le tiers de la journée.
+
+Budget porté à **150 €/jour** — 100 € sur le Rhône (qui porte désormais le
+groupe générique), 50 € sur le pilote lyonnais.
+
 ### Le standby 73/74/38 ne fonctionnait pas — corrigé le 25/08/2026
 
 Posé le 24/08 en excluant les trois départements au niveau campagne. **C'était
