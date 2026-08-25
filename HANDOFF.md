@@ -133,6 +133,20 @@ faite dans `Mots clés` : **337 mots-clés**, dont `"serrurier Chambéry"` en
 **expression exacte et Éligible**. **Il n'y a donc pas de dérogation à demander**
 — la restriction vue dans Ads Editor le 28/07 n'a pas empêché la publication.
 
+⚠️ **Nuance capitale ajoutée le 25/08/2026 : la dérogation a bien un objet.**
+Les mots-clés existants diffusent, c'est vrai — mais Google refuse désormais
+**toute création** d'un mot-clé contenant « serrurier », avec ou sans ville
+(`policyViolationError`, politique `LOCAL_SERVICES`, `isExemptible: true`).
+`serrurier lyon 4` est refusé ; `ouverture de porte lyon` passe. La
+restriction vise le nom du métier, pas la ville ni le mot « serrure ». Le
+compte est donc gelé sur ce vocabulaire : aucune nouvelle ville, aucune
+nouvelle campagne serrurerie sans demander la dérogation.
+
+Contournement appliqué le 25/08 : groupe `Serrurier - Situations urgence`,
+10 mots-clés qui achètent la situation plutôt que le métier — `enferme
+dehors`, `cle cassee dans la serrure`, `cle perdue`, `ouverture de porte`,
+`serrure bloquee`… soit ~10 600 recherches/mois que le compte ne captait pas.
+
 ⚠️ Ce document a un temps dit que `"serrurier lyon 3"` et `"serrurier lyon 7"`
 étaient « en veille sans raison connue, à réactiver ». **C'est faux, et il ne faut
 pas les réactiver.** Relevé API du 24/08/2026 : le compte contient **340 mots-clés,
