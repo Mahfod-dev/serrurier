@@ -182,6 +182,28 @@ pour Lyon et 42 € de moyenne). Annecy 1 conv./83,61 €, Chambéry 1 conv./28,
 Le client a été informé de ces chiffres et a maintenu sa décision — le motif est
 la distance, pas la performance.
 
+### Le standby 73/74/38 ne fonctionnait pas — corrigé le 25/08/2026
+
+Posé le 24/08 en excluant les trois départements au niveau campagne. **C'était
+insuffisant** : chez Google la zone la plus précise l'emporte, et les villes
+restaient ciblées explicitement. Résultat, **145,70 € dépensés en deux jours**
+sur Annecy (23,52 €), Chambéry (31,77 €), Aix-les-Bains (28,20 €), Annemasse
+(26,70 €), Thonon (13,79 €), Sallanches (12,44 €) et Albertville (9,28 €) —
+contre la demande explicite du client.
+
+**24 villes retirées du ciblage positif** le 25/08 : les 24 communes de Savoie
+et Haute-Savoie de `CITY_GROUPS`. Il reste **34 zones**, Rhône et Ain — l'Ain
+(Bourg-en-Bresse, Oyonnax, Gex, Ferney-Voltaire, Divonne, Valserhône,
+Ambérieu, Saint-Genis-Pouilly, Miribel) n'était pas concerné par le standby.
+Les exclusions de départements sont conservées par sécurité.
+
+Les groupes d'annonces de ces villes restent actifs mais sans zone : ils ne
+peuvent plus diffuser, et tout revient si on rallume le ciblage.
+
+**Règle** : vérifier un standby par la dépense réelle par groupe les jours
+suivants, jamais par le compteur de zones de l'interface — voir
+[[google-ads-pieges-diagnostic]].
+
 ### Le débouchage diffuse : deux campagnes, 150 €/jour (25/08/2026)
 
 | Campagne | Budget | Groupes | Mots-clés |
