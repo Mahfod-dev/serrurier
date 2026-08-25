@@ -186,12 +186,18 @@ la distance, pas la performance.
 
 | Campagne | Budget | Groupes | Mots-clés |
 |---|---|---|---|
-| `Plombio — Search — Local par ville` | 60 €/j | 11 | 88 |
-| `Plombio Rhône — Search — Local par ville` | 90 €/j | 23 | 460 |
+| `Plombio — Search — Local par ville` | 15 €/j | 11 | 88 |
+| `Plombio Rhône — Search — Local par ville` | 10 €/j | 23 | 460 |
 
 Les deux `ENABLED`, `SERVING`, ciblage `PRESENCE`, créées par
-`campaign-plan/publish` — 159 puis 576 ressources, aucun échec. Budget de
-150 €/jour voulu par le client, comme les 300 €/jour de la serrurerie.
+`campaign-plan/publish` — 159 puis 576 ressources, aucun échec.
+
+**Budget : 25 €/jour, décision du 25/08.** Les 150 €/jour voulus par le client
+ont été posés puis ramenés à 25 € dans la foulée, le temps d'observer les
+requêtes réelles avant d'engager la dépense. La montée reste prévue ; elle se
+décidera sur `search_term_view`, pas sur le calendrier. La répartition
+15/10 suit le volume mesuré tout en laissant les deux périmètres diffuser :
+un budget trop mince sur le Rhône le rendrait muet, donc inobservable.
 
 **Le budget dépasse volontairement le marché mesuré.** Relevé Keyword Planner
 du 25/08 sur les 88 mots-clés du périmètre Lyon/Bron : **516 recherches par
