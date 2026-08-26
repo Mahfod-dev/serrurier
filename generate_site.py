@@ -961,6 +961,16 @@ LOCAL_SEO = {
     },
 }
 
+# Ce que le client peut photographier avant l'appel. Le bloc « Préparer votre
+# appel » était écrit pour la serrurerie et rendu tel quel sur les trois
+# services : les pages de débouchage demandaient une photo de la serrure, ce qui
+# laissait entendre qu'on intervenait sur la porte ou sur une fuite.
+PREP_PHOTO = {
+    "serrurier": "de la serrure ou de la porte",
+    "plombier": "de la fuite ou de l'arrivée d'eau",
+    "degorgement": "du regard, de l'évacuation ou du siphon concerné",
+}
+
 SERVICE_LOCAL_CASES = {
     "serrurier": {
         "title": "Situations de serrurerie à traiter rapidement",
@@ -2925,7 +2935,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
           <li><span class="prep-ico">{icon("pin")}</span><div><strong>La ville et le quartier</strong> concernés à {esc(city.name)}</div></li>
           <li><span class="prep-ico">{icon("key")}</span><div><strong>L'accès</strong> : appartement, maison ou local, étage, interphone</div></li>
           <li><span class="prep-ico">{icon("clock")}</span><div><strong>L'urgence et l'horaire</strong> souhaités</div></li>
-          <li><span class="prep-ico">{icon("wa")}</span><div><strong>Une photo</strong> de la serrure, de la porte ou de la fuite si possible</div></li>
+          <li><span class="prep-ico">{icon("wa")}</span><div><strong>Une photo</strong> {esc(PREP_PHOTO.get(service_key, PREP_PHOTO["serrurier"]))} si possible</div></li>
         </ul>
       </div>
 """
