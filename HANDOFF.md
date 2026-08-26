@@ -268,6 +268,25 @@ peuvent plus diffuser, et tout revient si on rallume le ciblage.
 suivants, jamais par le compteur de zones de l'interface — voir
 [[google-ads-pieges-diagnostic]].
 
+### Analytics enfin posé sur les deux marques (26/08/2026)
+
+| Site | GA4 | Google Ads |
+|---|---|---|
+| serrio.fr | `G-VN17GRK0R5` | `AW-18353985421` |
+| plombio.fr | `G-8NMKD2Y1E2` | `AW-18353985421` |
+
+Aucun des deux sites n'avait de mesure d'audience : Serrio tournait depuis un
+mois à 300 €/jour sans qu'on sache d'où venait son trafic. `SERRURIER_GA_ID` et
+`PLOMBIER_GA_ID` posées sur Vercel, sites redéployés, balises vérifiées en ligne.
+
+⚠️ **Piège de l'assistant GA4** : à l'étape « Configurer une balise Google »,
+l'option par défaut réutilise la balise Google Ads et prévient que « les
+paramètres de Serrio — Serrurerie Lyon remplaceront les paramètres existants ».
+C'est la balise qui porte les trois actions de conversion. **Choisir « Installer
+manuellement »**.
+
+Compter 24 à 48 h avant les premières données.
+
 ### Le débouchage diffuse : deux campagnes, 150 €/jour (25/08/2026)
 
 | Campagne | Budget | Groupes | Mots-clés |
