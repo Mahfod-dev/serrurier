@@ -138,9 +138,20 @@ Les mots-clés existants diffusent, c'est vrai — mais Google refuse désormais
 **toute création** d'un mot-clé contenant « serrurier », avec ou sans ville
 (`policyViolationError`, politique `LOCAL_SERVICES`, `isExemptible: true`).
 `serrurier lyon 4` est refusé ; `ouverture de porte lyon` passe. La
-restriction vise le nom du métier, pas la ville ni le mot « serrure ». Le
-compte est donc gelé sur ce vocabulaire : aucune nouvelle ville, aucune
-nouvelle campagne serrurerie sans demander la dérogation.
+restriction vise le nom du métier, pas la ville ni le mot « serrure ».
+
+✅ **Elle se lève par `exemptPolicyViolationKeys`** — testé à blanc le 25/08,
+`serrurier lyon 4` passe :
+
+```json
+"exemptPolicyViolationKeys": [
+  { "policyName": "LOCAL_SERVICES", "violatingText": "serrurier lyon 4" }
+]
+```
+
+C'est le « Demander une dérogation » de l'interface, côté API. Le compte n'est
+pas gelé. Mais lire le §5 avant de s'en servir : c'est une auto-certification,
+pas un examen, et un dossier faux remonte au MCC.
 
 Contournement appliqué le 25/08 : groupe `Serrurier - Situations urgence`,
 10 mots-clés qui achètent la situation plutôt que le métier — `enferme
