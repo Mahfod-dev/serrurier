@@ -246,7 +246,7 @@ SERVICES = {
         ],
         "steps": [
             ("Qualification", "Vous décrivez la porte, la serrure, l'urgence et l'accès au logement ou au local."),
-            ("Prix annoncé", "Un prix indicatif est donné avant déplacement selon l'horaire et la situation."),
+            ("Devis sur place", "Un ordre de prix est donné au téléphone ; le devis ferme est établi sur place, avant de commencer."),
             ("Intervention", "Le serrurier privilégie l'ouverture fine si la configuration le permet."),
             ("Sécurisation", "La fermeture est vérifiée, avec remplacement ou mise en sécurité si nécessaire."),
         ],
@@ -1157,8 +1157,8 @@ SERVICE_VALUE = {
     "serrurier": (
         "Un dépannage de serrurerie clair, du premier appel à la porte ouverte",
         [
-            "Vous expliquez la situation, on vous indique la méthode la moins coûteuse possible (ouverture fine plutôt que remplacement quand la porte le permet) et le prix avant de se déplacer. Pas de pression, pas d'intervention engagée sans votre accord.",
-            "Tout commence par une question simple au téléphone : peut-on ouvrir sans casse ? Quand la porte le permet, l'ouverture fine évite tout remplacement. Le prix est annoncé avant le déplacement, et rien n'est engagé sans votre feu vert.",
+            "Vous expliquez la situation, on vous indique la méthode la moins coûteuse possible (ouverture fine plutôt que remplacement quand la porte le permet) et un ordre de prix. Le devis ferme est établi sur place, et rien n'est engagé sans votre accord.",
+            "Tout commence par une question simple au téléphone : peut-on ouvrir sans casse ? Quand la porte le permet, l'ouverture fine évite tout remplacement. Un ordre de prix est donné au téléphone, le devis ferme est établi sur place, et rien n'est engagé sans votre feu vert.",
             "L'idée est de vous redonner l'accès au plus vite, en privilégiant la solution la moins coûteuse et la moins destructrice. Méthode, matériel et tarif vous sont expliqués avant de commencer, pour décider en connaissance de cause.",
         ],
     ),
@@ -1184,7 +1184,7 @@ SERVICE_INTRO_VARIANTS = {
     "serrurier": [
         "La serrurerie d'urgence couvre bien plus que l'ouverture d'une porte claquée. Entre une clé cassée dans le cylindre, une serrure multipoints grippée, une porte de commerce à sécuriser ou une mise en sécurité après effraction, chaque situation demande le bon geste et le bon matériel. L'objectif reste le même : résoudre le problème avec la méthode la moins coûteuse et la moins destructrice possible, après vous avoir expliqué ce qui est nécessaire.",
         "Une urgence de serrurerie ne se règle pas à l'aveugle. Selon qu'il s'agit d'une porte simplement claquée, d'une serrure verrouillée de l'intérieur, d'un cylindre forcé ou d'un rideau de commerce bloqué, la technique et l'outillage changent complètement. Le réflexe utile : décrire précisément la porte et la serrure au téléphone pour préparer la bonne intervention et éviter tout dégât inutile.",
-        "De la porte d'entrée d'appartement à la grille de magasin, en passant par les serrures multipoints et les portes blindées, les besoins en serrurerie sont très variés. Une bonne intervention commence toujours par un diagnostic clair : type de porte, état de la serrure, niveau d'urgence et budget annoncé avant de se déplacer, pour que vous gardiez la maîtrise de la décision.",
+        "De la porte d'entrée d'appartement à la grille de magasin, en passant par les serrures multipoints et les portes blindées, les besoins en serrurerie sont très variés. Une bonne intervention commence toujours par un diagnostic clair : type de porte, état de la serrure, niveau d'urgence, puis un devis ferme établi sur place avant de commencer, pour que vous gardiez la maîtrise de la décision.",
     ],
     "plombier": [
         "La plomberie d'urgence ne se limite pas à une fuite visible. Recherche de fuite encastrée, WC ou évacuation bouchés, robinetterie défaillante, chauffe-eau en panne ou dégât des eaux à contenir : chaque cas a sa priorité. La première règle reste de limiter les dégâts, puis de réparer la cause accessible en expliquant chaque pièce nécessaire.",
@@ -1266,7 +1266,7 @@ EXTRA_FAQ = {
     "degorgement": [
         ("Quelle différence entre un plombier et un déboucheur ?", "Le plombier intervient sur l'installation : robinetterie, chauffe-eau, sanitaires, recherche de fuite. Le déboucheur traite l'évacuation et les canalisations obstruées, avec un outillage spécifique — caméra d'inspection, hydrocureuse haute pression, pompe. Sur un bouchon profond ou un regard saturé, c'est ce matériel qui fait la différence."),
         ("Débouchage simple ou hydrocurage ?", "Cela dépend de la nature et de la profondeur du bouchon. Un débouchage mécanique suffit souvent ; l'hydrocurage ou le camion pompe sont réservés aux cas de remontées, de regards pleins ou de réseaux saturés."),
-        ("Combien coûte un débouchage ?", "Le prix dépend de l'équipement concerné, de l'accès et du matériel nécessaire. Il est annoncé au téléphone, avant tout déplacement : décrivez la situation et vous saurez à quoi vous attendre avant que quiconque se déplace."),
+        ("Combien coûte un débouchage ?", "Le prix dépend de l'équipement concerné, de l'accès et du matériel nécessaire. Décrivez la situation au téléphone : vous obtenez un ordre de prix. Le devis ferme, lui, est établi sur place une fois le problème constaté, et toujours avant de commencer."),
         ("Comment éviter que ça recommence ?", "Après intervention, les causes probables et les bons gestes (graisses, lingettes, entretien périodique) sont expliqués pour limiter les récidives."),
     ],
 }
@@ -1274,18 +1274,18 @@ EXTRA_FAQ = {
 # Paragraphe d'accroche locale, varié par ville. Placeholders : {name} {city}
 # {label} {zone} {region}.
 SERVICE_LOCAL_LEAD = [
-    "{name} traite les demandes de {label} à {city} avec une information claire dès le premier appel : secteur concerné, nature du problème, délai possible et devis annoncé avant intervention.",
-    "À {city} comme dans le reste du bassin {zone}, {name} qualifie chaque demande de {label} au téléphone avant de se déplacer : on confirme le secteur, l'urgence réelle et le prix avant de commencer.",
-    "Que vous soyez en plein {city} ou en périphérie, {name} apporte une réponse locale en {label} : description du besoin, délai annoncé selon la disponibilité d'une équipe proche, et tarif confirmé avant tout déplacement.",
+    "{name} traite les demandes de {label} à {city} avec une information claire dès le premier appel : secteur concerné, nature du problème, délai possible et devis établi sur place avant intervention.",
+    "À {city} comme dans le reste du bassin {zone}, {name} qualifie chaque demande de {label} au téléphone : on confirme le secteur et l'urgence réelle, puis le devis est établi sur place avant de commencer.",
+    "Que vous soyez en plein {city} ou en périphérie, {name} apporte une réponse locale en {label} : description du besoin, délai annoncé selon la disponibilité d'une équipe proche, et devis établi sur place avant intervention.",
     "En {region}, {name} couvre {city} et son secteur pour les interventions de {label}. La logique est simple : comprendre le problème, vérifier la zone, annoncer le prix, puis intervenir avec le bon matériel.",
 ]
 
 # Phrase de soutien du hero, variée par ville. Placeholder : {city}.
 HERO_SUPPORT = [
-    "Un interlocuteur récupère les informations essentielles et confirme le prix avant déplacement.",
+    "Un interlocuteur récupère les informations essentielles et donne un ordre de prix ; le devis est fait sur place.",
     "On vous pose les bonnes questions, on annonce le tarif, puis on intervient — sans engagement avant votre accord.",
     "Décrivez la situation à {city} : on qualifie l'urgence et on confirme les conditions avant de se déplacer.",
-    "Quelques questions suffisent pour cadrer l'intervention et vous donner un prix clair avant tout déplacement.",
+    "Quelques questions suffisent pour cadrer l'intervention et vous donner un ordre de prix avant le déplacement.",
 ]
 
 
@@ -2060,9 +2060,10 @@ def whatsapp_link() -> str:
 PRICING_NOTICE = {
     "degorgement": (
         "Forfaits tout compris, déplacement gratuit et sans majoration le soir, "
-        "le week-end ni les jours fériés. Le prix est confirmé au téléphone avant "
-        "tout déplacement ; seuls un accès particulier ou un réseau à traiter sur "
-        "devis peuvent le faire varier, et vous le saurez avant."
+        "le week-end ni les jours fériés. Un ordre de prix est donné au téléphone ; "
+        "le devis ferme est établi sur place, avant de commencer. Seuls un accès "
+        "particulier ou un réseau à traiter sur devis peuvent le faire varier, et "
+        "vous le saurez avant que quoi que ce soit ne démarre."
     ),
 }
 PRICING_NOTICE_DEFAULT = (
@@ -2624,7 +2625,7 @@ def reassurance_strip(phone_display: str, service_key: str | None = None) -> str
     )
     items = [
         ("clock", "Disponible 24h/24", "Soir, week-end et jours fériés"),
-        ("phone", "Devis au téléphone", "Prix annoncé avant déplacement"),
+        ("phone", "Devis sur place", "Ordre de prix au téléphone, devis avant travaux"),
         third,
         ("pin", "Artisan de proximité", "Numéro local France et Genève"),
     ]
@@ -2907,7 +2908,7 @@ def callback_form(city_name: str, service_label: str, phone_display: str, phone_
       <div>
         <span class="eyebrow">{icon("phone")} Rappel gratuit</span>
         <h2>{heading}</h2>
-        <p class="lead">Décrivez votre situation en deux lignes. On vous rappelle pour confirmer le créneau et le prix avant tout déplacement — sans engagement.</p>
+        <p class="lead">Décrivez votre situation en deux lignes. On vous rappelle pour confirmer le créneau et vous donner un ordre de prix — le devis est établi sur place, sans engagement.</p>
         <ul class="check-list" style="margin-top:18px">
           <li>Réponse rapide, 7j/7</li>
           <li>Devis annoncé avant intervention</li>
@@ -2946,7 +2947,7 @@ def service_page(city: City, service_key: str, all_cities: list[City], build: Bu
     phone_display, phone_href = phone_for(city)
     path = service_path(city, service_key, build)
     title = service_title(str(service["label"]), city.name, BRAND["name"])
-    description = f"{service['label']} à {city.name} en urgence 24h/24 : {BRAND['name']} intervient vite, devis annoncé avant intervention. Appel direct, {city.name} et alentours."
+    description = f"{service['label']} à {city.name} en urgence 24h/24 : {BRAND['name']} intervient vite, devis établi sur place avant intervention. Appel direct, {city.name} et alentours."
     nearby = [c for c in all_cities if c.zone == city.zone and c.slug != city.slug][:8]
     benefits = "\n".join(f"<li>{esc(item)}</li>" for item in reorder(city.slug, service["benefits"], "benefits"))
     pricing_rows = "\n".join(
@@ -3199,7 +3200,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
         primary_label = str(primary["label"])
         service_scope = service_names(build)
         title = f"{BRAND['name']} | {primary_label} urgence 24/7"
-        description = f"{BRAND['name']} intervient en {service_scope} 24h/24 et 7j/7 : appel direct, diagnostic au téléphone et devis annoncé avant tout déplacement, ville par ville."
+        description = f"{BRAND['name']} intervient en {service_scope} 24h/24 et 7j/7 : appel direct, diagnostic au téléphone et devis établi sur place avant intervention, ville par ville."
         domain_scope = {
             "serrurier": "la serrurerie",
             "degorgement": "le débouchage de canalisation",
@@ -3241,7 +3242,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
     <div class="wrap">
       <div class="section-head center">
         <h2>Nos prestations de {esc(plural)}</h2>
-        <p>Chaque intervention est qualifiée par téléphone, avec un prix annoncé avant déplacement.</p>
+        <p>Chaque intervention est qualifiée par téléphone, avec un devis établi sur place avant de commencer.</p>
       </div>
       <div class="grid-3">{detail_cards}</div>
     </div>
@@ -3313,7 +3314,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
       <div>
         <span class="live-pill"><span class="live-dot"></span>{esc(BRAND["name"])} · urgence locale 24/7</span>
         <h1><em>{esc(primary_label)}</em> de confiance, ville par ville</h1>
-        <p>Un service dédié à {esc(domain_scope)} pour répondre vite aux demandes urgentes, ville par ville, avec une qualification claire et un prix annoncé avant déplacement.</p>
+        <p>Un service dédié à {esc(domain_scope)} pour répondre vite aux demandes urgentes, ville par ville, avec une qualification claire et un devis établi sur place avant de commencer.</p>
         <div class="hero-badges">
           <span class="hero-badge">{icon("pin")} Intervention locale</span>
           <span class="hero-badge">{icon("tag")} Devis avant travaux</span>
@@ -3323,7 +3324,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
           <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
           <a class="ghost-btn" href="/zones/">Voir les villes</a>
         </div>
-        <div class="cta-sub">{icon("check")} Réponse immédiate, devis confirmé avant tout déplacement.</div>
+        <div class="cta-sub">{icon("check")} Réponse immédiate, devis établi sur place avant travaux.</div>
       </div>
       <aside class="hero-card">
         <h2>Intervention locale</h2>
@@ -3474,7 +3475,7 @@ def home_page(cities: list[City], build: BuildConfig) -> str:
           <a class="call-btn js-call-track" href="tel:{esc(phone_href)}">{icon("phone")} Appeler {esc(phone_display)}</a>
           <a class="ghost-btn" href="#services">Voir les services</a>
         </div>
-        <div class="cta-sub">{icon("check")} Le bon métier, le bon numéro local, un prix annoncé avant déplacement.</div>
+        <div class="cta-sub">{icon("check")} Le bon métier, le bon numéro local, un devis établi sur place avant travaux.</div>
       </div>
       <aside class="hero-card">
         <h2>Intervention locale</h2>
@@ -3537,7 +3538,7 @@ def zones_page(cities: list[City], build: BuildConfig) -> str:
     phone_href = BRAND["fr_phone_href"]
     scope = service_names(build)
     title = f"Zones d'intervention {build.label} | {BRAND['name']}"
-    description = f"Toutes les villes couvertes par {BRAND['name']} en {scope} : accès direct à chaque page locale, avec appel direct et devis annoncé avant tout déplacement."
+    description = f"Toutes les villes couvertes par {BRAND['name']} en {scope} : accès direct à chaque page locale, avec appel direct et devis établi sur place avant intervention."
     sections: list[str] = []
     zones = sorted({(c.region, c.zone) for c in cities})
     for region, zone in zones:
