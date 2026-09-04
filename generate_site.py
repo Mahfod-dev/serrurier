@@ -142,7 +142,7 @@ PROOF_IMAGES = {
 
 CITY_GROUPS = """
 Canton de Genève (Suisse)|Genève et Couronne|CH|Genève,Vernier,Lancy,Meyrin,Carouge,Thônex,Versoix,Le Grand-Saconnex,Chêne-Bougeries,Onex,Plan-les-Ouates,Collonge-Bellerive,Pregny-Chambésy,Veyrier,Châtelaine
-Auvergne-Rhône-Alpes (France)|Rhône (69) & Métropole de Lyon|FR|Lyon,Lyon 1,Lyon 2,Lyon 3,Lyon 4,Lyon 5,Lyon 6,Lyon 7,Lyon 8,Lyon 9,Villeurbanne,Bron,Vénissieux,Vaulx-en-Velin,Saint-Priest,Caluire-et-Cuire,Rillieux-la-Pape,Meyzieu,Décines-Charpieu,Oullins-Pierre-Bénite,Sainte-Foy-lès-Lyon,Saint-Fons,Givors,Villefranche-sur-Saône,Tassin-la-Demi-Lune,Écully,Genas,Brignais,Chassieu,Corbas,Craponne,Mions,Feyzin,Tarare
+Auvergne-Rhône-Alpes (France)|Rhône (69) & Métropole de Lyon|FR|Lyon,Lyon 1,Lyon 2,Lyon 3,Lyon 4,Lyon 5,Lyon 6,Lyon 7,Lyon 8,Lyon 9,Villeurbanne,Bron,Vénissieux,Vaulx-en-Velin,Saint-Priest,Caluire-et-Cuire,Rillieux-la-Pape,Meyzieu,Décines-Charpieu,Oullins-Pierre-Bénite,Sainte-Foy-lès-Lyon,Saint-Fons,Givors,Villefranche-sur-Saône,Tassin-la-Demi-Lune,Écully,Genas,Brignais,Chassieu,Corbas,Craponne,Mions,Feyzin,Tarare,Dardilly,Saint-Genis-Laval,Francheville,Chaponost,Neuville-sur-Saône,Limonest,Champagne-au-Mont-d'Or,Irigny,Fontaines-sur-Saône,Charbonnières-les-Bains,Saint-Cyr-au-Mont-d'Or,Collonges-au-Mont-d'Or
 Auvergne-Rhône-Alpes (France)|Haute-Savoie (74) & Savoie (73)|FR|Annecy,Thonon-les-Bains,Annemasse,Cluses,Sallanches,Rumilly,Bonneville,Passy,Gaillard,Saint-Julien-en-Genevois,La Roche-sur-Foron,Publier,Évian-les-Bains,Cranves-Sales,Scionzier,Reignier-Ésery,Vétraz-Monthoux,Chambéry,Aix-les-Bains,Albertville,La Motte-Servolex,Bourg-Saint-Maurice,Ugine,Saint-Jean-de-Maurienne
 Auvergne-Rhône-Alpes (France)|Isère (38) & Ain (01)|FR|Grenoble,Saint-Martin-d'Hères,Échirolles,Vienne,Bourgoin-Jallieu,Voiron,Villefontaine,Meylan,L'Isle-d'Abeau,Bourg-en-Bresse,Oyonnax,Valserhône (Bellegarde),Ambérieu-en-Bugey,Gex,Saint-Genis-Pouilly,Ferney-Voltaire,Divonne-les-Bains,Miribel
 Auvergne-Rhône-Alpes (France)|Loire (42), Drôme (26) & Ardèche (07)|FR|Saint-Étienne,Saint-Chamond,Roanne,Valence,Montélimar,Romans-sur-Isère,Annonay,Guilherand-Granges,Tournon-sur-Rhône
@@ -694,6 +694,54 @@ LOCAL_SEO = {
     "tassin-la-demi-lune": {
         "micro_areas": ["La Demi-Lune", "Le Bourg", "Alaï", "Méginand", "Le Tronchon", "La Raude"],
         "local_note": "À Tassin-la-Demi-Lune, entre le carrefour de la Demi-Lune, les hauteurs d'Alaï et le vieux Bourg, les voies en pente et les accès résidentiels gagnent à être précisés.",
+    },
+    "dardilly": {
+        "micro_areas": ["Dardilly-le-Bas", "Dardilly-le-Haut", "Le Paisy", "La Beffe", "Techlid"],
+        "local_note": "À Dardilly, entre le village haut, Dardilly-le-Bas et les entreprises de Techlid le long de l'A6, préciser si l'adresse est une maison ou un local d'activité oriente l'intervention.",
+    },
+    "saint-genis-laval": {
+        "micro_areas": ["Le Bourg", "Beauregard", "Les Barolles", "Le Clos Bissardon", "Les abords de l'hôpital Lyon Sud"],
+        "local_note": "À Saint-Genis-Laval, du Bourg aux Barolles et aux résidences de Beauregard, l'écart entre secteurs pavillonnaires et collectifs change l'accès : indiquer le quartier accélère la venue.",
+    },
+    "francheville": {
+        "micro_areas": ["Le Bourg", "Francheville-le-Bas", "Francheville-le-Haut", "Le Chater", "Bel-Air"],
+        "local_note": "À Francheville, la commune se partage entre le bas dans la vallée de l'Yzeron et le haut sur le plateau : dire lequel évite un détour de plusieurs minutes.",
+    },
+    "chaponost": {
+        "micro_areas": ["Le Bourg", "Les Arcades de l'aqueduc", "Le Boulard", "La Font Rome", "Les Molières"],
+        "local_note": "À Chaponost, les repères se prennent souvent depuis les arcades de l'aqueduc romain : préciser le secteur et l'accès à la parcelle facilite l'arrivée sur les lotissements.",
+    },
+    "neuville-sur-saone": {
+        "micro_areas": ["Le Centre", "Le Port", "Les Combes", "Les Hautes-Balmes", "Les bords de Saône"],
+        "local_note": "À Neuville-sur-Saône, entre le centre ancien près du port et les hauteurs des Balmes, la pente et les rues étroites imposent de bien situer l'adresse.",
+    },
+    "limonest": {
+        "micro_areas": ["Le Bourg", "Le Puy d'Or", "Sans-Souci", "Les Verchères", "Techlid"],
+        "local_note": "À Limonest, le bourg résidentiel et la zone d'activités du Puy d'Or ne se traitent pas de la même façon : indiquer maison ou local d'entreprise dès l'appel.",
+    },
+    "champagne-au-mont-d-or": {
+        "micro_areas": ["Le Centre", "Les Bruyères", "Le Plat du Pin", "Les Combes"],
+        "local_note": "À Champagne-au-Mont-d'Or, commune surtout pavillonnaire sur le versant des Monts d'Or, l'accès à la propriété et le portail sont à signaler avant le déplacement.",
+    },
+    "irigny": {
+        "micro_areas": ["Le Bourg", "Yvours", "Les Sept Chemins", "Champvillard", "Les bords du Rhône"],
+        "local_note": "À Irigny, entre le bourg sur la hauteur et le secteur d'Yvours en bord de Rhône, le dénivelé sépare nettement les quartiers : préciser lequel évite de traverser deux fois.",
+    },
+    "fontaines-sur-saone": {
+        "micro_areas": ["Le Centre", "Les Rivières", "Le Vernay", "La Norenchal", "Les bords de Saône"],
+        "local_note": "À Fontaines-sur-Saône, du centre le long de la Saône aux hauteurs du Vernay, l'étroitesse des rues anciennes demande de situer précisément l'immeuble.",
+    },
+    "charbonnieres-les-bains": {
+        "micro_areas": ["Le Centre", "Le secteur du Casino", "La Source", "Les Verrières", "Le Bois"],
+        "local_note": "À Charbonnières-les-Bains, entre le centre thermal, les abords du casino et les villas du Bois, beaucoup d'accès sont privés : le préciser fait gagner du temps.",
+    },
+    "saint-cyr-au-mont-d-or": {
+        "micro_areas": ["Le Bourg", "Le Mont Cindre", "Les Combes", "Champlong"],
+        "local_note": "À Saint-Cyr-au-Mont-d'Or, les montées vers le Mont Cindre et les chemins étroits du vieux bourg rendent l'adresse exacte indispensable avant de partir.",
+    },
+    "collonges-au-mont-d-or": {
+        "micro_areas": ["Le Centre", "Le Port", "Les Vernes", "Le Mont Thou"],
+        "local_note": "À Collonges-au-Mont-d'Or, entre le bord de Saône et les hauteurs vers le Mont Thou, la différence de niveau conditionne le temps d'arrivée : indiquer le secteur dès l'appel.",
     },
     "ecully": {
         "micro_areas": ["Le Centre (Bourg)", "Les Sources", "Le Pérollier", "Charrière Blanche", "La Cerisaie"],
