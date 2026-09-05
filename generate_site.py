@@ -144,7 +144,7 @@ CITY_GROUPS = """
 Canton de Genève (Suisse)|Genève et Couronne|CH|Genève,Vernier,Lancy,Meyrin,Carouge,Thônex,Versoix,Le Grand-Saconnex,Chêne-Bougeries,Onex,Plan-les-Ouates,Collonge-Bellerive,Pregny-Chambésy,Veyrier,Châtelaine
 Auvergne-Rhône-Alpes (France)|Rhône (69) & Métropole de Lyon|FR|Lyon,Lyon 1,Lyon 2,Lyon 3,Lyon 4,Lyon 5,Lyon 6,Lyon 7,Lyon 8,Lyon 9,Villeurbanne,Bron,Vénissieux,Vaulx-en-Velin,Saint-Priest,Caluire-et-Cuire,Rillieux-la-Pape,Meyzieu,Décines-Charpieu,Oullins-Pierre-Bénite,Sainte-Foy-lès-Lyon,Saint-Fons,Givors,Villefranche-sur-Saône,Tassin-la-Demi-Lune,Écully,Genas,Brignais,Chassieu,Corbas,Craponne,Mions,Feyzin,Tarare,Dardilly,Saint-Genis-Laval,Francheville,Chaponost,Neuville-sur-Saône,Limonest,Champagne-au-Mont-d'Or,Irigny,Fontaines-sur-Saône,Charbonnières-les-Bains,Saint-Cyr-au-Mont-d'Or,Collonges-au-Mont-d'Or
 Auvergne-Rhône-Alpes (France)|Haute-Savoie (74) & Savoie (73)|FR|Annecy,Thonon-les-Bains,Annemasse,Cluses,Sallanches,Rumilly,Bonneville,Passy,Gaillard,Saint-Julien-en-Genevois,La Roche-sur-Foron,Publier,Évian-les-Bains,Cranves-Sales,Scionzier,Reignier-Ésery,Vétraz-Monthoux,Chambéry,Aix-les-Bains,Albertville,La Motte-Servolex,Bourg-Saint-Maurice,Ugine,Saint-Jean-de-Maurienne
-Auvergne-Rhône-Alpes (France)|Isère (38) & Ain (01)|FR|Grenoble,Saint-Martin-d'Hères,Échirolles,Vienne,Bourgoin-Jallieu,Voiron,Villefontaine,Meylan,L'Isle-d'Abeau,Bourg-en-Bresse,Oyonnax,Valserhône (Bellegarde),Ambérieu-en-Bugey,Gex,Saint-Genis-Pouilly,Ferney-Voltaire,Divonne-les-Bains,Miribel
+Auvergne-Rhône-Alpes (France)|Isère (38) & Ain (01)|FR|Grenoble,Saint-Martin-d'Hères,Échirolles,Vienne,Bourgoin-Jallieu,Voiron,Villefontaine,Meylan,L'Isle-d'Abeau,Bourg-en-Bresse,Oyonnax,Valserhône (Bellegarde),Ambérieu-en-Bugey,Gex,Saint-Genis-Pouilly,Ferney-Voltaire,Divonne-les-Bains,Miribel,Saint-Égrève,Sassenage,Fontaine,Crolles,Le Pont-de-Claix,La Tour-du-Pin,Eybens,Cognin,La Ravoire,Moûtiers,Saint-Alban-Leysse,Challes-les-Eaux
 Auvergne-Rhône-Alpes (France)|Loire (42), Drôme (26) & Ardèche (07)|FR|Saint-Étienne,Saint-Chamond,Roanne,Valence,Montélimar,Romans-sur-Isère,Annonay,Guilherand-Granges,Tournon-sur-Rhône
 Provence-Alpes-Côte d'Azur (France)|Bouches-du-Rhône (13) & Var (83)|FR|Marseille,Aix-en-Provence,Arles,Martigues,Aubagne,Salon-de-Provence,Vitrolles,Marignane,La Ciotat,Istres,Miramas,Les Pennes-Mirabeau,Toulon,La Seyne-sur-Mer,Hyères,Fréjus,Draguignan,Saint-Raphaël,Six-Fours-les-Plages,La Garde,La Valette-du-Var
 Provence-Alpes-Côte d'Azur (France)|Alpes-Maritimes (06) & Vaucluse (84)|FR|Nice,Cannes,Antibes,Cagnes-sur-Mer,Grasse,Le Cannet,Menton,Saint-Laurent-du-Var,Vallauris,Mandelieu-la-Napoule,Mougins,Vence,Avignon,Orange,Carpentras,Cavaillon,L'Isle-sur-la-Sorgue,Pertuis
@@ -694,6 +694,54 @@ LOCAL_SEO = {
     "tassin-la-demi-lune": {
         "micro_areas": ["La Demi-Lune", "Le Bourg", "Alaï", "Méginand", "Le Tronchon", "La Raude"],
         "local_note": "À Tassin-la-Demi-Lune, entre le carrefour de la Demi-Lune, les hauteurs d'Alaï et le vieux Bourg, les voies en pente et les accès résidentiels gagnent à être précisés.",
+    },
+    "saint-egreve": {
+        "micro_areas": ["Le Centre", "La Monta", "Rochepleine", "Prédieu", "Les bords de l'Isère"],
+        "local_note": "À Saint-Égrève, entre le centre, La Monta et les quartiers étirés le long de l'Isère et de l'A48, préciser le secteur évite de remonter toute la commune.",
+    },
+    "sassenage": {
+        "micro_areas": ["Le Vieux Village", "Les Cuves", "Les Engenières", "Le Château", "Le pied du Vercors"],
+        "local_note": "À Sassenage, du vieux village vers les Cuves et le pied du Vercors, les rues étroites et les accès en pente demandent une adresse exacte avant de partir.",
+    },
+    "fontaine": {
+        "micro_areas": ["Le Centre", "Les Floralies", "Alpes-Mail", "Les Vouillands", "Les bords du Drac"],
+        "local_note": "À Fontaine, sur la rive gauche du Drac face à Grenoble, l'écart entre grands ensembles et secteurs pavillonnaires change l'accès : indiquer le quartier accélère la venue.",
+    },
+    "crolles": {
+        "micro_areas": ["Le Bourg", "Fragnès", "Montfort", "La zone industrielle", "Le Grésivaudan"],
+        "local_note": "À Crolles, entre le bourg ancien, les lotissements du Grésivaudan et la zone industrielle, dire s'il s'agit d'un logement ou d'un local oriente l'intervention.",
+    },
+    "le-pont-de-claix": {
+        "micro_areas": ["Le Centre", "Les Îles de Mars", "La Plateforme", "Les Coteaux"],
+        "local_note": "Au Pont-de-Claix, entre le centre, les Îles de Mars et les abords de la plateforme chimique, le secteur conditionne l'accès et le temps d'arrivée.",
+    },
+    "la-tour-du-pin": {
+        "micro_areas": ["Le Centre", "Les Terreaux", "Champ de Mars", "Les hauteurs"],
+        "local_note": "À La Tour-du-Pin, ville-carrefour du Nord-Isère, le centre ancien et les hauteurs pavillonnaires ne s'abordent pas de la même façon : préciser la rue fait gagner du temps.",
+    },
+    "eybens": {
+        "micro_areas": ["Le Bourg", "Les Ruires", "Val d'Eybens", "Le Château", "Bel Air"],
+        "local_note": "À Eybens, au sud de Grenoble, entre le bourg, Les Ruires et les résidences du Val, l'accès à la parcelle et le portail sont à signaler dès l'appel.",
+    },
+    "cognin": {
+        "micro_areas": ["Le Centre", "Le Forézan", "Villeneuve", "Les coteaux"],
+        "local_note": "À Cognin, aux portes de Chambéry, entre le centre et les coteaux du Forézan, la pente et les accès privés demandent une adresse précise.",
+    },
+    "la-ravoire": {
+        "micro_areas": ["Le Centre", "Le Grand Verger", "Féjaz", "Les Bauges"],
+        "local_note": "À La Ravoire, commune résidentielle de l'agglomération chambérienne, beaucoup de maisons individuelles : le portail et l'accès sont à préciser avant le départ.",
+    },
+    "moutiers": {
+        "micro_areas": ["Le Centre", "Champiers", "Les quais de l'Isère", "La gare"],
+        "local_note": "À Moûtiers, porte des stations de Tarentaise, le centre resserré et les quais de l'Isère imposent de bien situer l'immeuble et le stationnement.",
+    },
+    "saint-alban-leysse": {
+        "micro_areas": ["Le Centre", "Mérande", "Les Monts", "Le pied des Bauges"],
+        "local_note": "À Saint-Alban-Leysse, entre le centre et les hauteurs au pied des Bauges, le dénivelé sépare nettement les quartiers : le préciser évite un détour.",
+    },
+    "challes-les-eaux": {
+        "micro_areas": ["Le Centre", "Le Parc thermal", "L'aérodrome", "Les coteaux"],
+        "local_note": "À Challes-les-Eaux, entre le parc thermal, les résidences des coteaux et le secteur de l'aérodrome, indiquer le quartier accélère nettement l'arrivée.",
     },
     "dardilly": {
         "micro_areas": ["Dardilly-le-Bas", "Dardilly-le-Haut", "Le Paisy", "La Beffe", "Techlid"],
